@@ -29,7 +29,9 @@ module.exports = {
         "yellow4": '#f5bc25',
         "orange": "#f9650b",
         "yellow5" : "#f6c930",
-        "blue2" : "#2b96ea"
+        "blue2" : "#2b96ea",
+        "active": "#08ea80",
+        "ended" : "#ea0808"
       },
       borderRadius: {
         'xlarge': '15px',
