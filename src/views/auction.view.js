@@ -10,6 +10,7 @@ import dayjs from 'dayjs';
 import BidModal from "../components/bidModal.component";
 
 import { useTranslation } from "react-i18next";
+import { date } from "yup";
 
 function AuctionFunction(props) {
   const [auction, setAuction] = useState({});
@@ -19,6 +20,11 @@ function AuctionFunction(props) {
   //setting state for the offer modal
   const [bidModal, setBidModal] = useState({
     show: false,
+  });
+  const [dates, setDates] = useState({
+    deadline: "",
+    current: "",
+    diffFromDeadline: ["0", "0", "0", "0"]
   });
   const params = useParams();
   useEffect(() => {
@@ -41,9 +47,11 @@ function AuctionFunction(props) {
       setAuction({ ...auction, auction });
       if (auctionBids != null) setAuctionBids(auctionBids.reverse())
       setAccount(account);
+      console.log('deadline')
+      setDates({deadline: new Date(auction.auction_deadline / 1000), current: new Date(), diffFromDeadline: parseInt(dayjs.unix(auction.auction_deadline/1000))-parseInt((dayjs(new Date())))});
 
     })();
-  }, []);
+  },[]);
 
   async function makeAnOffer() {
     console.log("Make a offer")
@@ -90,6 +98,29 @@ function AuctionFunction(props) {
 
   }
 
+  
+function updateTime() {
+  let remaining = "";
+  let dead = new Date(auction.auction_deadline);
+  let curent = new Date();
+  const difference = dead - curent;
+  if (difference > 0) {
+    const parts = {
+      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((difference / 1000 / 60) % 60),
+      seconds: Math.floor((difference / 1000) % 60),
+    };
+    remaining = Object.keys(parts).map(part => {
+      return `${parts[part]}`;  
+      });
+      setDates({...dates, diffFromDeadline: remaining})
+  }
+}
+setInterval(updateTime, 1000);
+
+
+
 
 
   return (
@@ -97,44 +128,90 @@ function AuctionFunction(props) {
       <div className="flex flex-col text-center w-full">
         <div className="container px-5 pt-5 mx-auto asda">
           <div className="flex flex-col text-center w-full">
-            <div className="w-full  px-2 py-5 sm:px-0">
+            <div className="w-full  px-2 pb-5 sm:px-0">
               <div className="w-full p-4  " key={1}>
-
+              {dayjs.unix(auction.auction_deadline / 1000).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") ?
+              <div className="h-[30px]  bg-active w-full flex justify-center p-5 rounded-t-20  items-center mt-2 text-white font-bold text-xl" >{t("auction.au_active")}</div>
+              :
+              <div className="h-[30px]  bg-ended w-full flex justify-center p-5 rounded-t-20  items-center mt-2 text-white font-bold text-xl" >{t("auction.au_ended")}</div>
+              }
                 <div className="flex flex-row  mb-10 md:mb-0  justify-center " >
-                  <div className="trending-token w-full rounded-20 ">
-                    <div className=" bg-white rounded-20 h-auto  flex flex-col md:flex-row">
-                      <div className="p-6 pt-3 pb-3  w-full md:w-1/3 flex">
+                  <div className="trending-token w-full  ">
+                    <div className=" bg-white rounded-b-20 h-auto  flex flex-col md:flex-row">
+                      <div className="p-6 pt-3 pb-3  w-full md:w-1/2 flex">
                         <img
-                          className="object-contain object-center rounded-xlarge h-[9rem]  bg-center m-auto"
+                          className="object-contain object-center rounded-xlarge h-[14rem] md:h-[25rem]  bg-center m-auto"
                           src={`https://nativonft.mypinata.cloud/ipfs/${auction.nft_media}`}
                           alt={1}
                         />
                       </div>
-                      <div className="pb-3 p-6 pt-3 flex flex-col  w-full md:w-2/3">
+                      <div className="pb-3 p-6 pt-3 flex flex-col md:w-1/2  w-full">
                         <div className="capitalize text-black text-sm  font-raleway font-bold text-center"></div>
                         <div className="flex justify-around pt-2 flex-col">
 
-                          <div className="text-black font-raleway font-normal w-full text-base text-left text-ellipsis overflow-hidden whitespace-nowrap"><span className="font-bold"></span>{auction.description}</div>
-                          <div className="flex flex-col md:flex-row w-full text-left">
-                            <div className="text-black text-sm font-raleway font-normal  w-1/3"><span className="font-bold">ID </span>{auction.nft_id}</div>
-                            <div className="text-black text-sm font-raleway font-normal  w-2/3"><span className="font-bold">{t("auction.au_owner")} </span>{auction.nft_owner}</div>
+                          <div className="text-black font-raleway  w-full text-left text-ellipsis overflow-hidden whitespace-nowrap py-4 border-b-2 border-gray-200 font-bold text-lg md:text-xl"><span className="font-bold"></span>{auction.description}</div>
+                          <div className="flex flex-col md:flex-row w-full text-left py-4 border-b-2 border-gray-200">
+                            <div className="text-black  font-raleway font-normal  w-1/3 text-lg md:text-xl"><span className="text-xs md:text-md">ID</span> <span className="font-bold text-lg md:text-xl">{auction.nft_id}</span></div>
+                            <div className="text-black text-sm font-raleway font-normal  w-2/3"><span className="text-xs md:text-md">{t("auction.au_owner")} </span><span className="font-raleway  font-bold text-blue2 text-md md:text-lg">{auction.nft_owner}</span></div>
                           </div>
-                          <div className="flex flex-col md:flex-row">
-                            <div className="w-full md:w-1/3">
-                              <div className="text-black text-sm font-raleway font-normal text-left  "><span className="font-bold">{t("auction.au_end")}  </span>{dayjs.unix(auction.auction_deadline / 1000).format("DD/MMM/YYYY HH:mm:ss")}</div>
-                              <div className="text-black text-sm font-raleway font-normal text-left  "><span className="font-bold">{t("auction.au_status")} </span>{auction.status}</div>
-                              <div className="text-black  text-lg  font-raleway font-normal   text-left"><span className="font-bold text-sm">{t("auction.au_price")} </span>{auction.auction_base_requested ? (fromYoctoToNear(auction.auction_base_requested)) : null}  Ⓝ</div>
-                              <div className="text-black text-sm font-raleway font-normal text-left  "><span className="font-bold">{t("auction.au_contract")}  </span>{auction.nft_contract}</div>
-                            </div>
-                            <div className="w-full md:w-2/3  rounded-xlarge ">
+                          <div className="flex flex-col md:flex-row  ">
+                            <div className="w-full">
+                              <div className="text-black text-sm font-raleway font-normal text-left py-4 border-b-2 border-gray-200 ">
+                                <div>
+                                  <span className=" text-darkgray text-xs md:text-md">{t("auction.au_end")}</span>
+                                </div>
+                                {}
+                                <div className="flex justify-around">
+                                {(dayjs.unix(auction.auction_deadline / 1000).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") && auction.status != 'Canceled' ?
+                                    <>
+                                  <div className="flex flex-col">
+                                    <div className="font-bold m-auto text-lg md:text-xl ">{dates.diffFromDeadline[0]}</div>
+                                    <div className="m-auto text-xs md:text-md">{t("auction.au_days")}</div>
+                                  </div>
+                                  <div className="flex flex-col">
+                                    <div className="font-bold m-auto text-lg md:text-xl ">{dates.diffFromDeadline[1]}</div>
+                                    <div className="m-auto text-xs md:text-md">{t("auction.au_hours")}</div>
+                                  </div>
+                                  <div className="flex flex-col">
+                                    <div className="font-bold m-auto text-lg md:text-xl ">{dates.diffFromDeadline[2]}</div>
+                                    <div className="m-auto text-xs md:text-md">{t("auction.au_minutes")}</div>
+                                  </div>
+                                  <div className="flex flex-col">
+                                    <div className="font-bold  m-auto text-lg md:text-xl ">{dates.diffFromDeadline[3]}</div>
+                                    <div className="m-auto text-xs md:text-md">{t("auction.au_seconds")}</div>
+                                  </div>
+                                  </> : 
+                                    <>
+                                    <div className="flex flex-col">
+                                      <div className="font-bold  m-auto text-lg md:text-xl ">0</div>
+                                      <div className="m-auto text-xs md:text-md">{t("auction.au_days")}</div>
+                                    </div>
+                                    <div className="flex flex-col">
+                                      <div className="font-bold  m-auto text-lg md:text-xl ">0</div>
+                                      <div className="m-auto text-xs md:text-md">{t("auction.au_hours")}</div>
+                                    </div>
+                                    <div className="flex flex-col">
+                                      <div className="font-bold  m-auto text-lg md:text-xl ">0</div>
+                                      <div className="m-auto text-xs md:text-md">{t("auction.au_minutes")}</div>
+                                    </div>
+                                    <div className="flex flex-col">
+                                      <div className="font-bold  m-auto text-lg md:text-xl ">0</div>
+                                      <div className="m-auto text-xs md:text-md ">{t("auction.au_seconds")}</div>
+                                    </div>
+                                    </>)}
+                                </div>
+                              </div>
+                              <div className="text-black text-sm font-raleway font-normal text-left py-4 border-b-2 border-gray-200 "><span className="text-xs md:text-md">{t("auction.au_status")} </span><span  className="font-bold text-lg md:text-xl">{auction.status}</span></div>
+                              <div className="text-black  text-lg  font-raleway font-normal   text-left py-4 border-b-2 border-gray-200"><span className="text-xs md:text-md">{t("auction.au_price")} </span ><span className="font-bold text-lg md:text-xl">{auction.auction_base_requested ? (fromYoctoToNear(auction.auction_base_requested)) : null}  Ⓝ</span></div>
+                              <div className="w-full rounded-xlarge py-4 ">
                               {/*Auction active*/
                               (dayjs.unix(auction.auction_deadline / 1000).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") ? 
                                 <>
                                 {/*There is active offers for this auctions*/
                                   (auctionBids.length == 1 ?
-                                  <div className="flex flex-col py-2 border rounded-xlarge">
+                                  <div className="flex flex-col py-2  rounded-xlarge">
                                     <div className="flex justify-around">
-                                      <span className="text-black   font-raleway text-sm"><span className="font-bold">{t("auction.au_actual")} </span> {fromYoctoToNear(auction.auction_payback)}  Ⓝ</span>
+                                      <span className="text-black   font-raleway text-sm"><span className="font-bold ">{t("auction.au_actual")} </span> {fromYoctoToNear(auction.auction_payback)}  Ⓝ</span>
                                       <span className=" text-black  pr-3 font-raleway text-sm"><span className="font-bold">{t("auction.au_bidder")} </span> {auction.bidder_id}</span>
                                     </div>
                                     {
@@ -153,7 +230,7 @@ function AuctionFunction(props) {
                                        (account==auction.bidder_id ? 
                                         <div className="w-full flex ">
                                           <button
-                                            className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0 focus:outline-none hover:bg-yellow   font-raleway text-sm rounded-xlarge p-2 m-2"
+                                            className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0 focus:outline-none hover:bg-yellow   font-raleway text-sm rounded-xlarge p-2 md:m-2"
                                             onClick={async () => { processCancelBidOffer() }}>
                                             <span className="font-raleway">{t("Detail.cancelBid")}</span>
                                           </button>
@@ -187,8 +264,8 @@ function AuctionFunction(props) {
                                 (auctionBids.length == 1 ? 
                                 <>
                                 {account == auction.bidder_id && auction.status != 'Claimed' ? <>
-                                  <div className="flex flex-col py-2 border rounded-xlarge">
-                                    <div className="flex justify-around">
+                                  <div className="flex flex-col py-2 ">
+                                    <div className="flex justify-around ">
                                       <div className="text-black   font-raleway text-sm"><span className="font-bold">{t("auction.au_msgAuctionEnded")}</span></div>
                                     </div>
                                     <div className="w-full p-2">
@@ -205,9 +282,9 @@ function AuctionFunction(props) {
                                         <>
                                           {/*There is NOT offers for this auction*/
                                             account == auction.nft_owner && auction.status != 'Canceled'?
-                                              <div className="flex flex-col py-2 border rounded-xlarge">
+                                              <div className="flex flex-col py-2">
                                                 <div className="flex justify-around">
-                                                  <div className="text-black   font-raleway text-sm"><span className="font-bold">THIS AUCTION ALREADY FINISHED, PLEASE CANCEL IT</span></div>
+                                                  <div className="text-black   font-raleway text-sm"><span className="font-bold">{t("auction.au_alreadyEnded")}</span></div>
                                                 </div>
                                                 <div className="w-full p-2">
                                                   <button
@@ -223,6 +300,8 @@ function AuctionFunction(props) {
                                 </>
                               )}
                             </div>
+                            </div>
+                            
 
                           </div>
                         </div>
