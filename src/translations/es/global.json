@@ -336,7 +336,7 @@
     "auction" : {
         "au_title" : "Subastas",
         "au_subtitle" : "Aquí podrás encontrar todas las subastas y ofertar por alguna!",
-        "au_owner": "Hecha por",
+        "au_owner": "subastado por",
         "au_end": "Finaliza en",
         "au_status": "Estatus",
         "au_price": "Precio inicial",
@@ -352,7 +352,14 @@
         "au_cancelAuction": "Cancelar subasta",
         "au_claim": "Reclamar mi NFT",
         "au_msgAuctionEnded": "Termino la subasta ¡Reclama tu NFT!",
-        "au_noOffer": "Actualmente no hay ofertas para esta subasta"
+        "au_noOffer": "Actualmente no hay ofertas para esta subasta",
+        "au_days": "Dias",
+        "au_hours": "Horas",
+        "au_minutes": "Minutos",
+        "au_seconds": "Segundos",
+        "au_active": "Activo",
+        "au_ended": "Finalizado",
+        "au_alreadyEnded" : "Esta subasta ya terminó, por favor finalizala"
     },
     "auctionModal" : {
         "au_title" : "Haz una oferta",

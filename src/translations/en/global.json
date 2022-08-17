@@ -338,10 +338,10 @@
     "auction" : {
         "au_title" : "Auctions",
         "au_subtitle" : "Here you can find all the NFT auctions and do an bid on some!",
-        "au_owner": "By",
+        "au_owner": "Auctioned by",
         "au_end": "Ends on",
         "au_status": "Status",
-        "au_price": "Init Price",
+        "au_price": "Init price",
         "au_contract": "Contract",
         "au_loading": "Auctions Loading",
         "au_finish": "Finish",
@@ -354,7 +354,14 @@
         "au_cancelAuction": "Cancel Auction",
         "au_claim": "Claim my NFT",
         "au_msgAuctionEnded": "Auction Ended, Claim your NFT!",
-        "au_noOffer": "There is no current offers for this auction"
+        "au_noOffer": "There is no current offers for this auction",
+        "au_days": "Days",
+        "au_hours": "Hours",
+        "au_minutes": "Minutes",
+        "au_seconds": "Seconds",
+        "au_active": "Active",
+        "au_ended": "Ended",
+        "au_alreadyEnded" : "This auction is already finished, please cancel it"
     },
     "auctionModal" : {
         "au_title" : "Make a Bid",
