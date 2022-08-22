@@ -7,6 +7,7 @@ import {
 import InfiniteScroll from "react-infinite-scroll-component";
 import dayjs from 'dayjs';
 import { useTranslation } from "react-i18next";
+import AuctionCard from "../components/auctionCard.component";
 
 
 function Auctions() {
@@ -18,6 +19,10 @@ function Auctions() {
     hasMore: true,
     lastIDfetched: -1
   });
+  const [index,setIndex] = React.useState(0);
+  const [Landing, setLanding] = React.useState({
+    tokensPerPage: 1
+  });
 
 
   useEffect(() => {
@@ -25,39 +30,81 @@ function Auctions() {
       let contract = process.env.REACT_APP_CONTRACT_AUCTIONS;
       let account = await getNearAccount();
       let payload = {};
+      let total = [];
+      total = await ext_view(contract, 'get_auctions_stats', payload)
 
-      payload = {
-        from_index: '0',
-        limit: 5
+      if ((total.total_auctions-1) >= 0) {
+        if((total.total_auctions-1)<=Landing.tokensPerPage){
+
+          let payload = {
+            from_index: (0).toString(),
+            limit: total.total_auctions,
+          }
+          setIndex(0)
+          let all_auctions = await ext_view(contract, 'get_all_nfts_for_auction', payload).then(results => {
+            //do any results transformations
+            console.log('result', results);
+            return results;
+          });
+
+          setAuctions({ ...auctions, all: all_auctions.reverse()});
+          //setIndex(total.total_auctions - 1);
+        } else {
+          let payload = {
+            from_index: ((total.total_auctions - 1)-Landing.tokensPerPage).toString(),
+            limit: Landing.tokensPerPage,
+          };
+  
+          let all_auctions = await ext_view(contract, 'get_all_nfts_for_auction', payload).then(results => {
+            //do any results transformations
+            console.log('result', results);
+            return results;
+          });
+          setIndex((total.total_auctions - 1)-Landing.tokensPerPage)
+          setAuctions({ ...auctions, all: auctions.all.concat(all_auctions.reverse())});
+
+        }
       }
-      let all_auctions = await ext_view(contract, 'get_all_nfts_for_auction', payload);
-
-      let total = await ext_view(contract, 'get_auctions_stats', payload);
-
-      setAuctions({...auctions, all: all_auctions, total_active: total.total_auctions_active, lastIDfetched: all_auctions!=0 ? all_auctions[all_auctions.length - 1].id : 0});
+      
     })();
   }, []);
 
   let fetchMoreAuctions = async () => {
     let contract = process.env.REACT_APP_CONTRACT_AUCTIONS;
     let total = await ext_view(contract, 'get_last_auction');
-    if(auctions.lastIDfetched+1 <= total-1){
-      let contract = process.env.REACT_APP_CONTRACT_AUCTIONS;
-      let account = await getNearAccount();
-      let payload = {};
 
-      payload = {
-        from_index: (auctions.lastIDfetched+1).toString(),
-        limit: 5
-      }
-      let all_auctions = await ext_view(contract, 'get_all_nfts_for_auction', payload);
-      let total = await ext_view(contract, 'get_auctions_stats', payload);
-      setAuctions({...auctions, all: auctions.all.concat(all_auctions), total_active: total.total_auctions_active, lastIDfetched: all_auctions!=0 ? all_auctions[all_auctions.length - 1].id : 0});
-    } else {
-      setAuctions({...auctions, hasMore:false})
+    let limit = true;
+    let indexQuery;
+    let lastLimit;
+    if(index>Landing.tokensPerPage){
+      indexQuery = index-Landing.tokensPerPage
+      setIndex(index-Landing.tokensPerPage)
     }
+    else{
+      indexQuery=0
+      lastLimit=parseInt(index)
+      limit=false
+      setIndex(0)
+    }
+    if (index<=0) {
+      setAuctions({ ...auctions, hasMore: false});
+      return;
+    }
+    let payload = {
+      from_index: indexQuery.toString(),
+      limit: (limit ? Landing.tokensPerPage: lastLimit),
+    }
+
+
+    let all_auctions = await ext_view(contract, 'get_all_nfts_for_auction', payload).then(results => {
+      //do any results transformations
+      console.log('result', results);
+      return results;
+    });
+    setAuctions({ ...auctions, all: auctions.all.concat(all_auctions.reverse())});
   }
       
+
 
   
   return (
@@ -90,45 +137,11 @@ function Auctions() {
           >
             {auctions.all.map((nft, key) => {
               return (
-                <div className="w-full p-4  " key={key}>
-                  <a
-                    href={"/auction/" + nft.id}
-                  >
-                    <div className="flex flex-row  mb-10 md:mb-0  justify-center " >
-                      <div className="trending-token w-full rounded-20 hover:shadow-yellow1   hover:scale-105 ">
-                        <div className=" bg-white rounded-20 h-[365px] md:h-[170px] flex flex-col md:flex-row">
-                          <div className="p-6 pt-3 pb-3 w-full md:w-1/3 flex ">
-                            <img
-                              className="object-contain object-center rounded-xlarge h-[9rem]  bg-center m-auto"
-                              src={`https://nativonft.mypinata.cloud/ipfs/${nft.nft_media}`}
-                              alt={nft.description}
-                            />
-                          </div>
-                          <div className=" pb-3 p-6 md:pt-3 flex flex-col w-full md:w-1/3">
-                            <div className="capitalize text-black text-sm    font-raleway font-bold text-center"></div>
-                            <div className="flex justify-around pt-2 flex-col">
-                            
-                              <div className="text-black font-raleway font-normal w-full text-base text-left text-ellipsis overflow-hidden whitespace-nowrap"><span className="font-bold"></span>{nft.description}</div>
-                              <div className="flex w-full flex-col md:flex-row text-left">
-                                <div className="text-black text-sm font-raleway font-normal w-full md:w-1/3 text-ellipsis overflow-hidden whitespace-nowrap"><span className="font-bold">ID </span> {nft.nft_id}</div>
-                                <div className="text-black text-sm font-raleway font-normal w-full md:w-2/3 text-ellipsis overflow-hidden whitespace-nowrap"><span className="font-bold">{t("auction.au_owner")} </span> {nft.nft_owner}</div>
-                              </div>
-                              <div className="text-black text-sm font-raleway font-normal text-left text-ellipsis overflow-hidden whitespace-nowrap "><span className="font-bold">{t("auction.au_end")} </span>{dayjs.unix(nft.auction_deadline / 1000).format("DD/MMM/YYYY HH:mm:ss")}</div>
-                              <div className="text-black text-sm font-raleway font-normal text-left  text-ellipsis overflow-hidden whitespace-nowrap"><span className="font-bold">{t("auction.au_status")} </span>{nft.status}</div>
-                              <div className="text-black  text-lg  font-raleway font-normal   text-left text-ellipsis overflow-hidden whitespace-nowrap"><span className="font-bold text-sm">{t("auction.au_price")} </span>{fromYoctoToNear(nft.auction_base_requested)} Ⓝ</div>
-                              <div className="text-black text-sm font-raleway font-normal text-left  text-ellipsis overflow-hidden whitespace-nowrap"><span className="font-bold">{t("auction.au_contract")} </span>{nft.nft_contract}</div>
-                            </div>
-                          </div>
-                          
-                        </div>
-                      </div>
-                    </div>
-                    </a>
-                </div>
+                <AuctionCard {...nft}></AuctionCard>
               )
             })}
             </InfiniteScroll>
-           : <>{t("auction.au_notAvailable")}</> }
+           : <>{t("auctions.au_notAvailable")}</> }
             </div>
           </div>
           </div>
