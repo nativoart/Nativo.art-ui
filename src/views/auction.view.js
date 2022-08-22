@@ -204,6 +204,7 @@ setInterval(updateTime, 1000);
                               <div className="text-black text-sm font-raleway font-normal text-left py-4 border-b-2 border-gray-200 "><span className="text-xs md:text-md">{t("auction.au_status")} </span><span  className="font-bold text-lg md:text-xl">{auction.status}</span></div>
                               <div className="text-black  text-lg  font-raleway font-normal   text-left py-4 border-b-2 border-gray-200"><span className="text-xs md:text-md">{t("auction.au_price")} </span ><span className="font-bold text-lg md:text-xl">{auction.auction_base_requested ? (fromYoctoToNear(auction.auction_base_requested)) : null}  Ⓝ</span></div>
                               <div className="w-full rounded-xlarge py-4 ">
+
                               {/*Auction active*/
                               (dayjs.unix(auction.auction_deadline / 1000).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") ? 
                                 <>
@@ -219,7 +220,7 @@ setInterval(updateTime, 1000);
                                       /*The current account is the nft owner*/
                                       <div className="w-full p-2">
                                         <button
-                                          className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0  focus:outline-none hover:bg-yellow   font-raleway text-sm rounded-xlarge p-2 m-2"
+                                          className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0  focus:outline-none hover:bg-yellow   font-raleway text-sm rounded-xlarge p-2"
                                           onClick={async () => { processCancelBidOffer() }}>
                                           <span className="font-raleway">{t("Detail.cancelBid")}</span>
                                         </button>
@@ -230,7 +231,7 @@ setInterval(updateTime, 1000);
                                        (account==auction.bidder_id ? 
                                         <div className="w-full flex ">
                                           <button
-                                            className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0 focus:outline-none hover:bg-yellow   font-raleway text-sm rounded-xlarge p-2 md:m-2"
+                                            className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0 focus:outline-none hover:bg-yellow   font-raleway text-sm rounded-xlarge p-2"
                                             onClick={async () => { processCancelBidOffer() }}>
                                             <span className="font-raleway">{t("Detail.cancelBid")}</span>
                                           </button>
@@ -247,7 +248,7 @@ setInterval(updateTime, 1000);
                                       /*The current account is the nft owner*/
                                       <div className="w-full p-2">
                                         <button
-                                          className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0  focus:outline-none hover:bg-yellow   font-raleway text-sm rounded-xlarge p-2 m-2"
+                                          className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0  focus:outline-none hover:bg-yellow   font-raleway text-sm rounded-xlarge p-2"
                                           onClick={async () => { processCancelBidOffer() }}>
                                           <span className="font-raleway">{t("auction.au_cancelAuction")}</span>
                                         </button>
@@ -299,6 +300,17 @@ setInterval(updateTime, 1000);
                                         </>)}
                                 </>
                               )}
+                                {account != auction.nft_owner && dayjs.unix(auction.auction_deadline / 1000).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") ?
+                                  <div className="flex flex-row flex-wrap justify-around text-center h-[44px]">
+                                    <button
+                                      className={`w-full content-center justify-center text-center  text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded-xlarge font-raleway font-medium`}
+                                      onClick={async () => {
+                                        makeAnOffer();
+                                      }}
+                                    >
+                                      {t("auction.au_bid")}
+                                    </button>
+                                  </div> : ""}
                             </div>
                             </div>
                             
@@ -313,7 +325,7 @@ setInterval(updateTime, 1000);
               </div>
             </div>
           </div>
-          <div className="flex flex-col text-center w-full">
+          <div className="flex flex-col text-center w-full p-4">
             <div className="w-full  px-2  sm:px-0">
               <div className="w-full " key={1}>
                 <div className="flex flex-row  mb-10 md:mb-0  justify-center " >
@@ -323,17 +335,7 @@ setInterval(updateTime, 1000);
                       {t("auction.au_bids")}
                       </div>
 
-                      {account!=auction.nft_owner && dayjs.unix(auction.auction_deadline / 1000).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") ? 
-                      <div className="flex flex-row flex-wrap justify-around text-center">
-                        <button
-                          className={`w-full m-2 lg:w-40 content-center justify-center text-center  text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded-xlarge font-raleway font-medium`}
-                          onClick={async () => {
-                            makeAnOffer();
-                          }}
-                        >
-                          {t("auction.au_bid")}
-                        </button>
-                      </div> : ""}
+                      
                     </div>
                     <div className=" bg-white rounded-20 h-auto flex flex-col">
                       {auctionBids.length != 0 ? auctionBids.map((bid, key) => {
