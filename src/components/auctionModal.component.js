@@ -34,8 +34,7 @@ export default function AuctionModal(props) {
   const formik = useFormik({
     initialValues: {
       terms: false,
-      price: 0,
-      msg: ""
+      price: 0
     },
     validationSchema: Yup.object({
       price: Yup.number()
@@ -44,9 +43,7 @@ export default function AuctionModal(props) {
         .moreThan(0.09999999999999, "El precio minimo para el NFT es de 0.1")
         .min(0.1, "El precio no debe de ser menor 0.1"),
       terms: Yup.bool()
-        .required("Requerido"),
-      msg: Yup.string()
-      .required("Requerido")
+        .required("Requerido")
     }),
     //Metodo para el boton ofertar del formulario
     onSubmit: async (values) => {
@@ -56,8 +53,6 @@ export default function AuctionModal(props) {
         console.log("contract",contract);
 
         let msgobj = {
-          description: values.msg,
-          media: props.jdata.image,
           auction_amount_requested: fromNearToYocto(values.price)
         }
 
@@ -70,7 +65,7 @@ export default function AuctionModal(props) {
         let amountVal = values.price;
         let amount = fromNearToYocto(amountVal);
         let bigAmount = BigInt(amount);
-        if(!values.terms || !values.msg){
+        if(!values.terms){
           Swal.fire({
             title: t("Modal.transAlert2"),
             text: t("Modal.offerAlert1Txt"),
@@ -162,29 +157,6 @@ export default function AuctionModal(props) {
                       <div className="p-4 font-open-sans">
                         NEAR
                       </div>
-                    </div>
-                    <div className="flex justify-between ">
-                      <label
-                        htmlFor="msg"
-                        className="leading-7 text-sm  text-darkgray"
-                      >
-                        {t("bidModal.au_description")}
-                      </label>
-                      {formik.touched.msg && formik.errors.msg ? (
-                        <div className="leading-7 text-sm text-red-600 font-open-sans">
-                          {formik.errors.msg}
-                        </div>
-                      ) : null}
-                    </div>
-
-                    <div className="flex flex-row">
-                      <input
-                        type="text"
-                        id="msg"
-                        name="msg"
-                        className={`border-none w-full bg-gray-100 bg-opacity-50 rounded   focus:bg-transparent  text-base outline-none text-darkgray py-1 px-3 leading-8 transition-colors duration-200 ease-in-out-${props.theme}-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out font-raleway`}
-                        {...formik.getFieldProps("msg")}
-                      />
                     </div>
                     <div className="mt-3">
                       <input type="checkbox" className="" name="terms" id="terms" {...formik.getFieldProps("terms")}/> <label className="text-sm text-darkgray font-raleway">{t("Modal.accept")}</label>
