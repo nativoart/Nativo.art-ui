@@ -21,7 +21,7 @@ function Auctions() {
   });
   const [index,setIndex] = React.useState(0);
   const [Landing, setLanding] = React.useState({
-    tokensPerPage: 1
+    tokensPerPage: 10
   });
 
 

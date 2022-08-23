@@ -102,6 +102,7 @@ function AuctionFunction(props) {
 function updateTime() {
   let remaining = "";
   let dead = new Date(auction.auction_deadline);
+
   let curent = new Date();
   const difference = dead - curent;
   if (difference > 0) {
@@ -117,7 +118,7 @@ function updateTime() {
       setDates({...dates, diffFromDeadline: remaining})
   }
 }
-setInterval(updateTime, 1000);
+//setInterval(updateTime, 1000);
 
 
 
@@ -158,12 +159,13 @@ setInterval(updateTime, 1000);
                             <div className="w-full">
                               <div className="text-black text-sm font-raleway font-normal text-left py-4 border-b-2 border-gray-200 ">
                                 <div>
-                                  <span className=" text-darkgray text-xs md:text-md">{t("auction.au_end")}</span>
+                                  <span className=" text-darkgray text-xs md:text-md">{t("auction.au_end")} <div>{dayjs.unix(auction.auction_deadline / 1000000).format("DD/MMM/YYYY HH:mm:ss")}</div></span>
                                 </div>
                                 {}
                                 <div className="flex justify-around">
                                 {(dayjs.unix(auction.auction_deadline / 1000).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") && auction.status != 'Canceled' ?
                                     <>
+                                    
                                   <div className="flex flex-col">
                                     <div className="font-bold m-auto text-lg md:text-xl ">{dates.diffFromDeadline[0]}</div>
                                     <div className="m-auto text-xs md:text-md">{t("auction.au_days")}</div>
@@ -271,7 +273,7 @@ setInterval(updateTime, 1000);
                                     </div>
                                     <div className="w-full p-2">
                                         <button
-                                          className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0  focus:outline-none hover:bg-yellow   font-raleway text-sm rounded-xlarge p-2 m-2"
+                                          className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0  focus:outline-none hover:bg-yellow   font-raleway text-sm rounded-xlarge p-2"
                                           onClick={async () => { processClaimNFT() }}>
                                           <span className="font-raleway">{t("auction.au_claim")}</span>
                                         </button>
@@ -287,9 +289,9 @@ setInterval(updateTime, 1000);
                                                 <div className="flex justify-around">
                                                   <div className="text-black   font-raleway text-sm"><span className="font-bold">{t("auction.au_alreadyEnded")}</span></div>
                                                 </div>
-                                                <div className="w-full p-2">
+                                                <div className="w-full">
                                                   <button
-                                                    className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0  focus:outline-none hover:bg-yellow   font-raleway text-sm rounded-xlarge p-2 m-2"
+                                                    className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0  focus:outline-none hover:bg-yellow   font-raleway text-sm rounded-xlarge p-2"
                                                     onClick={async () => { processCancelBidOffer() }}>
                                                     <span className="font-raleway">{t("auction.au_cancelAuction")}</span>
                                                   </button>
