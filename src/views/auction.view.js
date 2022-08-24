@@ -274,7 +274,7 @@ setInterval(updateTime, 1000);
                                 </> :
                                 <>
                                 {/*Auction Finished*/ /*There is active offers for this auction*/
-                                (auctionBids.length == 1 ? 
+                                (auctionBids.length > 0 ? 
                                 <>
                                 {account.account == auction.bidder_id && auction.status != 'Claimed' ? <>
                                   <div className="flex flex-col py-2 ">
