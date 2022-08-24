@@ -55,17 +55,31 @@
 
 
   
-  .accordion-item > h2  > button {
+  .my-tokens .accordion-item > h2  > button {
     @apply rounded-xlarge  text-darkgray bg-white text-base font-raleway font-bold !important
   }
 
 
-  .accordion-item .accordion-collapse {
+  .my-tokens .accordion-item .accordion-collapse {
     @apply rounded-xlarge  text-darkgray   bg-darkgray !important
   }
 
-  .accordion-item {
+  .my-tokens .accordion-item {
     @apply rounded-xlarge  text-darkgray bg-darkgray border-0 !important
+  }
+
+  /*accordion inside auction styling*/
+  .auction .accordion-item > h2  > button {
+    @apply rounded-xlarge  text-darkgray bg-white text-base font-raleway font-bold !important
+  }
+
+
+  .auction .accordion-item .accordion-collapse {
+    @apply rounded-xlarge  text-darkgray    !important
+  }
+
+  .auction .accordion-item {
+    @apply rounded-xlarge  text-darkgray border-0 !important
   }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

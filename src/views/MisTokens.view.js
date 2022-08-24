@@ -1266,7 +1266,7 @@ function MisTokens(props) {
                       return (
                         <div>
                           {i.contractNfts.length > 0 ?
-                            <div className="py-2" >
+                            <div className="py-2 my-tokens" >
                               <Accordion title={t("MyNFTs.contract") + ': ' + i.contract} show={x == 0 ? true : false} className="rounded-xlarge">
                                 <div className="flex flex-wrap md:m-9 mb-6">
                                   {i.contractNfts.map((nftData, key) => {

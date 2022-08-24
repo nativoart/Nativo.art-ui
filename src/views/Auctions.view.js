@@ -21,7 +21,7 @@ function Auctions() {
   });
   const [index,setIndex] = React.useState(0);
   const [Landing, setLanding] = React.useState({
-    tokensPerPage: 10
+    tokensPerPage: 9
   });
 
 
@@ -51,7 +51,7 @@ function Auctions() {
           //setIndex(total.total_auctions - 1);
         } else {
           let payload = {
-            from_index: ((total.total_auctions - 1)-Landing.tokensPerPage).toString(),
+            from_index: ((total.total_auctions)-Landing.tokensPerPage).toString(),
             limit: Landing.tokensPerPage,
           };
   

@@ -11,6 +11,8 @@ import BidModal from "../components/bidModal.component";
 
 import { useTranslation } from "react-i18next";
 import { date } from "yup";
+import { Accordion } from 'react-bootstrap-accordion'
+import 'react-bootstrap-accordion/dist/index.css'
 
 function AuctionFunction(props) {
   const [auction, setAuction] = useState({});
@@ -48,7 +50,7 @@ function AuctionFunction(props) {
       if (auctionBids != null) setAuctionBids(auctionBids.reverse())
       setAccount(account);
       console.log('deadline')
-      setDates({deadline: new Date(auction.auction_deadline / 1000), current: new Date(), diffFromDeadline: parseInt(dayjs.unix(auction.auction_deadline/1000))-parseInt((dayjs(new Date())))});
+      setDates({deadline: new Date(auction.auction_deadline), current: new Date(), diffFromDeadline: parseInt(dayjs.unix(auction.auction_deadline))-parseInt((dayjs(new Date())))});
 
     })();
   },[]);
@@ -101,10 +103,12 @@ function AuctionFunction(props) {
   
 function updateTime() {
   let remaining = "";
-  let dead = new Date(auction.auction_deadline);
+  let dead = new Date(auction.auction_deadline * 1000);
 
-  let curent = new Date();
-  const difference = dead - curent;
+
+  let current = new Date();
+
+  const difference = dead - current;
   if (difference > 0) {
     const parts = {
       days: Math.floor(difference / (1000 * 60 * 60 * 24)),
@@ -112,13 +116,14 @@ function updateTime() {
       minutes: Math.floor((difference / 1000 / 60) % 60),
       seconds: Math.floor((difference / 1000) % 60),
     };
+    console.log('asjdsa',parts);
     remaining = Object.keys(parts).map(part => {
       return `${parts[part]}`;  
       });
       setDates({...dates, diffFromDeadline: remaining})
   }
 }
-//setInterval(updateTime, 1000);
+setInterval(updateTime, 1000);
 
 
 
@@ -129,9 +134,9 @@ function updateTime() {
       <div className="flex flex-col text-center w-full">
         <div className="container px-5 pt-5 mx-auto asda">
           <div className="flex flex-col text-center w-full">
-            <div className="w-full  px-2 pb-5 sm:px-0">
+            <div className="w-full  px-2 pb-2 sm:px-0">
               <div className="w-full p-4  " key={1}>
-              {dayjs.unix(auction.auction_deadline / 1000).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") ?
+              {dayjs.unix(auction.auction_deadline).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") ?
               <div className="h-[30px]  bg-active w-full flex justify-center p-5 rounded-t-20  items-center mt-2 text-white font-bold text-xl" >{t("auction.au_active")}</div>
               :
               <div className="h-[30px]  bg-ended w-full flex justify-center p-5 rounded-t-20  items-center mt-2 text-white font-bold text-xl" >{t("auction.au_ended")}</div>
@@ -159,11 +164,11 @@ function updateTime() {
                             <div className="w-full">
                               <div className="text-black text-sm font-raleway font-normal text-left py-4 border-b-2 border-gray-200 ">
                                 <div>
-                                  <span className=" text-darkgray text-xs md:text-md">{t("auction.au_end")} <div>{dayjs.unix(auction.auction_deadline / 1000000).format("DD/MMM/YYYY HH:mm:ss")}</div></span>
+                                  <span className=" text-darkgray text-xs md:text-md">{t("auction.au_end")} <div>{dayjs.unix(auction.auction_deadline).format("DD/MMM/YYYY HH:mm:ss")}</div></span>
                                 </div>
                                 {}
                                 <div className="flex justify-around">
-                                {(dayjs.unix(auction.auction_deadline / 1000).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") && auction.status != 'Canceled' ?
+                                {(dayjs.unix(auction.auction_deadline).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") && auction.status != 'Canceled' ?
                                     <>
                                     
                                   <div className="flex flex-col">
@@ -208,21 +213,21 @@ function updateTime() {
                               <div className="w-full rounded-xlarge py-4 ">
 
                               {/*Auction active*/
-                              (dayjs.unix(auction.auction_deadline / 1000).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") ? 
+                              (dayjs.unix(auction.auction_deadline).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") ? 
                                 <>
                                 {/*There is active offers for this auctions*/
                                   (auctionBids.length == 1 ?
                                   <div className="flex flex-col py-2  rounded-xlarge">
                                     <div className="flex justify-around">
-                                      <span className="text-black   font-raleway text-sm"><span className="font-bold ">{t("auction.au_actual")} </span> {fromYoctoToNear(auction.auction_payback)}  Ⓝ</span>
-                                      <span className=" text-black  pr-3 font-raleway text-sm"><span className="font-bold">{t("auction.au_bidder")} </span> {auction.bidder_id}</span>
+                                      <div className="text-black   font-raleway text-lg font-bold"><span className="font-normal text-sm ">{t("auction.au_actual")} </span> {fromYoctoToNear(auction.auction_payback)}  Ⓝ</div>
+                                      <div className=" text-black  pr-3 font-raleway text-lg font-bold"><span className="font-normal text-sm ">{t("auction.au_bidder")} </span> {auction.bidder_id}</div>
                                     </div>
                                     {
                                     (account==auction.nft_owner ?
                                       /*The current account is the nft owner*/
                                       <div className="w-full p-2">
                                         <button
-                                          className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0  focus:outline-none hover:bg-yellow   font-raleway text-sm rounded-xlarge p-2"
+                                          className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0  focus:outline-none hover:bg-yellow   font-raleway text-base rounded-xlarge p-2 h-[44px]"
                                           onClick={async () => { processCancelBidOffer() }}>
                                           <span className="font-raleway">{t("Detail.cancelBid")}</span>
                                         </button>
@@ -233,7 +238,7 @@ function updateTime() {
                                        (account==auction.bidder_id ? 
                                         <div className="w-full flex ">
                                           <button
-                                            className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0 focus:outline-none hover:bg-yellow   font-raleway text-sm rounded-xlarge p-2"
+                                            className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0 focus:outline-none hover:bg-yellow   font-raleway text-base rounded-xlarge p-2 h-[44px] "
                                             onClick={async () => { processCancelBidOffer() }}>
                                             <span className="font-raleway">{t("Detail.cancelBid")}</span>
                                           </button>
@@ -250,7 +255,7 @@ function updateTime() {
                                       /*The current account is the nft owner*/
                                       <div className="w-full p-2">
                                         <button
-                                          className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0  focus:outline-none hover:bg-yellow   font-raleway text-sm rounded-xlarge p-2"
+                                          className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0  focus:outline-none hover:bg-yellow   font-raleway text-base rounded-xlarge p-2"
                                           onClick={async () => { processCancelBidOffer() }}>
                                           <span className="font-raleway">{t("auction.au_cancelAuction")}</span>
                                         </button>
@@ -273,7 +278,7 @@ function updateTime() {
                                     </div>
                                     <div className="w-full p-2">
                                         <button
-                                          className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0  focus:outline-none hover:bg-yellow   font-raleway text-sm rounded-xlarge p-2"
+                                          className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0  focus:outline-none hover:bg-yellow   font-raleway text-base rounded-xlarge p-2"
                                           onClick={async () => { processClaimNFT() }}>
                                           <span className="font-raleway">{t("auction.au_claim")}</span>
                                         </button>
@@ -291,7 +296,7 @@ function updateTime() {
                                                 </div>
                                                 <div className="w-full">
                                                   <button
-                                                    className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0  focus:outline-none hover:bg-yellow   font-raleway text-sm rounded-xlarge p-2"
+                                                    className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0  focus:outline-none hover:bg-yellow   font-raleway text-base rounded-xlarge p-2"
                                                     onClick={async () => { processCancelBidOffer() }}>
                                                     <span className="font-raleway">{t("auction.au_cancelAuction")}</span>
                                                   </button>
@@ -302,10 +307,10 @@ function updateTime() {
                                         </>)}
                                 </>
                               )}
-                                {account != auction.nft_owner && dayjs.unix(auction.auction_deadline / 1000).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") ?
+                                {account != auction.nft_owner && dayjs.unix(auction.auction_deadline).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") ?
                                   <div className="flex flex-row flex-wrap justify-around text-center h-[44px]">
                                     <button
-                                      className={`w-full content-center justify-center text-center  text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded-xlarge font-raleway font-medium`}
+                                      className={`w-full content-center justify-center text-center  text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded-xlarge font-raleway font-bold text-base`}
                                       onClick={async () => {
                                         makeAnOffer();
                                       }}
@@ -327,43 +332,43 @@ function updateTime() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col text-center w-full p-4">
+          <div className="flex flex-col text-center w-full px-4">
             <div className="w-full  px-2  sm:px-0">
               <div className="w-full " key={1}>
                 <div className="flex flex-row  mb-10 md:mb-0  justify-center " >
                   <div className="trending-token w-full rounded-20 ">
-                    <div className="flex justify-between">
-                      <div className="text-white font-bold my-auto">
-                      {t("auction.au_bids")}
-                      </div>
+                    <div className=" bg-white rounded-20 h-auto flex flex-col auction">
+                    
+                      {auctionBids.length != 0 ? 
+                        <Accordion title={t("auction.au_bids")} className="rounded-xlarge bg-white" show="true">
+                          <div className="flex flex-wrap">
+                          {auctionBids.map((bid, key) => {
+                            return (
+                              <div className="w-full flex  flex-col bg-white">
+                                {key == 0 ? <>
+                                  <div className="flex">
+                                    <p className="font-bold text-center text-darkgray py-2 border-b-2 border-gray-200 w-1/2">{t("auction.au_bidAmount")}</p>
+                                    <p className="font-bold text-center text-darkgray py-2 border-b-2 border-gray-200 w-1/2">{t("auction.au_bidder")}</p>
+                                  </div>
+                                  <div className="flex">
+                                    <p className="py-2 border-b-2 border-gray-200 w-1/2 text-darkgray">{fromYoctoToNear(bid.bid_amount)} Ⓝ{ }</p>
+                                    <p className="py-2 border-b-2 border-gray-200  w-1/2 text-darkgray">{bid.bidder_id}</p>
+                                  </div>
+                                </> :
+                                  <>
+                                    <div className="flex bg-white py-4 border-b-2 border-gray-200">
+                                      <p className="py-2 border-b-2 border-gray-200 w-1/2 text-darkgray">{fromYoctoToNear(bid.bid_amount)} Ⓝ{ }</p>
+                                      <p className="py-2 border-b-2 border-gray-200 w-1/2 text-darkgray">{bid.bidder_id}</p>
+                                    </div>
+                                  </>
+                                }
 
-                      
-                    </div>
-                    <div className=" bg-white rounded-20 h-auto flex flex-col">
-                      {auctionBids.length != 0 ? auctionBids.map((bid, key) => {
-                        return (
-                          <div className="flex  flex-col">
-                            {key == 0 ? <>
-                              <div className="flex">
-                                <p className="font-bold text-center text-darkgray border-b border-solid border-gray-700 w-1/2">{t("auction.au_bidAmount")}</p>
-                                <p className="font-bold text-center text-darkgray border-b border-solid border-gray-700 w-1/2">{t("auction.au_bidder")}</p>
                               </div>
-                              <div className="flex">
-                                <p className="border-b border-solid border-gray-700 w-1/2 text-darkgray">{fromYoctoToNear(bid.bid_amount)} Ⓝ{ }</p>
-                                <p className="border-b border-solid border-gray-700 w-1/2 text-darkgray">{bid.bidder_id}</p>
-                              </div>
-                            </> :
-                              <>
-                                <div className="flex">
-                                  <p className="border-b border-solid border-gray-700 w-1/2 text-darkgray">{fromYoctoToNear(bid.bid_amount)} Ⓝ{ }</p>
-                                  <p className="border-b border-solid border-gray-700 w-1/2 text-darkgray">{bid.bidder_id}</p>
-                                </div>
-                              </>
-                            }
-
+                            )
+                          })}
                           </div>
-                        )
-                      }) : <>{t("auction.au_noOffer")}</>}
+                        </Accordion>
+                      : <>{t("auction.au_noOffer")}</>}
                     </div>
                   </div>
                 </div>

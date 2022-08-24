@@ -24,9 +24,9 @@ function AuctionCard(nft) {
   
   function updateTime() {
     let remaining = "";
-    let dead = new Date(nft.auction_deadline);
-    let curent = new Date();
-    const difference = dead - curent;
+    let dead = new Date(nft.auction_deadline * 1000);
+    let current = new Date();
+    const difference = dead - current;
     if (difference > 0) {
       const parts = {
         days: Math.floor(difference / (1000 * 60 * 60 * 24)),
@@ -50,7 +50,11 @@ function AuctionCard(nft) {
         >
           <div className="flex flex-col  mb-10 md:mb-0  justify-center " >
             <div className="trending-token w-full rounded-20 hover:shadow-yellow1   hover:scale-105 ">
+            {dayjs.unix(nft.auction_deadline).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") ?
+              <div className="h-[20px]  bg-active w-full flex justify-center p-4 rounded-t-20  items-center text-white font-bold text-xl" >{t("auction.au_active")}</div>
+              :
               <div className="h-[20px]  bg-ended w-full flex justify-center p-4 rounded-t-20  items-center  text-white font-bold text-xl" >{t("auction.au_ended")}</div>
+              }
               <div className=" bg-white rounded-b-20 h-[365px] flex flex-col">
                 <div className="w-full flex ">
                   <img
@@ -64,7 +68,7 @@ function AuctionCard(nft) {
 
                     <div className="text-black text-sm font-raleway font-normal text-left text-ellipsis overflow-hidden whitespace-nowrap "><span className="text-xs">{t("auction.au_end")} </span>
                       <div className="flex justify-around">
-                      {(dayjs.unix(nft.auction_deadline / 1000).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") && nft.status != 'Canceled' ?
+                      {(dayjs.unix(nft.auction_deadline).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") && nft.status != 'Canceled' ?
                                     <>
                                   <div className="flex flex-col">
                                     <div className="font-bold m-auto text-lg md:text-xl ">{dates.diffFromDeadline[0]}</div>
