@@ -81,8 +81,7 @@ function AuctionFunction(props) {
       let payload = {
         auction_id: auction.id
       }
-      ext_call(process.env.REACT_APP_CONTRACT_AUCTIONS, 'withdraw_nft_auctioner', payload, 300000000000000, 1);
-      
+      ext_call(process.env.REACT_APP_CONTRACT_AUCTIONS, 'withdraw_bid_bidder', payload, 300000000000000, 1);
     }
   }
 
