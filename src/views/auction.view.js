@@ -50,7 +50,10 @@ function AuctionFunction(props) {
       if (auctionBids != null) setAuctionBids(auctionBids.reverse())
       setAccount(account);
       console.log('deadline')
-      setDates({deadline: new Date(auction.auction_deadline), current: new Date(), diffFromDeadline: parseInt(dayjs.unix(auction.auction_deadline))-parseInt((dayjs(new Date())))});
+      setDates({deadline: dayjs.unix(auction.auction_deadline).format("DD/MMM/YYYY HH:mm:ss"), current: dayjs().format("DD/MMM/YYYY HH:mm:ss"), diffFromDeadline: parseInt(dayjs.unix(auction.auction_deadline))-parseInt((dayjs(new Date())))});
+      if(auction.status != 'Canceled') {
+        setInterval(updateTime, 1000);
+      };
 
     })();
   },[]);
@@ -122,7 +125,7 @@ function updateTime() {
       setDates({...dates, diffFromDeadline: remaining})
   }
 }
-setInterval(updateTime, 1000);
+
 
 
 
@@ -135,11 +138,15 @@ setInterval(updateTime, 1000);
           <div className="flex flex-col text-center w-full">
             <div className="w-full  px-2 pb-2 sm:px-0">
               <div className="w-full p-4  " key={1}>
-              {dayjs.unix(auction.auction_deadline).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") ?
-              <div className="h-[30px]  bg-active w-full flex justify-center p-5 rounded-t-20  items-center mt-2 text-white font-bold text-xl" >{t("auction.au_active")}</div>
-              :
-              <div className="h-[30px]  bg-ended w-full flex justify-center p-5 rounded-t-20  items-center mt-2 text-white font-bold text-xl" >{t("auction.au_ended")}</div>
-              }
+                {dayjs.unix(auction.auction_deadline).format("DD/MMM/YYYY HH:mm:ss") > dayjs().format("DD/MMM/YYYY HH:mm:ss") ?
+                  <>{auction.status != 'Canceled' ?
+                    <div className="h-[30px]  bg-active w-full flex justify-center p-5 rounded-t-20  items-center mt-2 text-white font-bold text-xl" >{t("auction.au_active")}</div>
+                    :
+                    <div className="h-[30px]  bg-ended w-full flex justify-center p-5 rounded-t-20  items-center mt-2 text-white font-bold text-xl" >{t("auction.au_ended")}</div>}
+                  </>
+                  :
+                  <div className="h-[30px]  bg-ended w-full flex justify-center p-5 rounded-t-20  items-center mt-2 text-white font-bold text-xl" >{t("auction.au_ended")}</div>
+                }
                 <div className="flex flex-row  mb-10 md:mb-0  justify-center " >
                   <div className="trending-token w-full  ">
                     <div className=" bg-white rounded-b-20 h-auto  flex flex-col md:flex-row">
