@@ -26,16 +26,16 @@ function AuctionCard(nft) {
       return <Completionist />;
     } else {
       // Render a countdown
-      return <div className="flex flex-row justify-between">
-        <div className="flex flex-col">
+      return <div className="flex flex-row w-full">
+        <div className="flex flex-col w-1/3">
           <div className="font-bold m-auto text-lg md:text-xl ">{hours}</div>
           <div className="m-auto text-xs md:text-md">{t("auction.au_days")}</div>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col w-1/3">
           <div className="font-bold m-auto text-lg md:text-xl ">{minutes}</div>
           <div className="m-auto text-xs md:text-md">{t("auction.au_hours")}</div>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col w-1/3">
           <div className="font-bold m-auto text-lg md:text-xl ">{seconds}</div>
           <div className="m-auto text-xs md:text-md">{t("auction.au_minutes")}</div>
         </div>
@@ -98,7 +98,7 @@ function AuctionCard(nft) {
                   <div className="flex justify-around flex-col">
 
                     <div className="text-black text-sm font-raleway font-normal text-left text-ellipsis overflow-hidden whitespace-nowrap "><span className="text-xs">{t("auction.au_end")} </span>
-                      <div className="flex justify-around">
+                      <div className="flex w-full">
                       {nft.status != 'Canceled' ?
                                     <>
                                       <Countdown
