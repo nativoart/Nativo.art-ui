@@ -37,7 +37,7 @@ function AuctionCard(nft) {
         </div>
         <div className="flex flex-col w-1/3">
           <div className="font-bold m-auto text-lg md:text-xl ">{seconds}</div>
-          <div className="m-auto text-xs md:text-md">{t("auction.au_seconds")}</div>
+          <div className="m-auto text-xs md:text-md">{t("auction.au_")}</div>
         </div>
       </div>
         ;
@@ -81,9 +81,13 @@ function AuctionCard(nft) {
         >
           <div className="flex flex-col  mb-10 md:mb-0  justify-center " >
             <div className="trending-token w-full rounded-20 hover:shadow-yellow1   hover:scale-105 ">
-            {dayjs.unix(nft.auction_deadline).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") ?
-              <div className="h-[20px]  bg-active w-full flex justify-center p-4 rounded-t-20  items-center text-white font-bold text-xl" >{t("auction.au_active")}</div>
-              :
+              {dayjs.unix(nft.auction_deadline).format("DD/MMM/YYYY HH:mm:ss") > dayjs().format("DD/MMM/YYYY HH:mm:ss") ?
+                <> {nft.status != 'Canceled' ?
+                  <div className="h-[20px]  bg-active w-full flex justify-center p-4 rounded-t-20  items-center text-white font-bold text-xl" >{t("auction.au_active")}</div>
+                  :
+                  <div className="h-[20px]  bg-ended w-full flex justify-center p-4 rounded-t-20  items-center  text-white font-bold text-xl" >{t("auction.au_ended")}</div>
+                }</>
+                :
               <div className="h-[20px]  bg-ended w-full flex justify-center p-4 rounded-t-20  items-center  text-white font-bold text-xl" >{t("auction.au_ended")}</div>
               }
               <div className=" bg-white rounded-b-20 h-[365px] flex flex-col">
