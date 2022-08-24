@@ -361,7 +361,8 @@
         "au_seconds": "Seconds",
         "au_active": "Active",
         "au_ended": "Ended",
-        "au_alreadyEnded" : "This auction is already finished, please cancel it"
+        "au_alreadyEnded" : "This auction is already finished, please cancel it",
+        "au_endsOn" : "Already finished"
     },
     "auctionModal" : {
         "au_title" : "Make a Bid",
