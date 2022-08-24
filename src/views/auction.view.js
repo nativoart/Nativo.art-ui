@@ -164,7 +164,7 @@ setInterval(updateTime, 1000);
                             <div className="w-full">
                               <div className="text-black text-sm font-raleway font-normal text-left py-4 border-b-2 border-gray-200 ">
                                 <div>
-                                  <span className=" text-darkgray text-xs md:text-md">{t("auction.au_end")} <div>{dayjs.unix(auction.auction_deadline).format("DD/MMM/YYYY HH:mm:ss")}</div></span>
+                                  <span className=" text-darkgray text-xs md:text-md">{t("auction.au_end")}</span>
                                 </div>
                                 {}
                                 <div className="flex justify-around">

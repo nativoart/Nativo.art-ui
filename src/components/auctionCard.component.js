@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { getNearContract, fromYoctoToNear, getNearAccount } from "../utils/near_interaction";
 import dayjs from 'dayjs';
+import Countdown from 'react-countdown';
 
 
 function AuctionCard(nft) {
@@ -12,6 +13,36 @@ function AuctionCard(nft) {
     current: "",
     diffFromDeadline: ["0", "0", "0", "0"]
   });
+
+  // Random component
+  const Completionist = () => <div className="flex flex-col">
+    <div className="m-auto text-base">{t("auction.au_endsOn")}</div>
+  </div>;
+
+  // Renderer callback with condition
+  const renderer = ({ hours, minutes, seconds, completed }) => {
+    if (completed) {
+      // Render a completed state
+      return <Completionist />;
+    } else {
+      // Render a countdown
+      return <div className="flex flex-row justify-between">
+        <div className="flex flex-col">
+          <div className="font-bold m-auto text-lg md:text-xl ">{hours}</div>
+          <div className="m-auto text-xs md:text-md">{t("auction.au_days")}</div>
+        </div>
+        <div className="flex flex-col">
+          <div className="font-bold m-auto text-lg md:text-xl ">{minutes}</div>
+          <div className="m-auto text-xs md:text-md">{t("auction.au_hours")}</div>
+        </div>
+        <div className="flex flex-col">
+          <div className="font-bold m-auto text-lg md:text-xl ">{seconds}</div>
+          <div className="m-auto text-xs md:text-md">{t("auction.au_minutes")}</div>
+        </div>
+      </div>
+        ;
+    }
+  };
 
 
   React.useEffect(() => {
@@ -68,43 +99,18 @@ function AuctionCard(nft) {
 
                     <div className="text-black text-sm font-raleway font-normal text-left text-ellipsis overflow-hidden whitespace-nowrap "><span className="text-xs">{t("auction.au_end")} </span>
                       <div className="flex justify-around">
-                      {(dayjs.unix(nft.auction_deadline).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") && nft.status != 'Canceled' ?
+                      {nft.status != 'Canceled' ?
                                     <>
-                                  <div className="flex flex-col">
-                                    <div className="font-bold m-auto text-lg md:text-xl ">{dates.diffFromDeadline[0]}</div>
-                                    <div className="m-auto text-xs md:text-md">{t("auction.au_days")}</div>
-                                  </div>
-                                  <div className="flex flex-col">
-                                    <div className="font-bold m-auto text-lg md:text-xl ">{dates.diffFromDeadline[1]}</div>
-                                    <div className="m-auto text-xs md:text-md">{t("auction.au_hours")}</div>
-                                  </div>
-                                  <div className="flex flex-col">
-                                    <div className="font-bold m-auto text-lg md:text-xl ">{dates.diffFromDeadline[2]}</div>
-                                    <div className="m-auto text-xs md:text-md">{t("auction.au_minutes")}</div>
-                                  </div>
-                                  <div className="flex flex-col">
-                                    <div className="font-bold  m-auto text-lg md:text-xl ">{dates.diffFromDeadline[3]}</div>
-                                    <div className="m-auto text-xs md:text-md">{t("auction.au_seconds")}</div>
-                                  </div>
+                                      <Countdown
+                                      date={dayjs.unix(nft.auction_deadline)}
+                                       renderer={renderer}
+                                      />
                                   </> : 
                                     <>
                                     <div className="flex flex-col">
-                                      <div className="font-bold  m-auto text-lg md:text-xl ">0</div>
-                                      <div className="m-auto text-xs md:text-md">{t("auction.au_days")}</div>
+                                      <div className="m-auto text-base">{t("auction.au_endsOn")}</div>
                                     </div>
-                                    <div className="flex flex-col">
-                                      <div className="font-bold  m-auto text-lg md:text-xl ">0</div>
-                                      <div className="m-auto text-xs md:text-md">{t("auction.au_hours")}</div>
-                                    </div>
-                                    <div className="flex flex-col">
-                                      <div className="font-bold  m-auto text-lg md:text-xl ">0</div>
-                                      <div className="m-auto text-xs md:text-md">{t("auction.au_minutes")}</div>
-                                    </div>
-                                    <div className="flex flex-col">
-                                      <div className="font-bold  m-auto text-lg md:text-xl ">0</div>
-                                      <div className="m-auto text-xs md:text-md ">{t("auction.au_seconds")}</div>
-                                    </div>
-                                    </>)}
+                                    </>}
 
                       </div>
                     </div>
