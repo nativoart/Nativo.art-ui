@@ -37,7 +37,7 @@ function AuctionCard(nft) {
         </div>
         <div className="flex flex-col w-1/3">
           <div className="font-bold m-auto text-lg md:text-xl ">{seconds}</div>
-          <div className="m-auto text-xs md:text-md">{t("auction.au_")}</div>
+          <div className="m-auto text-xs md:text-md">{t("auction.au_seconds")}</div>
         </div>
       </div>
         ;
