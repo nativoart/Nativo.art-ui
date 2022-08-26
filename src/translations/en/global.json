@@ -362,7 +362,10 @@
         "au_active": "Active",
         "au_ended": "Ended",
         "au_alreadyEnded" : "This auction is already finished, please cancel it",
-        "au_endsOn" : "Already finished"
+        "au_endsOn" : "Already finished",
+        "au_claimedBy" : "NFT claimed by",
+        "au_claimedPrice" : "with",
+        "au_biddedAt": "Date"
     },
     "auctionModal" : {
         "au_title" : "Make a Bid",
