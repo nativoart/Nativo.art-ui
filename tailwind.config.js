@@ -30,7 +30,7 @@ module.exports = {
         "orange": "#f9650b",
         "yellow5" : "#f6c930",
         "blue2" : "#2b96ea",
-        "active": "#08ea80",
+        "active": "#06b941",
         "ended" : "#ea0808"
       },
       borderRadius: {
