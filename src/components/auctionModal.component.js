@@ -29,7 +29,7 @@ export default function AuctionModal(props) {
   
   useEffect(() => {
     console.log('dentro de la modal de Auction');
-  });
+  },[]);
   
   //Configuramos el formulario para ofertar por un token
   const formik = useFormik({
@@ -134,7 +134,7 @@ export default function AuctionModal(props) {
                         htmlFor="price"
                         className="leading-7 text-sm  text-darkgray"
                       >
-                        {t("bidModal.au_price")} 
+                        {t("bidModal.au_basePrice")} 
                       </label>
                       {formik.touched.price && formik.errors.price ? (
                         <div className="leading-7 text-sm text-red-600 font-open-sans">
@@ -158,7 +158,7 @@ export default function AuctionModal(props) {
                         NEAR
                       </div>
                     </div>
-                    <div className="flex justify-between ">
+                    <div className="flex justify-center ">
                       <label
                         htmlFor="price"
                         className="leading-7 text-sm  text-darkgray"

@@ -368,6 +368,7 @@
     "auctionModal" : {
         "au_title" : "Haz una oferta",
         "au_bid" : "Ofertar",
+        "au_basePrice" : "Precio Base",
         "au_bidAmount": "Precio",
         "au_required" : "Requerido",
         "au_positive": "El precio debe ser mayor a 0",
@@ -383,7 +384,8 @@
         "au_required" : "Requerido",
         "au_positive": "El precio debe ser mayor a 0",
         "au_moreThan": "El precio minimo para el NFT es de 0.1",
-        "au_minThan" : "El precio no debe de ser menor 0.1"
+        "au_minThan" : "El precio no debe de ser menor 0.1",
+        "au_basePrice": "Precio base"
     }
 
 }

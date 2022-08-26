@@ -370,6 +370,7 @@
     "auctionModal" : {
         "au_title" : "Make a Bid",
         "au_bid" : "Place the bid",
+        "au_basePrice" : "Base amount",
         "au_bidAmount": "Amount",
         "au_required" : "Required",
         "au_positive": "Price needs to be above 0",
@@ -386,7 +387,8 @@
         "au_required" : "Required",
         "au_positive": "Price needs to be above 0",
         "au_moreThan": "Minimun price to bid for this NFT is 0.1",
-        "au_minThan" : "Minimun price to bid for this NFT is 0.1"
+        "au_minThan" : "Minimun price to bid for this NFT is 0.1",
+        "au_basePrice" : "Base amount"
 
     }
 }
