@@ -10,6 +10,7 @@ import {
   getSelectedAccount,
   fromETHtoWei,
 } from "../utils/blockchain_interaction";
+import dayjs from 'dayjs';
 
 import { getNearContract, fromNearToYocto, fromYoctoToNear, ext_call } from "../utils/near_interaction";
 import { useTranslation } from "react-i18next";
@@ -38,12 +39,12 @@ export default function AuctionModal(props) {
     },
     validationSchema: Yup.object({
       price: Yup.number()
-        .required("Requerido")
-        .positive("El precio debe ser positivo")
-        .moreThan(0.09999999999999, "El precio minimo para el NFT es de 0.1")
-        .min(0.1, "El precio no debe de ser menor 0.1"),
+        .required(t("auctionModal.Required") )
+        .positive(t("auctionModal.au_required"))
+        .moreThan(0.09999999999999, t("auctionModal.au_moreThan"))
+        .min(0.1, t("auctionModal.au_minThan")),
       terms: Yup.bool()
-        .required("Requerido")
+        .required(t("auctionModal.au_required"))
     }),
     //Metodo para el boton ofertar del formulario
     onSubmit: async (values) => {
@@ -128,7 +129,6 @@ export default function AuctionModal(props) {
                   className="grid grid-cols-1 divide-y flex px-5 py-15 md:flex-row flex-col items-center"
                 >
                   <div>
-                    
                     <div className="flex justify-between ">
                       <label
                         htmlFor="price"
@@ -158,9 +158,19 @@ export default function AuctionModal(props) {
                         NEAR
                       </div>
                     </div>
+                    <div className="flex justify-between ">
+                      <label
+                        htmlFor="price"
+                        className="leading-7 text-sm  text-darkgray"
+                      >
+                        {t("auctionModal.au_finish")} {dayjs().add(15, 'minute').format("DD/MMM/YYYY HH:mm:ss") }
+                      </label>
+                      </div>
                     <div className="mt-3">
                       <input type="checkbox" className="" name="terms" id="terms" {...formik.getFieldProps("terms")}/> <label className="text-sm text-darkgray font-raleway">{t("Modal.accept")}</label>
                     </div>
+                    
+                    
                     {/* Ofertar */}
                     {props.tokenId && (
                       <div className="w-full flex justify-end">

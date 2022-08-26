@@ -33,12 +33,12 @@ export default function BidModal(props) {
     },
     validationSchema: Yup.object({
       price: Yup.number()
-        .required("Requerido")
-        .positive("El precio debe ser positivo")
-        .moreThan(0.09999999999999, "El precio minimo para el NFT es de 0.1")
-        .min(0.1, "El precio no debe de ser menor 0.1"),
+        .required(t("auctionModal.Required") )
+        .positive(t("auctionModal.au_required"))
+        .moreThan(0.09999999999999, t("auctionModal.au_moreThan"))
+        .min(0.1, t("auctionModal.au_minThan")),
       terms: Yup.bool()
-        .required("Requerido")
+        .required(t("auctionModal.au_required"))
     }),
     //Metodo para el boton ofertar del formulario
     onSubmit: async (values) => {

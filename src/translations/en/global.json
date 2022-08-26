@@ -370,12 +370,23 @@
     "auctionModal" : {
         "au_title" : "Make a Bid",
         "au_bid" : "Place the bid",
-        "au_bidAmount": "Amount"
+        "au_bidAmount": "Amount",
+        "au_required" : "Required",
+        "au_positive": "Price needs to be above 0",
+        "au_moreThan": "Minimun price to auction this NFT is 0.1",
+        "au_minThan" : "Minimun price to auction this NFT is 0.1",
+        "au_finish" : "This NFT auction will be finished on"
+
     },
     "bidModal" : {
         "au_title" : "Make an Auction",
         "au_price": "Init Price",
         "au_description": "Add a description",
-        "au_ok": "OK"
+        "au_ok": "OK",
+        "au_required" : "Required",
+        "au_positive": "Price needs to be above 0",
+        "au_moreThan": "Minimun price to bid for this NFT is 0.1",
+        "au_minThan" : "Minimun price to bid for this NFT is 0.1"
+
     }
 }
