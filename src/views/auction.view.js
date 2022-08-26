@@ -300,16 +300,30 @@ setInterval(updateTime, 1000);
                                 </>
                               )}
                                 {account.account != auction.nft_owner && dayjs.unix(auction.auction_deadline).format("DD/MMM/YYYY HH:mm:ss") > dayjs(new Date()).format("DD/MMM/YYYY HH:mm:ss") ?
-                                  <div className="flex flex-row flex-wrap justify-around text-center h-[44px]">
-                                    <button
-                                      className={`w-full content-center justify-center text-center  text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded-xlarge font-raleway font-bold text-base`}
-                                      onClick={async () => {
-                                        makeAnOffer();
-                                      }}
-                                    >
-                                      {t("auction.au_bid")}
-                                    </button>
-                                  </div> : ""}
+                                  <>{auctionBids.length < 0 ? <>
+                                    <div className="flex flex-row flex-wrap justify-around text-center h-[44px]">
+                                      <button
+                                        className={`w-full content-center justify-center text-center  text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded-xlarge font-raleway font-bold text-base`}
+                                        onClick={async () => {
+                                          makeAnOffer();
+                                        }}
+                                      >
+                                        {t("auction.au_bid")}
+                                      </button>
+                                    </div> </> :
+                                    <> {(account.account != auction.bidder_id ? <>
+                                      <div className="flex flex-row flex-wrap justify-around text-center h-[44px]">
+                                        <button
+                                          className={`w-full content-center justify-center text-center  text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded-xlarge font-raleway font-bold text-base`}
+                                          onClick={async () => {
+                                            makeAnOffer();
+                                          }}
+                                        >
+                                          {t("auction.au_bid")}
+                                        </button>
+                                      </div> </> : "")}
+                                    </>
+                                  }</> : ""}
                             </div>
                             </div>
                             
