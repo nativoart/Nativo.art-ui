@@ -163,7 +163,7 @@ setInterval(updateTime, 1000);
                           <div className="text-black font-raleway  w-full text-left text-ellipsis overflow-hidden whitespace-nowrap py-4 border-b-2 border-gray-200 font-bold text-lg md:text-xl"><span className="font-bold"></span>{auction.description}</div>
                           <div className="flex flex-col md:flex-row w-full text-left py-4 border-b-2 border-gray-200">
                             <div className="text-black  font-raleway font-normal  w-1/3 text-lg md:text-xl"><span className="text-xs md:text-md">ID</span> <span className="font-bold text-lg md:text-xl">{auction.nft_id}</span></div>
-                            <div className="text-black text-sm font-raleway font-normal  w-2/3"><span className="text-xs md:text-md">{t("auction.au_owner")} </span><span className="font-raleway  font-bold text-blue2 text-md md:text-lg">{auction.nft_owner}</span></div>
+                            <div className="text-black text-sm font-raleway font-normal  w-2/3"><span className="text-xs md:text-md">{t("auction.au_owner")} </span> <a href={`../profile/${auction.nft_owner}`} className="font-raleway  font-bold text-blue2 text-xs md:text-md break-words">{auction.nft_owner}</a></div>
                           </div>
                           <div className="flex flex-col md:flex-row  ">
                             <div className="w-full">
@@ -227,32 +227,6 @@ setInterval(updateTime, 1000);
                                       <div className="text-black   font-raleway text-lg font-bold"><span className="font-normal text-sm ">{t("auction.au_actual")} </span> {fromYoctoToNear(auction.auction_payback)}  Ⓝ</div>
                                       <div className=" text-black  pr-3 font-raleway text-lg font-bold"><span className="font-normal text-sm ">{t("auction.au_bidder")} </span> {auction.bidder_id}</div>
                                     </div>
-                                    {
-                                    (account.account==auction.nft_owner ?
-                                      /*The current account is the bidder*/
-                                      <div className="w-full p-2">
-                                        <button
-                                          className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0  focus:outline-none hover:bg-yellow   font-raleway text-base rounded-xlarge p-2 h-[44px]"
-                                          onClick={async () => { processCancelBidOffer() }}>
-                                          <span className="font-raleway">{t("auction.au_cancelAuction")}</span>
-                                        </button>
-                                      </div>
-                                      :
-                                      <>
-                                      {/*The current account is the bidder*/
-                                      (account.account==auction.bidder_id ? 
-                                       <div className="w-full flex ">
-                                         <button
-                                           className="w-full content-center justify-center text-center font-bold text-white bg-yellow2 border-0 focus:outline-none hover:bg-yellow   font-raleway text-base rounded-xlarge p-2 h-[44px] "
-                                           onClick={async () => { processCancelBidOffer() }}>
-                                           <span className="font-raleway">{t("Detail.cancelBid")}</span>
-                                         </button>
-                                       </div>
-                                       :
-                                       ""
-                                      )}
-                                     </>
-                                   )}
                                   </div> : 
                                   <>
                                   {/*There is NOT active offers for this auctions*/}
@@ -276,7 +250,18 @@ setInterval(updateTime, 1000);
                                 {/*Auction Finished*/ /*There is active offers for this auction*/
                                 (auctionBids.length > 0 ? 
                                 <>
-                                {account.account == auction.bidder_id && auction.status != 'Claimed' ? <>
+                                  {auction.status == 'Claimed' ?
+                                  <div className="flex flex-col py-2 ">
+                                    <div className="flex justify-around flex-row items-center bg-gray-200 rounded-xlarge h-[44px] ">
+                                      <div className="text-darkgray  font-raleway text-base flex flex-row font-bold items-center"><span className="text-sm font-normal mx-1">{t("auction.au_claimedBy")} </span> <span className="mx-1">{ " "+auction.bidder_id+" " }</span><span className="text-sm font-normal mx-1"> {t("auction.au_claimedPrice")}</span> <span className="mx-1">{fromYoctoToNear(auction.auction_payback)}</span>  Ⓝ </div>
+                                    </div>
+                                    <div className="flex justify-around">
+                                      
+                                    </div>
+                                  </div> : ""
+                                   }
+                                {account.account == auction.bidder_id ? <>
+                                  <>{auction.status != 'Claimed' ?
                                   <div className="flex flex-col py-2 ">
                                     <div className="flex justify-around ">
                                       <div className="text-black   font-raleway text-sm"><span className="font-bold">{t("auction.au_msgAuctionEnded")}</span></div>
@@ -288,7 +273,9 @@ setInterval(updateTime, 1000);
                                           <span className="font-raleway">{t("auction.au_claim")}</span>
                                         </button>
                                       </div>
-                                  </div>
+                                  </div> : ""
+                                   }
+                                </> 
                                 </> : "" }
                                 </> 
                                 : 
@@ -352,18 +339,21 @@ setInterval(updateTime, 1000);
                               <div className="w-full flex  flex-col bg-white" key={key}>
                                 {key == 0 ? <>
                                   <div className="flex">
-                                    <p className="font-bold text-center text-darkgray py-2 border-b-2 border-gray-200 w-1/2">{t("auction.au_bidAmount")}</p>
-                                    <p className="font-bold text-center text-darkgray py-2 border-b-2 border-gray-200 w-1/2">{t("auction.au_bidder")}</p>
+                                    <p className="font-bold text-center text-darkgray py-2 border-b-2 border-gray-200 w-1/3">{t("auction.au_biddedAt")}</p>
+                                    <p className="font-bold text-center text-darkgray py-2 border-b-2 border-gray-200 w-1/3">{t("auction.au_bidAmount")}</p>
+                                    <p className="font-bold text-center text-darkgray py-2 border-b-2 border-gray-200 w-1/3">{t("auction.au_bidder")}</p>
                                   </div>
                                   <div className="flex">
-                                    <p className="py-2 border-b-2 border-gray-200 w-1/2 text-darkgray">{fromYoctoToNear(bid.bid_amount)} Ⓝ{ }</p>
-                                    <p className="py-2 border-b-2 border-gray-200  w-1/2 text-darkgray">{bid.bidder_id}</p>
+                                    <p className="py-2 border-b-2 border-gray-200 w-1/3 text-darkgray">{dayjs.unix(bid.bidded_at).format("DD/MMM/YYYY HH:mm:ss")}</p>
+                                    <p className="py-2 border-b-2 border-gray-200 w-1/3 text-darkgray">{fromYoctoToNear(bid.bid_amount)} Ⓝ{ }</p>
+                                    <p className="py-2 border-b-2 border-gray-200 w-1/3 text-darkgray">{bid.bidder_id}</p>
                                   </div>
                                 </> :
                                   <>
-                                    <div className="flex bg-white py-4 border-b-2 border-gray-200">
-                                      <p className="py-2 border-b-2 border-gray-200 w-1/2 text-darkgray">{fromYoctoToNear(bid.bid_amount)} Ⓝ{ }</p>
-                                      <p className="py-2 border-b-2 border-gray-200 w-1/2 text-darkgray">{bid.bidder_id}</p>
+                                    <div className="flex bg-white py-4">
+                                      <p className="py-2 border-b-2 border-gray-200 w-1/3 text-darkgray">{dayjs.unix(bid.bidded_at).format("DD/MMM/YYYY HH:mm:ss")}</p>
+                                      <p className="py-2 border-b-2 border-gray-200 w-1/3 text-darkgray">{fromYoctoToNear(bid.bid_amount)} Ⓝ{ }</p>
+                                      <p className="py-2 border-b-2 border-gray-200 w-1/3 text-darkgray">{bid.bidder_id}</p>
                                     </div>
                                   </>
                                 }
