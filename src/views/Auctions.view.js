@@ -8,7 +8,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import dayjs from 'dayjs';
 import { useTranslation } from "react-i18next";
 import AuctionCard from "../components/auctionCard.component";
-
+import { Tab  } from "@headlessui/react";
+import MyAuctions from "./MyAuctions.view";
 
 function Auctions() {
 
@@ -23,12 +24,14 @@ function Auctions() {
   const [Landing, setLanding] = React.useState({
     tokensPerPage: 9
   });
+  const [account, setAccount] = React.useState("");
 
 
   useEffect(() => {
     (async () => {
       let contract = process.env.REACT_APP_CONTRACT_AUCTIONS;
       let account = await getNearAccount();
+      setAccount(account);
       let payload = {};
       let total = [];
       total = await ext_view(contract, 'get_auctions_stats', payload)
@@ -103,6 +106,11 @@ function Auctions() {
     });
     setAuctions({ ...auctions, all: auctions.all.concat(all_auctions.reverse())});
   }
+
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+  }
+  
       
 
 
@@ -119,8 +127,48 @@ function Auctions() {
         {t("auctions.au_subtitle")}
        </p>
       </div>
+
         <div className="container px-5 pt-5 mx-auto asda">
-          <div className="flex flex-col text-center w-full">
+        <Tab.Group>
+            <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
+              <Tab
+                key={"MyAuctions"}
+                className={({ selected }) =>
+                  classNames(
+                    'w-full rounded-lg py-2.5 text-xs md:text-lg font-medium leading-5 ',
+                    'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-raleway  font-bold ',
+                    selected
+                      ? 'bg-white shadow text-darkgray'
+                      : 'text-blue-100 hover:bg-white/[0.12] text-white '
+                  )
+                }
+              >
+                 {t("auctions.au_liveAuctions")}
+
+              </Tab>
+              {account ? <Tab
+                key={"Creaciones"}
+                className={({ selected }) =>
+                  classNames(
+                    'w-full rounded-lg py-2.5 text-xs md:text-lg font-medium leading-5 ',
+                    'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-raleway font-bold ',
+                    selected
+                      ? 'bg-white shadow text-darkgray'
+                      : 'text-blue-100 hover:bg-white/[0.12]  text-white'
+                  )
+                }
+              >
+               {t("auctions.au_myAuctions")}
+              </Tab> : ""}
+            </Tab.List>
+            <Tab.Panels className="mt-2 bg-darkgray">
+              <Tab.Panel
+                key={"LiveAuctions"}
+                className={classNames(
+                  'rounded-xl  bg-darkgray'
+                )}
+              >
+                          <div className="flex flex-col text-center w-full">
             <div className="w-full  px-2 py-5 sm:px-0">
            {auctions.all.length !=0 ? 
            <InfiniteScroll
@@ -137,13 +185,28 @@ function Auctions() {
           >
             {auctions.all.map((nft, key) => {
               return (
-                <AuctionCard {...nft}></AuctionCard>
+                <AuctionCard {...nft} key={key}></AuctionCard>
               )
             })}
             </InfiniteScroll>
-           : <>{t("auctions.au_notAvailable")}</> }
+           : 
+           <div className="text-yellow2 text-2xl w-full text-center mt-6 font-bold">
+            <p>{t("auctions.au_notAvailable")}</p>
+           </div> }
             </div>
           </div>
+              </Tab.Panel>
+              {account ? <Tab.Panel
+                key={"MyAuctions"}
+                className={classNames(
+                  'rounded-xl  bg-darkgray'
+                )}
+              >
+                <MyAuctions></MyAuctions>
+              </Tab.Panel> : ""}
+            </Tab.Panels>
+        </Tab.Group>
+
           </div>
       </section>
   );
