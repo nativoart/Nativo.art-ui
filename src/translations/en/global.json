@@ -324,7 +324,9 @@
         "modalSearchText": "Search by another ID"
     },
     "auctions" : {
-        "au_title" : "Live Auctions",
+        "au_title" : "Auctions",
+        "au_liveAuctions" : "Live Auctions",
+        "au_myAuctions" : "My Auctions",
         "au_subtitle" : "Here you can find all the NFT auctions and do an bid on some!",
         "au_owner": "Auction Owner",
         "au_end": "Ends on",

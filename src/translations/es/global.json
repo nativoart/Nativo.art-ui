@@ -323,6 +323,8 @@
     },
     "auctions" : {
         "au_title" : "Subastas",
+        "au_liveAuctions" : "Todas",
+        "au_myAuctions" : "Mis Subastas",
         "au_subtitle" : "Aquí podrás encontrar todas las subastas y ofertar por alguna!",
         "au_owner": "Propietario Subasta",
         "au_end": "Finaliza en",
