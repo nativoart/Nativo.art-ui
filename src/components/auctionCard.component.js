@@ -75,9 +75,9 @@ function AuctionCard(nft) {
 
   return (
     <>
-      <div className="w-full md:w-1/4 p-4  " key={nft.id}>
-        <a
-          href={"/auction/" + nft.id}
+      <div className="w-full md:w-1/2 lg:w-1/4 p-4">
+        <div
+          onClick={ e => window.location.href = "/auction/" + nft.id}  
         >
           <div className="flex flex-col  mb-10 md:mb-0  justify-center " >
             <div className="trending-token w-full rounded-20 hover:shadow-yellow1   hover:scale-105 ">
@@ -120,14 +120,14 @@ function AuctionCard(nft) {
                     </div>
                     <div className="text-black  text-lg  font-raleway font-normal   text-left text-ellipsis overflow-hidden whitespace-nowrap py-2 flex justify-around"><span className="font-semibold text-sm">{t("auction.au_price")} </span><span className="text-right text-orange  font-raleway font-bold rounded-ful">{fromYoctoToNear(nft.auction_base_requested)} NEAR</span> </div>
                     <div className="flex  w-full text-left justify-end">
-                      <div className="font-raleway text-xs text-right text-ellipsis overflow-hidden">{t("tokCollection.createdBy")} <a href={`profile/${nft.nft_owner}`} className="font-raleway text-xs font-bold text-blue2">{nft.nft_owner}</a></div>
+                    <div className="font-raleway text-xs text-right text-ellipsis overflow-hidden">{t("tokCollection.createdBy")} <a href={`profile/${nft.nft_owner}`} className="font-raleway text-xs font-bold text-blue2">{nft.nft_owner}</a></div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </a>
+        </div>
       </div>
     </>
   );
