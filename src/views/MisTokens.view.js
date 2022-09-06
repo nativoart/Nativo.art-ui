@@ -118,7 +118,6 @@ function MisTokens(props) {
       ...state,
       show: true,
       title: t("MyNFTs.modalAppTitle"),
-      message: t("MyNFTs.modalAppMsg"),
       loading: false,
       disabled: false,
       tokenID: tokenID,
@@ -957,20 +956,7 @@ function MisTokens(props) {
                                       <h2
                                         className={`tracking-widest text-sm title-font font-medium text-darkgray  invisible`}
                                       >{`${t("MyNFTs.cost")}+${':'}`}<span className="font-bold">{`${nft.price} ${nfts.currency}`}</span></h2>
-                                      <div className="text-center">
-                                        <a
-                                          href={"/detail/" + nft.tokenID}
-                                          className={`inline-block w-full text-md text-brown bg-white border-0 py-2 px-4 focus:outline-none hover:bg-yellow2 2 hover:text-white rounded-xlarge font-raleway font-medium `}
-                                        >{t("MyNFTs.detail")}</a>
-                                        <button
-                                          className={`mt-6 w-full text-md  text-brown bg-white border-0 py-2 px-4 focus:outline-none hover:bg-yellow2   rounded-xlarge hover:text-white font-raleway`}
-                                          onClick={async () => {
-                                            makeATransfer(nft.tokenID);
-                                          }}
-                                        >
-                                          {t("MyNFTs.transferButton")}
-                                        </button>
-                                        {nft.onSale ?
+                                      {nft.onSale ?
                                           <>
                                             <button
                                               className={` mt-6 w-full text-md  text-brown bg-white border-0 py-2 px-6 focus:outline-none hover:bg-yellow2 2 hover:text-white   rounded-xlarge hover:text-white font-raleway`}
@@ -991,17 +977,31 @@ function MisTokens(props) {
                                           </>
                                           :
                                           <div>
+                                            <div className=" mt-6 w-full text-md  bg-transparent py-2 px-6 h-[45px]"></div>
                                             <button
-                                              className={` mt-6 w-full text-md  text-brown bg-white border-0 py-2 px-6 focus:outline-none hover:bg-yellow2 2 hover:text-white  rounded-xlarge hover:text-white font-raleway`}
+                                              className={`mt-6 w-full text-md  text-brown bg-white border-0 py-2 px-6 focus:outline-none hover:bg-yellow2 2 hover:text-white  rounded-xlarge hover:text-white font-raleway`}
                                               onClick={() => {
                                                 makeAApproval(nft.tokenID, nftData.title, nftData.image, nftData.creator, nftData.description);
                                               }}
                                             >
                                               {t("MyNFTs.putSale")}
                                             </button>
-                                            <div className=" mt-6 w-full text-md  bg-transparent py-2 px-6 h-[45px]"></div>
                                           </div>
                                         }
+                                        <div className="text-center mt-6 ">
+                                        <a
+                                          href={"/detail/" + nft.tokenID}
+                                          className={`inline-block w-full text-md text-brown bg-white border-0 py-2 px-4 focus:outline-none hover:bg-yellow2 2 hover:text-white rounded-xlarge font-raleway font-medium `}
+                                        >{t("MyNFTs.detail")}</a>
+                                        <button
+                                          className={`mt-6 w-full text-md  text-brown bg-white border-0 py-2 px-4 focus:outline-none hover:bg-yellow2   rounded-xlarge hover:text-white font-raleway`}
+                                          onClick={async () => {
+                                            makeATransfer(nft.tokenID);
+                                          }}
+                                        >
+                                          {t("MyNFTs.transferButton")}
+                                        </button>
+                                        
 
                                       </div>
 
