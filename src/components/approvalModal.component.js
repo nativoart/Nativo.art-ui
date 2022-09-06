@@ -10,25 +10,36 @@ import {
   getSelectedAccount,
   fromETHtoWei,
 } from "../utils/blockchain_interaction";
+import { Tab,  RadioGroup } from "@headlessui/react";
 
 import { getNearContract, fromNearToYocto } from "../utils/near_interaction";
 import { useTranslation } from "react-i18next";
 
 //import { useHistory } from "react-router";
 
+const plans = [
+  {
+    name: 'Venta',
+  },
+  {
+    name: 'Subasta',
+  }
+]
+
 export default function ApprovalModal(props) {
   //const history = useHistory();
   const [state, setState] = useState({ disabled: false});
   const [t, i18n] = useTranslation("global")
   const [highestbidder, setHighestbidder] = useState(0);
-  
+  const [selected, setSelected] = useState(plans[0])
   useEffect(() => {
+    console.log('pros',props);
     if (props.tokens) {
       setHighestbidder(props.tokens.highestbidder);
     }
   });
-  
-  //Configuramos el formulario para ofertar por un token
+
+
   const formik = useFormik({
     initialValues: {
       terms: false,
@@ -113,7 +124,8 @@ export default function ApprovalModal(props) {
 
               <div
                 className={`flex flex-row justify-between bg-yellow2 flex items-start justify-center font-bold uppercase p-5 border-b border-solid border-yellowGray-200  text-white rounded-t-xlarge font-raleway`}>
-                <div className="font-raleway">{props.title} </div>
+                   
+    <div className="font-raleway">{props.title} </div>
                 <div><button
                   className={`  text-white  font-bold uppercase px-[20px]  text-sm font-raleway`}
                   type="button"
@@ -127,11 +139,73 @@ export default function ApprovalModal(props) {
                 </div>
               </div>
 
+
               <div className="relative p-6 flex flex-col ">
                 <div className="flex justify-center">
                   <p className=" my-4 text-center  leading-relaxed text-darkgray text-xl font-raleway">
                     {props.message}
                   </p>
+
+
+                </div>
+                <div className="flex relative xlarge justify-center">
+                                    <img
+                                      alt="gallery"
+                                      className=" w-[110px] h-[110px] md:w-[250px] md:h-[250px] object-contain object-center rounded-xlarge"
+                                      src={ "https://nativonft.mypinata.cloud/ipfs/" + props.media}
+                                    />
+                  </div>
+                <div className="flex justify-between  px-5">
+                      <label
+                        htmlFor="price"
+                        className="leading-7  text-darkgray text-sm font-raleway"
+                      >
+                        ¿Qué haras con este NFT?
+                      </label>
+                    </div>
+                <div className="flex flex-row w-full justify-center">
+                  <RadioGroup value={selected} onChange={setSelected} > 
+                    <div className="flex w-full">
+                      {plans.map((plan) => (
+                        <RadioGroup.Option
+                          key={plan.name}
+                          value={plan}
+                          className={({ active, checked }) =>
+                            `${active
+                              ? 'ring-2 ring-white  ring-offset-2 bg-yellow2'
+                              : ''
+                            }
+                  ${checked ? 'bg-yellow2  text-white' : 'bg-white'
+                            }
+                    relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none m-3 w-[150px]`
+                          }
+                        >
+                          {({ active, checked }) => (
+                            <>
+                              <div className="flex w-full items-center justify-between">
+                                <div className="flex items-center">
+                                  <div className="text-sm">
+                                    <RadioGroup.Label
+                                      as="p"
+                                      className={`font-medium px-2 ${checked ? 'text-white' : 'text-darkgray'
+                                        }`}
+                                    >
+                                      {plan.name}
+                                    </RadioGroup.Label>
+                                  </div>
+                                </div>
+                                {checked && (
+                                  <div className="shrink-0 text-white">
+                                    <CheckIcon className="h-6 w-6" />
+                                  </div>
+                                )}
+                              </div>
+                            </>
+                          )}
+                        </RadioGroup.Option>
+                      ))}
+                    </div>
+                  </RadioGroup>
                 </div>
 
                 {/* Formulario para ofertar */}
@@ -154,7 +228,7 @@ export default function ApprovalModal(props) {
                       ) : null}
                     </div>
 
-                    <div className="flex flex-row">
+                    <div className="flex flex-row m-auto">
                       <input
                         type="number"
                         id="price"
@@ -165,6 +239,7 @@ export default function ApprovalModal(props) {
                         className={`text-sm font-raleway border-none w-full bg-gray-100 bg-opacity-50 rounded   focus:bg-transparent  text-base outline-none text-darkgray py-1 px-3 leading-8 transition-colors duration-200 ease-in-out-${props.theme}-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out`}
                         {...formik.getFieldProps("price")}
                       />
+                      NEAR
                     </div>
                     <div className="mt-3">
                       <input type="checkbox" className="" name="terms" id="terms" {...formik.getFieldProps("terms")}/> <label className="text-sm text-darkgray">{t("Modal.accept")}</label>
@@ -202,4 +277,19 @@ export default function ApprovalModal(props) {
       </>
     )
   );
+}
+
+function CheckIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      <circle cx={12} cy={12} r={12} fill="#fff" opacity="0.2" />
+      <path
+        d="M7 13l3 3 7-7"
+        stroke="#fff"
+        strokeWidth={1.5}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
 }
