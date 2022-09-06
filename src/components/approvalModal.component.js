@@ -17,12 +17,12 @@ import { useTranslation } from "react-i18next";
 
 //import { useHistory } from "react-router";
 
-const plans = [
+const nftOptions = [
   {
-    name: 'Venta',
+    name: "sale"
   },
   {
-    name: 'Subasta',
+    name: "auction"
   }
 ]
 
@@ -31,9 +31,8 @@ export default function ApprovalModal(props) {
   const [state, setState] = useState({ disabled: false});
   const [t, i18n] = useTranslation("global")
   const [highestbidder, setHighestbidder] = useState(0);
-  const [selected, setSelected] = useState(plans[0])
+  const [selected, setSelected] = useState(nftOptions[0])
   useEffect(() => {
-    console.log('pros',props);
     if (props.tokens) {
       setHighestbidder(props.tokens.highestbidder);
     }
@@ -47,69 +46,69 @@ export default function ApprovalModal(props) {
     },
     validationSchema: Yup.object({
       price: Yup.number()
-        .required("Requerido")
-        .positive("El precio debe ser positivo")
-        .moreThan(0.09999999999999, "El precio minimo para el NFT es de 0.1")
-        .min(0.1, "El precio no debe de ser menor 0.1"),
+        .required(t("Modal.required"))
+        .positive(t("Modal.positive"))
+        .min(0.1, t("Modal.positive")),
       terms: Yup.bool()
-        .required("Requerido")
+        .required(t("Modal.required"))
     }),
     //Metodo para el boton ofertar del formulario
     onSubmit: async (values) => {
+      if (!values.terms) {
+        Swal.fire({
+          title: t("Modal.transAlert2"),
+          text: t("Modal.transAlert2Txt"),
+          icon: 'error',
+          confirmButtonColor: '#E79211'
+        })
+        return
+      }
+
       let ofertar;
-        let contract = await getNearContract();
+      let contract = await getNearContract();
+      let price = fromNearToYocto(values.price)
+
+
+      if (selected.name == "sale") {
         let amount = fromNearToYocto(0.01);
-        let price = fromNearToYocto(values.price)
-        let msgData = JSON.stringify({market_type:"on_sale", price: price, title: props.title, media: props.media, creator_id: props.creator, description: props.description})
+        let msgData = JSON.stringify({ market_type: "on_sale", price: price, title: props.title, media: props.media, creator_id: props.creator, description: props.description })
         let payload = {
           token_id: props.tokenID,
           account_id: process.env.REACT_APP_CONTRACT_MARKET,
           msg: msgData
-        }
-        console.log(payload)
-        if(!values.terms){
-          Swal.fire({
-            title: t("Modal.transAlert2"),
-            text: t("Modal.transAlert2Txt"),
-            icon: 'error',
-            confirmButtonColor: '#E79211'
-          })
-          return
         }
         let approval = contract.nft_approve(
           payload,
           300000000000000,
           amount
         )
-        
+      }
 
-   
-        
-      // if (highestbidder != 'notienealtos') {
-      //   if (bigAmount <= BigInt(highestbidder)) {
-      //     Swal.fire({
-      //       title: 'El Precio es menor a la ultima oferta',
-      //       text: 'Para poder ofertar por este NFT es necesario que el precio mayor a la ultima oferta',
-      //       icon: 'error',
-      //       confirmButtonColor: '#E79211'
-      //     })
-      //     return
-      //   }
-      // }
-        
+      if (selected.name == "auction") {
+        console.log('props subasta',props);
+        let msgobj = {
+          auction_amount_requested: fromNearToYocto(values.price)
+        }
 
-        
-      //   ofertar = await contract.market_bid_generic(
-      //     payload,
-      //     300000000000000, // attached GAS (optional)
-      //     bigAmount.toString()//amount
-      //   ).
-      //   catch(e=>{
-      //     console.log('error',e);
-      //   });
-      
+        let payload = {
+          receiver_id: process.env.REACT_APP_CONTRACT_AUCTIONS,
+          token_id: props.tokenID,
+          msg: JSON.stringify(msgobj)
+        }
 
-      // setState({ disabled: false });
+        let amountVal = values.price;
+        let amount = fromNearToYocto(amountVal);
+        let bigAmount = BigInt(amount);
+        try {
+          let res = await contract.nft_transfer_call(
+            payload,
+            300000000000000,
+            1,
+          );
+        } catch (err) {
+          console.log('err', err);
+        }
+      }
     },
   });
 
@@ -155,21 +154,21 @@ export default function ApprovalModal(props) {
                                       src={ "https://nativonft.mypinata.cloud/ipfs/" + props.media}
                                     />
                   </div>
-                <div className="flex justify-between  px-5">
+                <div className="flex justify-between  md:px-5">
                       <label
                         htmlFor="price"
                         className="leading-7  text-darkgray text-sm font-raleway"
                       >
-                        ¿Qué haras con este NFT?
+                        {t("Modal.action")}
                       </label>
                     </div>
                 <div className="flex flex-row w-full justify-center">
                   <RadioGroup value={selected} onChange={setSelected} > 
                     <div className="flex w-full">
-                      {plans.map((plan) => (
+                      {nftOptions.map((option) => (
                         <RadioGroup.Option
-                          key={plan.name}
-                          value={plan}
+                          key={option.name}
+                          value={option}
                           className={({ active, checked }) =>
                             `${active
                               ? 'ring-2 ring-white  ring-offset-2 bg-yellow2'
@@ -177,7 +176,7 @@ export default function ApprovalModal(props) {
                             }
                   ${checked ? 'bg-yellow2  text-white' : 'bg-white'
                             }
-                    relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none m-3 w-[150px]`
+                    relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none m-3 w-[120px] md:w-[150px]`
                           }
                         >
                           {({ active, checked }) => (
@@ -190,7 +189,7 @@ export default function ApprovalModal(props) {
                                       className={`font-medium px-2 ${checked ? 'text-white' : 'text-darkgray'
                                         }`}
                                     >
-                                      {plan.name}
+                                      {t(`Modal.${option.name}`)}
                                     </RadioGroup.Label>
                                   </div>
                                 </div>
@@ -214,7 +213,7 @@ export default function ApprovalModal(props) {
                   className="grid grid-cols-1 divide-y flex px-5 py-15 md:flex-row flex-col items-center text-sm font-raleway"
                 >
                   <div>
-                    <div className="flex justify-between ">
+                    <div className="flex justify-between items-center">
                       <label
                         htmlFor="price"
                         className="leading-7  text-darkgray text-sm font-raleway"
@@ -228,7 +227,7 @@ export default function ApprovalModal(props) {
                       ) : null}
                     </div>
 
-                    <div className="flex flex-row m-auto">
+                    <div className="flex m-auto items-center">
                       <input
                         type="number"
                         id="price"

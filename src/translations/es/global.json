@@ -160,7 +160,7 @@
         "load-2" : "Aún no tienes NFTs... Crea o adquiere uno para comenzar",
         "load-3" : "Aún no tienes creaciones",
         "load-4" : "Aún no has creado colecciones :0",
-        "putSale" : "Poner en venta / subastar",
+        "putSale" : "Poner en venta / Subastar",
         "cost" : "Costo",
         "transferButton": "Transferir NFT",
         "modalTransTitle": "Transferir NFT",
@@ -294,7 +294,12 @@
         "offerAlert2Txt-2" : "Para poder ofertar por un NFT es necesario que la oferta sea menor al precio de venta",
         "priceAlert" : "Precio no valido",
         "priceAlertTxt" : "El precio que deseas cambiar debe ser menor o mayor al actual",
-        "transfer": "Transferir"
+        "transfer": "Transferir",
+        "sale": "Vender",
+        "auction": "Subastar",
+        "action": "¿Qué quieres hacer con este NFT?",
+        "required" : "Requerido",
+        "positive" :  "El precio debe ser mayor a 0.1"
     },
     "Profile" : {
         "title" : "Crear perfil",
