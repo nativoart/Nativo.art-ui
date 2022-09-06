@@ -19,6 +19,7 @@ import Perfil from "./views/Perfil.view";
 import Auctions from "./views/Auctions.view";
 import creCol from "./views/createColl"
 import Collections from "./views/collectionGallery"
+import Community from "./views/community"
 import TokensCollection from "./views/tokensCollection"
 import SalesGallery from "./views/salesGallery"
 import ProfileData from "./views/profileData"
@@ -67,7 +68,6 @@ class App extends Component {
     return (
       <>
         <Router>
-          <ColorBar/>
           <Navbar theme={this.state.theme} />
           <Switch>
             <Route exact path="/" component={Landing} />
@@ -78,6 +78,7 @@ class App extends Component {
             <Route path="/gallery" component={Gallery} />
             <Route path="/market" component={SalesGallery} />
             <Route path="/collections" component={Collections} />
+            <Route path="/community" component={Community} />
             <Route path="/collection/:data" component={TokensCollection} />
             <Route path="/perfil/:tokenid" component={Perfil} />
             <Route path="/auctions" component={Auctions} />

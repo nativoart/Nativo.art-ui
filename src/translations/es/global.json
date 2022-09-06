@@ -1,10 +1,10 @@
 {
     "Landing": {
-        "title" : "Colecciona NFTs ",
-        "title-2" : "en NEAR Protocol",
-        "subtitle" : "¡Nos actualizamos! Ahora puedes recibir pagos de regalías de tus NFT’s.",
+        "title" : "Crea, compra y gana",
+        "title-2" : "con tus NFT's",
+        "subtitle" : "La plataforma de Finanzas Descentralizadas que permite usar NFT's como garantía",
         "btnCollections" : "Colecciones",
-        "gallery" : "Explorar Galería",
+        "gallery" : "Explorar",
         "useNear" : "Utiliza tu Near wallet",
         "useNear-sub" : "Con ellas podrás comprar tus NFTs e ingresa a tu panel",
         "artist" : "Como artista crea nuevos NFT",
@@ -43,7 +43,11 @@
         "logout" : "Salir",
         "createCollection" : "Crear Colección",
         "logoin" : "Iniciar",
-        "auctions": "Subastas"
+        "finance" : "Finanzas",
+        "auctions" : "Subastas",
+        "loans" : "Prestamos",
+        "community" : "Comunidad",
+        "staking" : "Staking"
     },
     "Footer" : {
         "made" : "Hecho con:",
@@ -82,7 +86,8 @@
         "load-1" : "Cargando, por favor espere",
         "load-2" : "Actualmente no hay colecciones disponibles",
         "end" : "No hay más colecciones para mostrar",
-        "noData" : "No hay colecciones actualmente"
+        "noData" : "No hay colecciones actualmente",
+        "title" : "Colecciones"
     },
     "tokCollection" : {
         "creator" : "Creador",
@@ -103,7 +108,9 @@
         "hasTok" : "La coleccion no tiene NFTs actualmente",
         "seeMore" : "...Ver más",
         "seeLess" : "Ver menos",
-        "search" : "Busca por: Cuenta ó Título.."
+        "search" : "Busca por: Cuenta ó Título..",
+        "markTitle" : "Mercado",
+        "markOwn" : "Dueño:"
     },
     "Detail" : {
         "collection" : "Colección",
@@ -202,7 +209,7 @@
         "err3-msg" : "La descripción de la colección debe de tener minimo 30 caracteres",
         "succ-title" : "Colección creada",
         "succ-msg" : "Tu colección ha sido creada",
-        "placeTitle" : "Min. 10 Caracteres",
+        "placeTitle" : "Min. 1 Caracter",
         "placeDesc" : "Min. 30 Caracteres",
         "lblIcon-1" : "Maximo 5mb, formatos aceptados .jpg, .gif, .png, .webp",
         "errSize-1" : "El tamaño no puede superar los 5mb",
@@ -215,7 +222,11 @@
         "vis-msg" : "Da clic aqui para mostrar u ocultar tu coleccion",
         "title2" : "Editar coleccion",
         "editBtn" : "Editar coleccion",
-        "idCol" : "ID de la coleccion:"
+        "idCol" : "ID de la coleccion:",
+        "swEditedTit" : "Se ha editado la colección",
+        "swEditedDesc" : "La colección ha sido editada con exito",
+        "swCreatedTit" : "La colección ha sido creada con exito",
+        "swCreatedDesc" : "Seras redirigido a mis NFTs para que agregues tus NFTs a la colección"
     },
     "MintNFT" : {
         "maxTitle" : "Menos de 60 caracteres",
