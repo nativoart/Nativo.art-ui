@@ -665,19 +665,6 @@ function LightEcommerceB(props) {
                          
 
                 <div>
-                  
-                {
-                    stateLogin && state?.owner == state?.ownerAccount? 
-                    <button
-                    className={`w-full m-2 lg:w-40 content-center justify-center text-center  text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none hover:bg-yellow rounded-xlarge font-raleway font-medium`}
-                    onClick={async () => {
-                      makeAnAuction();
-                    }}
-                  >
-                    {t("Detail.auction")}
-                  </button>
-                   : ""
-                }
                 </div>
                 </div>
               </div>
