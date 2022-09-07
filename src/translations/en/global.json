@@ -348,7 +348,7 @@
         "au_owner": "Auction Owner",
         "au_end": "Ends on",
         "au_status": "Status",
-        "au_price": "Initial Price",
+        "au_price": "Starting bid",
         "au_contract": "Contract",
         "au_loading": "Auctions Loading",
         "au_finish": "Finish",
@@ -384,7 +384,8 @@
         "au_endsOn" : "Already finished",
         "au_claimedBy" : "NFT claimed by",
         "au_claimedPrice" : "with",
-        "au_biddedAt": "Date"
+        "au_biddedAt": "Date",
+        "au_highestbid": "Highest bid"
     },
     "auctionModal" : {
         "au_title" : "Make a Bid",

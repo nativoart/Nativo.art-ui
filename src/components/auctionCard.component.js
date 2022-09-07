@@ -118,10 +118,24 @@ function AuctionCard(nft) {
 
                       </div>
                     </div>
-                    <div className="text-black  text-lg  font-raleway font-normal   text-left text-ellipsis overflow-hidden whitespace-nowrap py-2 flex justify-around"><span className="font-semibold text-sm">{t("auction.au_price")} </span><span className="text-right text-orange  font-raleway font-bold rounded-ful">{fromYoctoToNear(nft.auction_base_requested)} NEAR</span> </div>
-                    <div className="flex  w-full text-left justify-end">
-                    <div className="font-raleway text-xs text-right text-ellipsis overflow-hidden">{t("tokCollection.createdBy")} <a href={`profile/${nft.nft_owner}`} className="font-raleway text-xs font-bold text-blue2">{nft.nft_owner}</a></div>
-                    </div>
+                    {nft.bidder_id != null ?
+                      <>
+                        <div className="text-black  text-lg  font-raleway font-normal   text-left text-ellipsis overflow-hidden whitespace-nowrap py-2 flex justify-around"><span className="font-semibold text-sm">
+                        {t("auction.au_highestbid")} </span>
+                          <span className="text-right text-orange  font-raleway font-bold rounded-ful">{fromYoctoToNear(nft.auction_payback)} NEAR</span>
+                        </div>
+                        <div className="flex  w-full text-left justify-end">
+                          <div className="font-raleway text-xs text-right text-ellipsis overflow-hidden">{t("tokCollection.createdBy")} <a href={`profile/${nft.nft_owner}`} className="font-raleway text-xs font-bold text-blue2">{nft.nft_owner}</a></div>
+                        </div>
+                      </> :
+                      <><div className="text-black  text-lg  font-raleway font-normal   text-left text-ellipsis overflow-hidden whitespace-nowrap py-2 flex justify-around"><span className="font-semibold text-sm">
+                        {t("auction.au_price")} </span>
+                        <span className="text-right text-orange  font-raleway font-bold rounded-ful">{fromYoctoToNear(nft.auction_base_requested)} NEAR</span>
+                      </div>
+                        <div className="flex  w-full text-left justify-end">
+                          <div className="font-raleway text-xs text-right text-ellipsis overflow-hidden">{t("tokCollection.createdBy")} <a href={`profile/${nft.nft_owner}`} className="font-raleway text-xs font-bold text-blue2">{nft.nft_owner}</a></div>
+                        </div>
+                      </>}
                   </div>
                 </div>
               </div>
