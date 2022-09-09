@@ -356,6 +356,7 @@
         "au_subtitle" : "Aquí podrás encontrar todas las subastas y ofertar por alguna!",
         "au_owner": "subastado por",
         "au_end": "Finaliza en",
+        "au_canceled": "Cancelado",
         "au_status": "Estatus",
         "au_price": "Precio inicial",
         "au_contract": "Contrato",

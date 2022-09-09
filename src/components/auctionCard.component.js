@@ -15,29 +15,38 @@ function AuctionCard(nft) {
   });
 
   // Random component
-  const Completionist = () => <div className="flex flex-col">
-    <div className="m-auto text-base">{t("auction.au_endsOn")}</div>
-  </div>;
+  const Completionist = () => 
+    <div className="text-black text-sm font-raleway font-normal text-left text-ellipsis overflow-hidden whitespace-nowrap ">
+      <div className="flex w-full">
+        <div className="flex m-auto">
+          <div className="m-auto text-base">{t("auction.au_endsOn")}</div>
+        </div>
+      </div>
+    </div>;
 
   // Renderer callback with condition
   const renderer = ({ hours, minutes, seconds, completed }) => {
     if (completed) {
       // Render a completed state
-      return <Completionist />;
+      return "";
     } else {
       // Render a countdown
-      return <div className="flex flex-row w-full">
-        <div className="flex flex-col w-1/3">
-          <div className="font-bold m-auto text-lg md:text-xl ">{hours}</div>
-          <div className="m-auto text-xs md:text-md">{t("auction.au_hours")}</div>
-        </div>
-        <div className="flex flex-col w-1/3">
-          <div className="font-bold m-auto text-lg md:text-xl ">{minutes}</div>
-          <div className="m-auto text-xs md:text-md">{t("auction.au_minutes")}</div>
-        </div>
-        <div className="flex flex-col w-1/3">
-          <div className="font-bold m-auto text-lg md:text-xl ">{seconds}</div>
-          <div className="m-auto text-xs md:text-md">{t("auction.au_seconds")}</div>
+      return <div className="text-black text-sm font-raleway font-normal text-left text-ellipsis overflow-hidden whitespace-nowrap "><span className="text-xs">{t("auction.au_end")} </span>
+        <div className="flex w-full">
+          <div className="flex flex-row w-full">
+            <div className="flex flex-col w-1/3">
+              <div className="font-bold m-auto text-lg md:text-xl ">{hours}</div>
+              <div className="m-auto text-xs md:text-md">{t("auction.au_hours")}</div>
+            </div>
+            <div className="flex flex-col w-1/3">
+              <div className="font-bold m-auto text-lg md:text-xl ">{minutes}</div>
+              <div className="m-auto text-xs md:text-md">{t("auction.au_minutes")}</div>
+            </div>
+            <div className="flex flex-col w-1/3">
+              <div className="font-bold m-auto text-lg md:text-xl ">{seconds}</div>
+              <div className="m-auto text-xs md:text-md">{t("auction.au_seconds")}</div>
+            </div>
+          </div>
         </div>
       </div>
         ;
@@ -101,23 +110,29 @@ function AuctionCard(nft) {
                 <div className="px-6  flex flex-col w-full ">
                   <div className="flex justify-around flex-col">
 
-                    <div className="text-black text-sm font-raleway font-normal text-left text-ellipsis overflow-hidden whitespace-nowrap "><span className="text-xs">{t("auction.au_end")} </span>
-                      <div className="flex w-full">
-                      {nft.status != 'Canceled' ?
-                                    <>
-                                      <Countdown
-                                      date={dayjs.unix(nft.auction_deadline)}
-                                       renderer={renderer}
-                                      />
-                                  </> : 
-                                    <>
-                                    <div className="flex flex-col">
-                                      <div className="m-auto text-base">{t("auction.au_endsOn")}</div>
-                                    </div>
-                                    </>}
-
+                    {nft.status != 'Canceled' ||  nft.status != 'Claimed' ?
+                      <>
+                        <Countdown
+                          date={dayjs.unix(nft.auction_deadline)}
+                          renderer={renderer} />
+                      </> :  <> 
+                   </> }
+                    {nft.status == 'Canceled' ?
+                      <div className="text-black text-sm font-raleway font-normal text-left text-ellipsis overflow-hidden whitespace-nowrap "><span className="text-xs">{t("auction.au_status")} </span>
+                        <div className="flex w-full">
+                          <div className="m-auto text-base"> {t("auction.au_canceled")}</div>
+                        </div>
                       </div>
-                    </div>
+                      : ""
+                    }
+                    {nft.status == 'Claimed' ?
+                      <div className="text-black text-sm font-raleway font-normal text-left text-ellipsis overflow-hidden whitespace-nowrap "><span className="text-xs">{t("auction.au_claimedBy")} </span>
+                        <div className="flex w-full justify-center">
+                          <div className="m-auto text-base"> <span className="mx-1">{" " + nft.bidder_id + " "}</span> </div>
+                        </div>
+                      </div>
+                      : ""
+                    }
                     {nft.bidder_id != null ?
                       <>
                         <div className="text-black  text-lg  font-raleway font-normal   text-left text-ellipsis overflow-hidden whitespace-nowrap py-2 flex justify-around"><span className="font-semibold text-sm">
@@ -125,7 +140,7 @@ function AuctionCard(nft) {
                           <span className="text-right text-orange  font-raleway font-bold rounded-ful">{fromYoctoToNear(nft.auction_payback)} NEAR</span>
                         </div>
                         <div className="flex  w-full text-left justify-end">
-                          <div className="font-raleway text-xs text-right text-ellipsis overflow-hidden">{t("tokCollection.createdBy")} <a href={`profile/${nft.nft_owner}`} className="font-raleway text-xs font-bold text-blue2">{nft.nft_owner}</a></div>
+                          <div className="font-raleway text-xs text-right text-ellipsis overflow-hidden  whitespace-nowrap">{t("tokCollection.createdBy")} <a href={`profile/${nft.nft_owner}`} className="font-raleway text-xs font-bold text-blue2">{nft.nft_owner}</a></div>
                         </div>
                       </> :
                       <><div className="text-black  text-lg  font-raleway font-normal   text-left text-ellipsis overflow-hidden whitespace-nowrap py-2 flex justify-around"><span className="font-semibold text-sm">
@@ -133,7 +148,7 @@ function AuctionCard(nft) {
                         <span className="text-right text-orange  font-raleway font-bold rounded-ful">{fromYoctoToNear(nft.auction_base_requested)} NEAR</span>
                       </div>
                         <div className="flex  w-full text-left justify-end">
-                          <div className="font-raleway text-xs text-right text-ellipsis overflow-hidden">{t("tokCollection.createdBy")} <a href={`profile/${nft.nft_owner}`} className="font-raleway text-xs font-bold text-blue2">{nft.nft_owner}</a></div>
+                          <div className="font-raleway text-xs text-right text-ellipsis overflow-hidden  whitespace-nowrap">{t("tokCollection.createdBy")} <a href={`profile/${nft.nft_owner}`} className="font-raleway text-xs font-bold text-blue2">{nft.nft_owner}</a></div>
                         </div>
                       </>}
                   </div>
