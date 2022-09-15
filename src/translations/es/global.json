@@ -335,7 +335,7 @@
         "search": "Buscar",
         "searchNftById": "Buscar NFT por ID",
         "modalSearch": "No podemos encontrar ese NFT",
-        "modalSearchText": "Busca por otro ID"
+        "modalSearchText": "Busca por otro ID o Contrato"
     },
     "auctions" : {
         "au_title" : "Subastas",
@@ -349,7 +349,8 @@
         "au_contract": "Contrato",
         "au_loading": "Cargando subastas",
         "au_finish": "Ya terminaron",
-        "au_notAvailable": "No hay subastas disponibles"
+        "au_notAvailable": "No hay subastas disponibles",
+        "au_otherSitesbutton": "¿Quieres subastar NFT de otros sitios?"
     },
     "auction" : {
         "au_title" : "Subastas",
@@ -406,6 +407,15 @@
         "au_moreThan": "El precio minimo para el NFT es de 0.1",
         "au_minThan" : "El precio no debe de ser menor 0.1",
         "au_basePrice": "Precio base"
+    },
+    "otherSitesAuctionModal" : {
+        "contract" : "Contrato",
+        "tokenID" : "ID token",
+        "note" : "Nota",
+        "typeNFTID" : "ID del NFT",
+        "typeContract" : "Contrato",
+        "putOnAuction": "Subastar"
     }
+
 
 }
