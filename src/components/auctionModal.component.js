@@ -39,7 +39,7 @@ export default function AuctionModal(props) {
     },
     validationSchema: Yup.object({
       price: Yup.number()
-        .required(t("auctionModal.Required") )
+        .required(t("auctionModal.au_required") )
         .positive(t("auctionModal.au_required"))
         .moreThan(0.09999999999999, t("auctionModal.au_moreThan"))
         .min(0.1, t("auctionModal.au_minThan")),

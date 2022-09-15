@@ -1,8 +1,13 @@
 import  React, {useState, useEffect} from "react";
 import {
   getNearAccount,
-  ext_view,
-  fromYoctoToNear
+  getNearContract,
+  fromYoctoToNear,
+  fromNearToYocto,
+  ext_call,
+  getNFTContractsByAccount,
+  getNFTByContract,
+  ext_view
 } from "../utils/near_interaction";
 import InfiniteScroll from "react-infinite-scroll-component";
 import dayjs from 'dayjs';
@@ -10,6 +15,8 @@ import { useTranslation } from "react-i18next";
 import AuctionCard from "../components/auctionCard.component";
 import { Tab  } from "@headlessui/react";
 import MyAuctions from "./MyAuctions.view";
+import OtherSitesAuctionModal from "../components/otherSitesAuctionModal.component";
+import SearchNftsModal from "../components/searchNftByContractModal.component";
 
 function Auctions() {
 
@@ -25,7 +32,11 @@ function Auctions() {
     tokensPerPage: 9
   });
   const [account, setAccount] = React.useState("");
-
+  const [modalOtherSitesAuction, setModalOtherSitesAuction] = useState({
+    //state para la ventana modal
+    show: false,
+  });
+  const [allNfts, setAllNfts] = useState({nfts:[],contracts:[]});
 
   useEffect(() => {
     (async () => {
@@ -35,6 +46,7 @@ function Auctions() {
       let payload = {};
       let total = [];
       total = await ext_view(contract, 'get_auctions_stats', payload)
+      await getContractsByAccount(account);
 
       if ((total.total_auctions-1) >= 0) {
         if((total.total_auctions-1)<=Landing.tokensPerPage){
@@ -107,21 +119,79 @@ function Auctions() {
     setAuctions({ ...auctions, all: auctions.all.concat(all_auctions.reverse())});
   }
 
+  async function getContractsByAccount(account){
+    let contracts = await getNFTContractsByAccount(account).catch(data=>{
+      console.log('data contracts',data);
+      
+    });
+    console.log('contratos',contracts);
+    
+    let allNfts = [];
+
+
+    for await (let [i, contract] of contracts.entries()) {
+      console.log('dentro de contratos',contract+i);
+     let nfts = await getNFTByContract(contract, account).catch(data=>{
+        console.log('data contracts',data);
+      });
+
+      let obj = {
+        contract : contract,
+        contractNfts: nfts
+      }
+
+      allNfts.push(obj);
+    }
+
+    setAllNfts({nfts: allNfts, contracts: contracts});
+
+      
+  }
+
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
   
       
+  async function makeOtherSitesAuction(e){
+    console.log('target',e);
+    setModalOtherSitesAuction({
+      ...modalOtherSitesAuction,
+      show: true,
+      tokenId: "1",
+      currency: "1",
+      blockchain: "1",
+      message: t("auctions.au_otherSitesbutton") ,
+      title: t("auctions.au_otherSitesbutton")  ,
+      buttonName: "X",
+      change: setModalOtherSitesAuction,
+      contracts: allNfts.contracts
+    });
+   
+  
+}
 
 
   
   return (
     <section className="text-gray-600 body-font  dark:bg-darkgray ">
       <div className="flex flex-col text-center w-full">
-        <div className="w-full h-[30px] flex my-8 justify-center">
-          <p className="text-3xl lg:text-6xl font-black   dark:text-white  bg-darkgray m-0 px-10 font-raleway uppercase self-center">
+        <div className="w-full h-[30px] flex flex-col md:flex-row my-8 justify-center">
+          <p className=" text-3xl lg:text-6xl font-black   dark:text-white  bg-darkgray m-0 px-10 font-raleway uppercase self-center">
           {t("auctions.au_title")}
           </p>
+          <div className="">
+          {account ? <button
+                  className={`ml-auto text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none w-[320px] md:w-auto rounded-xlarge font-raleway font-medium relative md:absolute right-1 -mt-[5px] text-xs md:text-sm`}
+                  style={{ justifyContent: "center" }}
+                  // disabled={state?.tokens.onSale}
+                  onClick={async () => {
+                    makeOtherSitesAuction();
+                  }}>
+                  
+                  {t("auctions.au_otherSitesbutton")}
+          </button> : ""}
+          </div>
         </div>
         <p className="lg:w-full leading-relaxed text-base bg-white text-darkgray font-raleway">
         {t("auctions.au_subtitle")}
@@ -185,7 +255,7 @@ function Auctions() {
           >
             {auctions.all.map((nft, key) => {
               return (
-                <AuctionCard {...nft} key={key}></AuctionCard>
+                <AuctionCard {...nft} key={nft.tokenId}></AuctionCard>
               )
             })}
             </InfiniteScroll>
@@ -208,6 +278,8 @@ function Auctions() {
         </Tab.Group>
 
           </div>
+          {/*<OtherSitesAuctionModal {...modalOtherSitesAuction} />*/}
+          <SearchNftsModal {...modalOtherSitesAuction}/>
       </section>
   );
 }
