@@ -14,6 +14,7 @@ import { Tab,  RadioGroup } from "@headlessui/react";
 
 import { getNearContract, fromNearToYocto } from "../utils/near_interaction";
 import { useTranslation } from "react-i18next";
+import { useWalletSelector } from "../utils/walletSelector";
 
 //import { useHistory } from "react-router";
 
@@ -28,6 +29,7 @@ const nftOptions = [
 
 export default function ApprovalModal(props) {
   //const history = useHistory();
+  const { selector, modal, accounts, accountId } = useWalletSelector();
   const [state, setState] = useState({ disabled: false});
   const [t, i18n] = useTranslation("global")
   const [highestbidder, setHighestbidder] = useState(0);
