@@ -15,6 +15,7 @@ import { Tab,  RadioGroup } from "@headlessui/react";
 import { getNearContract, fromNearToYocto } from "../utils/near_interaction";
 import { useTranslation } from "react-i18next";
 import { useWalletSelector } from "../utils/walletSelector";
+import { providers, utils } from "near-api-js";
 
 //import { useHistory } from "react-router";
 
@@ -29,7 +30,7 @@ const nftOptions = [
 
 export default function ApprovalModal(props) {
   //const history = useHistory();
-  const { selector, modal, accounts, accountId } = useWalletSelector();
+  const { selector, modal, accounts, accountId } = useWalletSelector(); 
   const [state, setState] = useState({ disabled: false});
   const [t, i18n] = useTranslation("global")
   const [highestbidder, setHighestbidder] = useState(0);
@@ -79,11 +80,27 @@ export default function ApprovalModal(props) {
           account_id: process.env.REACT_APP_CONTRACT_MARKET,
           msg: msgData
         }
-        let approval = contract.nft_approve(
+        /*let approval = contract.nft_approve(
           payload,
           300000000000000,
           amount
-        )
+        )*/
+        const wallet = await selector.wallet();
+        wallet.signAndSendTransaction({
+          signerId: accountId,
+          receiverId: process.env.REACT_APP_CONTRACT_MARKET,
+          actions: [
+            {
+              type: "FunctionCall",
+              params: {
+                methodName: "nft_approve",
+                args: payload,
+                gas: 300000000000000,
+                deposit: amount,
+              }
+            }
+          ]
+        })
       }
 
       if (selected.name == "auction") {
@@ -102,11 +119,27 @@ export default function ApprovalModal(props) {
         let amount = fromNearToYocto(amountVal);
         let bigAmount = BigInt(amount);
         try {
-          let res = await contract.nft_transfer_call(
+          /*let res = await contract.nft_transfer_call(
             payload,
             300000000000000,
             1,
-          );
+          );*/
+          const wallet = await selector.wallet();
+          wallet.signAndSendTransaction({
+            signerId: accountId,
+            receiverId: process.env.REACT_APP_CONTRACT,
+            actions: [
+              {
+                type: "FunctionCall",
+                params: {
+                  methodName: "nft_transfer_call",
+                  args: payload,
+                  gas: 300000000000000,
+                  deposit: 1,
+                }
+              }
+            ]
+          })
         } catch (err) {
           console.log('err', err);
         }

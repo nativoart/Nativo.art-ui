@@ -14,6 +14,8 @@ import dayjs from 'dayjs';
 
 import { getNearContract, fromNearToYocto, fromYoctoToNear, ext_call } from "../utils/near_interaction";
 import { useTranslation } from "react-i18next";
+import { useWalletSelector } from "../utils/walletSelector";
+import { providers, utils } from "near-api-js";
 
 //import { useHistory } from "react-router";
 
@@ -26,6 +28,7 @@ export default function AuctionModal(props) {
     //state para la ventana modal
     show: false,
   });
+  const { selector, modal, accounts, accountId } = useWalletSelector(); 
   
   useEffect(() => {
     console.log('dentro de la modal de Auction');
@@ -77,11 +80,27 @@ export default function AuctionModal(props) {
         }
         console.log('pyload', payload);
         try {
-          let res = await contract.nft_transfer_call(
+          /*let res = await contract.nft_transfer_call(
             payload,
             300000000000000,
             1,
-          );
+          );*/
+          const wallet = await selector.wallet();
+          wallet.signAndSendTransaction({
+            signerId: accountId,
+            receiverId: process.env.REACT_APP_CONTRACT_MARKET,
+            actions: [
+              {
+                type: "FunctionCall",
+                params: {
+                  methodName: "nft_transfer_call",
+                  args: payload,
+                  gas: 300000000000000,
+                  deposit: 1,
+                }
+              }
+            ]
+          })
         } catch (err) {
           console.log('err', err);
         }

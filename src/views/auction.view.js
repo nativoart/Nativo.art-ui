@@ -13,12 +13,15 @@ import { useTranslation } from "react-i18next";
 import { date } from "yup";
 import { Accordion } from 'react-bootstrap-accordion'
 import 'react-bootstrap-accordion/dist/index.css'
+import { useWalletSelector } from "../utils/walletSelector";
+import { providers, utils } from "near-api-js";
 
 function AuctionFunction(props) {
   const [auction, setAuction] = useState({});
   const [auctionBids, setAuctionBids] = useState([]);
   const [account, setAccount] = useState({account : ""});
   const [t, i18n] = useTranslation("global")
+  const { selector, modal, accounts, accountId } = useWalletSelector(); 
   //setting state for the offer modal
   const [bidModal, setBidModal] = useState({
     show: false,
@@ -42,8 +45,34 @@ function AuctionFunction(props) {
         auction_id: parseInt(params.tokenid)
       }
 
-      let auction = await ext_view(contract, 'get_nft_auction', payload);
-      let auctionBids = await ext_view(contract, 'get_bid_auction', payload);
+       //let auction = await ext_view(contract, 'get_nft_auction', payload);
+      const args_b64 = btoa(JSON.stringify(payload))
+     
+      const { network } = selector.options;
+      const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+
+      const res = await provider.query({
+          request_type: "call_function",
+          account_id: contract,
+          method_name: "get_nft_auction",
+          args_base64: args_b64,
+          finality: "optimistic",
+        })
+        console.log(res)
+      console.log(JSON.parse(Buffer.from(res.result).toString()))
+      let auction = JSON.parse(Buffer.from(res.result).toString())
+
+      //let auctionBids = await ext_view(contract, 'get_bid_auction', payload);
+      const res2 = await provider.query({
+        request_type: "call_function",
+        account_id: process.env.REACT_APP_CONTRACT_AUCTIONS,
+        method_name: "get_bid_auction",
+        args_base64: args_b64,
+        finality: "optimistic",
+      })
+    let auctionBids = JSON.parse(Buffer.from(res2.result).toString())
+
+
       console.log('auction', auction);
       console.log('auction_bids', auctionBids);
       setAuction({ ...auction, auction });
@@ -76,13 +105,45 @@ function AuctionFunction(props) {
       let payload = {
         auction_id: auction.id
       }
-      ext_call(process.env.REACT_APP_CONTRACT_AUCTIONS, 'withdraw_nft_owner', payload, 300000000000000, 1);
+      //ext_call(process.env.REACT_APP_CONTRACT_AUCTIONS, 'withdraw_nft_owner', payload, 300000000000000, 1);
+      const wallet = await selector.wallet();
+      wallet.signAndSendTransaction({
+        signerId: accountId,
+        receiverId: process.env.REACT_APP_CONTRACT_AUCTIONS,
+        actions: [
+          {
+            type: "FunctionCall",
+            params: {
+              methodName: "withdraw_nft_owner",
+              args: payload,
+              gas: 300000000000000,
+              deposit: 1,
+            }
+          }
+        ]
+      })
     } else {
       /*Hay oferta y cancela el bidder*/
       let payload = {
         auction_id: auction.id
       }
-      ext_call(process.env.REACT_APP_CONTRACT_AUCTIONS, 'withdraw_bid_bidder', payload, 300000000000000, 1);
+      //ext_call(process.env.REACT_APP_CONTRACT_AUCTIONS, 'withdraw_bid_bidder', payload, 300000000000000, 1);
+      const wallet = await selector.wallet();
+      wallet.signAndSendTransaction({
+        signerId: accountId,
+        receiverId: process.env.REACT_APP_CONTRACT_AUCTIONS,
+        actions: [
+          {
+            type: "FunctionCall",
+            params: {
+              methodName: "withdraw_bid_bidder",
+              args: payload,
+              gas: 300000000000000,
+              deposit: 1,
+            }
+          }
+        ]
+      })
     }
   }
 
@@ -96,7 +157,23 @@ function AuctionFunction(props) {
       auction_id: auction.id
     }
 
-    ext_call(process.env.REACT_APP_CONTRACT_AUCTIONS, 'claim_nft_winner', payload, 300000000000000, 1)
+    //ext_call(process.env.REACT_APP_CONTRACT_AUCTIONS, 'claim_nft_winner', payload, 300000000000000, 1)
+    const wallet = await selector.wallet();
+    wallet.signAndSendTransaction({
+      signerId: accountId,
+      receiverId: process.env.REACT_APP_CONTRACT_AUCTIONS,
+      actions: [
+        {
+          type: "FunctionCall",
+          params: {
+            methodName: "claim_nft_winner",
+            args: payload,
+            gas: 300000000000000,
+            deposit: 1,
+          }
+        }
+      ]
+    })
 
   }
 

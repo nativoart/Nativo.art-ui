@@ -13,6 +13,8 @@ import {
 
 import { getNearContract, fromNearToYocto, ext_call, getNearAccount } from "../utils/near_interaction";
 import { useTranslation } from "react-i18next";
+import { useWalletSelector } from "../utils/walletSelector";
+import { providers, utils } from "near-api-js";
 
 
 export default function BidModal(props) {
@@ -20,6 +22,7 @@ export default function BidModal(props) {
   const [state, setState] = useState({ disabled: false});
   const [t, i18n] = useTranslation("global")
   const [highestbidder, setHighestbidder] = useState(0);
+  const { selector, modal, accounts, accountId } = useWalletSelector(); 
   
   useEffect(() => {
     console.log('propsModal',props);
@@ -75,7 +78,23 @@ export default function BidModal(props) {
           })
           return
         }
-        ext_call(process.env.REACT_APP_CONTRACT_AUCTIONS,'bid_for_nft',payload,300000000000000,bigAmount)
+        //ext_call(process.env.REACT_APP_CONTRACT_AUCTIONS,'bid_for_nft',payload,300000000000000,bigAmount)
+        const wallet = await selector.wallet();
+        wallet.signAndSendTransaction({
+          signerId: accountId,
+          receiverId: process.env.REACT_APP_CONTRACT_AUCTIONS,
+          actions: [
+            {
+              type: "FunctionCall",
+              params: {
+                methodName: "bid_for_nft",
+                args: payload,
+                gas: 300000000000000,
+                deposit: bigAmount,
+              }
+            }
+          ]
+        })
    
 
       setState({ disabled: false });

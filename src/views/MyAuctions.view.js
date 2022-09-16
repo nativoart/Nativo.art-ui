@@ -10,6 +10,9 @@ import AuctionCard from "../components/auctionCard.component";
 import { Tab  } from "@headlessui/react";
 import { useTranslation } from "react-i18next";
 
+import { useWalletSelector } from "../utils/walletSelector";
+import { providers, utils } from "near-api-js";
+
 
 function MyAuctions() {
   const [t, i18n] = useTranslation("global");
@@ -23,6 +26,7 @@ function MyAuctions() {
   const [Landing, setLanding] = React.useState({
     tokensPerPage: 9
   });
+  const { selector, modal, accounts, accountId } = useWalletSelector();
 
   let isMounted = true;
 
@@ -36,7 +40,22 @@ function MyAuctions() {
       let payload_all_supply = {
         account_id: account
       };
-      total = await ext_view(contract, 'auction_supply_for_owner', payload_all_supply)
+      //total = await ext_view(contract, 'auction_supply_for_owner', payload_all_supply)
+      const args_b64 = btoa(JSON.stringify(payload_all_supply))
+
+    const { network } = selector.options;
+    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+
+    const res = await provider.query({
+      request_type: "call_function",
+      account_id: contract,
+      method_name: "auction_supply_for_owner",
+      args_base64: args_b64,
+      finality: "optimistic",
+    })
+    console.log(res)
+    console.log(JSON.parse(Buffer.from(res.result).toString()))
+    total = JSON.parse(Buffer.from(res.result).toString())
 
       if ((total-1) >= 0) {
         if((total-1)<=Landing.tokensPerPage){
@@ -46,7 +65,22 @@ function MyAuctions() {
             from_index: (0).toString(),
             limit: parseInt(total)
           }
-          let all_auctions = await ext_view(contract, 'auctions_for_owner', payload);
+          //let all_auctions = await ext_view(contract, 'auctions_for_owner', payload);
+          const args_b64 = btoa(JSON.stringify(payload))
+
+          const { network } = selector.options;
+          const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+      
+          const res = await provider.query({
+            request_type: "call_function",
+            account_id: contract,
+            method_name: "auctions_for_owner",
+            args_base64: args_b64,
+            finality: "optimistic",
+          })
+          console.log(res)
+          console.log(JSON.parse(Buffer.from(res.result).toString()))
+          let all_auctions = JSON.parse(Buffer.from(res.result).toString())
           if(isMounted){
             setIndex(0)
             setMyAuctions({ ...myAuctions, all: all_auctions.reverse()});
@@ -59,7 +93,22 @@ function MyAuctions() {
             limit: parseInt(Landing.tokensPerPage)
             
           };
-          let allMyAuctions = await ext_view(contract, 'auctions_for_owner', payload);
+          //let allMyAuctions = await ext_view(contract, 'auctions_for_owner', payload);
+          const args_b64 = btoa(JSON.stringify(payload))
+
+          const { network } = selector.options;
+          const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+      
+          const res = await provider.query({
+            request_type: "call_function",
+            account_id: contract,
+            method_name: "auctions_for_owner",
+            args_base64: args_b64,
+            finality: "optimistic",
+          })
+          console.log(res)
+          console.log(JSON.parse(Buffer.from(res.result).toString()))
+          let allMyAuctions = JSON.parse(Buffer.from(res.result).toString())
           if(isMounted){
             setIndex((total - 1)-Landing.tokensPerPage)
             setMyAuctions({ ...myAuctions, all: myAuctions.all.concat(allMyAuctions.reverse())});
@@ -102,7 +151,22 @@ function MyAuctions() {
     }
 
 
-    let all_auctions = await ext_view(contract, 'auctions_for_owner', payload);
+    //let all_auctions = await ext_view(contract, 'auctions_for_owner', payload);
+    const args_b64 = btoa(JSON.stringify(payload))
+
+    const { network } = selector.options;
+    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+
+    const res = await provider.query({
+      request_type: "call_function",
+      account_id: contract,
+      method_name: "auctions_for_owner",
+      args_base64: args_b64,
+      finality: "optimistic",
+    })
+    console.log(res)
+    console.log(JSON.parse(Buffer.from(res.result).toString()))
+    let all_auctions = JSON.parse(Buffer.from(res.result).toString())
     setMyAuctions({ ...myAuctions, all: myAuctions.all.concat(all_auctions.reverse())});
   }
 

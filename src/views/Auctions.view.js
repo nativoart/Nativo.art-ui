@@ -18,8 +18,11 @@ import MyAuctions from "./MyAuctions.view";
 import OtherSitesAuctionModal from "../components/otherSitesAuctionModal.component";
 import SearchNftsModal from "../components/searchNftByContractModal.component";
 
-function Auctions() {
+import { useWalletSelector } from "../utils/walletSelector";
+import { providers, utils } from "near-api-js";
 
+function Auctions() {
+  const { selector, modal, accounts, accountId } = useWalletSelector();
   const [t, i18n] = useTranslation("global")
   const [auctions, setAuctions] = useState({
     total_active: 0,
@@ -45,7 +48,22 @@ function Auctions() {
       setAccount(account);
       let payload = {};
       let total = [];
-      total = await ext_view(contract, 'get_auctions_stats', payload)
+      //total = await ext_view(contract, 'get_auctions_stats', payload)
+      const args_b64 = btoa(JSON.stringify(payload))
+     
+      const { network } = selector.options;
+      const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+
+      const res = await provider.query({
+          request_type: "call_function",
+          account_id: contract,
+          method_name: "get_auctions_stats",
+          args_base64: args_b64,
+          finality: "optimistic",
+        })
+        console.log(res)
+      console.log(JSON.parse(Buffer.from(res.result).toString()))
+      total = JSON.parse(Buffer.from(res.result).toString())
       await getContractsByAccount(account);
 
       if ((total.total_auctions-1) >= 0) {
@@ -56,11 +74,26 @@ function Auctions() {
             limit: total.total_auctions,
           }
           setIndex(0)
-          let all_auctions = await ext_view(contract, 'get_all_nfts_for_auction', payload).then(results => {
+          /*let all_auctions = await ext_view(contract, 'get_all_nfts_for_auction', payload).then(results => {
             //do any results transformations
             console.log('result', results);
             return results;
-          });
+          });*/
+          const args_b64 = btoa(JSON.stringify(payload))
+     
+          const { network } = selector.options;
+          const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+    
+          const res = await provider.query({
+              request_type: "call_function",
+              account_id: contract,
+              method_name: "get_all_nfts_for_auction",
+              args_base64: args_b64,
+              finality: "optimistic",
+            })
+            console.log(res)
+          console.log(JSON.parse(Buffer.from(res.result).toString()))
+          let all_auctions = JSON.parse(Buffer.from(res.result).toString())
 
           setAuctions({ ...auctions, all: all_auctions.reverse()});
           //setIndex(total.total_auctions - 1);
@@ -70,11 +103,26 @@ function Auctions() {
             limit: Landing.tokensPerPage,
           };
   
-          let all_auctions = await ext_view(contract, 'get_all_nfts_for_auction', payload).then(results => {
+          /*let all_auctions = await ext_view(contract, 'get_all_nfts_for_auction', payload).then(results => {
             //do any results transformations
             console.log('result', results);
             return results;
-          });
+          });*/
+          const args_b64 = btoa(JSON.stringify(payload))
+     
+          const { network } = selector.options;
+          const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+    
+          const res = await provider.query({
+              request_type: "call_function",
+              account_id: contract,
+              method_name: "get_all_nfts_for_auction",
+              args_base64: args_b64,
+              finality: "optimistic",
+            })
+            console.log(res)
+          console.log(JSON.parse(Buffer.from(res.result).toString()))
+          let all_auctions = JSON.parse(Buffer.from(res.result).toString())
           setIndex((total.total_auctions - 1)-Landing.tokensPerPage)
           setAuctions({ ...auctions, all: auctions.all.concat(all_auctions.reverse())});
 
@@ -86,7 +134,22 @@ function Auctions() {
 
   let fetchMoreAuctions = async () => {
     let contract = process.env.REACT_APP_CONTRACT_AUCTIONS;
-    let total = await ext_view(contract, 'get_last_auction');
+    //let total = await ext_view(contract, 'get_last_auction');
+    /*const args_b64 = btoa(JSON.stringify(payload))
+
+    const { network } = selector.options;
+    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+
+    const res = await provider.query({
+      request_type: "call_function",
+      account_id: contract,
+      method_name: "get_last_auction",
+      args_base64: args_b64,
+      finality: "optimistic",
+    })
+    console.log(res)
+    console.log(JSON.parse(Buffer.from(res.result).toString()))
+    let total = JSON.parse(Buffer.from(res.result).toString())*/
 
     let limit = true;
     let indexQuery;
@@ -111,11 +174,26 @@ function Auctions() {
     }
 
 
-    let all_auctions = await ext_view(contract, 'get_all_nfts_for_auction', payload).then(results => {
+    /*let all_auctions = await ext_view(contract, 'get_all_nfts_for_auction', payload).then(results => {
       //do any results transformations
       console.log('result', results);
       return results;
-    });
+    })*/
+    const args_b642 = btoa(JSON.stringify(payload))
+
+    const { network } = selector.options;
+    const provider2 = new providers.JsonRpcProvider({ url: network.nodeUrl });
+
+    const res2 = await provider2.query({
+      request_type: "call_function",
+      account_id: contract,
+      method_name: "get_all_nfts_for_auction",
+      args_base64: args_b642,
+      finality: "optimistic",
+    })
+    console.log(res2)
+    console.log(JSON.parse(Buffer.from(res2.result).toString()))
+    let all_auctions = JSON.parse(Buffer.from(res2.result).toString())
     setAuctions({ ...auctions, all: auctions.all.concat(all_auctions.reverse())});
   }
 
