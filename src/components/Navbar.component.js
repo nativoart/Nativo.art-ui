@@ -230,9 +230,9 @@ function LightHeaderB(props) {
                   >
                     <Menu.Items static className="w-[180px]  md:w-full origin-top-right absolute right-0 mt-2 divide-y rounded-md shadow-lg dark:bg-[#1d1d1b] outline-none">
                       <div className="py-1"> 
-                        <Menu.Item onClick={async () => { futureFeatureMsg(t("Navbar.auctions")); }}>
+                        <Menu.Item>
                           {({ active }) => (
-                            <a className={classNames(active ? " dark:text-white font-bold ml-4" : "dark:text-white ml-2 font-bold"," block px-2 py-2 text-sm text-center font-raleway")}>
+                            <a className={classNames(active ? " dark:text-white font-bold ml-4" : "dark:text-white ml-2 font-bold"," block px-2 py-2 text-sm text-center font-raleway")} href="/auctions">
                               <div className="flex justify-start cursor-pointer">
                                 <p className=" self-center"> {t("Navbar.auctions")}</p>
                               </div>
@@ -268,9 +268,6 @@ function LightHeaderB(props) {
 
             <a href="/community" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold hover:animate-pulse dark:text-white font-raleway font-normal cursor-pointer">
               {t("Navbar.community")}
-            </a>
-            <a href="/auctions" className="mr-5 hover:text-[#ec8b01] hover:text-lg hover:font-bold dark:text-white font-raleway font-normal">
-            {t("Navbar.auctions")}
             </a>
           </nav>
 
@@ -422,7 +419,7 @@ function LightHeaderB(props) {
                                     : "text-darkgray ml-2 ",
                                   "block px-2 py-2 text-sm text-center font-raleway font-normal cursor-pointer md:hidden"
                                 )}
-                                  onClick={async () => { futureFeatureMsg(t("Navbar.auctions")); }}
+                                  href="/auctions"
                                 >
                                   <div className="flex justify-start">
                                     <span className=" m-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
