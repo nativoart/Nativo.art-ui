@@ -57,7 +57,8 @@ module.exports = {
         "Hero_2": "url('./assets/img/landing/firstSection/Hero_2.png')",
         "Hero_mobile_2": "url('./assets/img/landing/firstSection/Hero_mobile_2.png')",
         "Crea_y_vende_tus_NFTs_2": "url('./assets/img/landing/thirdSection/Crea_y_vende_tus_NFTs_2.png')",
-        "ntvTokenBlured": "url('./assets/img/landing/sponsorsSection/bluredntvToken.png')"
+        "ntvTokenBlured": "url('./assets/img/landing/sponsorsSection/bluredntvToken.png')",
+        "Hero_profile" : "url('./assets/img/profile/profileHero.png')"
       },
       backgroundSize: {
         '40': '40%'
