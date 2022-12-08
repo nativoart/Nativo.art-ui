@@ -23,6 +23,8 @@ import { useWalletSelector } from "../utils/walletSelector";
 import ofertas from '../assets/img/profile/APROVAL.png';
 import { Tab  } from "@headlessui/react";
 import MyAcquisitions from "../components/MyAcquisitions.component";
+import MyCreations from "../components/MyCreations.component";
+import MyCollections from "../components/MyCollections.component";
 
 function LightEcommerceB(props) {
   const { selector, modal, accounts, accountId } = useWalletSelector();
@@ -341,20 +343,7 @@ function LightEcommerceB(props) {
                   >
                     Colecciones
                   </Tab>
-                  <Tab
-                    key={"AllTokens"}
-                    className={({ selected }) =>
-                      classNames(
-                        'w-full  py-2.5   leading-8 font-bold text-2xl',
-                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-raleway  font-bold ',
-                        selected
-                          ? 'bg-white  text-darkgray  border-b-2 border-yellow2'
-                          : 'font-open-sans text-[#616161] '
-                      )
-                    }
-                  >
-                   Todos
-                  </Tab>
+ 
                 </Tab.List>
                 <Tab.Panels className="mt-2 bg-white">
                   <Tab.Panel
@@ -372,6 +361,7 @@ function LightEcommerceB(props) {
                       'rounded-xl   bg-white'
                     )}
                   >
+                    <MyCreations />
 
                   </Tab.Panel>
 
@@ -381,15 +371,7 @@ function LightEcommerceB(props) {
                       'rounded-xl  bg-white'
                     )}
                   >
- 
-                  </Tab.Panel>
-                  <Tab.Panel
-                    key={"AllTokens"}
-                    className={classNames(
-                      'rounded-xl  bg-white'
-                    )}
-                  >
-
+                  <MyCollections />
                   </Tab.Panel>
                 </Tab.Panels>
               </Tab.Group>
