@@ -30,6 +30,7 @@ import SearchNftsModal from "./searchNftsModal.component";
 import { useWalletSelector } from "../utils/walletSelector";
 import { providers, utils } from "near-api-js";
 import nearImage from '../assets/img/landing/trendingSection/Vector.png';
+import { useLocation } from "react-router-dom";
 
 function MyAcquisitions(props) {
   //Hooks para el manejo de estados
@@ -57,7 +58,7 @@ function MyAcquisitions(props) {
     nftsCreations: [],
     collections: [],
     page: parseInt(window.localStorage.getItem("Mypage")),
-    tokensPerPage: 3,
+    tokensPerPage: 6,
     tokensPerPageNear: 6,
 
     blockchain: localStorage.getItem("blockchain"),
@@ -90,6 +91,8 @@ function MyAcquisitions(props) {
   });
   const [allNfts, setAllNfts] = useState({nfts:[],contracts:[]});
   let imgs = [];
+  const [profile, setProfile] = useState({user:''});
+  const location = useLocation();
 
   const APIURL = process.env.REACT_APP_API_TG
 
@@ -161,9 +164,11 @@ function MyAcquisitions(props) {
   const fetchMoreData = async () => {
     await delay(.75)
     setpage(page + 1);
+    console.log('66666');
+    console.log('7777',profile.user);
 
     let paramsSupplyForOwner = {
-      account_id: accountId
+      account_id: profile.user
     };
     // let totalTokensByOwner = await contract.nft_supply_for_owner(paramsSupplyForOwner);
     const supply_payload = btoa(JSON.stringify(paramsSupplyForOwner))
@@ -177,13 +182,19 @@ function MyAcquisitions(props) {
       finality: "optimistic",
     })
     let totalTokensByOwner = JSON.parse(Buffer.from(res_supply.result).toString())
-    if (nfts.nfts.length >= totalTokensByOwner) {
+    console.log('nfts.nfts.length',nfts.nfts.length);
+    console.log('totalTokensByOwner',totalTokensByOwner);
+    if (nfts.nfts.length >= parseInt(totalTokensByOwner)) {
+      console.log('ya se acabaron');
       setState({...state, hasMore: false });
       return;
     }
+
+    console.log('nfts.tokensPerPage',nfts.tokensPerPage);
+
     let payload = {
-      account_id: accountId,
-      from_index: (page * 3).toString(),
+      account_id: profile.user,
+      from_index: (page * nfts.tokensPerPage).toString(),
       limit: nfts.tokensPerPage,
     };
     // let nftsPerOwnerArr = await contract.nft_tokens_for_owner(payload);
@@ -248,9 +259,15 @@ function MyAcquisitions(props) {
       } else {
         let contract = await getNearContract();
         let account = await getNearAccount();
+        console.log('1111');
+
+        const query = new URLSearchParams(location);
+        console.log('QUERY', query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'));//.pathname.split('/')[0]);
+        setProfile({ user: query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet')}); 
         // let numNFT = await contract.nft_supply_for_owner({ account_id: accountId })
         // let numNFTCreations = await contract.nft_supply_for_creator({ account_id: accountId })
-        const supply_payload = btoa(JSON.stringify({ account_id: accountId }))
+        console.log('2222');
+        const supply_payload = btoa(JSON.stringify({ account_id: query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet') }))
         const { network } = selector.options;
         const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
         const res_numNFT = await provider.query({
@@ -260,16 +277,8 @@ function MyAcquisitions(props) {
           args_base64: supply_payload,
           finality: "optimistic",
         })
+        console.log('333');
         let numNFT = JSON.parse(Buffer.from(res_numNFT.result).toString())
-
-        const res_numNFTCrea = await provider.query({
-          request_type: "call_function",
-          account_id: process.env.REACT_APP_CONTRACT,
-          method_name: "nft_supply_for_creator",
-          args_base64: supply_payload,
-          finality: "optimistic",
-        })
-        let numNFTCreations = JSON.parse(Buffer.from(res_numNFTCrea.result).toString())
 
         await getContractsByAccount(accountId);//
 
@@ -277,11 +286,8 @@ function MyAcquisitions(props) {
           setLoadMsg(false)
         }
 
-        if (numNFTCreations == 0) {
-          setLoadMsgCreations(false)
-        }
         let payload = {
-          account_id: accountId,
+          account_id: query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'),
           from_index: "0",
           limit: nfts.tokensPerPage,
         };
@@ -333,125 +339,11 @@ function MyAcquisitions(props) {
         });
 
 
-        //ARR for Creators 
-        
-        let payloadCreations = {
-          account_id: accountId,
-          from_index: "0",
-          limit: nfts.tokensPerPage,
-        };
-        // let nftsPerOwnerArrCreations = await contract.nft_tokens_for_creator(payloadCreations);
-
-        const tokCrea_payload = btoa(JSON.stringify(payloadCreations))
-        const res_tokCrea = await provider.query({
-          request_type: "call_function",
-          account_id: process.env.REACT_APP_CONTRACT,
-          method_name: "nft_tokens_for_creator",
-          args_base64: tokCrea_payload,
-          finality: "optimistic",
-        })
-        let nftsPerOwnerArrCreations = JSON.parse(Buffer.from(res_tokCrea.result).toString())
-
-        // //convertir los datos al formato esperado por la vista
-        let nftsArrCreations = nftsPerOwnerArrCreations.map((tok, i) => {
-          console.log(tok)
-          let onSale = false
-          //console.log("X->",  tok  )
-          imgs.push(false);
-          let data = Object.entries(tok.approved_account_ids)
-          data.map((approval, i) => {
-            if (approval.includes(process.env.REACT_APP_CONTRACT_MARKET)) {
-              onSale = true
-              console.log("Esta a la venta en nativo")
-            }
-          })
-          fetch("https://nativonft.mypinata.cloud/ipfs/" + tok.media).then(request => request.blob()).then(() => {
-
-            imgs[i] = true;
-          });
-          return {
-            tokenID: tok.token_id,
-            approval: tok.approved_account_ids,
-            onSale: onSale,
-            description: tok.metadata.description,
-            // onSale: tok.on_sale,// tok.metadata.on_sale,
-            // onAuction: tok.on_auction,
-            data: JSON.stringify({
-              title: tok.metadata.title,//"2sdfeds",// tok.metadata.title,
-              image: tok.metadata.media,//"vvvvvvvvvvvvvv",//tok.metadata.media,
-              description: tok.metadata.description,
-              creator: tok.creator_id
-            }),
-          };
-        });
-
-        let colData;
-        let col;
-
-        const queryData = `
-        query($first: Int, $account: String){
-          collections(first: $first,  orderBy: collectionID, orderDirection: desc, where: { owner_id: $account }){
-            id
-            collectionID
-            owner_id
-            title
-            timestamp
-            mediaIcon
-            mediaBanner,
-            description,
-            tokenCount,
-            visibility
-          }
-        }`
-
-        //Declaramos el cliente
-    const client = new ApolloClient({
-      uri: APIURL,
-      cache: new InMemoryCache(),
-    })
-
-    await client
-      .query({
-        query: gql(queryData),
-        variables: {
-          first: nfts.tokensPerPageNear,
-          account: accountId
-        },
-      })
-      .then((data) => {
-        //console.log("tokens data: ", data.data.tokens)
-        colData = data.data.collections
-        console.log(data.data.collections)
-        if (data.data.collections.length <= 0) {
-          setLoadMsgCollections(false)
-        }
-        setLastIDCollection(parseInt(data.data.collections[data.data.collections.length - 1].collectionID))
-      })
-      .catch((err) => {
-        //console.log('Error ferching data: ', err)
-        colData = 0
-      })
-      if(colData != 0 ) {
-         col = colData.map((collection) => {
-          return {
-            title: collection.title,
-            owner: collection.owner_id,
-            tokenCount: collection.tokenCount,
-            description: collection.description,
-            mediaIcon: collection.mediaIcon,
-            mediaBanner: collection.mediaBanner,
-            collectionID: collection.collectionID,
-            visibility: collection.visibility
-          };
-        });
-      }
 
         setNfts({
           ...nfts,
-          nftsCreations: nftsArrCreations, 
           nfts: nftsArr,
-          owner: accountId,
-          collections: nfts.collections.concat(col)
+          owner: profile.user
         });
 
 
@@ -535,7 +427,7 @@ function MyAcquisitions(props) {
               </p>
             }
           >
-            <div className="flex flex-wrap md:m-1 mb-6">
+            <div className="flex flex-wrap md:m-1 mb-6 justify-center">
               {nfts.nfts.map((nft, key) => {
                 //obtenemos la data del token nft
                 //console.log(nft)
@@ -544,7 +436,30 @@ function MyAcquisitions(props) {
                 console.log('ITEMSSSS',nft);
                 return (
                   <>
-                    <a
+                   <div className="w-full xs:w-[158px] h-[279px] sm:w-[180px] md:w-[160px] lg:w-[210px] lg:p-4 xl:w-[275px] 2xl:w-[335px] xl:h-[395px] 2xl:h-[485px] " key={key}>
+                                            <a
+                                                href={"/detail/" + itemNft.tokenID}
+                                            >
+                                                <div className="flex flex-row justify-center " >
+                                                    <div className="trending-token w-full h-full rounded-xl shadow-lg   hover:scale-105 ">
+                                                        <div className=" bg-white rounded-xl">
+                                                            <div className="pb-3">
+                                                                <img
+                                                                    className="object-cover object-center rounded-t-xl w-full h-[163px] lg:w-[340px] xl:h-[250px] 2xl:h-[340px]"
+                                                                    src={`https://nativonft.mypinata.cloud/ipfs/${item.image}`}
+                                                                    alt={item.description}
+                                                                />
+                                                            </div>
+                                                            <div className="px-3 py-1">
+                                                                <p className=" text-black text-base leading-6 text-ellipsis overflow-hidden whitespace-nowrap font-open-sans font-extrabold uppercase">{item.title}</p>
+                                                                <a href={`profile/${item.creator.split('.')[0]}`}><p className="text-black py-3 font-open-sans text-[10px] xl:pb-[23px] font-semibold leading-4 text-ellipsis overflow-hidden whitespace-nowrap uppercase">{t("tokCollection.createdBy") + ":"} {item.creator}</p></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                    {/*<a
                       href={"/detail/" + itemNft.tokenID}
                     >
                       <div className="flex flex-row  mb-10 md:mb-0  justify-center " key={key}>
@@ -559,7 +474,7 @@ function MyAcquisitions(props) {
                             </div>
                             <div className="px-3 py-1">
                               <div className=" text-black text-base leading-6 text-ellipsis overflow-hidden whitespace-nowrap  font-open-sans font-extrabold uppercase">{item.title}</div>
-                            {/* <div className="flex justify-start">
+                            <div className="flex justify-start">
                               <div className=" text-base font-open-sans font-semibold py-2 text-yellow4 flex">  <img
                                 className="w-[16px] h-[16px] my-auto mr-2"
                                 src={nearImage}
@@ -567,14 +482,14 @@ function MyAcquisitions(props) {
                                 width={15}
                                 height={15}
                               /> { item.onSale == true ?  `Quitar de la venta` : "Poner a la venta"}</div>
-                            </div> */}
+                            </div> 
                             </div> 
                             <div className="text-black px-3 font-open-sans text-xs font-semibold leading-4 uppercase mx-auto justify-center text-ellipsis overflow-hidden py-3">                                  
                              {t("tokCollection.createdBy") +":"} <a href={`profile/${item.creator ? item.creator.split('.')[0] : ""}`} className=" text-ellipsis overflow-hidden">{item.creator}</a></div>
                           </div>
                         </div>
                       </div>
-                    </a>
+                    </a>*/}
                   </>
 
                 );})}

@@ -226,7 +226,7 @@ function LightEcommerceB(props) {
             <div className="xl:w-1/3 2xl:w-1/4 w-full lg:h-auto h-64 flex px-5">
               <img
                 alt="ecommerce"
-                className=" object-contain md:object-scale-down rounded-xlarge shadow-yellow2 lg:h-auto h-64 lg:w-[339px] my-auto "
+                className=" object-contain md:object-contain rounded-xlarge shadow-yellow2 lg:h-auto h-64 lg:w-[339px] my-auto "
                 src={state?.data.media == "" ? defaultUser : `https://nativonft.mypinata.cloud/ipfs/${state?.data.media}`}
               />
             </div>
