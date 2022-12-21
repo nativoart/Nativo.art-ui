@@ -164,8 +164,6 @@ function MyAcquisitions(props) {
   const fetchMoreData = async () => {
     await delay(.75)
     setpage(page + 1);
-    console.log('66666');
-    console.log('7777',profile.user);
 
     let paramsSupplyForOwner = {
       account_id: profile.user
@@ -182,16 +180,12 @@ function MyAcquisitions(props) {
       finality: "optimistic",
     })
     let totalTokensByOwner = JSON.parse(Buffer.from(res_supply.result).toString())
-    console.log('nfts.nfts.length',nfts.nfts.length);
-    console.log('totalTokensByOwner',totalTokensByOwner);
+
     if (nfts.nfts.length >= parseInt(totalTokensByOwner)) {
-      console.log('ya se acabaron');
+
       setState({...state, hasMore: false });
       return;
     }
-
-    console.log('nfts.tokensPerPage',nfts.tokensPerPage);
-
     let payload = {
       account_id: profile.user,
       from_index: (page * nfts.tokensPerPage).toString(),
@@ -259,14 +253,11 @@ function MyAcquisitions(props) {
       } else {
         let contract = await getNearContract();
         let account = await getNearAccount();
-        console.log('1111');
-
         const query = new URLSearchParams(location);
         console.log('QUERY', query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'));//.pathname.split('/')[0]);
         setProfile({ user: query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet')}); 
         // let numNFT = await contract.nft_supply_for_owner({ account_id: accountId })
         // let numNFTCreations = await contract.nft_supply_for_creator({ account_id: accountId })
-        console.log('2222');
         const supply_payload = btoa(JSON.stringify({ account_id: query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet') }))
         const { network } = selector.options;
         const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
@@ -277,7 +268,6 @@ function MyAcquisitions(props) {
           args_base64: supply_payload,
           finality: "optimistic",
         })
-        console.log('333');
         let numNFT = JSON.parse(Buffer.from(res_numNFT.result).toString())
 
         await getContractsByAccount(accountId);//
@@ -433,7 +423,6 @@ function MyAcquisitions(props) {
                 //console.log(nft)
                 const itemNft = nft;
                 const item = JSON.parse(nft.data);
-                console.log('ITEMSSSS',nft);
                 return (
                   <>
                    <div className="w-full xs:w-[158px] h-[279px] sm:w-[180px] md:w-[160px] lg:w-[210px] lg:p-4 xl:w-[275px] 2xl:w-[335px] xl:h-[395px] 2xl:h-[485px] " key={key}>
@@ -459,37 +448,7 @@ function MyAcquisitions(props) {
                                                 </div>
                                             </a>
                                         </div>
-                    {/*<a
-                      href={"/detail/" + itemNft.tokenID}
-                    >
-                      <div className="flex flex-row  mb-10 md:mb-0  justify-center " key={key}>
-                        <div className="trending-token w-64 md:w-[300px] rounded-20 shadow-lg   hover:scale-105 ">
-                          <div className=" bg-white rounded-xl">
-                            <div className="pb-3">
-                              <img
-                                className="object-cover object-center rounded-t-xl h-48 md:h-56 w-full "
-                                src={`https://nativonft.mypinata.cloud/ipfs/${item.image}`}
-                                alt={item.description}
-                              />
-                            </div>
-                            <div className="px-3 py-1">
-                              <div className=" text-black text-base leading-6 text-ellipsis overflow-hidden whitespace-nowrap  font-open-sans font-extrabold uppercase">{item.title}</div>
-                            <div className="flex justify-start">
-                              <div className=" text-base font-open-sans font-semibold py-2 text-yellow4 flex">  <img
-                                className="w-[16px] h-[16px] my-auto mr-2"
-                                src={nearImage}
-                                alt={item.description}
-                                width={15}
-                                height={15}
-                              /> { item.onSale == true ?  `Quitar de la venta` : "Poner a la venta"}</div>
-                            </div> 
-                            </div> 
-                            <div className="text-black px-3 font-open-sans text-xs font-semibold leading-4 uppercase mx-auto justify-center text-ellipsis overflow-hidden py-3">                                  
-                             {t("tokCollection.createdBy") +":"} <a href={`profile/${item.creator ? item.creator.split('.')[0] : ""}`} className=" text-ellipsis overflow-hidden">{item.creator}</a></div>
-                          </div>
-                        </div>
-                      </div>
-                    </a>*/}
+                    
                   </>
 
                 );})}
