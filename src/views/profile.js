@@ -219,6 +219,39 @@ function LightEcommerceB(props) {
     return classes.filter(Boolean).join(" ");
   }
 
+  async function handleCreatebutton() {
+      Swal.fire({
+        background: '#0a0a0a',
+        width: '800',
+        heightAuto: false,
+        html:
+          '<div class=" flex flex-col overflow-hidden">' +
+          '<div class="font-open-sans  text-base font-extrabold text-white my-4 text-left w-full uppercase">' +  t("Navbar.createMsg") + '</div>' +
+          '</div>',
+        showCloseButton: true,
+        confirmButtonText:  t("Navbar.create"),
+        cancelButtonText:  t("Navbar.createCollection"),
+        showCancelButton: true,
+        showConfirmButton: true,
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: 'flex py-2 w-full h-[40px]  mt-0 ml-5  lg:w-[200px] title-font  text-white font-open-sans font-normal lg:font-extrabold text-base uppercase leading-6  justify-center hover:text-textOutlineHover active:text-textOutlinePressed flex flex-col font-extrabold h-full text-white  text-center  justify-center shadow-s w-full border-solid border-2 rounded-md border-white2 hover:bg-outlineHover active:bg-outlinePressed " ',
+          cancelButton: 'flex py-2 w-full h-[40px]  mt-0 ml-5  lg:w-[200px] title-font  text-white font-open-sans font-normal lg:font-extrabold text-base uppercase leading-6  justify-center hover:text-textOutlineHover active:text-textOutlinePressed flex flex-col font-extrabold h-full text-white  text-center  justify-center shadow-s w-full border-solid border-2 rounded-md border-white2 hover:bg-outlineHover active:bg-outlinePressed " ',
+        },
+        position: window.innerWidth < 1024 ? 'bottom' : 'center'
+      }).then((result) => {
+          if (result.isConfirmed) {
+              window.location.href = "/create"
+          } 
+          if(result.dismiss == 'cancel') {
+              window.location.href = "/collectionData/create" 
+          }
+        });
+
+  }
+
+
+
 
   return (
     <>
@@ -230,6 +263,7 @@ function LightEcommerceB(props) {
                 src={state?.data.media == "" ? defaultUser : `https://nativonft.mypinata.cloud/ipfs/${state?.data.media}`} />
 
         </div>
+        
         <div className="container m-auto py-6 lg:py-8 inherit z-10 relative ">
           
           <div className="lg:w-full  flex flex-wrap lg:h-[339px]">
@@ -240,6 +274,16 @@ function LightEcommerceB(props) {
                 className=" object-cover  rounded-xlarge border-4 border-white   w-[180px]  h-[180px] lg:h-[339px] lg:w-[339px] lg:my-auto "
                 src={state?.data.media == "" ? defaultUser : `https://nativonft.mypinata.cloud/ipfs/${state?.data.media}`}
               />
+              {myProfile ?
+                <div className="flex justify-end lg:hidden absolute top-[20px] right-[20px]">
+                  <button className="w-[24px]" onClick={handleEditProfile}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M11 4H4C3.46957 4 2.96086 4.21071 2.58579 4.58579C2.21071 4.96086 2 5.46957 2 6V20C2 20.5304 2.21071 21.0391 2.58579 21.4142C2.96086 21.7893 3.46957 22 4 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V13" stroke="#FDFCFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M18.5 2.49998C18.8978 2.10216 19.4374 1.87866 20 1.87866C20.5626 1.87866 21.1022 2.10216 21.5 2.49998C21.8978 2.89781 22.1213 3.43737 22.1213 3.99998C22.1213 4.56259 21.8978 5.10216 21.5 5.49998L12 15L8 16L9 12L18.5 2.49998Z" stroke="#FDFCFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </button>
+                </div>
+                : ""}
             </div>
 
             <div className="xl:w-1/3 2xl:w-2/4 lg:w-1/2  w-full  lg:mt-auto lg:flex flex-col px-5 lg:px-0 pt-10">
@@ -281,8 +325,16 @@ function LightEcommerceB(props) {
             </div>
             {myProfile ? 
               <div className=" xl:w-1/3 2xl:w-1/4 w-full  l lg:flex flex-col px-6">
+                <div className="hidden lg:flex justify-end ">
+                  <button className="w-[24px]" onClick={handleEditProfile}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M11 4H4C3.46957 4 2.96086 4.21071 2.58579 4.58579C2.21071 4.96086 2 5.46957 2 6V20C2 20.5304 2.21071 21.0391 2.58579 21.4142C2.96086 21.7893 3.46957 22 4 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V13" stroke="#FDFCFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M18.5 2.49998C18.8978 2.10216 19.4374 1.87866 20 1.87866C20.5626 1.87866 21.1022 2.10216 21.5 2.49998C21.8978 2.89781 22.1213 3.43737 22.1213 3.99998C22.1213 4.56259 21.8978 5.10216 21.5 5.49998L12 15L8 16L9 12L18.5 2.49998Z" stroke="#FDFCFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </button>
+                  </div> 
                 <div className="flex flex-col mt-auto">
-                  <div className="flex justify-between mb-3">
+                  <div className="flex justify-between mb-3 ">
                     <button className="rounded-xl bg-white w-1/2 h-[96px] mr-2 shadow-md">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" >
                         <path d="M22 12H18L15 21L9 3L6 12H2" stroke="#F79336" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -299,7 +351,7 @@ function LightEcommerceB(props) {
                     </button >
                   </div>
                 </div>
-                <button className="flex rounded-xlarge w-full h-[50px]  mt-0 lg:mx-auto"  >
+                <button className="flex rounded-xlarge w-full h-[50px]  mt-0 lg:mx-auto" onClick={() => handleCreatebutton()} >
                   <div className="flex flex-col font-bold h-full text-white  text-center  justify-center shadow-s w-full bg-yellow4 hover:bg-yellowHover active:bg-yellowPressed rounded-md">
                     <span className="title-font  text-white font-open-sans font-extrabold lg:font-semibold text-base  uppercase leading-6">CREATE</span>
                   </div>
@@ -311,12 +363,12 @@ function LightEcommerceB(props) {
         </div>
       
       </section>
-      <div className="w-full bg-white container mx-auto p-5">
-            <div className="font-open-sans font-bold text-3xl text-black">
+      <div className="w-full bg-white container mx-auto py-5">
+            <div className="font-open-sans font-bold text-3xl text-black px-5">
               <p className="">User's NFTs</p>
             </div>
             <Tab.Group>
-                <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1 w-full lg:w-1/2 overflow-scroll lg:overflow-hidden">
+                <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1 lg:px-5 w-full lg:w-1/2 overflow-scroll lg:overflow-hidden">
                   <Tab
                     key={"MisTokens"}
                     className={({ selected }) =>
