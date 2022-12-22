@@ -357,14 +357,14 @@ function MyCreations(props) {
             dataLength={nfts.nftsCreations.length}
             next={fetchMoreDataCreator}
             hasMore={state.hasMoreCreations}
-            loader={<h4 className="dark:text-yellow2 font-raleway">{t("MyNFTs.loading")}</h4>}
+            loader={<h1 className="text-center font-clash-grotesk font-semibold w-full py-10 text-xl text-black">{t("tokCollection.loading")}</h1>}
             endMessage={
-              <p style={{ textAlign: "center" }} className="dark:text-yellow2 font-raleway">
-                <b>{t("MyNFTs.youseenit")}</b>
-              </p>
+                <p className="text-center font-clash-grotesk font-semibold w-full py-10 text-xl text-black">
+                    {t("tokCollection.end")}
+                </p>
             }
+            className={"flex flex-wrap px-6 lg:px-12 place-content-center gap-4 lg:justify-center"}
           >
-            <div className="flex flex-wrap md:m-1 mb-6">
               {nfts.nftsCreations.map((nft, key) => {
 
                 const itemNft = nft;
@@ -397,7 +397,7 @@ function MyCreations(props) {
                   </>
 
                 );})}
-            </div>
+       
           </InfiniteScroll>
           </li>
           :

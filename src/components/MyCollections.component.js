@@ -306,14 +306,14 @@ function MyCollections(props) {
             dataLength={nfts.nfts.length}
             next={fetchMoreDataCollections}
             hasMore={state.hasMore}
-            loader={<h4 className="dark:text-yellow2 font-raleway">{t("MyNFTs.loading")}</h4>}
+            loader={<h1 className="text-center font-clash-grotesk font-semibold w-full py-10 text-xl text-black">{t("tokCollection.loading")}</h1>}
             endMessage={
-              <p style={{ textAlign: "center" }} className="dark:text-yellow2 font-raleway">
-                <b>{t("MyNFTs.youseenit")}</b>
+              <p className="text-center font-clash-grotesk font-semibold w-full py-10 text-xl text-black">
+                {t("Explore.endCol")}
               </p>
             }
           >
-            <div className="flex flex-wrap md:m-1 mb-6">
+            <div className="flex flex-wrap px-6 lg:px-[46px] gap-4 lg:gap-[19px] justify-center">
               {nfts.collections.map((nft, key) => {
                 //obtenemos la data del token nft
                 //console.log(nft)
