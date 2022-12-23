@@ -95,6 +95,8 @@ function MyCreations(props) {
   const APIURL = process.env.REACT_APP_API_TG;
   const [profile, setProfile] = useState({user:''});
   const location = useLocation();
+  const [tokSort, setTokSort] = React.useState(true);
+  const [index, setIndex] = React.useState(0);
 
   async function makeATransfer(tokenID) {
     setTransferModal({
@@ -164,8 +166,100 @@ function MyCreations(props) {
   const fetchMoreDataCreator = async () => {
     await delay(.75)
     setpageCreations(pageCreations + 1);
+    if(tokSort){
+      let limit = true;
+      let indexQuery;
+      let lastLimit;
 
-    let contract = await getNearContract();
+
+
+      if (index > nfts.tokensPerPageNear) {
+        indexQuery = index - nfts.tokensPerPageNear;
+        setIndex(index - nfts.tokensPerPageNear);
+      }
+      else {
+        indexQuery = 0;
+        lastLimit = parseInt(index);
+        limit = false;
+        setIndex(0);
+      }
+
+      if (index <= 0) {
+        setState({...state, hasMoreCreations: false });
+        return;
+      }
+      let contract = await getNearContract();
+    let paramsSupplyForOwner = {
+      account_id: profile.user
+    };
+    // let totalTokensByOwner = await contract.nft_supply_for_creator(paramsSupplyForOwner);
+    const supply_payload = btoa(JSON.stringify(paramsSupplyForOwner))
+    const { network } = selector.options;
+    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+    const res = await provider.query({
+      request_type: "call_function",
+      account_id: process.env.REACT_APP_CONTRACT,
+      method_name: "nft_supply_for_creator",
+      args_base64: supply_payload,
+      finality: "optimistic",
+    })
+    let totalTokensByOwner = JSON.parse(Buffer.from(res.result).toString())
+
+    if (nfts.nftsCreations.length >= totalTokensByOwner) {
+      setState({...state, hasMoreCreations: false });
+      return;
+    }
+    let payload = {
+      account_id: profile.user,
+      from_index: indexQuery.toString(),
+      limit: (limit ? nfts.tokensPerPage : lastLimit),
+    };
+    // let nftsPerOwnerArr = await contract.nft_tokens_for_creator(payload);
+    const nft_payload = btoa(JSON.stringify(payload))
+    const res_nft = await provider.query({
+      request_type: "call_function",
+      account_id: process.env.REACT_APP_CONTRACT,
+      method_name: "nft_tokens_for_creator",
+      args_base64: nft_payload,
+      finality: "optimistic",
+    })
+    let nftsPerOwnerArr = JSON.parse(Buffer.from(res_nft.result).toString())
+    // //convertir los datos al formato esperado por la vista
+    let nftsArr = nftsPerOwnerArr.map((tok, i) => {
+      let onSale = false
+      imgs.push(false);
+      let data = Object.entries(tok.approved_account_ids)
+      data.map((approval, i) => {
+        if (approval.includes(process.env.REACT_APP_CONTRACT_MARKET)) {
+          onSale = true
+          console.log("Esta a la venta en nativo")
+        }
+      })
+      fetch("https://nativonft.mypinata.cloud/ipfs/" + tok.media).then(request => request.blob()).then(() => {
+
+        imgs[i] = true;
+      });
+
+      return {
+        tokenID: tok.token_id,
+        approval: tok.approved_account_ids,
+        onSale: onSale,
+        description: tok.metadata.description,
+        // onSale: tok.on_sale,// tok.metadata.on_sale,
+        // onAuction: tok.on_auction,
+        data: JSON.stringify({
+          title: tok.metadata.title,//"2sdfeds",// tok.metadata.title,
+          image: tok.metadata.media,//"vvvvvvvvvvvvvv",//tok.metadata.media,
+          description: tok.metadata.description,
+          creator: tok.creator_id
+        }),
+      };
+    });
+    let newValue = nfts.nftsCreations.concat(nftsArr.reverse());
+    setNfts({...nfts, nftsCreations: newValue });
+
+    } else {
+      let contract = await getNearContract();
     let paramsSupplyForOwner = {
       account_id: profile.user
     };
@@ -215,7 +309,7 @@ function MyCreations(props) {
 
         imgs[i] = true;
       });
-      console.log('metadata',tok.metadata);
+  
       return {
         tokenID: tok.token_id,
         approval: tok.approved_account_ids,
@@ -233,6 +327,10 @@ function MyCreations(props) {
     });
     let newValue = nfts.nftsCreations.concat(nftsArr);
     setNfts({...nfts, nftsCreations: newValue });
+
+    }
+
+    
   };
 
 
@@ -255,7 +353,6 @@ function MyCreations(props) {
         let account = await getNearAccount();
 
         const query = new URLSearchParams(location);
-        console.log('QUERY', query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'));//.pathname.split('/')[0]);
         setProfile({ user: query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet')}); 
         const supply_payload = btoa(JSON.stringify({ account_id: accountId }))
         const { network } = selector.options;
@@ -269,16 +366,74 @@ function MyCreations(props) {
           finality: "optimistic",
         })
         let numNFTCreations = JSON.parse(Buffer.from(res_numNFTCrea.result).toString())
-
-
+        setIndex(numNFTCreations)
+ 
 
 
         if (numNFTCreations == 0) {
           setLoadMsgCreations(false)
         }
 
+        if(tokSort){
+        
+        let payloadCreations = {
+          account_id: query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'),
+          from_index: (numNFTCreations - nfts.tokensPerPage).toString(),
+          limit: nfts.tokensPerPage,
+        };
+        setIndex(numNFTCreations - nfts.tokensPerPage)
 
-        //ARR for Creators 
+        const tokCrea_payload = btoa(JSON.stringify(payloadCreations))
+        const res_tokCrea = await provider.query({
+          request_type: "call_function",
+          account_id: process.env.REACT_APP_CONTRACT,
+          method_name: "nft_tokens_for_creator",
+          args_base64: tokCrea_payload,
+          finality: "optimistic",
+        })
+        let nftsPerOwnerArrCreations = JSON.parse(Buffer.from(res_tokCrea.result).toString())
+
+        // //convertir los datos al formato esperado por la vista
+        let nftsArrCreations = nftsPerOwnerArrCreations.map((tok, i) => {
+          console.log(tok)
+          let onSale = false
+          //console.log("X->",  tok  )
+          imgs.push(false);
+          let data = Object.entries(tok.approved_account_ids)
+          data.map((approval, i) => {
+            if (approval.includes(process.env.REACT_APP_CONTRACT_MARKET)) {
+              onSale = true
+              console.log("Esta a la venta en nativo")
+            }
+          })
+          fetch("https://nativonft.mypinata.cloud/ipfs/" + tok.media).then(request => request.blob()).then(() => {
+
+            imgs[i] = true;
+          });
+          return {
+            tokenID: tok.token_id,
+            approval: tok.approved_account_ids,
+            onSale: onSale,
+            description: tok.metadata.description,
+            // onSale: tok.on_sale,// tok.metadata.on_sale,
+            // onAuction: tok.on_auction,
+            data: JSON.stringify({
+              title: tok.metadata.title,//"2sdfeds",// tok.metadata.title,
+              image: tok.metadata.media,//"vvvvvvvvvvvvvv",//tok.metadata.media,
+              description: tok.metadata.description,
+              creator: tok.creator_id
+            }),
+          };
+        });
+
+
+        setNfts({
+          ...nfts,
+          nftsCreations: nftsArrCreations.reverse(),
+          owner: accountId,
+        });
+        } else {
+          //ARR for Creators 
         
         let payloadCreations = {
           account_id: query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'),
@@ -336,22 +491,65 @@ function MyCreations(props) {
           owner: accountId,
         });
 
+        }
+
+
+        
+
 
       }
 
 
     })();
-  }, []);
+  }, [tokSort]);
   
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
 
+  let handleSortTokens = (data) => {
+    if ('oldRecent' == data.target.value) {
+      if (!tokSort) {
+        return;
+      }
+      setTokSort(!tokSort)
+      setNfts({
+        ...nfts,
+        nftsCreations: []
+      });
+      setState({...state, hasMoreCreations : true});
+      setpageCreations(1);
+
+      setAllNfts({nftsCreations: allNfts});
+    }
+    else if ('recentOld') {
+      if (tokSort) {
+        return;
+      }
+      setTokSort(!tokSort)
+      setNfts({
+        ...nfts,
+        nftsCreations: []
+      });
+      setpageCreations(1);
+      setState({...state, hasMoreCreations : true});
+
+     
+    }
+  }
+
 
   return (
     <>
       <ul>
+        <div className="px-6 lg:px-12 w-full pb-6 lg:py-12 flex flex-row-reverse">
+          <select name="sort" className="text-base font-open-sans pl-3 py-2.5 border-outlinePressed dark:text-black md:w-[283px]" onChange={handleSortTokens}>
+            <option value="" disabled selected hidden>{t("Explore.sortBy")}</option>
+            <option value="recentOld">{t("Explore.sortTimeRec")}</option>
+            <option value="oldRecent">{t("Explore.sortTimeOld")}</option>
+          </select>
+        </div>
         {loadMsg ?
           <li><InfiniteScroll
             dataLength={nfts.nftsCreations.length}
