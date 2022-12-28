@@ -369,8 +369,12 @@
         "title" : "Create profile",
         "title2" : "Edit profile",
         "biography" : "Biography",
+        "addbiography" : "Add Bio",
+
         "twitter" : "Twitter user",
         "upImg" : "Upload profile image",
+        "upImg2" : "Upload photo",
+
         "createProfile" : "Create profile",
         "editProfile" : "Edit profile",
         "minBio" : "The biography must be longer than 5 characters",
