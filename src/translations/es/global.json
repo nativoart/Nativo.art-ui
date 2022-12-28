@@ -217,7 +217,12 @@
         "notNfts": "No tienes NFT's",
         "searchNftById": "Buscar NFT por ID",
         "vis" : "Visible",
-        "noVis": "No visible"
+        "noVis": "No visible",
+        "publicProfileNotNFT" : "Este perfil no a creado coleccionables digitales",
+        "publicProfileNotAquisitions" : "Este perfil no a adquirido coleccionables digitales",
+        "publicProfileNotCollections" : "Este perfil no a creado colecciones",
+        "addNewToken" : "Añadir nuevo token",
+        "addNewCol" : "Añadir nueva colección"
     },
     "CreateCol" : {
         "title" : "Nueva Colección",

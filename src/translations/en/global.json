@@ -220,7 +220,12 @@
         "notNfts": "You don't have NFT's ",
         "searchNftById": "Search NFT by ID",
         "vis" : "Visible",
-        "noVis": "Not visible"
+        "noVis": "Not visible",
+        "publicProfileNotNFT" : "This profile doesn't have digital collectibles created yet",
+        "publicProfileNotAquisitions" : "This profile doesn't have digital collectibles adquired yet",
+        "publicProfileNotCollections" : "This profile doesn't have collections created yet",
+        "addNewToken" : "Add new token",
+        "addNewCol" : "Add new collection"
 
     },
     "CreateCol" : {
