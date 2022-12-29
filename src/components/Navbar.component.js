@@ -42,6 +42,7 @@ import menuArrowLeft from '../assets/img/navBar/menu/chevron-right.png';
 import createNft from '../assets/img/navBar/menu/plus-nft.png';
 import createCol from '../assets/img/navBar/menu/plus-col.png';
 import transakSDK from '@transak/transak-sdk'
+import nearImage from '../assets/img/landing/trendingSection/Vector.png';
 
 
 function LightHeaderB(props) {
@@ -137,9 +138,10 @@ function LightHeaderB(props) {
   }
 
   const launchTransak = () => {
+    let env = process.env.REACT_APP_NEAR_ENV == "mainnet" ? 'PRODUCTION' : 'STAGING'
     let transak = new transakSDK({
       apiKey: `${process.env.REACT_APP_TRANSAK_API_KEY}`,
-      environment: (process.env.REACT_APP_NEAR_ENV == "mainnet" ? 'PRODUCTION' : 'STAGING'),
+      environment: env,
       widgetWidth: `360px`,
       widgetHeight: `600px`,
       themeColor: `#F79336`,
@@ -652,6 +654,13 @@ function LightHeaderB(props) {
           {
             stateLogin ?
               <>
+                <button className="flex inline-flex rounded-xlarge w-full h-[40px]  mt-0  lg:w-[159px] mr-5" onClick={launchTransak}>
+                  <div className="flex flex-col font-extrabold h-full text-white  text-center  justify-center shadow-s w-full border-solid border-2 rounded-md border-white2 hover:bg-outlineHover active:bg-outlinePressed ">
+
+                    <span className="title-font  text-white font-open-sans font-normal lg:font-extrabold text-base p-5 uppercase leading-6 flex justify-center hover:text-textOutlineHover active:text-textOutlinePressed  ">{t("Navbar.buyNear")} <img className="manImg w-[15px] h-[15px] self-center ml-[6px]" src={nearImage}></img> </span>
+                  </div>
+                </button>
+
                 <button className="w-[30px] h-[30px] mr-[5px] hidden lg:inline-block" onClick={async () => { futureFeatureMsg(t("Navbar.loans")); }}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 40 40" fill="none">
                     <path d="M28 14.669C28 12.5473 27.1571 10.5125 25.6569 9.01217C24.1566 7.51188 22.1217 6.66903 20 6.66903C17.8783 6.66903 15.8434 7.51188 14.3431 9.01217C12.8429 10.5125 12 12.5473 12 14.669C12 24.0024 8 26.669 8 26.669H32C32 26.669 28 24.0024 28 14.669Z" stroke="#FDFCFD" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round" />
@@ -768,25 +777,6 @@ function LightHeaderB(props) {
                                   </div>
 
                                 </a>
-                              )}
-                            </MenuB.Item>
-
-                            <MenuB.Item
-                            >
-                              {({ active }) => (
-                                <button className={classNames(active ? "dark:text-white font-extrabold  bg-[#2A747E]" : "dark:text-white ml-2 font-bold", "block px-2 w-full text-base text-center font-open-sans uppercase")} onClick={launchTransak}>
-                                  <div className="flex justify-start w-full">
-                                    <span className=" m-2">
-                                      <img
-                                        className="mr-2"
-                                        src={finances}
-                                        alt='banner'
-                                        width="20px"
-                                        height="20px" />
-                                    </span>
-                                    <p className=" self-center"> {t("Navbar.buyNear")}</p>
-                                  </div>
-                                </button>
                               )}
                             </MenuB.Item>
 
@@ -1041,7 +1031,7 @@ function LightHeaderB(props) {
 
                     <button className="flex  rounded-xlarge w-full h-[40px]  lg:w-[159px] mt-3" onClick={launchTransak}>
                       <div className="flex flex-col font-extrabold h-full text-white  text-center  justify-center shadow-s w-full border-solid border-2 rounded-md border-white2  ">
-                        <span className="title-font  text-white font-open-sans text-base lg:font-extrabold p-0 uppercase leading-6 flex justify-center ">{t("Navbar.buyNear")} <img className="manImg self-center ml-[6px]" width="20px" height="20px" src={finances}></img> </span>
+                        <span className="title-font  text-white font-open-sans text-base lg:font-extrabold p-0 uppercase leading-6 flex justify-center ">{t("Navbar.buyNear")} <img className="manImg self-center ml-[6px]" width="20px" height="20px" src={nearImage}></img> </span>
                       </div>
                     </button>
 
