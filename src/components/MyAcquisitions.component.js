@@ -347,13 +347,15 @@ function MyAcquisitions(props) {
         return
       } else {
         let contract = await getNearContract();
-        let account = await getNearAccount();
-        if (account == accountId) {
-          setMyProfile(true)
-        }
+        let account = await getNearAccount();      
         const query = new URLSearchParams(location);
         console.log('QUERY', query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'));//.pathname.split('/')[0]);
-        setProfile({ user: query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet')}); 
+        let user = query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet');
+        setProfile({ user: user}); 
+        
+        if (user == accountId) {
+          setMyProfile(true)
+        }
         // let numNFT = await contract.nft_supply_for_owner({ account_id: accountId })
         // let numNFTCreations = await contract.nft_supply_for_creator({ account_id: accountId })
         const supply_payload = btoa(JSON.stringify({ account_id: query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet') }))
@@ -673,7 +675,7 @@ function MyAcquisitions(props) {
               {loadMsg ?
                 <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black">{t("MyNFTs.load-1")}</h1>
                 : <>
-                  {myProfile ?
+                  {!myProfile ?
                     <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black">{t("MyNFTs.publicProfileNotAquisitions")}</h1>
                     :
                     <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black">{t("MyNFTs.privateProfileNotAquisitions")}</h1>
