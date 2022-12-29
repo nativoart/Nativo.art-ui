@@ -225,7 +225,13 @@
         "publicProfileNotAquisitions" : "This profile doesn't have digital collectibles adquired yet",
         "publicProfileNotCollections" : "This profile doesn't have collections created yet",
         "addNewToken" : "Add new token",
-        "addNewCol" : "Add new collection"
+        "privateProfileNotAquisitions" : "You don't have adquisitons yet",
+        "addNewCol" : "Add new collection",
+        "adquisitions" : "Adquisitions",
+        "creations" : "Creations",
+        "collections" : "Collections",
+        "userNft" : "User's NFT's"
+
 
     },
     "CreateCol" : {

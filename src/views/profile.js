@@ -365,85 +365,81 @@ function LightEcommerceB(props) {
       </section>
       <div className="w-full bg-white container mx-auto py-5">
             <div className="font-open-sans font-bold text-3xl text-black px-5">
-              <p className="">User's NFTs</p>
+              <p className="">{t("MyNFTs.userNft")}</p>
             </div>
-            <Tab.Group>
-                <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1 lg:px-5 w-full lg:w-1/2 overflow-scroll lg:overflow-hidden">
-                  <Tab
-                    key={"MisTokens"}
-                    className={({ selected }) =>
-                      classNames(
-                        'w-[500px] lg:w-full  px-4 py-1.5    leading-8 font-bold text-base lg:text-2xl ',
-                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-open-sans  font-bold ',
-                        selected
-                          ? 'bg-white  text-darkgray  border-b-2 border-yellow2 direction-rtl'
-                          : 'font-open-sans text-[#616161] '
-                      )
-                    }
-                  >
-                   Adquisiciones
-                   
-                  </Tab>
-                  <Tab
-                    key={"Creaciones"}
-                    className={({ selected }) =>
-                      classNames(
-                        'w-[500px] lg:w-full px-4 py-1.5   leading-8 font-bold text-base lg:text-2xl',
-                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-open-sans    font-bold ',
-                        selected
-                          ? 'bg-white  text-darkgray  border-b-2 border-yellow2'
-                          : 'font-open-sans text-[#616161] '
-                      )
-                    }
-                  >
-                    Creaciones
-                  </Tab>
-                  <Tab
-                    key={"Colecciones"}
-                    className={({ selected }) =>
-                      classNames(
-                        'w-[500px] lg:w-full  px-4 py-1.5    leading-8 font-bold text-base lg:text-2xl',
-                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-open-sans    font-bold ',
-                        selected
-                          ? 'bg-white  text-darkgray  border-b-2 border-yellow2 direction-ltr'
-                          : 'font-open-sans text-[#616161] '
-                      )
-                    }
-                  >
-                    Colecciones
-                  </Tab>
- 
-                </Tab.List>
-                <Tab.Panels className="mt-2 bg-white">
-                  <Tab.Panel
-                    key={"MisTokens"}
-                    className={classNames(
-                      'rounded-xl  bg-white'
-                    )}
-                  >
-                  <MyAcquisitions />
-                  </Tab.Panel>
+        <Tab.Group>
+          <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1 lg:px-5 w-full lg:w-1/2 overflow-scroll lg:overflow-hidden">
+            <Tab
+              key={"MisTokens"}
+              className={({ selected }) =>
+                classNames(
+                  'w-[500px] lg:w-full  px-4 py-1.5    leading-8 font-bold text-base lg:text-2xl ',
+                  'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-open-sans  font-bold ',
+                  selected
+                    ? 'bg-white  text-darkgray  border-b-2 border-yellow2 direction-rtl'
+                    : 'font-open-sans text-[#616161] '
+                )
+              }
+            >
+              {t("MyNFTs.adquisitions")}
+            </Tab>
+            <Tab
+              key={"Creaciones"}
+              className={({ selected }) =>
+                classNames(
+                  'w-[500px] lg:w-full px-4 py-1.5   leading-8 font-bold text-base lg:text-2xl',
+                  'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-open-sans    font-bold ',
+                  selected
+                    ? 'bg-white  text-darkgray  border-b-2 border-yellow2'
+                    : 'font-open-sans text-[#616161] '
+                )
+              }
+            >
+              {t("MyNFTs.creations")}
+            </Tab>
+            <Tab
+              key={"Colecciones"}
+              className={({ selected }) =>
+                classNames(
+                  'w-[500px] lg:w-full  px-4 py-1.5    leading-8 font-bold text-base lg:text-2xl',
+                  'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-open-sans    font-bold ',
+                  selected
+                    ? 'bg-white  text-darkgray  border-b-2 border-yellow2 direction-ltr'
+                    : 'font-open-sans text-[#616161] '
+                )
+              }
+            >
+              {t("MyNFTs.collections")}
+            </Tab>
+          </Tab.List>
+          <Tab.Panels className="mt-2 bg-white">
+            <Tab.Panel
+              key={"MisTokens"}
+              className={classNames(
+                'rounded-xl  bg-white'
+              )}
+            >
+              <MyAcquisitions />
+            </Tab.Panel>
+            <Tab.Panel
+              key={"Creaciones"}
+              className={classNames(
+                'rounded-xl   bg-white'
+              )}
+            >
+              <MyCreations />
+            </Tab.Panel>
 
-                  <Tab.Panel
-                    key={"Creaciones"}
-                    className={classNames(
-                      'rounded-xl   bg-white'
-                    )}
-                  >
-                    <MyCreations />
-
-                  </Tab.Panel>
-
-                  <Tab.Panel
-                    key={"Colecciones"}
-                    className={classNames(
-                      'rounded-xl  bg-white'
-                    )}
-                  >
-                  <MyCollections />
-                  </Tab.Panel>
-                </Tab.Panels>
-              </Tab.Group>
+            <Tab.Panel
+              key={"Colecciones"}
+              className={classNames(
+                'rounded-xl  bg-white'
+              )}
+            >
+              <MyCollections />
+            </Tab.Panel>
+          </Tab.Panels>
+        </Tab.Group>
 
           </div>
     </>

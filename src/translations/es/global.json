@@ -222,7 +222,12 @@
         "publicProfileNotAquisitions" : "Este perfil no a adquirido coleccionables digitales",
         "publicProfileNotCollections" : "Este perfil no a creado colecciones",
         "addNewToken" : "Añadir nuevo token",
-        "addNewCol" : "Añadir nueva colección"
+        "privateProfileNotAquisitions" : "No tienes adquisiciones todavía",
+        "addNewCol" : "Añadir nueva colección",
+        "adquisitions" : "Adquisiciones",
+        "creations" : "Creaciones",
+        "collections" : "Colecciones",
+        "userNft" : "NFT's del usuario"
     },
     "CreateCol" : {
         "title" : "Nueva Colección",
