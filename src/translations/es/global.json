@@ -381,12 +381,8 @@
         "title" : "Crear perfil",
         "title2" : "Editar perfil",
         "biography" : "Biografía",
-        "addbiography" : "Añadir Bio",
-
         "twitter" : "Usuario de Twitter",
         "upImg" : "Subir imagen de perfil",
-        "upImg2" : "Subir foto",
-
         "createProfile" : "Crear perfil",
         "editProfile" : "Editar perfil",
         "minBio" : "La biografía debe tener longitud mayor a 5 caracteres",
@@ -397,7 +393,6 @@
         "since" : "Perfil creado en:",
         "prefUsr" : "Preferencias del usuario",
         "language" : "Idioma",
- 
         "addNTV" : "Agregar mis NTVs a mi wallet"
     },
     "addToken" : {
