@@ -21,6 +21,8 @@ import Community from "./views/community"
 import TokensCollection from "./views/tokensCollection"
 import SalesGallery from "./views/salesGallery"
 import ProfileData from "./views/profileData"
+import ProfileInfo from "./views/profileInfo";
+
 import Profile from "./views/profile"
 import Explore from "./views/explore.view";
 
@@ -79,6 +81,8 @@ class App extends Component {
             <BlockchainProtectedRoute exact path="/create" component={Mint2} />
             <BlockchainProtectedRoute exact path="/congratulation" component={FinishMint} />
             <BlockchainProtectedRoute path="/profileData/:state" component={ProfileData} />
+            <BlockchainProtectedRoute path="/profileInfo/:state" component={ProfileInfo} />
+
             <BlockchainProtectedRoute path="/collectionData/:state" component={creCol} />
             <Route path="/profile/:user" component={Profile} />
             <Route path="/gallery" component={Gallery} />
