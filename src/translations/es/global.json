@@ -227,7 +227,10 @@
         "adquisitions" : "Adquisiciones",
         "creations" : "Creaciones",
         "collections" : "Colecciones",
-        "userNft" : "NFT's del usuario"
+        "userNft" : "NFT's del usuario",
+        "userActivity" : "Actividad",
+        "userBids" : "Ofertas",
+        "userCreate" : "Crear"
     },
     "CreateCol" : {
         "title" : "Nueva Colección",

@@ -230,7 +230,10 @@
         "adquisitions" : "Adquisitions",
         "creations" : "Creations",
         "collections" : "Collections",
-        "userNft" : "User's NFT's"
+        "userNft" : "User's NFT's",
+        "userActivity" : "Activity",
+        "userBids" : "Bids",
+        "userCreate" : "Create"
 
 
     },

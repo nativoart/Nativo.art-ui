@@ -339,7 +339,7 @@ function LightEcommerceB(props) {
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" >
                         <path d="M22 12H18L15 21L9 3L6 12H2" stroke="#F79336" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                       </svg>
-                      <p className="font-open-sans font-bold text-base leading-6 text-center text-black mt-1 ">Actividad</p>
+                      <p className="font-open-sans font-bold text-base leading-6 text-center text-black mt-1 ">{t("MyNFTs.userActivity")}</p>
                     </button>
                     <button className="rounded-xl bg-white w-1/2 h-[96px]  ml-2 shadow-md">
                       <img
@@ -347,13 +347,13 @@ function LightEcommerceB(props) {
                         className="w-[24px] h-[24px] m-auto"
                         src={ofertas}
                       />
-                      <p className="font-open-sans font-bold text-base leading-6 text-center text-black mt-1 ">Ofertas</p>
+                      <p className="font-open-sans font-bold text-base leading-6 text-center text-black mt-1 ">{t("MyNFTs.userBids")}</p>
                     </button >
                   </div>
                 </div>
                 <button className="flex rounded-xlarge w-full h-[50px]  mt-0 lg:mx-auto" onClick={() => handleCreatebutton()} >
                   <div className="flex flex-col font-bold h-full text-white  text-center  justify-center shadow-s w-full bg-yellow4 hover:bg-yellowHover active:bg-yellowPressed rounded-md">
-                    <span className="title-font  text-white font-open-sans font-extrabold lg:font-semibold text-base  uppercase leading-6">CREATE</span>
+                    <span className="title-font  text-white font-open-sans font-extrabold lg:font-semibold text-base  uppercase leading-6">{t("MyNFTs.userCreate")}</span>
                   </div>
                 </button>
               </div>

@@ -611,7 +611,7 @@ function MyAcquisitions(props) {
       <ul>
       {loadMsg ?
       <>
-      <div className="px-6 lg:px-12 w-full pb-6 lg:py-12 flex flex-row-reverse">
+      <div className="px-6 lg:px-12 w-full pb-6  flex flex-row-reverse">
           <select name="sort" className="text-base font-open-sans pl-3 py-2.5 border-outlinePressed dark:text-black md:w-[283px]" onChange={handleSortTokens}>
             <option value="" disabled selected hidden>{t("Explore.sortBy")}</option>
             <option value="recentOld">{t("Explore.sortTimeRec")}</option>
