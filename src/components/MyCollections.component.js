@@ -43,8 +43,10 @@ function MyCollections(props) {
   const [firstLoad, setFirstLoad] = React.useState(true)
   const [loadMsg, setLoadMsg] = React.useState(true)
   const [loadMsgCollections, setLoadMsgCollections] = React.useState(true);
-  const [collections, setCollections] = React.useState(true)
+  const [colSortOrd, setColSortOrd] = React.useState('desc');
+  const [colSort, setColSort] = React.useState('collectionID');
   const [t, i18n] = useTranslation("global")
+  const [triggerCol, setTriggerCol] = React.useState(true);
   const [nfts, setNfts] = useState({
     nfts: [],
     nftsCreations: [],
@@ -60,6 +62,12 @@ function MyCollections(props) {
     //state para la ventana modal
     show: false,
   });
+  let [collections, setCollections] = React.useState({
+    items: [],
+    hasMore: true
+  });
+  const [hasDataCol, setHasDataCol] = React.useState(false);
+  const [lastName, setLastName] = React.useState('');
 
   const [modalSub, setModalSub] = useState({
     //state para la ventana modal
@@ -111,114 +119,23 @@ function MyCollections(props) {
 
 
   //Hook para el manejo de efectos
-  useEffect(() => {
-    (async () => {
-      window.localStorage.setItem("Mypage", 0);
+ 
 
+  React.useEffect(() => {
+    const query = new URLSearchParams(location);
+    console.log('QUERY', query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'));//.pathname.split('/')[0]);
+    let user = query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet');
+    setProfile({ user: user}); 
+    
 
-
-      if (nfts.blockchain == "0") {
-        return
-      } else {
-        let contract = await getNearContract();
-        let account = await getNearAccount();
-        const query = new URLSearchParams(location);
-        console.log('QUERY', query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'));//.pathname.split('/')[0]);
-        let user = query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet');
-        setProfile({ user: user}); 
-        
-   
-        if (user == accountId) {
-          setMyProfile(true)
-        }
-
-        let colData;
-        let col;
-
+    if (user == accountId) {
+      setMyProfile(true)
+    }
+    console.log("queryonfo",colSort + colSortOrd)
+    async function getColData() {
         const queryData = `
         query($first: Int, $account: String){
-          collections(first: $first,  orderBy: collectionID, orderDirection: desc, where: { owner_id: $account }){
-            id
-            collectionID
-            owner_id
-            title
-            timestamp
-            mediaIcon
-            mediaBanner,
-            description,
-            tokenCount,
-            visibility
-          }
-        }`
-
-        //Declaramos el cliente
-    const client = new ApolloClient({
-      uri: APIURL,
-      cache: new InMemoryCache(),
-    })
-
-    await client
-      .query({
-        query: gql(queryData),
-        variables: {
-          first: nfts.tokensPerPageNear,
-          account: query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet')
-        },
-      })
-      .then((data) => {
-        //console.log("tokens data: ", data.data.tokens)
-        colData = data.data.collections
-        console.log('then client',data.data.collections)
-        if (data.data.collections.length <= 0) {
-          setLoadMsgCollections(false)
-        }
-        setLastIDCollection(parseInt(data.data.collections[data.data.collections.length - 1].collectionID))
-      })
-      .catch((err) => {
-        //console.log('Error ferching data: ', err)
-        colData = 0
-      })
-      if(colData != 0 ) {
-         col = colData.map((collection) => {
-          console.log('dataCollection',collection);
-          return {
-            title: collection.title,
-            owner: collection.owner_id,
-            tokenCount: collection.tokenCount,
-            description: collection.description,
-            mediaIcon: collection.mediaIcon,
-            mediaBanner: collection.mediaBanner,
-            collectionID: collection.collectionID,
-            visibility: collection.visibility
-          };
-        });
-      }
-
-
-        setNfts({
-          ...nfts,
-          owner: account,
-          collections: nfts.collections.concat(col)
-        });
-
-
-      }
-
-
-    })();
-  }, []);
-
-
-  let fetchMoreDataCollections = async () => {
-    setPageCollections(pageCollections + 1);
-    //instanciar contracto
-    let contract = await getNearContract();
-    let account = await getNearAccount();
-    console.log('fetchMoreDataCollections');
-    let colData;
-    const queryData = `
-          query($first: Int, $lastTokenID: Int, $account: String){
-              collections(first: $first,  orderBy: collectionID, orderDirection: desc, where: {collectionID_lt: $lastTokenID, owner_id: $account}){
+            collections(first: $first,  orderBy: ${colSort}, orderDirection: ${colSortOrd}, where:{ owner_id: $account  }){
                 id
                 collectionID
                 owner_id
@@ -227,91 +144,203 @@ function MyCollections(props) {
                 mediaIcon
                 mediaBanner,
                 description,
-                tokenCount,
-                visibility
+                tokenCount
+            }
+        }
+        `
+
+        //Declaramos el cliente
+        const client = new ApolloClient({
+            uri: APIURL,
+            cache: new InMemoryCache(),
+        })
+
+        await client
+            .query({
+                query: gql(queryData),
+                variables: {
+                    first: nfts.tokensPerPageNear,
+                    account: user
+                },
+            })
+            .then((data) => {
+              console.log("DATa",data);
+                setCollections({
+                    ...collections,
+                    items: collections.items.concat(data.data.collections)
+                });
+                if (data.data.collections.length <= 0) {
+                  console.log("DATa<=0",data);
+                    setHasDataCol(false);
+                    console.log("aaaaajjj");
+                    return
+                } else {
+                  console.log("DATa>=0",data);
+                  setLastID(parseInt(data.data.collections[data.data.collections.length - 1].collectionID))
+                  setLastName(data.data.collections[data.data.collections.length - 1].title)
+                 setHasDataCol(true)
+                }
+            })
+            .catch((err) => {
+                console.log('Error ferching data: ', err)
+                setHasDataCol(false)
+            })
+    }
+    getColData()
+}, [triggerCol])
+
+
+
+  let fetchMoreColData = async () => {
+    console.log('carga data colecciones')
+    await delay(.75)
+    var sort
+    var last
+    if (colSortOrd == 'asc') {
+        sort = 'gt'
+    }
+    else if (colSortOrd == 'desc') {
+        sort = 'lt'
+    }
+    if (colSort == 'collectionID') {
+        last = lastID.toString()
+    }
+    else if (colSort == 'title') {
+        last = lastName
+    }
+    let colData;
+    console.log("antes d ela query")
+    console.log("profile", profile.user);
+    const queryData = `
+          query($first: Int, $lastTokenID: String, $account: String){
+              collections(first: $first,  orderBy: ${colSort}, orderDirection: ${colSortOrd}, where: { ${colSort}_${sort}: $lastTokenID, owner_id: $account  }){
+                id
+                collectionID
+                owner_id
+                title
+                timestamp
+                mediaIcon
+                mediaBanner,
+                description,
+                tokenCount
             }
           }
         `
 
     //Declaramos el cliente
     const client = new ApolloClient({
-      uri: APIURL,
-      cache: new InMemoryCache(),
+        uri: APIURL,
+        cache: new InMemoryCache(),
     })
 
-    console.log('nfts.tokensPerPage', nfts.tokensPerPage);
-    console.log('lastIDCollection', lastIDCollection);
-    console.log('profile.user', profile.user);
-
     await client
-      .query({
-        query: gql(queryData),
-        variables: {
-          first: nfts.tokensPerPage,
-          lastTokenID: lastIDCollection,
-          account: profile.user
-        },
-      })
-      .then((data) => {
-        colData = data.data.collections;
-        if (data.data.collections.length <= nfts.tokensPerPage) {
-          setState({...state, hasMore: false });
-          setLastIDCollection(parseInt(data.data.collections[data.data.collections.length - 1].collectionID))
-          return;
-        }
-
-        if (data.data.collections.length > nfts.tokensPerPage) {
-          setState({...state, hasMore: true });
-          setLastIDCollection(parseInt(data.data.collections[data.data.collections.length - 1].collectionID))
-        }
-       
-        setpage(pageCollections + 1)
-      })
-      .catch((err) => {
-        colData = 0
-      })
-
-
-      if(colData != 0 ) {
-        let col = colData.map((collection) => {
-          console.log('dataCollection',collection);
-          return {
-            title: collection.title,
-            owner: collection.owner_id,
-            tokenCount: collection.tokenCount,
-            description: collection.description,
-            mediaIcon: collection.mediaIcon,
-            mediaBanner: collection.mediaBanner,
-            collectionID: collection.collectionID,
-            visibility: collection.visibility
-          };
-        });
-    
-
-        setNfts({
-          ...nfts,
-          collections: nfts.collections.concat(col)
-        });
-
+        .query({
+            query: gql(queryData),
+            variables: {
+                first: nfts.tokensPerPageNear,
+                lastTokenID: last,
+                account: profile.user
+            },
+        })
+        .then((data) => {
+            if (data.data.collections.length <= 0) {
+                setCollections({ ...collections, hasMore: false })
+                return
+            }
+            if (data.data.collections.length < nfts.tokensPerPageNear) {
+                setCollections({ ...collections, hasMore: false, items: collections.items.concat(data.data.collections) });
+                setLastID(parseInt(data.data.collections[data.data.collections.length - 1].collectionID))
+                setLastName(data.data.collections[data.data.collections.length - 1].title)
+                return;
+            }
+            setCollections({
+                ...collections,
+                items: collections.items.concat(data.data.collections)
+            });
+            setLastID(parseInt(data.data.collections[data.data.collections.length - 1].collectionID))
+            setLastName(data.data.collections[data.data.collections.length - 1].title)
+            console.log(data.data.collections)
+        })
+        .catch((err) => {
+            colData = 0
+            console.log(err)
+        })
       }
-      
+ 
 
-  }
-
-  
-
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-  }
+  let handleSortCollections = (data) => {
+    if ('TimeDesc' == data.target.value) {
+        if (colSortOrd == 'desc' && colSort == 'collectionID') {
+            return;
+        }
+        console.log('entro time desc')
+        setColSortOrd('desc')
+        setColSort('collectionID')
+        setCollections({
+            ...collections,
+            hasMore: true,
+            items: []
+        });
+    }
+    else if ('TimeAsc' == data.target.value) {
+        if (colSortOrd == 'asc' && colSort == 'collectionID') {
+            return;
+        }
+        console.log('entro time asc')
+        setColSortOrd('asc')
+        setColSort('collectionID')
+        setCollections({
+            ...collections,
+            hasMore: true,
+            items: []
+        });
+    }
+    else if ('TitleAsc' == data.target.value) {
+        if (colSortOrd == 'asc' && colSort == 'title') {
+            return;
+        }
+        console.log('entro title asc')
+        setColSortOrd('asc')
+        setColSort('title')
+        setCollections({
+            ...collections,
+            hasMore: true,
+            items: []
+        });
+    }
+    else if ('TitleDesc' == data.target.value) {
+        if (colSortOrd == 'desc' && colSort == 'title') {
+            return;
+        }
+        console.log('entro title desc')
+        setColSortOrd('asc')
+        setColSort('title')
+        setCollections({
+            ...collections,
+            hasMore: true,
+            items: []
+        });
+    }
+    setTriggerCol(!triggerCol)
+}
 
   return (
     <>
       <ul>
-        {loadMsgCollections ?
+      {hasDataCol ? <>
+        <div className="px-6 lg:px-12 w-full pb-6 lg:py-12 flex flex-row-reverse">
+          <select name="sort" className="text-base font-open-sans pl-3 py-2.5 border-outlinePressed dark:text-black md:w-[283px]" onChange={handleSortCollections}>
+            <option value="" disabled selected hidden>{t("Explore.sortBy")}</option>
+            <option value="TimeDesc">{t("Explore.sortTimeRec")}</option>
+            <option value="TimeAsc">{t("Explore.sortTimeOld")}</option>
+            <option value="TitleAsc">{t("Explore.sortTitAz")}</option>
+            <option value="TitleDesc">{t("Explore.sortTitZa")}</option>
+          </select>
+        </div>
           <li><InfiniteScroll
-            dataLength={nfts.nfts.length}
-            next={fetchMoreDataCollections}
-            hasMore={state.hasMore}
+          dataLength={collections.items.length}
+          next={fetchMoreColData}
+          hasMore={collections.hasMore}
             loader={<h1 className="text-center font-clash-grotesk font-semibold w-full py-10 text-xl text-black">{t("tokCollection.loading")}</h1>}
             endMessage={
               <p className="text-center font-clash-grotesk font-semibold w-full py-10 text-xl text-black">
@@ -320,48 +349,46 @@ function MyCollections(props) {
             }
           >
             <div className="flex flex-wrap px-6 lg:px-[46px] gap-4 lg:gap-[19px] justify-center">
-              {nfts.collections.map((nft, key) => {
+              {collections.items.map((nft, key) => {
                 //obtenemos la data del token nft
                 //console.log(nft)
                 const item = nft;
                 return (
-                  <>
-                    <div className="w-full sm:w-[280px] md:w-[350px] lg:w-[455px] xl:w-[380px] 2xl:w-[440px]" key={key}>
-                                            <a href={"/collection/" + item.collectionID}
-                                            >
-                                                <div className="flex flex-row justify-items-center w-full" key={key}>
+                  <div className="w-full sm:w-[280px] md:w-[350px] lg:w-[455px] xl:w-[380px] 2xl:w-[440px]" key={key}>
+                      <a href={"/collection/" + item.collectionID}
+                      >
+                          <div className="flex flex-row justify-items-center w-full" key={key}>
 
-                                                    <div className="rounded-xl shadow-lg bg-white hover:scale-105 w-full ">
-                                                        <div className="  overflow-hidden rounded-t-md  bg-white ">
+                              <div className="rounded-xl shadow-lg bg-white hover:scale-105 w-full ">
+                                  <div className="  overflow-hidden rounded-t-md  bg-white ">
 
-                                                            <img className="  h-[190px] object-cover object-center scale-150 w-full lg:h-[306px] " alt={item.description} src={`https://nativonft.mypinata.cloud/ipfs/${item.mediaBanner}`} />
+                                      <img className="  h-[190px] object-cover object-center scale-150 w-full lg:h-[306px] " alt={item.description} src={`https://nativonft.mypinata.cloud/ipfs/${item.mediaBanner}`} />
 
-                                                        </div>
-                                                        <div className="flex flex-row  mb-4" name="card_detail">
-                                                            <div className=" z-10 -mt-4 lg:-mt-8 ml-4        ">
-                                                                <img className="  object-cover  rounded-md bg-white  border-2 border-white w-[90px] h-[90px] lg:w-[120px] lg:h-[120px] " src={`https://nativonft.mypinata.cloud/ipfs/${item.mediaIcon}`} alt={item.description} />
-                                                            </div>
+                                  </div>
+                                  <div className="flex flex-row  mb-4" name="card_detail">
+                                      <div className=" z-10 -mt-4 lg:-mt-8 ml-4        ">
+                                          <img className="  object-cover  rounded-md bg-white  border-2 border-white w-[90px] h-[90px] lg:w-[120px] lg:h-[120px] " src={`https://nativonft.mypinata.cloud/ipfs/${item.mediaIcon}`} alt={item.description} />
+                                      </div>
 
-                                                            <div class="flex flex-col  mx-2 mt-2  ">
-                                                                <p className="   w-[210px]  sm:w-[150px] md:w-[230px] lg:w-[305px] xl:w-[220px] 2xl:w-[280px] uppercase tracking-tighter text-black text-base font-open-sans font-extrabold collection-description h-[50px] justify-center items-center">{item.title}</p>
-                                                                <p className="   w-[210px]  sm:w-[150px] md:w-[230px] lg:w-[305px] xl:w-[220px] 2xl:w-[280px] uppercase tracking-tighter text-xs text-left font-bold justify-center font-open-sans leading-4 text-black truncate">{t("Landing.popular_col-by") + " " + item.owner_id}</p>
-                                                                <div className="   w-[210px]  sm:w-[150px] md:w-[230px] lg:w-[305px] xl:w-[220px] 2xl:w-[280px]   text-xs  text-black text-left justify-center font-normal font-open-sans truncate"><p className="w-full   text-xs text-black font-open-sans font-normal tracking-wide leading-4  text-left justify-center truncate uppercase"><b>{item.tokenCount > 999 ? "+" + item.tokenCount + "k " : item.tokenCount + " "}</b> {t("Landing.popular_col-tokens_on")}</p></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                  </>
-
-                );})}
+                                      <div class="flex flex-col  mx-2 mt-2  ">
+                                          <p className="   w-[210px]  sm:w-[150px] md:w-[230px] lg:w-[305px] xl:w-[220px] 2xl:w-[280px] uppercase tracking-tighter text-black text-base font-open-sans font-extrabold collection-description h-[50px] justify-center items-center">{item.title}</p>
+                                          <p className="   w-[210px]  sm:w-[150px] md:w-[230px] lg:w-[305px] xl:w-[220px] 2xl:w-[280px] uppercase tracking-tighter text-xs text-left font-bold justify-center font-open-sans leading-4 text-black truncate">{t("Landing.popular_col-by") + " " + item.owner_id}</p>
+                                          <div className="   w-[210px]  sm:w-[150px] md:w-[230px] lg:w-[305px] xl:w-[220px] 2xl:w-[280px]   text-xs  text-black text-left justify-center font-normal font-open-sans truncate"><p className="w-full   text-xs text-black font-open-sans font-normal tracking-wide leading-4  text-left justify-center truncate uppercase"><b>{item.tokenCount > 999 ? "+" + item.tokenCount + "k " : item.tokenCount + " "}</b> {t("Landing.popular_col-tokens_on")}</p></div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </a>
+                  </div>
+              );})}
             </div>
           </InfiniteScroll>
           </li>
+          </>
           :
           <div className="container mx-auto flex  my- md:flex-row flex-col  justify-center h-96 items-center text-3xl ">
             <div className="flex flex-col justify-center">
-            {loadMsgCollections ?
+            {hasDataCol ?
                 <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black">{t("MyNFTs.load-1")}</h1>
                 : <>
                   {!myProfile ?

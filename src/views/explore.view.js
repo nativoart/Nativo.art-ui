@@ -37,7 +37,7 @@ function Explore() {
     const [hasDataCol, setHasDataCol] = React.useState(false)
     const [colSortOrd, setColSortOrd] = React.useState('desc')
     const [colSort, setColSort] = React.useState('collectionID')
-    const [triggerCol, setTriggerCol] = React.useState(true)
+    const [triggerCol, setTriggerCol] = React.useState(true);
     const [lastUsername, setLastUsername] = React.useState("");
     const [lastTimestamp, setLastTimestamp] = React.useState();
     const [hasDataArt, setHasDataArt] = React.useState(false)
