@@ -144,7 +144,8 @@ function MyCollections(props) {
                 mediaIcon
                 mediaBanner,
                 description,
-                tokenCount
+                tokenCount,
+                visibility
             }
         }
         `
@@ -178,7 +179,13 @@ function MyCollections(props) {
                   console.log("DATa>=0",data);
                   setLastID(parseInt(data.data.collections[data.data.collections.length - 1].collectionID))
                   setLastName(data.data.collections[data.data.collections.length - 1].title)
-                 setHasDataCol(true)
+                  setHasDataCol(true)
+                }
+
+                if(data.data.collections.length == 1 && !data.data.collections[0].visibility && user != accountId){
+                  console.log("estoy en mi primer coleccion invisible");
+                  setHasDataCol(false)
+                  return;
                 }
             })
             .catch((err) => {
@@ -222,7 +229,8 @@ function MyCollections(props) {
                 mediaIcon
                 mediaBanner,
                 description,
-                tokenCount
+                tokenCount,
+                visibility
             }
           }
         `
@@ -351,36 +359,73 @@ function MyCollections(props) {
             <div className="flex flex-wrap px-6 lg:px-[46px] gap-4 lg:gap-[19px] justify-center">
               {collections.items.map((nft, key) => {
                 //obtenemos la data del token nft
-                //console.log(nft)
                 const item = nft;
-                return (
-                  <div className="w-full sm:w-[280px] md:w-[350px] lg:w-[455px] xl:w-[380px] 2xl:w-[440px]" key={key}>
+                console.log('collecciobots', nft)
+                console.log('Is this y profile?', myProfile);
+                console.log('Is this collections visible?', item.visibility+ item.collectionID);
+                if (myProfile) {
+                  return (
+                    <div className="w-full sm:w-[280px] md:w-[350px] lg:w-[455px] xl:w-[380px] 2xl:w-[440px]" key={key}>
                       <a href={"/collection/" + item.collectionID}
                       >
+                        <div className="flex flex-row justify-items-center w-full" key={key}>
+
+                          <div className="rounded-xl shadow-lg bg-white hover:scale-105 w-full ">
+                            <div className="  overflow-hidden rounded-t-md  bg-white ">
+
+                              <img className="  h-[190px] object-cover object-center scale-150 w-full lg:h-[306px] " alt={item.description} src={`https://nativonft.mypinata.cloud/ipfs/${item.mediaBanner}`} />
+
+                            </div>
+                            <div className="flex flex-row  mb-4" name="card_detail">
+                              <div className=" z-10 -mt-4 lg:-mt-8 ml-4        ">
+                                <img className="  object-cover  rounded-md bg-white  border-2 border-white w-[90px] h-[90px] lg:w-[120px] lg:h-[120px] " src={`https://nativonft.mypinata.cloud/ipfs/${item.mediaIcon}`} alt={item.description} />
+                              </div>
+
+                              <div class="flex flex-col  mx-2 mt-2  ">
+                                <p className="   w-[210px]  sm:w-[150px] md:w-[230px] lg:w-[305px] xl:w-[220px] 2xl:w-[280px] uppercase tracking-tighter text-black text-base font-open-sans font-extrabold collection-description h-[50px] justify-center items-center">{item.title}</p>
+                                <p className="   w-[210px]  sm:w-[150px] md:w-[230px] lg:w-[305px] xl:w-[220px] 2xl:w-[280px] uppercase tracking-tighter text-xs text-left font-bold justify-center font-open-sans leading-4 text-black truncate">{t("Landing.popular_col-by") + " " + item.owner_id}</p>
+                                <div className="   w-[210px]  sm:w-[150px] md:w-[230px] lg:w-[305px] xl:w-[220px] 2xl:w-[280px]   text-xs  text-black text-left justify-center font-normal font-open-sans truncate"><p className="w-full   text-xs text-black font-open-sans font-normal tracking-wide leading-4  text-left justify-center truncate uppercase"><b>{item.tokenCount > 999 ? "+" + item.tokenCount + "k " : item.tokenCount + " "}</b> {t("Landing.popular_col-tokens_on")}</p></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  );
+                } else {
+                  if (item.visibility) {
+                    return (
+                      <div className="w-full sm:w-[280px] md:w-[350px] lg:w-[455px] xl:w-[380px] 2xl:w-[440px]" key={key}>
+                        <a href={"/collection/" + item.collectionID}
+                        >
                           <div className="flex flex-row justify-items-center w-full" key={key}>
 
-                              <div className="rounded-xl shadow-lg bg-white hover:scale-105 w-full ">
-                                  <div className="  overflow-hidden rounded-t-md  bg-white ">
+                            <div className="rounded-xl shadow-lg bg-white hover:scale-105 w-full ">
+                              <div className="  overflow-hidden rounded-t-md  bg-white ">
 
-                                      <img className="  h-[190px] object-cover object-center scale-150 w-full lg:h-[306px] " alt={item.description} src={`https://nativonft.mypinata.cloud/ipfs/${item.mediaBanner}`} />
+                                <img className="  h-[190px] object-cover object-center scale-150 w-full lg:h-[306px] " alt={item.description} src={`https://nativonft.mypinata.cloud/ipfs/${item.mediaBanner}`} />
 
-                                  </div>
-                                  <div className="flex flex-row  mb-4" name="card_detail">
-                                      <div className=" z-10 -mt-4 lg:-mt-8 ml-4        ">
-                                          <img className="  object-cover  rounded-md bg-white  border-2 border-white w-[90px] h-[90px] lg:w-[120px] lg:h-[120px] " src={`https://nativonft.mypinata.cloud/ipfs/${item.mediaIcon}`} alt={item.description} />
-                                      </div>
-
-                                      <div class="flex flex-col  mx-2 mt-2  ">
-                                          <p className="   w-[210px]  sm:w-[150px] md:w-[230px] lg:w-[305px] xl:w-[220px] 2xl:w-[280px] uppercase tracking-tighter text-black text-base font-open-sans font-extrabold collection-description h-[50px] justify-center items-center">{item.title}</p>
-                                          <p className="   w-[210px]  sm:w-[150px] md:w-[230px] lg:w-[305px] xl:w-[220px] 2xl:w-[280px] uppercase tracking-tighter text-xs text-left font-bold justify-center font-open-sans leading-4 text-black truncate">{t("Landing.popular_col-by") + " " + item.owner_id}</p>
-                                          <div className="   w-[210px]  sm:w-[150px] md:w-[230px] lg:w-[305px] xl:w-[220px] 2xl:w-[280px]   text-xs  text-black text-left justify-center font-normal font-open-sans truncate"><p className="w-full   text-xs text-black font-open-sans font-normal tracking-wide leading-4  text-left justify-center truncate uppercase"><b>{item.tokenCount > 999 ? "+" + item.tokenCount + "k " : item.tokenCount + " "}</b> {t("Landing.popular_col-tokens_on")}</p></div>
-                                      </div>
-                                  </div>
                               </div>
+                              <div className="flex flex-row  mb-4" name="card_detail">
+                                <div className=" z-10 -mt-4 lg:-mt-8 ml-4        ">
+                                  <img className="  object-cover  rounded-md bg-white  border-2 border-white w-[90px] h-[90px] lg:w-[120px] lg:h-[120px] " src={`https://nativonft.mypinata.cloud/ipfs/${item.mediaIcon}`} alt={item.description} />
+                                </div>
+
+                                <div class="flex flex-col  mx-2 mt-2  ">
+                                  <p className="   w-[210px]  sm:w-[150px] md:w-[230px] lg:w-[305px] xl:w-[220px] 2xl:w-[280px] uppercase tracking-tighter text-black text-base font-open-sans font-extrabold collection-description h-[50px] justify-center items-center">{item.title}</p>
+                                  <p className="   w-[210px]  sm:w-[150px] md:w-[230px] lg:w-[305px] xl:w-[220px] 2xl:w-[280px] uppercase tracking-tighter text-xs text-left font-bold justify-center font-open-sans leading-4 text-black truncate">{t("Landing.popular_col-by") + " " + item.owner_id}</p>
+                                  <div className="   w-[210px]  sm:w-[150px] md:w-[230px] lg:w-[305px] xl:w-[220px] 2xl:w-[280px]   text-xs  text-black text-left justify-center font-normal font-open-sans truncate"><p className="w-full   text-xs text-black font-open-sans font-normal tracking-wide leading-4  text-left justify-center truncate uppercase"><b>{item.tokenCount > 999 ? "+" + item.tokenCount + "k " : item.tokenCount + " "}</b> {t("Landing.popular_col-tokens_on")}</p></div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                      </a>
-                  </div>
-              );})}
+                        </a>
+                      </div>
+                    );
+                  }
+                }
+
+              })}
             </div>
           </InfiniteScroll>
           </li>
@@ -422,7 +467,9 @@ function MyCollections(props) {
       </ul>
 
     </>
+    
   );
+  
 }
 
 
