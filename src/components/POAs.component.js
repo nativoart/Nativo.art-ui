@@ -354,7 +354,7 @@ function Trendings() {
       <div className="w-full md:pt-4 pb-8 dark:flex flex-row flex-wrap justify-center" >
         <div className="w-full bg-white pt-6 pb-8 ">
           <h2 className="dark:text-black  text-left px-4  w-full lg:w-1/2  text-3xl  md:px-6
-                        lg:px-8 mb-4  font-clash-grotesk  font-semibold leading-9  lg:text-4xl">{t("Landing.trending-title")}🔥</h2>
+                        lg:px-8 mb-4  font-clash-grotesk  font-semibold leading-9  lg:text-4xl">{t("Landingpoa.trending-title")}🖼️</h2>
            
         </div>
         <div className=" w-full    ">
@@ -372,7 +372,7 @@ function Trendings() {
                   )
                 }
               >
-                {t("Landing.tokens")}
+                {t("Landingpoa.tokens")}
               </Tab>
               <Tab
                 key={"collections"}
@@ -386,7 +386,7 @@ function Trendings() {
                   )
                 }
               >
-                {t("Landing.collections")}
+                {t("Landingpoa.collections")}
 
               </Tab>
             </Tab.List>
@@ -438,8 +438,8 @@ function Trendings() {
                   })}
                 </Slider>
 
-                <a href='/explore?search=tokens' className="lg:w-full lg:text-right lg:mt-[55px] flex flex-row-reverse justify-center lg:justify-start lg:mr-7" >
-                  <button class="w-full mx-2 rounded border-2  text-gray-400  border-slate-400 lg:bg-white lg:border-2 lg:border-[#F79336]  lg:w-[339px] lg:h-[48px] lg:text-[#F79336] px-4 lg:py-1 capitalize text-darkgray-100 font-bold sm:text-xs md:text-xl lg:text-xl hover:scale-105 font-open-sans text-base  lg:mt-5   lg:mr-7 ">{t("Landing.popular_col-see_all")}</button>
+                <a href='/market' className="lg:w-full lg:text-right lg:mt-[55px] flex flex-row-reverse justify-center lg:justify-start lg:mr-7" >
+                  <button class="w-full mx-2 rounded border-2  text-gray-400  border-slate-400 lg:bg-white lg:border-2 lg:border-[#F79336]  lg:w-[339px] lg:h-[48px] lg:text-[#F79336] px-4 lg:py-1 capitalize text-darkgray-100 font-bold sm:text-xs md:text-xl lg:text-xl hover:scale-105 font-open-sans text-base  lg:mt-5   lg:mr-7 ">{t("Landingpoa.popular_col-see_all")}</button>
                 </a>
               </Tab.Panel>
               <Tab.Panel
@@ -452,7 +452,7 @@ function Trendings() {
                   {collections.items.map((item, key) => {
                     return (
                       <div className="">
-                        <a href={"viewcollection/" + item.collectionID}
+                        <a href={"/collection/" + item.collectionID}
                         >
                           <div className="flex flex-row justify-items-center px-4 mb-4 md:px-6 lg:px-8 " key={key}>
 
@@ -469,8 +469,8 @@ function Trendings() {
 
                                 <div class="flex flex-col  mx-2 mt-2  ">
                                   <div className="   w-full uppercase tracking-tighter text-black text-base	   font-open-sans  font-extrabold    collection-description h-[50px] justify-center items-center">{item.title}</div>
-                                  <div className="   w-full uppercase tracking-tighter text-xs text-left font-bold justify-center font-open-sans leading-4 text-black  text-ellipsis overflow-hidden whitespace-pre">{t("Landing.popular_col-by") + " " + item.owner}</div>
-                                  <div className="   w-full   text-xs  text-black text-left justify-center font-normal font-open-sans  text-ellipsis overflow-hidden whitespace-nowrap">{item.tokenCount > 999 ? "+" + item.tokenCount + "k " : item.tokenCount + " "} <a className="w-full   text-xs text-black font-open-sans font-normal tracking-wide leading-4  text-left justify-center "> {t("Landing.popular_col-tokens_on")}</a></div>
+                                  <div className="   w-full uppercase tracking-tighter text-xs text-left font-bold justify-center font-open-sans leading-4 text-black  text-ellipsis overflow-hidden whitespace-pre">{t("Landingpoa.popular_col-by") + " " + item.owner}</div>
+                                  <div className="   w-full   text-xs  text-black text-left justify-center font-normal font-open-sans  text-ellipsis overflow-hidden whitespace-nowrap">{item.tokenCount > 999 ? "+" + item.tokenCount + "k " : item.tokenCount + " "} <a className="w-full   text-xs text-black font-open-sans font-normal tracking-wide leading-4  text-left justify-center "> {t("Landingpoa.popular_col-tokens_on")}</a></div>
                                 </div>
                               </div>
                             </div>
@@ -481,8 +481,8 @@ function Trendings() {
                     );
                   })}
                 </Slider>
-                <a href='/explore?search=collections' className="lg:w-full lg:text-right lg:mt-[55px] flex flex-row-reverse justify-center lg:justify-start lg:mr-7" >
-                  <button class="w-full lg:w-[163px] mx-2 rounded border-2  text-gray-400  border-slate-400 lg:bg-white lg:border-2 lg:border-[#F79336]   lg:h-[48px] lg:text-[#F79336] px-4 py-1 capitalize text-darkgray-100 font-bold sm:text-xs md:text-xl lg:text-xl hover:scale-105 font-open-sans text-base  mt-5 lg:mt-0  lg:mr-7 ">{t("Landing.popular_col-see_all")}</button>
+                <a href='/collections' className="lg:w-full lg:text-right lg:mt-[55px] flex flex-row-reverse justify-center lg:justify-start lg:mr-7" >
+                  <button class="w-full lg:w-[163px] mx-2 rounded border-2  text-gray-400  border-slate-400 lg:bg-white lg:border-2 lg:border-[#F79336]   lg:h-[48px] lg:text-[#F79336] px-4 py-1 capitalize text-darkgray-100 font-bold sm:text-xs md:text-xl lg:text-xl hover:scale-105 font-open-sans text-base  mt-5 lg:mt-0  lg:mr-7 ">{t("Landingpoa.popular_col-see_all")}</button>
                 </a>
               </Tab.Panel>
             </Tab.Panels>
