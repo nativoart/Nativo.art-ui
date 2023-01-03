@@ -96,7 +96,6 @@ function MyAcquisitions(props) {
   const [profile, setProfile] = useState({user:''});
   const location = useLocation();
   const [tokSort, setTokSort] = React.useState(true)
-  const [totalAdquisitons, setTotalAdquisitons] = React.useState(0);
 
   const APIURL = process.env.REACT_APP_API_TG
 
@@ -372,7 +371,6 @@ function MyAcquisitions(props) {
         let numNFT = JSON.parse(Buffer.from(res_numNFT.result).toString())
         console.log('numNFT',numNFT);
         setIndex(numNFT)
-        setTotalAdquisitons(numNFT);
 
         await getContractsByAccount(accountId);//
 

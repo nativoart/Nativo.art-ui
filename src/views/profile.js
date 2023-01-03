@@ -39,6 +39,8 @@ function LightEcommerceB(props) {
   const [hasBids, setHasBids] = useState(false)
   //es el parametro de tokenid
   const { user } = useParams();
+  const [totalAdquisitons, setTotalAdquisitons] = React.useState(0);
+  const [totalCreations, setTotalCreations] = React.useState(0);
 
   const handleLanguage = () => {
     if (window.localStorage.getItem("LanguageState") == "en") {
@@ -162,6 +164,8 @@ function LightEcommerceB(props) {
           finality: "optimistic",
         })
         totalTokensByCreator = JSON.parse(Buffer.from(creator.result).toString())
+        setTotalAdquisitons(totalTokensByOwner);
+        setTotalCreations(totalTokensByCreator);
         if (account == accountId) {
           setMyProfile(true)
         }
@@ -413,7 +417,7 @@ function LightEcommerceB(props) {
                 )
               }
             >
-              {t("MyNFTs.adquisitions")}
+              {t("MyNFTs.adquisitions") + " " + (totalAdquisitons > 1000 ? "(1K+)" : totalAdquisitons )} 
             </Tab>
             <Tab
               key={"Creaciones"}
@@ -427,7 +431,7 @@ function LightEcommerceB(props) {
                 )
               }
             >
-              {t("MyNFTs.creations")}
+              {t("MyNFTs.creations")  + " " + (totalCreations > 1000 ? "(1K+)" : totalCreations )}
             </Tab>
             <Tab
               key={"Colecciones"}
