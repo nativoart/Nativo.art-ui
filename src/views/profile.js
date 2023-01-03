@@ -25,7 +25,8 @@ import { Tab  } from "@headlessui/react";
 import MyAcquisitions from "../components/MyAcquisitions.component";
 import MyCreations from "../components/MyCreations.component";
 import MyCollections from "../components/MyCollections.component";
-
+import nullPicProfile from "../assets/img/profile/nullprofilepic.png";
+import nullBanner from "../assets/img/profile/nullBanner.png";
 function LightEcommerceB(props) {
   const { selector, modal, accounts, accountId } = useWalletSelector();
   //guarda el estado de  toda la vista
@@ -146,6 +147,7 @@ function LightEcommerceB(props) {
               id
               username
               media
+              mediaBanner
               biography
               socialMedia
               tokCreated
@@ -176,8 +178,9 @@ function LightEcommerceB(props) {
                 userData = {
                   username: account,
                   media: "",
-                  biography: "El usuario no ha guardado la informacion de su perfil",
-                  socialMedia: "No ha registrado su Twitter",
+                  mediaBanner: "",
+                  biography: "",
+                  socialMedia: "",
                   tokCreated: 0,
                   tokBought: 0,
                   timestamp: date.toString()
@@ -198,6 +201,7 @@ function LightEcommerceB(props) {
           data: {
             account: userData.username,
             media: userData.media,
+            mediaBanner: userData.mediaBanner,
             biography: userData.biography,
             socialMedia: userData.socialMedia,
             tokCreated: totalTokensByCreator,
@@ -255,12 +259,12 @@ function LightEcommerceB(props) {
 
   return (
     <>
-      <section className="text-gray-600 body-font lg:bg-Hero_profile h-full  lg:h-[421px] bg-no-repeat bg-cover bg-center ">
-        <div className="  w-full absolute z-0 lg:hidden" >
+      <section className="text-gray-600 body-font h-full  lg:h-[421px] bg-no-repeat bg-cover bg-center ">
+        <div className="  w-full absolute z-0" >
         <img
                 alt="ecommerce"
-                className="lg:h-auto h-56 object-cover w-full my-auto "
-                src={state?.data.media == "" ? defaultUser : `https://nativonft.mypinata.cloud/ipfs/${state?.data.media}`} />
+                className=" lg:h-[421px] h-56 object-cover w-full my-auto "
+                src={state?.data.mediaBanner == "" ? nullBanner : `https://nativonft.mypinata.cloud/ipfs/${state?.data.mediaBanner}`} />
 
         </div>
         
@@ -271,8 +275,8 @@ function LightEcommerceB(props) {
             <div className="xl:w-1/3 2xl:w-1/4 w-full lg:h-64 flex px-5">
               <img
                 alt="ecommerce"
-                className=" object-cover  rounded-xlarge border-4 border-white   w-[180px]  h-[180px] lg:h-[339px] lg:w-[339px] lg:my-auto "
-                src={state?.data.media == "" ? defaultUser : `https://nativonft.mypinata.cloud/ipfs/${state?.data.media}`}
+                className={`rounded-xlarge w-[180px]  h-[180px] lg:h-[339px] lg:w-[339px] lg:my-auto  ${state?.data.media != "" ? 'object-cover border-4 border-white ' : "" }`}
+                src={state?.data.media == "" ? nullPicProfile : `https://nativonft.mypinata.cloud/ipfs/${state?.data.media}`}
               />
               {myProfile ?
                 <div className="flex justify-end lg:hidden absolute top-[20px] right-[20px]">
