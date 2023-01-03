@@ -248,33 +248,34 @@ function LightEcommerceB(props) {
   }
 
   async function handleCreatebutton() {
-      Swal.fire({
-        background: '#0a0a0a',
-        width: '800',
-        heightAuto: false,
-        html:
-          '<div class=" flex flex-col overflow-hidden">' +
-          '<div class="font-open-sans  text-base font-extrabold text-white my-4 text-left w-full uppercase">' +  t("Navbar.createMsg") + '</div>' +
-          '</div>',
-        showCloseButton: true,
-        confirmButtonText:  t("Navbar.create"),
-        cancelButtonText:  t("Navbar.createCollection"),
-        showCancelButton: true,
-        showConfirmButton: true,
-        buttonsStyling: false,
-        customClass: {
-          confirmButton: 'flex py-2 w-full h-[40px]  mt-0 ml-5  lg:w-[200px] title-font  text-white font-open-sans font-normal lg:font-extrabold text-base uppercase leading-6  justify-center hover:text-textOutlineHover active:text-textOutlinePressed flex flex-col font-extrabold h-full text-white  text-center  justify-center shadow-s w-full border-solid border-2 rounded-md border-white2 hover:bg-outlineHover active:bg-outlinePressed " ',
-          cancelButton: 'flex py-2 w-full h-[40px]  mt-0 ml-5  lg:w-[200px] title-font  text-white font-open-sans font-normal lg:font-extrabold text-base uppercase leading-6  justify-center hover:text-textOutlineHover active:text-textOutlinePressed flex flex-col font-extrabold h-full text-white  text-center  justify-center shadow-s w-full border-solid border-2 rounded-md border-white2 hover:bg-outlineHover active:bg-outlinePressed " ',
-        },
-        position: window.innerWidth < 1024 ? 'bottom' : 'center'
-      }).then((result) => {
-          if (result.isConfirmed) {
-              window.location.href = "/create"
-          } 
-          if(result.dismiss == 'cancel') {
-              window.location.href = "/collectionData/create" 
-          }
-        });
+    Swal.fire({
+      background: '#0a0a0a',
+      width: '500',
+      heightAuto: false,
+      html:
+        '<div class=" flex flex-col overflow-hidden">' +
+        '<div class="font-open-sans  text-base font-extrabold text-white my-4 text-left w-full uppercase">' +  t("Navbar.createMsg") + '</div>' +
+
+        '</div>',
+      showCloseButton: true,
+      confirmButtonText:  t("Navbar.create"),
+      cancelButtonText:  t("Navbar.createCollection"),
+      showCancelButton: true,
+      showConfirmButton: true,
+      buttonsStyling: false,
+      customClass: {
+        confirmButton: 'flex items-center  py-2 w-full h-[40px]  mt-0 mx-5 my-1  lg:w-[200px] title-font  text-white font-open-sans font-normal lg:font-extrabold text-base uppercase leading-6   hover:text-textOutlineHover active:text-textOutlinePressed flex flex-col font-extrabold text-white shadow-s w-full border-solid border-2 rounded-md border-white2 hover:bg-outlineHover active:bg-outlinePressed',
+        cancelButton:  'flex items-center py-2 w-full h-[40px]  mt-0 mx-5 my-1  lg:w-[200px] title-font  text-white font-open-sans font-normal lg:font-extrabold text-base uppercase leading-6   hover:text-textOutlineHover active:text-textOutlinePressed flex flex-col font-extrabold text-white shadow-s w-full border-solid border-2 rounded-md border-white2 hover:bg-outlineHover active:bg-outlinePressed',
+      },
+      position: window.innerWidth < 1024 ? 'bottom' : 'center'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "/create"
+        } 
+        if(result.dismiss == 'cancel') {
+            window.location.href = "/collection/create" 
+        }
+      });
 
   }
 
