@@ -98,6 +98,7 @@ function MyCreations(props) {
   const [tokSort, setTokSort] = React.useState(true);
   const [index, setIndex] = React.useState(0);
   const [myProfile, setMyProfile] = useState(false);
+  const [totalCreations, setTotalCreations] = React.useState(0);
 
   async function makeATransfer(tokenID) {
     setTransferModal({
@@ -205,6 +206,7 @@ function MyCreations(props) {
       finality: "optimistic",
     })
     let totalTokensByOwner = JSON.parse(Buffer.from(res.result).toString())
+    setTotalCreations(totalTokensByOwner);
 
     if (nfts.nftsCreations.length >= totalTokensByOwner) {
       setState({...state, hasMoreCreations: false });
@@ -575,11 +577,12 @@ function MyCreations(props) {
 
                 const itemNft = nft;
                 const item = JSON.parse(nft.data);
+                console.log('ITEMSMSs',item);
                 return (
                   <>
                     <div className="w-full xs:w-[158px] h-[279px] sm:w-[180px] md:w-[160px] lg:w-[210px] lg:p-4 xl:w-[275px] 2xl:w-[335px] xl:h-[395px] 2xl:h-[485px] " key={key}>
                       <a
-                        href={"/detail/" + item.tokenID}
+                        href={"/detail/" + itemNft.tokenID}
                       >
                         <div className="flex flex-row justify-center " >
                           <div className="trending-token w-full h-full rounded-xl shadow-lg   hover:scale-105 ">
@@ -593,7 +596,7 @@ function MyCreations(props) {
                               </div>
                               <div className="px-3 py-1">
                                 <p className=" text-black text-base leading-6 text-ellipsis overflow-hidden whitespace-nowrap font-open-sans font-extrabold uppercase">{item.title}</p>
-                                <a href={`profile/${item.creator.split('.')[0]}`}><p className="text-black py-3 font-open-sans text-[10px] xl:pb-[23px] font-semibold leading-4 text-ellipsis overflow-hidden whitespace-nowrap uppercase">{t("tokCollection.createdBy") + ":"} {item.creator}</p></a>
+                                <a href={`/profile/${item.creator.split('.')[0]}`}><p className="text-black py-3 font-open-sans text-[10px] xl:pb-[23px] font-semibold leading-4 text-ellipsis overflow-hidden whitespace-nowrap uppercase">{t("tokCollection.createdBy") + ":"} {item.creator}</p></a>
                               </div>
                             </div>
                           </div>

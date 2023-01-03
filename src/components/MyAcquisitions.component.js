@@ -96,6 +96,7 @@ function MyAcquisitions(props) {
   const [profile, setProfile] = useState({user:''});
   const location = useLocation();
   const [tokSort, setTokSort] = React.useState(true)
+  const [totalAdquisitons, setTotalAdquisitons] = React.useState(0);
 
   const APIURL = process.env.REACT_APP_API_TG
 
@@ -371,6 +372,7 @@ function MyAcquisitions(props) {
         let numNFT = JSON.parse(Buffer.from(res_numNFT.result).toString())
         console.log('numNFT',numNFT);
         setIndex(numNFT)
+        setTotalAdquisitons(numNFT);
 
         await getContractsByAccount(accountId);//
 
@@ -655,7 +657,7 @@ function MyAcquisitions(props) {
                                                             </div>
                                                             <div className="px-3 py-1">
                                                                 <p className=" text-black text-base leading-6 text-ellipsis overflow-hidden whitespace-nowrap font-open-sans font-extrabold uppercase">{item.title}</p>
-                                                                <a href={`profile/${item.creator.split('.')[0]}`}><p className="text-black py-3 font-open-sans text-[10px] xl:pb-[23px] font-semibold leading-4 text-ellipsis overflow-hidden whitespace-nowrap uppercase">{t("tokCollection.createdBy") + ":"} {item.creator}</p></a>
+                                                                <a href={`/profile/${item.creator.split('.')[0]}`}><p className="text-black py-3 font-open-sans text-[10px] xl:pb-[23px] font-semibold leading-4 text-ellipsis overflow-hidden whitespace-nowrap uppercase">{t("tokCollection.createdBy") + ":"} {item.creator}</p></a>
                                                             </div>
                                                         </div>
                                                     </div>
