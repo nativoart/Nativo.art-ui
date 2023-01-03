@@ -262,7 +262,7 @@ function LightEcommerceB(props) {
       <section className="text-gray-600 body-font h-full  lg:h-[421px] bg-no-repeat bg-cover bg-center ">
         <div className="  w-full absolute z-0" >
         <img
-                alt="ecommerce"
+                alt={state?.data.mediaBanner == "" ? nullBanner : `https://nativonft.mypinata.cloud/ipfs/${state?.data.mediaBanner}`}
                 className=" lg:h-[421px] h-56 object-cover w-full my-auto "
                 src={state?.data.mediaBanner == "" ? nullBanner : `https://nativonft.mypinata.cloud/ipfs/${state?.data.mediaBanner}`} />
 
@@ -274,7 +274,7 @@ function LightEcommerceB(props) {
             {/*Profile Pic*/}
             <div className="xl:w-1/3 2xl:w-1/4 w-full lg:h-64 flex px-5">
               <img
-                alt="ecommerce"
+                alt={state?.data.media == "" ? nullPicProfile : `https://nativonft.mypinata.cloud/ipfs/${state?.data.media}`}
                 className={`rounded-xlarge w-[180px]  h-[180px] lg:h-[339px] lg:w-[339px] lg:my-auto  ${state?.data.media != "" ? 'object-cover border-4 border-white ' : "" }`}
                 src={state?.data.media == "" ? nullPicProfile : `https://nativonft.mypinata.cloud/ipfs/${state?.data.media}`}
               />
@@ -291,44 +291,46 @@ function LightEcommerceB(props) {
             </div>
 
             <div className="xl:w-1/3 2xl:w-2/4 lg:w-1/2  w-full  lg:mt-auto lg:flex flex-col px-5 lg:px-0 pt-10">
+              <div className="-ml-0 lg:-ml-11 2xl:-ml-0">
+                {/*User account*/}
+                <h1 className=" text-[#0A0A0A] lg:text-white text-2xl text-left title-font font-bold  font-open-sans text-ellipsis  leading-8">
+                  {state?.data.account}
+                </h1>
 
-              {/*User account*/}
-              <h1 className=" text-[#0A0A0A] lg:text-white text-2xl text-left title-font font-bold  font-open-sans text-ellipsis  leading-8">
-                {state?.data.account}
-              </h1>
+                {/*Twitter account*/}
+                {state?.data.socialMedia ? 
+                  <div
+                    className={`flex py-0  my-0 lg:py-2  lg:my-2  rounded-xlarge content-start items-center`}>
+                    <div className="w-[24px] h-[24px] text-[#0A0A0A] lg:text-white hidden lg:flex items-center ">
+                      <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16.1572 3.47754C16.1682 3.62909 16.1682 3.78065 16.1682 3.9336C16.1682 8.59405 12.4534 13.969 5.6607 13.969V13.9662C3.65411 13.969 1.68921 13.42 0 12.385C0.291773 12.4185 0.585009 12.4353 0.878976 12.436C2.54186 12.4374 4.15722 11.9045 5.46545 10.9232C3.88519 10.8946 2.49945 9.91055 2.01536 8.47393C2.56892 8.57589 3.13931 8.55494 3.68263 8.41317C1.95978 8.08073 0.720293 6.63503 0.720293 4.95606C0.720293 4.9407 0.720293 4.92603 0.720293 4.91137C1.23364 5.18444 1.80841 5.336 2.39634 5.35276C0.773675 4.31702 0.273492 2.25533 1.25338 0.643414C3.12834 2.84688 5.8947 4.18642 8.86435 4.3282C8.56673 3.1032 8.97331 1.81953 9.93272 0.958395C11.4201 -0.376955 13.7594 -0.308512 15.1576 1.11135C15.9846 0.955601 16.7773 0.665763 17.5027 0.255101C17.2271 1.07154 16.6501 1.76505 15.8793 2.20575C16.6113 2.12333 17.3265 1.93616 18 1.65051C17.5042 2.36009 16.8797 2.97818 16.1572 3.47754Z" fill="#FDFCFD" />
+                      </svg>
+                    </div>
+                    <div className="w-[24px] h-[24px] lg:hidden flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="15" viewBox="0 0 18 15" fill="none">
+                        <path d="M16.1572 3.53809C16.1682 3.68964 16.1682 3.84119 16.1682 3.99415C16.1682 8.6546 12.4534 14.0295 5.6607 14.0295V14.0267C3.65411 14.0295 1.68921 13.4806 0 12.4455C0.291773 12.4791 0.585009 12.4958 0.878976 12.4965C2.54186 12.4979 4.15722 11.965 5.46545 10.9838C3.88519 10.9551 2.49945 9.97109 2.01536 8.53447C2.56892 8.63644 3.13931 8.61549 3.68263 8.47371C1.95978 8.14127 0.720293 6.69557 0.720293 5.01661C0.720293 5.00125 0.720293 4.98658 0.720293 4.97191C1.23364 5.24499 1.80841 5.39654 2.39634 5.4133C0.773675 4.37757 0.273492 2.31588 1.25338 0.703961C3.12834 2.90743 5.8947 4.24697 8.86435 4.38874C8.56673 3.16374 8.97331 1.88007 9.93272 1.01894C11.4201 -0.316408 13.7594 -0.247965 15.1576 1.17189C15.9846 1.01615 16.7773 0.72631 17.5027 0.315648C17.2271 1.13208 16.6501 1.8256 15.8793 2.26629C16.6113 2.18388 17.3265 1.99671 18 1.71106C17.5042 2.42064 16.8797 3.03873 16.1572 3.53809Z" fill="#0A0A0A" />
+                      </svg>
+                    </div>
+                    <span className="font-open-sans text-[#0A0A0A] lg:text-white font-normal pr-3  text-base leading-6  flex items-center">
+                      <a href={`https://twitter.com/${state?.data.socialMedia}`}>{state?.data.socialMedia}</a>
+                    </span>
+                  </div> : "" }
+                
 
-              {/*Twitter account*/}
-              <div
-                className={`flex py-0  my-0 lg:py-2  lg:my-2  rounded-xlarge content-start items-center`}
-              >
-                <div className="w-[24px] h-[24px] text-[#0A0A0A] lg:text-white hidden lg:flex items-center ">
-                <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M16.1572 3.47754C16.1682 3.62909 16.1682 3.78065 16.1682 3.9336C16.1682 8.59405 12.4534 13.969 5.6607 13.969V13.9662C3.65411 13.969 1.68921 13.42 0 12.385C0.291773 12.4185 0.585009 12.4353 0.878976 12.436C2.54186 12.4374 4.15722 11.9045 5.46545 10.9232C3.88519 10.8946 2.49945 9.91055 2.01536 8.47393C2.56892 8.57589 3.13931 8.55494 3.68263 8.41317C1.95978 8.08073 0.720293 6.63503 0.720293 4.95606C0.720293 4.9407 0.720293 4.92603 0.720293 4.91137C1.23364 5.18444 1.80841 5.336 2.39634 5.35276C0.773675 4.31702 0.273492 2.25533 1.25338 0.643414C3.12834 2.84688 5.8947 4.18642 8.86435 4.3282C8.56673 3.1032 8.97331 1.81953 9.93272 0.958395C11.4201 -0.376955 13.7594 -0.308512 15.1576 1.11135C15.9846 0.955601 16.7773 0.665763 17.5027 0.255101C17.2271 1.07154 16.6501 1.76505 15.8793 2.20575C16.6113 2.12333 17.3265 1.93616 18 1.65051C17.5042 2.36009 16.8797 2.97818 16.1572 3.47754Z" fill="#FDFCFD" />
-                </svg>
-                </div>
-                <div className="w-[24px] h-[24px] lg:hidden flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="15" viewBox="0 0 18 15" fill="none">
-                  <path d="M16.1572 3.53809C16.1682 3.68964 16.1682 3.84119 16.1682 3.99415C16.1682 8.6546 12.4534 14.0295 5.6607 14.0295V14.0267C3.65411 14.0295 1.68921 13.4806 0 12.4455C0.291773 12.4791 0.585009 12.4958 0.878976 12.4965C2.54186 12.4979 4.15722 11.965 5.46545 10.9838C3.88519 10.9551 2.49945 9.97109 2.01536 8.53447C2.56892 8.63644 3.13931 8.61549 3.68263 8.47371C1.95978 8.14127 0.720293 6.69557 0.720293 5.01661C0.720293 5.00125 0.720293 4.98658 0.720293 4.97191C1.23364 5.24499 1.80841 5.39654 2.39634 5.4133C0.773675 4.37757 0.273492 2.31588 1.25338 0.703961C3.12834 2.90743 5.8947 4.24697 8.86435 4.38874C8.56673 3.16374 8.97331 1.88007 9.93272 1.01894C11.4201 -0.316408 13.7594 -0.247965 15.1576 1.17189C15.9846 1.01615 16.7773 0.72631 17.5027 0.315648C17.2271 1.13208 16.6501 1.8256 15.8793 2.26629C16.6113 2.18388 17.3265 1.99671 18 1.71106C17.5042 2.42064 16.8797 3.03873 16.1572 3.53809Z" fill="#0A0A0A"/>
-                </svg>
-                </div>
-                <span className="font-open-sans text-[#0A0A0A] lg:text-white font-normal pr-3  text-base leading-6  flex items-center">
-                  <a href={`https://twitter.com/${state?.data.socialMedia}`}>{state?.data.socialMedia}</a>
-                </span>
-              </div>
-
-              {/*User description*/}
-              <div
-                className={`flex-col py-2  my-2  rounded-xlarge`}
-              >
-                <div>
-                  <span className=" text-[#0A0A0A] lg:text-white  text-base pr-3 font-open-sans  font-normal leading-6">
-                    {state?.data.biography}
-                  </span>
+                {/*User description*/}
+                <div
+                  className={`flex-col py-2  my-2  rounded-xlarge`}
+                >
+                  <div>
+                    <span className=" text-[#0A0A0A] lg:text-white  text-base pr-3 font-open-sans  font-normal leading-6">
+                      {state?.data.biography}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
             {myProfile ? 
-              <div className=" xl:w-1/3 2xl:w-1/4 w-full  l lg:flex flex-col px-6">
+              <div className=" xl:w-1/3 2xl:w-1/4 w-full lg:flex flex-col px-6">
                 <div className="hidden lg:flex justify-end ">
                   <button className="w-[24px]" onClick={handleEditProfile}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
