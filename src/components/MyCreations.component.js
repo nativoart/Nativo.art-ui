@@ -353,14 +353,14 @@ function MyCreations(props) {
         let contract = await getNearContract();
         let account = await getNearAccount();
         const query = new URLSearchParams(location);
-        let user = query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet');
+        let user = query.get('pathname').split('/')[1] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet');
         setProfile({ user: user});      
         
         if (user == accountId) {
           setMyProfile(true)
         }
       
-        const supply_payload = btoa(JSON.stringify({ account_id: query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet') }))
+        const supply_payload = btoa(JSON.stringify({ account_id: query.get('pathname').split('/')[1]+ (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet') }))
         const { network } = selector.options;
         const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
 
@@ -383,7 +383,7 @@ function MyCreations(props) {
         if(tokSort){
         
         let payloadCreations = {
-          account_id: query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'),
+          account_id: query.get('pathname').split('/')[1] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'),
           from_index: (numNFTCreations < nfts.tokensPerPage ? "0" : (numNFTCreations - nfts.tokensPerPage).toString()),
           limit: nfts.tokensPerPage,
         };
@@ -442,7 +442,7 @@ function MyCreations(props) {
           //ARR for Creators 
         
         let payloadCreations = {
-          account_id: query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'),
+          account_id: query.get('pathname').split('/')[1] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'),
           from_index: "0",
           limit: nfts.tokensPerPage,
         };
@@ -593,7 +593,7 @@ function MyCreations(props) {
                               </div>
                               <div className="px-3 py-1">
                                 <p className=" text-black text-base leading-6 text-ellipsis overflow-hidden whitespace-nowrap font-open-sans font-extrabold uppercase">{item.title}</p>
-                                <a href={`/profile/${item.creator.split('.')[0]}`}><p className="text-black py-3 font-open-sans text-[10px] xl:pb-[23px] font-semibold leading-4 text-ellipsis overflow-hidden whitespace-nowrap uppercase">{t("tokCollection.createdBy") + ":"} {item.creator}</p></a>
+                                <a href={`/${item.creator.split('.')[0]}`}><p className="text-black py-3 font-open-sans text-[10px] xl:pb-[23px] font-semibold leading-4 text-ellipsis overflow-hidden whitespace-nowrap uppercase">{t("tokCollection.createdBy") + ":"} {item.creator}</p></a>
                               </div>
                             </div>
                           </div>

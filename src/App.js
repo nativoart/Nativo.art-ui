@@ -87,8 +87,6 @@ class App extends Component {
             {/* <BlockchainProtectedRoute path="/collection/:state" component={creCol} /> */}
             <BlockchainProtectedRoute path="/collection/:state" component={Collection2} />
             <BlockchainProtectedRoute path="/collection_congrats" component={Collectioncongrats} />
-
-            <Route path="/profile/:user" component={Profile} />
             <Route path="/gallery" component={Gallery} />
             <Route path="/market" component={SalesGallery} />
             <Route path="/explore" component={Explore} />
@@ -97,6 +95,7 @@ class App extends Component {
             <Route path="/viewcollection/:data" component={TokensCollection} />
             <Route path="/detail/:data" component={Detail}/>
             <BlockchainProtectedRoute path="/mynfts" component={MisNfts} />
+            <Route path="/:user" component={Profile} />
             <Route component={notFound} />
           </Switch>
           <Footer theme={this.state.theme} />

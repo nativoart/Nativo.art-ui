@@ -664,7 +664,7 @@ function LightHeaderB(props) {
                             <MenuB.Item
                             >
                               {({ active }) => (
-                                <a href={"/profile/" + state.owner.split('.')[0]} className={classNames(active ? "dark:text-white font-extrabold  bg-[#2A747E]" : "dark:text-white ml-2 font-bold", "block px-2  text-base text-center font-open-sans uppercase")}>
+                                <a href={"/" + state.owner.split('.')[0]} className={classNames(active ? "dark:text-white font-extrabold  bg-[#2A747E]" : "dark:text-white ml-2 font-bold", "block px-2  text-base text-center font-open-sans uppercase")}>
                                   <div className="flex justify-start">
                                     <span className=" m-2">
                                       <img
@@ -855,7 +855,7 @@ function LightHeaderB(props) {
                             height="20px" />
                           <p className="ml-4">{state.owner}</p>
                         </button>
-                        <button className="font-open-sans font-semibold text-base leading-4 flex text-white mt-6 justify-between uppercase ml-8 w-full" onClick={async () => { window.location = `/profile/${state.owner.split('.')[0]}` }}>
+                        <button className="font-open-sans font-semibold text-base leading-4 flex text-white mt-6 justify-between uppercase ml-8 w-full" onClick={async () => { window.location = `/${state.owner.split('.')[0]}` }}>
                           <p className="font-open-sans font-semibold text-base">{t("Navbar.profile")}</p>
                           <img
                             className="mr-4"

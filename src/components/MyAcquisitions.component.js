@@ -349,8 +349,8 @@ function MyAcquisitions(props) {
         let contract = await getNearContract();
         let account = await getNearAccount();      
         const query = new URLSearchParams(location);
-        console.log('QUERY', query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'));//.pathname.split('/')[0]);
-        let user = query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet');
+        console.log('QUERY', query.get('pathname').split('/')[1] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'));//.pathname.split('/')[0]);
+        let user = query.get('pathname').split('/')[1] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet');
         setProfile({ user: user}); 
         
         if (user == accountId) {
@@ -358,7 +358,7 @@ function MyAcquisitions(props) {
         }
         // let numNFT = await contract.nft_supply_for_owner({ account_id: accountId })
         // let numNFTCreations = await contract.nft_supply_for_creator({ account_id: accountId })
-        const supply_payload = btoa(JSON.stringify({ account_id: query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet') }))
+        const supply_payload = btoa(JSON.stringify({ account_id: query.get('pathname').split('/')[1] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet') }))
         const { network } = selector.options;
         const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
         const res_numNFT = await provider.query({
@@ -381,7 +381,7 @@ function MyAcquisitions(props) {
         if(tokSort){
           
           let payload = {
-            account_id: query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'),
+            account_id: query.get('pathname').split('/')[1] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'),
             from_index: (numNFT < nfts.tokensPerPage ? "0" : (numNFT - nfts.tokensPerPage).toString()),
             limit: nfts.tokensPerPage,
           };
@@ -450,7 +450,7 @@ function MyAcquisitions(props) {
           console.log('USEEFFECT primero nfts.tokensPerPage',nfts.tokensPerPage);
           console.log('USEEFFECT primero  numNFT - nfts.tokensPerPage',numNFT - nfts.tokensPerPage);
           let payload = {
-            account_id: query.get('pathname').split('/')[2] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'),
+            account_id: query.get('pathname').split('/')[1] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'),
             from_index: "0",
             limit: nfts.tokensPerPage,
           };
@@ -655,7 +655,7 @@ function MyAcquisitions(props) {
                                                             </div>
                                                             <div className="px-3 py-1">
                                                                 <p className=" text-black text-base leading-6 text-ellipsis overflow-hidden whitespace-nowrap font-open-sans font-extrabold uppercase">{item.title}</p>
-                                                                <a href={`/profile/${item.creator.split('.')[0]}`}><p className="text-black py-3 font-open-sans text-[10px] xl:pb-[23px] font-semibold leading-4 text-ellipsis overflow-hidden whitespace-nowrap uppercase">{t("tokCollection.createdBy") + ":"} {item.creator}</p></a>
+                                                                <a href={`/${item.creator.split('.')[0]}`}><p className="text-black py-3 font-open-sans text-[10px] xl:pb-[23px] font-semibold leading-4 text-ellipsis overflow-hidden whitespace-nowrap uppercase">{t("tokCollection.createdBy") + ":"} {item.creator}</p></a>
                                                             </div>
                                                         </div>
                                                     </div>
