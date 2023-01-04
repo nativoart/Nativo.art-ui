@@ -577,7 +577,7 @@ function MyCreations(props) {
                 const item = JSON.parse(nft.data);
                 return (
                   <>
-                    <div className="w-full xs:w-[158px] h-[279px] sm:w-[180px] md:w-[160px] lg:w-[210px] lg:p-4 xl:w-[275px] 2xl:w-[335px] xl:h-[395px] 2xl:h-[485px] " key={key}>
+                    <div className="w-full xs:w-[150px] h-[279px] sm:w-[180px] md:w-[160px] lg:w-[210px] lg:p-4 xl:w-[275px] 2xl:w-[335px] xl:h-[395px] 2xl:h-[485px] " key={key}>
                       <a
                         href={"/detail/" + itemNft.tokenID}
                       >
