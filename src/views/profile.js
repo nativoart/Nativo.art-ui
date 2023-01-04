@@ -322,7 +322,7 @@ function LightEcommerceB(props) {
             <div className="xl:w-1/3 2xl:w-2/4  w-full  xl:mt-auto xl:flex flex-col px-5 xl:px-0 pt-10">
               <div className="-ml-0 xl:-ml-11 2xl:-ml-0">
                 {/*User account*/}
-                <h1 className=" text-[#0A0A0A] xl:text-white text-2xl text-left title-font font-bold  font-open-sans text-ellipsis  leading-8">
+                <h1 className=" text-[#0A0A0A] xl:text-white text-2xl text-left title-font font-bold  font-open-sans text-ellipsis  leading-8 capitalize">
                   {state?.data.account}
                 </h1>
 
