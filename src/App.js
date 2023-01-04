@@ -78,9 +78,8 @@ class App extends Component {
             <Route exact path="/" component={Landing} />
             <Route path="/poa/" component={LandingPOA} />
             <Route path="/gift/" component={LandingGift} />
-            <BlockchainProtectedRoute path="/create" component={Mint} />
              
-             <Route exact path="/" component={Landing} /> 
+            <Route exact path="/" component={Landing} /> 
           
 
             {/* <BlockchainProtectedRoute path="/create" component={Mint} /> */}
