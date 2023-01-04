@@ -455,8 +455,13 @@
         "title" : "Create profile",
         "title2" : "Edit profile",
         "biography" : "Biography",
+        "addbiography" : "Add Bio",
+
         "twitter" : "Twitter user",
         "upImg" : "Upload profile image",
+        "upImg2" : "Upload photo",
+        "upImg3" : "Upload banner's photo",
+
         "createProfile" : "Create profile",
         "editProfile" : "Edit profile",
         "minBio" : "The biography must be longer than 5 characters",
@@ -467,7 +472,9 @@
         "since" : "Profile created in:",
         "prefUsr" : "User preferences",
         "language" : "Language",
-        "addNTV" : "Add my NTVs to my wallet"
+        "addNTV" : "Add my NTVs to my wallet",
+        "activity":"Activity",
+        "offers":"Offers"
     },
     "addToken" : {
         "alert1-title" : "Select a collection",
