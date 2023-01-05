@@ -404,12 +404,12 @@ function LightEcommerceB(props) {
               <p className="">{t("MyNFTs.userNft")}</p>
             </div>
         <Tab.Group>
-          <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1 mx-5  lg:w-1/2 overflow-scroll lg:overflow-hidden">
+          <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1 mx-5  xl:w-1/2 overflow-scroll lg:overflow-hidden">
             <Tab
               key={"MisTokens"}
               className={({ selected }) =>
                 classNames(
-                  'w-1/3 lg:w-full py-1.5    leading-8 font-bold text-xs sm:text-base lg:text-2xl ',
+                  'w-1/3 md:w-full py-1.5    leading-8 font-bold text-xs sm:text-base lg:text-2xl ',
                   'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-open-sans  font-bold ',
                   selected
                     ? 'bg-white  text-darkgray  border-b-2 border-yellow2 direction-rtl'
@@ -423,7 +423,7 @@ function LightEcommerceB(props) {
               key={"Creaciones"}
               className={({ selected }) =>
                 classNames(
-                  'w-1/3 lg:w-full py-1.5   leading-8 font-bold text-xs sm:text-base lg:text-2xl',
+                  'w-1/3 md:w-full py-1.5   leading-8 font-bold text-xs sm:text-base lg:text-2xl',
                   'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-open-sans    font-bold ',
                   selected
                     ? 'bg-white  text-darkgray  border-b-2 border-yellow2'
@@ -437,7 +437,7 @@ function LightEcommerceB(props) {
               key={"Colecciones"}
               className={({ selected }) =>
                 classNames(
-                  'w-1/3 lg:w-full py-1.5    leading-8 font-bold text-xs sm:text-base lg:text-2xl',
+                  'w-1/3 md:w-full py-1.5    leading-8 font-bold text-xs sm:text-base lg:text-2xl',
                   'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-open-sans    font-bold ',
                   selected
                     ? 'bg-white  text-darkgray  border-b-2 border-yellow2 direction-ltr'

@@ -551,7 +551,7 @@ function MyCreations(props) {
       <ul>
       {loadMsgCreations ?
       <>
-        <div className="px-6 lg:px-12 w-full pb-6  flex flex-row-reverse">
+        <div className="px-6 w-full pb-6  flex flex-row-reverse">
           <select name="sort" className="text-base font-open-sans pl-3 py-2.5 border-outlinePressed dark:text-black md:w-[283px]" onChange={handleSortTokens}>
             <option value="" disabled selected hidden>{t("Explore.sortBy")}</option>
             <option value="recentOld">{t("Explore.sortTimeRec")}</option>
@@ -569,7 +569,7 @@ function MyCreations(props) {
                     {t("tokCollection.end")}
                 </p>
             }
-            className={"flex flex-wrap px-6 lg:px-12 place-content-center gap-4 lg:justify-center"}
+            className={"flex flex-wrap px-6 gap-6 lg:gap-4 lg:justify-start"}
           >
               {nfts.nftsCreations.map((nft, key) => {
 
@@ -577,7 +577,7 @@ function MyCreations(props) {
                 const item = JSON.parse(nft.data);
                 return (
                   <>
-                    <div className="w-full xs:w-[150px] h-[279px] sm:w-[180px] md:w-[160px] lg:w-[210px] lg:p-4 xl:w-[275px] 2xl:w-[335px] xl:h-[395px] 2xl:h-[485px] " key={key}>
+                    <div className="w-full xs:w-[150px] h-[279px] sm:w-[180px] md:w-[160px] lg:w-[232px]  xl:w-[295px] 2xl:w-[284px] xl:h-[395px] 2xl:h-[485px] " key={key}>
                       <a
                         href={"/detail/" + itemNft.tokenID}
                       >
@@ -616,7 +616,7 @@ function MyCreations(props) {
                   {!myProfile ?
                     <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black">{t("MyNFTs.publicProfileNotNFT")}</h1>
                     :
-                    <div className=" h-[390px] w-[210px] lg:p-4 xl:w-[275px] 2xl:w-[335px]  mt-5 " >
+                    <div className=" h-[390px] w-[210px]  xl:w-[290px] 2xl:w-[335px]  mt-5 " >
                       <a
                         href={"/create"}
                       >
