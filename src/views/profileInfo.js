@@ -507,7 +507,7 @@ function LightEcommerceB(props) {
                   <div className="flex relative">
                     <img
                       alt="upphoto"
-                      className="  w-4 h-4  mx-2 "
+                      className="  w-4 h-4  mx-2 my-auto "
                       src={upphoto}
                     />
                     {t("Profile.upImg2")}
@@ -521,8 +521,8 @@ function LightEcommerceB(props) {
                 </span>
               </div>
 
-              <label name="upbanner" className="absolute  flex lg:hidden w-[170px] tracking-tighter bg-white text-black  translate-x-[12.5rem]  md:translate-x-[35rem] translate-y-[11rem] lg:translate-y-[21rem]    text-sm 	 rounded-sm	  m-auto ">
-                <img alt="upphoto" className="  w-4 h-4  mx-2 " src={upphoto} />
+              <label name="upbanner" className="absolute  flex lg:hidden w-[170px] mdw-[200px] tracking-tighter bg-white text-black  translate-x-[13.5rem]  md:translate-x-[35rem] translate-y-[11.5rem] lg:translate-y-[21rem]    text-sm md:text-base 	 rounded-sm	  m-auto ">
+                <img alt="upphoto" className="  w-4 h-4  mx-2  my-auto" src={upphoto} />
                 {t("Profile.upImg4")}
                 <input
               onChange={(e) => {
@@ -590,7 +590,7 @@ function LightEcommerceB(props) {
                 <div className="  w-4 h-4  mx-2 "     
                   >   <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M18 6V4H16V2H18V0H20V2H22V4H20V6H18ZM2 20C1.45 20 0.979333 19.8043 0.588 19.413C0.196 19.021 0 18.55 0 18V6C0 5.45 0.196 4.97933 0.588 4.588C0.979333 4.196 1.45 4 2 4H5.15L7 2H13V4H7.875L6.05 6H2V18H18V9H20V18C20 18.55 19.8043 19.021 19.413 19.413C19.021 19.8043 18.55 20 18 20H2ZM10 16.5C11.25 16.5 12.3127 16.0627 13.188 15.188C14.0627 14.3127 14.5 13.25 14.5 12C14.5 10.75 14.0627 9.68733 13.188 8.812C12.3127 7.93733 11.25 7.5 10 7.5C8.75 7.5 7.68733 7.93733 6.812 8.812C5.93733 9.68733 5.5 10.75 5.5 12C5.5 13.25 5.93733 14.3127 6.812 15.188C7.68733 16.0627 8.75 16.5 10 16.5ZM10 14.5C9.3 14.5 8.70833 14.2583 8.225 13.775C7.74167 13.2917 7.5 12.7 7.5 12C7.5 11.3 7.74167 10.7083 8.225 10.225C8.70833 9.74167 9.3 9.5 10 9.5C10.7 9.5 11.2917 9.74167 11.775 10.225C12.2583 10.7083 12.5 11.3 12.5 12C12.5 12.7 12.2583 13.2917 11.775 13.775C11.2917 14.2583 10.7 14.5 10 14.5Z" 
-                  fill={mint?.banner ? `#ffffff`:`#616161`}/>
+                  fill={mint?.banner ? `#CBD5E1`:`##CBD5E1`}/>
                   </svg></div>
                   {t("Profile.upImg3")}
 
@@ -629,7 +629,7 @@ function LightEcommerceB(props) {
                     </div>
                   )}
                 </div>
-                <div className="flex justify-between    border-dotted border-2 rounded-md w-full  h-[50px]  mb-4   ">
+                <div className="flex justify-between    border-dotted border-2 border-slate-300 rounded-md w-full  h-[50px]  mb-4   ">
                   <input
                     type="text"
                     id="title"
@@ -663,7 +663,7 @@ function LightEcommerceB(props) {
                   ) : null}
                 </div>
 
-                <div className="flex rounded-md border-2 border-dotted   h-[170px]    p-[2px]    ">
+                <div className="flex rounded-md border-2 border-dotted border-slate-300   h-[170px]    p-[2px]    ">
                   <textarea
                     id="title"
                     name="title"
