@@ -399,8 +399,8 @@ function LightEcommerceB(props) {
         </div>
       
       </section>
-      <div className="w-full bg-white container mx-auto py-5">
-            <div className="font-open-sans font-bold text-3xl text-black px-5">
+      <div className="w-full bg-white container mx-auto pb-5">
+            <div className="font-open-sans font-bold text-3xl text-black px-5 pb-4 xl:pt-4">
               <p className="">{t("MyNFTs.userNft")}</p>
             </div>
         <Tab.Group>

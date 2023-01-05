@@ -577,7 +577,7 @@ function MyCreations(props) {
                 const item = JSON.parse(nft.data);
                 return (
                   <>
-                    <div className="w-full xs:w-[150px] h-[279px] sm:w-[180px] md:w-[160px] lg:w-[232px]  xl:w-[295px] 2xl:w-[284px] xl:h-[395px] 2xl:h-[485px] " key={key}>
+                    <div className="w-full xs:w-[150px] h-[279px] lg:h-[350px] sm:w-[180px] md:w-[160px] lg:w-[232px]  xl:w-[295px] 2xl:w-[284px] xl:h-[395px] 2xl:h-[485px] " key={key}>
                       <a
                         href={"/detail/" + itemNft.tokenID}
                       >
@@ -586,7 +586,7 @@ function MyCreations(props) {
                             <div className=" bg-white rounded-xl">
                               <div className="pb-3">
                                 <img
-                                  className="object-cover object-center rounded-t-xl w-full h-[163px] lg:w-[340px] xl:h-[250px] 2xl:h-[340px]"
+                                  className="object-cover object-center rounded-t-xl w-full h-[163px] lg:h-[250px] lg:w-[340px] xl:h-[300px] 2xl:h-[340px]"
                                   src={`https://nativonft.mypinata.cloud/ipfs/${item.image}`}
                                   alt={item.description}
                                 />
@@ -608,7 +608,7 @@ function MyCreations(props) {
           </li>
           </>
           :
-          <div className="container mx-auto md:mx-5 lg:mx-0 flex md:flex-row flex-col  justify-left h-96 items-center text-3xl ">
+          <div className="container mx-auto md:mx-5  flex md:flex-row flex-col  justify-left h-96 items-center text-3xl ">
             <div className="flex flex-col justify-center">
             {loadMsgCreations ?
                 <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black">{t("MyNFTs.load-1")}</h1>
@@ -616,7 +616,7 @@ function MyCreations(props) {
                   {!myProfile ?
                     <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black">{t("MyNFTs.publicProfileNotNFT")}</h1>
                     :
-                    <div className=" h-[390px] w-[210px]  xl:w-[290px] 2xl:w-[335px]  mt-5 " >
+                    <div className=" h-[390px] w-[210px] xl:p-4 xl:w-[250px]  mt-5" >
                       <a
                         href={"/create"}
                       >

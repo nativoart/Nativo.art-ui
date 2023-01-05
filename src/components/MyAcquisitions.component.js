@@ -613,13 +613,13 @@ function MyAcquisitions(props) {
       <ul>
       {loadMsg ?
       <>
-            <div className="px-6  w-full pb-6  flex flex-row-reverse lg:ml-5 lg:pr-10">
-              <select name="sort" className="text-base font-open-sans pl-3 py-2.5 border-outlinePressed dark:text-black md:w-[283px]" onChange={handleSortTokens}>
-                <option value="" disabled selected hidden>{t("Explore.sortBy")}</option>
-                <option value="recentOld">{t("Explore.sortTimeRec")}</option>
-                <option value="oldRecent">{t("Explore.sortTimeOld")}</option>
-              </select>
-            </div>
+        <div className="px-6 w-full pb-6  flex flex-row-reverse">
+          <select name="sort" className="text-base font-open-sans pl-3 py-2.5 border-outlinePressed dark:text-black md:w-[283px]" onChange={handleSortTokens}>
+            <option value="" disabled selected hidden>{t("Explore.sortBy")}</option>
+            <option value="recentOld">{t("Explore.sortTimeRec")}</option>
+            <option value="oldRecent">{t("Explore.sortTimeOld")}</option>
+          </select>
+        </div>
           <li><InfiniteScroll
             dataLength={nfts.nfts.length}
             next={fetchMoreData}
@@ -639,7 +639,7 @@ function MyAcquisitions(props) {
                 const item = JSON.parse(nft.data);
                 return (
                   <>
-                    <div className="w-full xs:w-[150px] h-[279px] sm:w-[180px] md:w-[160px] lg:w-[232px]  xl:w-[295px] 2xl:w-[284px] xl:h-[395px] 2xl:h-[485px] " key={key}>
+                    <div className="w-full xs:w-[150px] h-[279px] lg:h-[350px] sm:w-[180px] md:w-[160px] lg:w-[232px]  xl:w-[295px] 2xl:w-[284px] xl:h-[395px] 2xl:h-[485px] " key={key}>
                                             <a
                                                 href={"/detail/" + itemNft.tokenID}
                                             >
@@ -648,7 +648,7 @@ function MyAcquisitions(props) {
                                                         <div className=" bg-white rounded-xl">
                                                             <div className="pb-3">
                                                                 <img
-                                                                    className="object-cover object-center rounded-t-xl w-full h-[163px] lg:w-[340px] xl:h-[250px] 2xl:h-[340px]"
+                                                                    className="object-cover object-center rounded-t-xl w-full h-[163px] lg:h-[250px] lg:w-[340px] xl:h-[300px] 2xl:h-[340px]"
                                                                     src={`https://nativonft.mypinata.cloud/ipfs/${item.image}`}
                                                                     alt={item.description}
                                                                 />

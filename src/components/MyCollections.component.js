@@ -336,7 +336,7 @@ function MyCollections(props) {
     <>
       <ul>
       {hasDataCol ? <>
-        <div className="px-6 lg:px-12 w-full pb-6 lg:py-12 flex flex-row-reverse">
+        <div className="px-6 w-full pb-6  flex flex-row-reverse">
           <select name="sort" className="text-base font-open-sans pl-3 py-2.5 border-outlinePressed dark:text-black md:w-[283px]" onChange={handleSortCollections}>
             <option value="" disabled selected hidden>{t("Explore.sortBy")}</option>
             <option value="TimeDesc">{t("Explore.sortTimeRec")}</option>
@@ -357,7 +357,7 @@ function MyCollections(props) {
             }
             className={"flex flex-wrap px-6 gap-6 lg:gap-4 lg:justify-start"}
           >
-            <div className="flex flex-wrap px-6 lg:px-[46px] gap-4 lg:gap-[19px] justify-start">
+            <div className="flex flex-wrap  gap-4 lg:gap-[19px] justify-start">
               {collections.items.map((nft, key) => {
                 //obtenemos la data del token nft
                 const item = nft;
@@ -366,13 +366,13 @@ function MyCollections(props) {
                 console.log('Is this collections visible?', item.visibility+ item.collectionID);
                 if (myProfile) {
                   return (
-                    <div className="w-full sm:w-[280px] md:w-[350px] lg:w-[455px] xl:w-[380px] 2xl:w-[440px]" key={key}>
+                    <div className="w-full sm:w-[280px] md:w-[350px] lg:w-[477px] xl:w-[397px] 2xl:w-[482px]" key={key}>
                       <a href={"/collection/" + item.collectionID}
                       >
                         <div className="flex flex-row justify-items-center w-full" key={key}>
 
                           <div className="rounded-xl shadow-lg bg-white hover:scale-105 w-full ">
-                            <div className="  overflow-hidden rounded-t-md  bg-white ">
+                            <div className="  overflow-hidden rounded-t-xl  bg-white ">
 
                               <img className="  h-[190px] object-cover object-center scale-150 w-full lg:h-[306px] " alt={item.description} src={`https://nativonft.mypinata.cloud/ipfs/${item.mediaBanner}`} />
 
@@ -396,13 +396,13 @@ function MyCollections(props) {
                 } else {
                   if (item.visibility) {
                     return (
-                      <div className="w-full sm:w-[280px] md:w-[350px] lg:w-[455px] xl:w-[380px] 2xl:w-[440px]" key={key}>
+                      <div className="w-full sm:w-[280px] md:w-[350px] lg:w-[477px] xl:w-[397px] 2xl:w-[482px]" key={key}>
                         <a href={"/collection/" + item.collectionID}
                         >
                           <div className="flex flex-row justify-items-center w-full" key={key}>
 
                             <div className="rounded-xl shadow-lg bg-white hover:scale-105 w-full ">
-                              <div className="  overflow-hidden rounded-t-md  bg-white ">
+                              <div className="  overflow-hidden rounded-t-xl  bg-white ">
 
                                 <img className="  h-[190px] object-cover object-center scale-150 w-full lg:h-[306px] " alt={item.description} src={`https://nativonft.mypinata.cloud/ipfs/${item.mediaBanner}`} />
 
@@ -432,7 +432,7 @@ function MyCollections(props) {
           </li>
           </>
           :
-          <div className="container mx-auto md:mx-5 lg:mx-0 flex md:flex-row flex-col  justify-left h-96 items-center text-3xl ">
+          <div className="container mx-5  flex md:flex-row flex-col  justify-left h-96 items-center text-3xl ">
             <div className="flex flex-col justify-center">
             {hasDataCol ?
                 <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black">{t("MyNFTs.load-1")}</h1>
@@ -440,7 +440,7 @@ function MyCollections(props) {
                   {!myProfile ?
                     <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black">{t("MyNFTs.publicProfileNotCollections")}</h1>
                     :
-                    <div className=" h-[390px] w-[210px] lg:p-4 xl:w-[275px] 2xl:w-[335px] mt-5" >
+                    <div className=" h-[390px] w-[210px] xl:p-4 xl:w-[250px]  mt-5" >
                       <a
                         href={"/collectionData/create"}
                       >
