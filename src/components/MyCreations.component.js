@@ -608,13 +608,15 @@ function MyCreations(props) {
           </li>
           </>
           :
-          <div className="container mx-auto md:mx-5  flex md:flex-row flex-col  justify-left h-96 items-center text-3xl ">
-            <div className="flex flex-col justify-center">
+          <div className="container px-5  flex  justify-left h-96 items-center text-3xl ">
+            <div className="flex flex-col justify-center w-full">
             {loadMsgCreations ?
                 <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black">{t("MyNFTs.load-1")}</h1>
                 : <>
                   {!myProfile ?
-                    <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black">{t("MyNFTs.publicProfileNotNFT")}</h1>
+                    <div className="w-full flex justify-center">
+                      <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black  m-auto">{t("MyNFTs.publicProfileNotNFT")}</h1>
+                    </div> 
                     :
                     <div className=" h-[390px] w-[210px] xl:w-[250px]  mt-5" >
                       <a
