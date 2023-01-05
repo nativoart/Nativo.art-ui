@@ -284,6 +284,23 @@ function LightEcommerceB(props) {
   }
 
 
+  async function futureFeatureMsg(section) {
+    Swal.fire({
+      background: '#0a0a0a',
+      width: '800',
+      html:
+        '<div class="">' +
+        '<div class="font-open-sans  text-base font-extrabold text-white mb-4 text-left uppercase">' + t("Navbar.comming") + '</div>' +
+        '<div class="font-open-sans  text-sm text-white text-left">' + t("Navbar.commingSubtitle") + '</div>' +
+        '</div>',
+      showCloseButton: true,
+      showCancelButton: false,
+      showConfirmButton: false,
+
+      position: window.innerWidth < 1024 ? 'bottom' : 'center'
+    });
+  }
+
 
 
   return (
@@ -371,13 +388,13 @@ function LightEcommerceB(props) {
                   </div> 
                 <div className="flex flex-col mt-auto">
                   <div className="flex justify-between mb-3 ">
-                    <button className="rounded-xl bg-white w-1/2 h-[96px] mr-2 shadow-md">
+                    <button className="rounded-xl bg-white w-1/2 h-[96px] mr-2 shadow-md" onClick={async () => { futureFeatureMsg(t("Navbar.auctions")); }}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" >
                         <path d="M22 12H18L15 21L9 3L6 12H2" stroke="#F79336" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                       </svg>
                       <p className="font-open-sans font-bold text-base leading-6 text-center text-black mt-1 ">{t("MyNFTs.userActivity")}</p>
                     </button>
-                    <button className="rounded-xl bg-white w-1/2 h-[96px]  ml-2 shadow-md">
+                    <button className="rounded-xl bg-white w-1/2 h-[96px]  ml-2 shadow-md" onClick={async () => { futureFeatureMsg(t("Navbar.auctions"));}} >
                       <img
                         alt={ofertas}
                         className="w-[24px] h-[24px] m-auto"

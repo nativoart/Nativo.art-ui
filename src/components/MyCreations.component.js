@@ -616,7 +616,7 @@ function MyCreations(props) {
                   {!myProfile ?
                     <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black">{t("MyNFTs.publicProfileNotNFT")}</h1>
                     :
-                    <div className=" h-[390px] w-[210px] xl:p-4 xl:w-[250px]  mt-5" >
+                    <div className=" h-[390px] w-[210px] xl:w-[250px]  mt-5" >
                       <a
                         href={"/create"}
                       >
