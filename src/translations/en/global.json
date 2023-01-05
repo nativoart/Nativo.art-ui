@@ -461,9 +461,10 @@
         "upImg" : "Upload profile image",
         "upImg2" : "Upload photo",
         "upImg3" : "Upload banner's photo",
+        "upImg4" : "Upload banner ",
 
-        "createProfile" : "Create profile",
-        "editProfile" : "Edit profile",
+        "createProfile" : "Create ",
+        "editProfile" : "Create",
         "minBio" : "The biography must be longer than 5 characters",
         "minSocial" : "The username must exceed 4 characters",
         "maxSocial" : "User cannot exceed 15 characters",
@@ -474,7 +475,11 @@
         "language" : "Language",
         "addNTV" : "Add my NTVs to my wallet",
         "activity":"Activity",
-        "offers":"Offers"
+        "offers":"Offers",
+        "CancelProfile_title":"Would you want to cancel?",
+        "CancelProfile_descrip":"Do not worry,you can continue later",
+        "CancelProfile_cancel":"Yes,cancel",
+        "CancelProfile_no":"No"
     },
     "addToken" : {
         "alert1-title" : "Select a collection",

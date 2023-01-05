@@ -465,8 +465,8 @@
         "upImg2" : "Subir foto",
         "upImg3" : "Subir foto de portada",
 
-        "createProfile" : "Crear perfil",
-        "editProfile" : "Editar perfil",
+        "createProfile" : "Crear",
+        "editProfile" : "Crear",
         "minBio" : "La biografía debe tener longitud mayor a 5 caracteres",
         "minSocial" : "El usuario debe de superar 4 caracteres",
         "maxSocial" : "El usuario no puede superar 15 caracteres",
@@ -478,7 +478,11 @@
  
         "addNTV" : "Agregar mis NTVs a mi wallet",
         "activity":"Actividad",
-        "offers":"Ofertas"
+        "offers":"Ofertas",
+        "CancelProfile_title":"¿Deseas cancelar?",
+        "CancelProfile_descrip":"No te preocupes,prodrás continuar después",
+        "CancelProfile_cancel":"  Si,cancelar",
+        "CancelProfile_no":"        No"
     },
     "addToken" : {
         "alert1-title" : "Selecciona una colección",

@@ -79,7 +79,7 @@ class App extends Component {
           <Switch id="page-wrap">
             <Route exact path="/" component={Landing} />
             <Route path="/poa/" component={LandingPOA} />
-            <BlockchainProtectedRoute path="/create" component={Mint} />
+          
              
              <Route exact path="/" component={Landing} /> 
           
@@ -87,8 +87,8 @@ class App extends Component {
             {/* <BlockchainProtectedRoute path="/create" component={Mint} /> */}
             <BlockchainProtectedRoute exact path="/create" component={Mint2} />
             <BlockchainProtectedRoute exact path="/congratulation" component={FinishMint} />
-            <BlockchainProtectedRoute path="/profileData/:state" component={ProfileData} />
-            <BlockchainProtectedRoute path="/profileInfo/:state" component={ProfileInfo} />      
+            <BlockchainProtectedRoute path="/profileData/:state" component={ProfileInfo} />
+                
             {/* <BlockchainProtectedRoute path="/collection/:state" component={creCol} /> */}
             <BlockchainProtectedRoute path="/collection/:state" component={Collection2} />
             <BlockchainProtectedRoute path="/collection_congrats" component={Collectioncongrats} />
