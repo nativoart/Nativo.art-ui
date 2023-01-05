@@ -608,7 +608,7 @@ function MyCreations(props) {
           </li>
           </>
           :
-          <div className="container mx-auto flex  my- md:flex-row flex-col  justify-center h-96 items-center text-3xl ">
+          <div className="container mx-auto md:mx-5 lg:mx-0 flex md:flex-row flex-col  justify-left h-96 items-center text-3xl ">
             <div className="flex flex-col justify-center">
             {loadMsgCreations ?
                 <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black">{t("MyNFTs.load-1")}</h1>
