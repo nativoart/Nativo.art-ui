@@ -268,7 +268,21 @@
         "notNfts": "You don't have NFT's ",
         "searchNftById": "Search NFT by ID",
         "vis" : "Visible",
-        "noVis": "Not visible"
+        "noVis": "Not visible",
+        "publicProfileNotNFT" : "This profile doesn't have digital collectibles created yet",
+        "publicProfileNotAquisitions" : "This profile doesn't have digital collectibles adquired yet",
+        "publicProfileNotCollections" : "This profile doesn't have collections created yet",
+        "addNewToken" : "Add new token",
+        "privateProfileNotAquisitions" : "You don't have adquisitons yet",
+        "addNewCol" : "Add new collection",
+        "adquisitions" : "Adquisitions",
+        "creations" : "Creations",
+        "collections" : "Collections",
+        "userNft" : "User's NFT's",
+        "userActivity" : "Activity",
+        "userBids" : "Bids",
+        "userCreate" : "Create"
+
 
     },
     "CreateCol" : {
@@ -473,6 +487,7 @@
         "since" : "Profile created in:",
         "prefUsr" : "User preferences",
         "language" : "Language",
+        "add-new":"Añadir nuevo token",
         "addNTV" : "Add my NTVs to my wallet",
         "activity":"Activity",
         "offers":"Offers",

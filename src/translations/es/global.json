@@ -273,7 +273,20 @@
         "notNfts": "No tienes NFT's",
         "searchNftById": "Buscar NFT por ID",
         "vis" : "Visible",
-        "noVis": "No visible"
+        "noVis": "No visible",
+        "publicProfileNotNFT" : "Este perfil no a creado coleccionables digitales",
+        "publicProfileNotAquisitions" : "Este perfil no a adquirido coleccionables digitales",
+        "publicProfileNotCollections" : "Este perfil no a creado colecciones",
+        "addNewToken" : "Añadir nuevo token",
+        "privateProfileNotAquisitions" : "No tienes adquisiciones todavía",
+        "addNewCol" : "Añadir nueva colección",
+        "adquisitions" : "Adquisiciones",
+        "creations" : "Creaciones",
+        "collections" : "Colecciones",
+        "userNft" : "NFT's del usuario",
+        "userActivity" : "Actividad",
+        "userBids" : "Ofertas",
+        "userCreate" : "Crear"
     },
     "CreateCol" : {
         "title" : "Nueva Colección",
@@ -476,6 +489,7 @@
         "prefUsr" : "Preferencias del usuario",
         "language" : "Idioma",
  
+        "add-new":"Añadir nuevo token",
         "addNTV" : "Agregar mis NTVs a mi wallet",
         "activity":"Actividad",
         "offers":"Ofertas",

@@ -32,9 +32,9 @@ import { date } from "yup";
 import { useWalletSelector } from "../utils/walletSelector";
 
 import { Tab } from "@headlessui/react";
-//import MyAcquisitions from "../components/MyAcquisitions.component";
-//import MyCreations from "../components/MyCreations.component";
-//import MyCollections from "../components/MyCollections.component";
+import MyAcquisitions from "../components/MyAcquisitions.component";
+import MyCreations from "../components/MyCreations.component";
+import MyCollections from "../components/MyCollections.component";
 import { async } from "rxjs";
 import { uploadFileAPI } from "../utils/pinata";
 
@@ -47,7 +47,8 @@ function LightEcommerceB(props) {
   const [hasRoyalty, setHasRoyalty] = useState(false);
   const [myProfile, setMyProfile] = useState(false);
   const [hasBids, setHasBids] = useState(false);
-
+  const [totalAdquisitons, setTotalAdquisitons] = React.useState(0);
+  const [totalCreations, setTotalCreations] = React.useState(0);
   const [ErrorIcon, setErrorIcon] = useState(false);
   const [ErrorBanner, setErrorBanner] = useState(false);
   const [ErrorTwitter, setErrorTwitter] = useState(false);
@@ -160,12 +161,42 @@ function LightEcommerceB(props) {
   React.useEffect(() => {
     (async () => {
       let type = state;
+      let totalTokensByOwner = 0;
+      let totalTokensByCreator = 0;
+      let userData
+      let account = accountId;
       console.log("🪲 ~ file: profileInfo.js:121 ~ state", state);
 
-      let account = accountId;
+     
       console.log("Entro a editar");
+      let paramsSupply = {
+        account_id: account
+      };
+      const args_b64 = btoa(JSON.stringify(paramsSupply))
+      const { network } = selector.options;
+      const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+      const owner = await provider.query({
+        request_type: "call_function",
+        account_id: process.env.REACT_APP_CONTRACT,
+        method_name: "nft_supply_for_owner",
+        args_base64: args_b64,
+        finality: "optimistic",
+      })
+       totalTokensByOwner = JSON.parse(Buffer.from(owner.result).toString())
+       console.log("🪲 ~ file: profileInfo.js:186 ~ totalTokensByOwner", totalTokensByOwner)
+       const creator = await provider.query({
+        request_type: "call_function",
+        account_id: process.env.REACT_APP_CONTRACT,
+        method_name: "nft_supply_for_creator",
+        args_base64: args_b64,
+        finality: "optimistic",
+      })
+      totalTokensByCreator = JSON.parse(Buffer.from(creator.result).toString())
+      console.log("🪲 ~ file: profileInfo.js:194 ~ totalTokensByCreator", totalTokensByCreator)
+      
+      setTotalAdquisitons(totalTokensByOwner);
+      setTotalCreations(totalTokensByCreator);
 
-      let userData;
       const query = `
           query ($account: String){
             profiles (where : {id : $account}){
@@ -714,9 +745,132 @@ function LightEcommerceB(props) {
       </section>
       
       { state !="edit" ? null:
-       <div name="createtokensect" className=" hidden lg:flex bg-red-200  w-full h-[100px] ">
-        
-       </div>  
+       <div className="w-full bg-white container mx-auto pb-5">
+       <div className="font-open-sans font-bold text-3xl text-black px-5 pb-4 xl:pt-4">
+         <p className="">{t("MyNFTs.userNft")}</p>
+       </div>
+   <Tab.Group>
+     <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1 mx-5  xl:w-1/2 overflow-scroll lg:overflow-hidden">
+     <Tab
+         key={"Creaciones"}
+         className={({ selected }) =>
+           classNames(
+             'w-1/3 md:w-full py-1.5   leading-8 font-bold text-xs sm:text-base lg:text-2xl',
+             'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-open-sans    font-bold ',
+             selected
+               ? 'bg-white  text-darkgray  border-b-2 border-yellow2'
+               : 'font-open-sans text-[#616161] '
+           )
+         }
+       >
+         {t("MyNFTs.creations")  + " " + (totalCreations > 1000 ? "(1K+)" : totalCreations )}
+       </Tab>
+       <Tab
+         key={"MisTokens"}
+         className={({ selected }) =>
+           classNames(
+             'w-1/3 md:w-full py-1.5    leading-8 font-bold text-xs sm:text-base lg:text-2xl ',
+             'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-open-sans  font-bold ',
+             selected
+               ? 'bg-white  text-darkgray  border-b-2 border-yellow2 direction-rtl'
+               : 'font-open-sans text-[#616161] '
+           )
+         }
+       >
+         {t("MyNFTs.adquisitions") + " " + (totalAdquisitons > 1000 ? "(1K+)" : totalAdquisitons )} 
+       </Tab>
+      
+       <Tab
+         key={"Colecciones"}
+         className={({ selected }) =>
+           classNames(
+             'w-1/3 md:w-full py-1.5    leading-8 font-bold text-xs sm:text-base lg:text-2xl',
+             'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 font-open-sans    font-bold ',
+             selected
+               ? 'bg-white  text-darkgray  border-b-2 border-yellow2 direction-ltr'
+               : 'font-open-sans text-[#616161] '
+           )
+         }
+       >
+         {t("MyNFTs.collections")}
+       </Tab>
+     </Tab.List>
+     <Tab.Panels className="mt-2 bg-white">
+
+     <Tab.Panel
+         key={"Creaciones"}
+         className={classNames(
+           'rounded-xl   bg-white'
+         )}
+       >
+        {totalCreations ==0 ?
+        <>
+
+<div className="px-6 w-full pb-6  flex flex-row-reverse">
+          <select name="sort" className="text-base font-open-sans pl-3 py-2.5 border-outlinePressed dark:text-black md:w-[283px]"  >
+            <option value="" disabled selected hidden>{t("Explore.sortBy")}</option>
+            <option value="recentOld">{t("Explore.sortTimeRec")}</option>
+            <option value="oldRecent">{t("Explore.sortTimeOld")}</option>
+          </select>
+        </div>
+
+  <div className="w-full lg:ml-16 xs:w-[150px] sm:w-[180px] md:w-[160px] lg:w-[232px]  xl:w-[295px] 2xl:w-[284px] h-[279px] lg:h-[500px]      xl:h-[395px] 2xl:h-[485px] ">
+         <a
+           href={"/detail/" + 0}
+         >
+           <div className="flex flex-row justify-center ml-10   bg-white" >
+             <div className="h-full rounded-xl shadow-lg  hover:scale-105 ">
+               <div className="w-[163px] lg:w-[340px] h-[284px]  shadow-lg  rounded-xl">
+                 <div className=" h-[163px] lg:h-[340px]  bg-yellow2 rounded-t-lg flex  justify-center  content-center  ">
+                  <div className="flex   items-center">
+                    <svg width="81" height="81" viewBox="0 0 81 81" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g opacity="0.5">
+                      
+                      <g mask="url(#mask0_41_2628)">
+                      <path d="M39.1396 52.9993H43.0995V43.16H52.9993V39.1396H43.0995V29.0007H39.1396V39.1396H29.0007V43.16H39.1396V52.9993ZM41 65C37.6804 65 34.5705 64.3698 31.6704 63.1093C28.7703 61.8498 26.2302 60.13 24.0501 57.9499C21.87 55.7698 20.1502 53.2297 18.8907 50.3296C17.6302 47.4295 17 44.3196 17 41C17 37.6804 17.6302 34.5604 18.8907 31.6402C20.1502 28.7199 21.87 26.1798 24.0501 24.0199C26.2302 21.8599 28.7703 20.1502 31.6704 18.8907C34.5705 17.6302 37.6804 17 41 17C44.3196 17 47.4396 17.6302 50.3598 18.8907C53.2801 20.1502 55.8202 21.8599 57.9801 24.0199C60.1401 26.1798 61.8498 28.7199 63.1093 31.6402C64.3698 34.5604 65 37.6804 65 41C65 44.3196 64.3698 47.4295 63.1093 50.3296C61.8498 53.2297 60.1401 55.7698 57.9801 57.9499C55.8202 60.13 53.2801 61.8498 50.3598 63.1093C47.4396 64.3698 44.3196 65 41 65ZM41 60.9796C46.5602 60.9796 51.28 59.0395 55.1592 55.1592C59.0395 51.28 60.9796 46.5602 60.9796 41C60.9796 35.4398 59.0496 30.72 55.1895 26.8408C51.3294 22.9605 46.5996 21.0204 41 21.0204C35.4398 21.0204 30.72 22.9504 26.8408 26.8105C22.9605 30.6706 21.0204 35.4004 21.0204 41C21.0204 46.5602 22.9605 51.28 26.8408 55.1592C30.72 59.0395 35.4398 60.9796 41 60.9796Z" fill="#FDFCFD"/>
+                      </g>
+                      </g>
+                      </svg>
+                  </div> 
+                 </div>
+                 <div className="w-[163px] lg:w-[340px] h-[121px] shadow-lg flex  justify-center  items-center ">
+                   <p className="w-full h-full text-black  leading-6 text-xl lg:text-4xl font-semibold   font-open-sans text-center px-3 py-2 ">{t("Profile.add-new")}</p>
+                   
+                 </div>
+               </div>
+             </div>
+           </div>
+         </a>
+       </div>
+
+          </>
+       
+      :
+         {/* <MyCreations />  */}
+        }
+       </Tab.Panel>
+       <Tab.Panel
+         key={"MisTokens"}
+         className={classNames(
+           'rounded-xl  bg-white'
+         )}
+       >
+         {/* <MyAcquisitions /> */}
+       </Tab.Panel>
+      
+
+       <Tab.Panel
+         key={"Colecciones"}
+         className={classNames(
+           'rounded-xl  bg-white'
+         )}
+       >
+         {/* <MyCollections /> */}
+       </Tab.Panel>
+     </Tab.Panels>
+   </Tab.Group>
+
+     </div>
       }              
     </>
   );
