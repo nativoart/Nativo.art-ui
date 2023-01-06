@@ -367,7 +367,7 @@ function MyCollections(props) {
                 if (myProfile) {
                   return (
                     <div className="w-full sm:w-[280px] md:w-[350px] lg:w-[477px] xl:w-[397px] 2xl:w-[482px]" key={key}>
-                      <a href={"/collection/" + item.collectionID}
+                      <a href={"/viewcollection/" + item.collectionID}
                       >
                         <div className="flex flex-row justify-items-center w-full" key={key}>
 
@@ -397,7 +397,7 @@ function MyCollections(props) {
                   if (item.visibility) {
                     return (
                       <div className="w-full sm:w-[280px] md:w-[350px] lg:w-[477px] xl:w-[397px] 2xl:w-[482px]" key={key}>
-                        <a href={"/collection/" + item.collectionID}
+                        <a href={"/viewcollection/" + item.collectionID}
                         >
                           <div className="flex flex-row justify-items-center w-full" key={key}>
 
