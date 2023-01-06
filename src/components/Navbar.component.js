@@ -740,25 +740,7 @@ function LightHeaderB(props) {
 
 
 
-                                  <MenuB.Item
-                                  >
-                                    {({ active }) => (
-                                      <a href="/mynfts" className={classNames(active ? "dark:text-white font-extrabold  bg-[#2A747E]" : "dark:text-white ml-2 font-bold", "block px-2  text-base text-center font-open-sans uppercase")}>
-                                        <div className="flex justify-start">
-                                          <span className=" m-2">
-                                            <img
-                                              className="mr-2"
-                                              src={tokenIcon}
-                                              alt='banner'
-                                              width="20px"
-                                              height="20px" />
-                                          </span>
-                                          <p className=" self-center"> {t("Navbar.myNFTs")}</p>
-                                        </div>
 
-                                      </a>
-                                    )}
-                                  </MenuB.Item>
 
                                   <MenuB.Item
                                   >
@@ -925,7 +907,7 @@ function LightHeaderB(props) {
                                   height="20px" />
                               </button>
                               <button className="font-open-sans font-semibold text-base leading-4 flex text-white mt-3 justify-between uppercase ml-8 w-full" onClick={async () => { futureFeatureMsg(t("Navbar.staking")); }}>
-                                <p className="font-open-sans font-semibold text-base">{t("Navbar.create") + "AAAA"}</p>
+                                <p className="font-open-sans font-semibold text-base">{t("Navbar.create")}</p>
                                 <img
                                   className="mr-4"
                                   src={createToken}
