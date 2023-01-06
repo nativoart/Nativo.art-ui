@@ -465,13 +465,12 @@ function LightEcommerceB(props) {
           </label>
         </div>
 
-        <form
-          className="container w-full m-auto lg:mx-[25px]  py-6 lg:py-8 inherit z-10 relative "
+        <form  className="container w-full m-auto lg:mx-[25px]  py-6 lg:py-8 inherit z-10 relative "
           onSubmit={formik.handleSubmit}
         >
           <div className="lg:w-full  flex flex-wrap lg:flex-nowrap lg:h-[335px]">
             {/*Profile Pic*/}
-            <div className="xl:w-1/4 2xl:w-1/4  lg:h-64 flex  ">
+            <div className="xl:w-1/4 2xl:w-1/4  md:ml-5 lg:h-64 flex  ">
               <label className={` `}>
                 <div className="flex w-full  ">
                   <div className="flex flex-col         rounded-md justify-center  text-center   w-full ">
@@ -541,7 +540,7 @@ function LightEcommerceB(props) {
                 ) : null}
               </label>
               
-              <button name="createpro" className=" w-[40px] bg-white absolute translate-x-[16.5rem]  md:translate-x-[38rem] lg:translate-x-[50rem]   xl:translate-x-[70rem]  2xl:translate-x-[90rem]  rounded-full "
+              <button name="createpro" className=" w-[40px] bg-white absolute translate-x-[14.5rem]  md:translate-x-[38rem] lg:translate-x-[50rem]   xl:translate-x-[70rem]  2xl:translate-x-[90rem]  rounded-full "
               
               onClick={cancelprofile}
               data-bs-toggle="tooltip" data-bs-placement="bottom" title= {t("Profile.CancelProfile_title")}
@@ -709,8 +708,16 @@ function LightEcommerceB(props) {
             </div>
           </div>
           {/*User secitons*/}
+          
         </form>
+       
       </section>
+      
+      { state !="edit" ? null:
+       <div name="createtokensect" className=" hidden lg:flex bg-red-200  w-full h-[100px] ">
+        
+       </div>  
+      }              
     </>
   );
 }
