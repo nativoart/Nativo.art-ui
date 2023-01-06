@@ -50,7 +50,11 @@
         "near": "NEAR foundation",
         "nearSub": "Given a grant for development of Nativo.",
         "cloudMex" : "CloudMex Analytics",
-        "cloudMexSub" : "Web 3.0 hub of software development. Based in Latam."
+        "cloudMexSub" : "Web 3.0 hub of software development. Based in Latam.",
+        "gift" : "Gifts from Nativo.art",
+        "giftsub" : "Soon you will get a digital collectible",
+        "giftsub2" : "from one of your favorite artist.",
+        "generate" : "Create my own links."
     },
     "Landingpoa": {
         "title" : "Proof of Authenticity,",

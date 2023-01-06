@@ -20,7 +20,7 @@ export default function LandingGift() {
   });
   return (
     <div>
-      <Gift />
+      <Gift/>
     </div>
   );
 }

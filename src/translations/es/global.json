@@ -50,7 +50,11 @@
         "near": "fundación NEAR",
         "nearSub": "Realizó un grant para el desarrollo de Nativo.",
         "cloudMex" : "CloudMex Analytics",
-        "cloudMexSub" : "Empresa Web 3.0 de desarrollo de software. Localizada en Latinoamérica."
+        "cloudMexSub" : "Empresa Web 3.0 de desarrollo de software. Localizada en Latinoamérica.",
+        "gift" : "Regalos de Nativo.art",
+        "giftsub" : "Pronto recibirás un coleccionable digital",
+        "giftsub2" : "de uno de tus artistas favoritos.",
+        "generate" : "Crear mis propios links."
     },
     "Landingpoa": {
         "title" : "Prueba de Autenticidad,",

@@ -27,19 +27,28 @@ function LightHeroE(props) {
 
   return (
     <section className="text-gray-600 body-font bg-White_gift lg:bg-White_gift h-[823px] lg:h-[594px] bg-no-repeat bg-cover bg-top ">
-      <div className="container mx-auto lg:pl-28 flex px-5 lg:px-0 pb-10 flex-col items-center  lg:items-start  justify-center ">
-        <div className=" h-[823px] lg:h-[594px] lg:flex-grow  flex flex-col md:text-left items-center lg:items-start" >
-          <img class="near-logo" src="near-logo.c27c19c0.svg" alt="NEAR logo" height="32">
-            <div class="empty-icon">🧧</div>
-              <p class="empty-title h5">NEAR Redpackets</p>
-                <p class="empty-subtitle">Login and Send NEAR Redpackets.</p>
-                  <div class="empty-action"><div class="near-user">
-                     <a class="btn" href="#"><div img class="btn-icon" src="icon-account.607c457b.svg" alt="NEAR user" height="40"></div>
-                      <span class="text-ellipsis">Login with NEAR</span>
-                      </a>                            
-                  </div>
+      <div className="container mx-auto pt-4 flex px-5 lg:px-0 pb-10 flex-col items-center  lg:items-center  justify-center ">
+        <div className=" h-[763px] bg-white rounded-lg lg:h-[564px] lg:flex-grow flex flex-col md:text-center items-center lg:items-center" >
+          <img class="h-[150px] mt-16 lg:h-[150px] bg-center w-[150px] lg:w-[150px] " src="/static/media/ntvToken.340716be.png" alt="/static/media/ntvToken.340716be.png"></img>
+        <div className="w-full z-20 mt-6 lg:mt-[16px] ">
+            <h6 className="dark:text-black text-[42px]  lg:text-5xl md:text-5xl font-clash-grotesk font-semibold leading-9 tracking-wider text-center w-[343px] lg:w-[700px]">{t("Landing.gift")}</h6>
+          </div>
+          <p className="mt-6 lg:mt-[23px] lg:text-1xl text-base dark:text-black z-20 font-open-sans font-semibold text-center leading-6 tracking-wider w-[343px] lg:w-[630px]">
+            {t("Landing.giftsub")}
+          </p>
+          <p className="mt-[1px] lg:mt-[1px] lg:text-1xl text-base dark:text-black z-20 font-open-sans font-semibold text-center leading-6 tracking-wider w-[343px] lg:w-[630px]">
+            {t("Landing.giftsub2")}
+          </p>
+          <div className="flex flex-col lg:flex-row justify-between z-20">
+            <a href="https://forms.gle/YBHbAHFcdRKEEuvV8">
+            <button className="flex inline-flex rounded-xlarge w-full lg:w-[267px] h-[50px]">
+                <div className="flex flex-col font-bold h-full text-white  text-center  justify-center shadow-s w-full bg-yellow4 hover:bg-yellowHover active:bg-yellowPressed rounded-md">
+                <svg className="fill-current w-[342px] h-[48px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+                  <span className="title-font  text-white font-open-sans font-normal lg:font-semibold text-base p-5 uppercase leading-6">{t("Landing.generate")} </span>
                 </div>
-          </img>
+            </button>
+            </a>
+          </div>
         </div>
       </div>
     </section>
