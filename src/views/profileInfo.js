@@ -158,6 +158,42 @@ function LightEcommerceB(props) {
         }
       });
   }
+  const KeepCreatingprofile =()=>{
+
+
+    
+
+
+
+    Swal.fire({
+      background: '#0a0a0a',
+      width: '500',
+      height: '600',
+
+      html:
+        '<div class=" flex flex-col overflow-hidden">' +
+        '<div class="font-open-sans  text-base font-extrabold text-white my-2 text-left w-full uppercase">' +   t("Profile.KeepcreatinProfile") + '</div>' +
+        '<div class="font-open-sans  text-sm font-bold text-white my-2 text-left w-full uppercase">' +   t("Profile.KeepcreatinProfile_descr") + '</div>' +
+
+        '</div>',
+      showCloseButton: true,
+      confirmButtonText:  t("Profile.KeepcreatinProfile_ok"),
+     // cancelButtonText:  t("Profile.CancelProfile_no"),
+      showCancelButton: false,
+      showConfirmButton: true,
+      buttonsStyling: false,
+      customClass: {
+        confirmButton:'flex py-2 h-[40px] w-[150px]    lg:w-[200px] text-white       font-open-sans font-normal lg:font-extrabold text-base uppercase  hover:text-textOutlineHover active:text-textOutlinePressed   font-extrabold h-full     border-solid border-2 rounded-md border-white2   " ' ,
+       // cancelButton: 'flex py-2 h-[40px] w-[150px]   ml-2  lg:w-[200px] text-white       font-open-sans font-normal lg:font-extrabold text-base uppercase  hover:text-textOutlineHover active:text-textOutlinePressed   font-extrabold h-full     border-solid border-2 rounded-md border-white2   " ',
+      },
+      position: window.innerWidth < 1024 ? 'bottom' : 'center'
+    }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.close()
+        } 
+       
+      });
+  }
   React.useEffect(() => {
     (async () => {
       let type = state;
@@ -501,13 +537,13 @@ function LightEcommerceB(props) {
         >
           <div className="lg:w-full  flex flex-wrap lg:flex-nowrap lg:h-[335px]">
             {/*Profile Pic*/}
-            <div className="xl:w-1/4 2xl:w-1/4  md:ml-5 lg:h-64 flex  ">
-              <label className={` `}>
+            <div className="xl:w-1/4 2xl:w-1/4   ml-5   flex  ">
+              <label className={`hover:cursor-pointer`}>
                 <div className="flex w-full  ">
                   <div className="flex flex-col         rounded-md justify-center  text-center   w-full ">
                     <img
                       alt="icon"
-                      className=" ml-2.5 object-cover  rounded-xlarge border-8 border-white bg-white  w-[180px]  h-[180px] lg:h-[339px] lg:w-[339px]   "
+                      className="   object-cover  rounded-xlarge border-8 border-white bg-white  w-[180px]  h-[180px] lg:h-[339px] lg:w-[339px]   "
                       src={
                         mint?.icon == ""
                           ? defaultUser
@@ -533,18 +569,19 @@ function LightEcommerceB(props) {
                 name="text img"
                 className=" w-[100px] flex rounded-lg flex-col  justify-center  absolute      "
               >
-                <span className="absolute z-10   w-[130px] bg-white text-black  translate-x-9 lg:translate-x-28 translate-y-[10.25rem] lg:translate-y-[20rem]   text-md tracking-tighter	 rounded-sm	   m-auto ">
+                <span className="absolute    w-[130px] bg-white text-black  translate-x-[1.5rem] lg:translate-x-[7rem]  translate-y-[10.50rem] lg:translate-y-[20rem]   text-md tracking-tighter	 rounded-sm	   m-auto ">
                   <div className="flex relative">
-                    <img
-                      alt="upphoto"
-                      className="  w-4 h-4  mx-2 my-auto "
-                      src={upphoto}
-                    />
+                  <div className="w-10 h-5 ">
+                      <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6V4H16V2H18V0H20V2H22V4H20V6H18ZM2 20C1.45 20 0.979333 19.8043 0.588 19.413C0.196 19.021 0 18.55 0 18V6C0 5.45 0.196 4.97933 0.588 4.588C0.979333 4.196 1.45 4 2 4H5.15L7 2H13V4H7.875L6.05 6H2V18H18V9H20V18C20 18.55 19.8043 19.021 19.413 19.413C19.021 19.8043 18.55 20 18 20H2ZM10 16.5C11.25 16.5 12.3127 16.0627 13.188 15.188C14.0627 14.3127 14.5 13.25 14.5 12C14.5 10.75 14.0627 9.68733 13.188 8.812C12.3127 7.93733 11.25 7.5 10 7.5C8.75 7.5 7.68733 7.93733 6.812 8.812C5.93733 9.68733 5.5 10.75 5.5 12C5.5 13.25 5.93733 14.3127 6.812 15.188C7.68733 16.0627 8.75 16.5 10 16.5ZM10 14.5C9.3 14.5 8.70833 14.2583 8.225 13.775C7.74167 13.2917 7.5 12.7 7.5 12C7.5 11.3 7.74167 10.7083 8.225 10.225C8.70833 9.74167 9.3 9.5 10 9.5C10.7 9.5 11.2917 9.74167 11.775 10.225C12.2583 10.7083 12.5 11.3 12.5 12C12.5 12.7 12.2583 13.2917 11.775 13.775C11.2917 14.2583 10.7 14.5 10 14.5Z" 
+                        fill={mint?.banner ? `#616161`:`#616161`}/>
+                        </svg>
+                  </div>
                     {t("Profile.upImg2")}
                   </div>
 
                   {formik.touched.icon && formik.errors.icon ? (
-                    <div className=" w-full  absolute bg-white   text-center text-md text-red-600 font-open-sans">
+                    <div className=" w-full  absolute    text-center text-md text-red-600 font-open-sans">
                       {formik.errors.icon}
                     </div>
                   ) : null}
@@ -552,7 +589,13 @@ function LightEcommerceB(props) {
               </div>
 
               <label name="upbanner" className="absolute  flex lg:hidden w-[170px] mdw-[200px] tracking-tighter bg-white text-black  translate-x-[13.5rem]  md:translate-x-[35rem] translate-y-[11.5rem] lg:translate-y-[21rem]    text-sm md:text-base 	 rounded-sm	  m-auto ">
-                <img alt="upphoto" className="  w-4 h-4  mx-2  my-auto" src={upphoto} />
+             <div className="w-10 h-10">
+                <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 6V4H16V2H18V0H20V2H22V4H20V6H18ZM2 20C1.45 20 0.979333 19.8043 0.588 19.413C0.196 19.021 0 18.55 0 18V6C0 5.45 0.196 4.97933 0.588 4.588C0.979333 4.196 1.45 4 2 4H5.15L7 2H13V4H7.875L6.05 6H2V18H18V9H20V18C20 18.55 19.8043 19.021 19.413 19.413C19.021 19.8043 18.55 20 18 20H2ZM10 16.5C11.25 16.5 12.3127 16.0627 13.188 15.188C14.0627 14.3127 14.5 13.25 14.5 12C14.5 10.75 14.0627 9.68733 13.188 8.812C12.3127 7.93733 11.25 7.5 10 7.5C8.75 7.5 7.68733 7.93733 6.812 8.812C5.93733 9.68733 5.5 10.75 5.5 12C5.5 13.25 5.93733 14.3127 6.812 15.188C7.68733 16.0627 8.75 16.5 10 16.5ZM10 14.5C9.3 14.5 8.70833 14.2583 8.225 13.775C7.74167 13.2917 7.5 12.7 7.5 12C7.5 11.3 7.74167 10.7083 8.225 10.225C8.70833 9.74167 9.3 9.5 10 9.5C10.7 9.5 11.2917 9.74167 11.775 10.225C12.2583 10.7083 12.5 11.3 12.5 12C12.5 12.7 12.2583 13.2917 11.775 13.775C11.2917 14.2583 10.7 14.5 10 14.5Z" 
+                  fill={mint?.banner ? `#616161`:`#616161`}/>
+                  </svg>
+             </div>
+            
                 {t("Profile.upImg4")}
                 <input
               onChange={(e) => {
@@ -565,13 +608,13 @@ function LightEcommerceB(props) {
               accept={acceptedFormats}
             />
                 {formik.touched.banner && formik.errors.banner ? (
-                  <div className=" absolute w-full -mt-4 text-center text-md bg-white text-red-600 font-open-sans">
+                  <div className=" absolute w-full -mt-4 text-center text-md   text-red-600 font-open-sans">
                     {formik.errors.banner}
                   </div>
                 ) : null}
               </label>
               
-              <button name="createpro" className=" w-[40px] bg-white absolute translate-x-[14.5rem]  md:translate-x-[38rem] lg:translate-x-[50rem]   xl:translate-x-[70rem]  2xl:translate-x-[90rem]  rounded-full "
+              <button name="createpro" className=" w-[40px]  absolute translate-x-[13rem]  md:translate-x-[36rem] lg:translate-x-[49.75rem]   xl:translate-x-[64.25rem]  2xl:translate-x-[77.5rem]  rounded-full "
               
               onClick={cancelprofile}
               data-bs-toggle="tooltip" data-bs-placement="bottom" title= {t("Profile.CancelProfile_title")}
@@ -590,7 +633,7 @@ function LightEcommerceB(props) {
                 
               </button>
 
-              <button className="  w-[40px]  -mt-4 absolute translate-x-[20rem]    rounded-full md:translate-x-[43rem] lg:translate-x-[58rem]  xl:translate-x-[78rem] 2xl:translate-x-[95rem]    "
+              <button className="  w-[40px]  -mt-4 absolute translate-x-[18.5rem]    rounded-full md:translate-x-[43rem] lg:translate-x-[56rem]  xl:translate-x-[75rem] 2xl:translate-x-[91rem]    "
              
               onClick={CreateProfile}
               data-bs-toggle="tooltip" data-bs-placement="bottom" title= {t("Profile.title")}
@@ -600,7 +643,7 @@ function LightEcommerceB(props) {
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow2 opacity-75"></span>
                   <span class="absolute inline-flex rounded-full h-4 w-4 bg-yellow2"></span>
                 </span>
-                <svg className="bg-white rounded-full" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg className="  rounded-full" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 
                   <circle cx="20" cy="20" r="18.5" stroke="#F79336" stroke-width="3"/>
                   <g mask="url(#mask0_1_2)">
@@ -611,21 +654,23 @@ function LightEcommerceB(props) {
             </button>
             </div>
 
-            <div className="xl:w-3/4 2xl:w-3/4 lg:w-2/3  w-full lg:flex lg:flex-row  gap-2 mt-10 lg:mt-2 flex-col px-5 bg-white lg:bg-transparent ">
+            <div className="xl:w-3/4 2xl:w-3/4 lg:w-2/3  w-full lg:flex lg:flex-row lg:gap-4 xl:gap-12 mt-10 lg:mt-2 flex-col px-5 bg-white lg:bg-transparent ">
               <div name="userInfocard" className="lg:w-1/2">
                 {/*User account*/}
 
-                <label className={ mint?.banner ? `hidden  mt-4 lg:flex  w-full   text-white     text-md tracking-tighter	 	  m-auto` :`hidden mt-4 lg:flex  w-full   text-[#616161]     text-md tracking-tighter	 	  m-auto`}                >
+                <label className={ mint?.banner ? 
+                `hidden  ` 
+                :
+                `hidden mt-4 lg:flex  hover:cursor-pointer w-[200px]      text-[#616161]     text-md tracking-tighter	 	  `}                >
                 
                 <div className="  w-4 h-4  mx-2 "     
                   >   <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M18 6V4H16V2H18V0H20V2H22V4H20V6H18ZM2 20C1.45 20 0.979333 19.8043 0.588 19.413C0.196 19.021 0 18.55 0 18V6C0 5.45 0.196 4.97933 0.588 4.588C0.979333 4.196 1.45 4 2 4H5.15L7 2H13V4H7.875L6.05 6H2V18H18V9H20V18C20 18.55 19.8043 19.021 19.413 19.413C19.021 19.8043 18.55 20 18 20H2ZM10 16.5C11.25 16.5 12.3127 16.0627 13.188 15.188C14.0627 14.3127 14.5 13.25 14.5 12C14.5 10.75 14.0627 9.68733 13.188 8.812C12.3127 7.93733 11.25 7.5 10 7.5C8.75 7.5 7.68733 7.93733 6.812 8.812C5.93733 9.68733 5.5 10.75 5.5 12C5.5 13.25 5.93733 14.3127 6.812 15.188C7.68733 16.0627 8.75 16.5 10 16.5ZM10 14.5C9.3 14.5 8.70833 14.2583 8.225 13.775C7.74167 13.2917 7.5 12.7 7.5 12C7.5 11.3 7.74167 10.7083 8.225 10.225C8.70833 9.74167 9.3 9.5 10 9.5C10.7 9.5 11.2917 9.74167 11.775 10.225C12.2583 10.7083 12.5 11.3 12.5 12C12.5 12.7 12.2583 13.2917 11.775 13.775C11.2917 14.2583 10.7 14.5 10 14.5Z" 
-                  fill={mint?.banner ? `#CBD5E1`:`##CBD5E1`}/>
+                  fill={mint?.banner ? `#616161`:`#616161`}/>
                   </svg></div>
                   {t("Profile.upImg3")}
 
-             <input
-               onChange={(e) => {
+             <input  onChange={(e) => {
                  uploadFilePinata(e, 1);
                }}
                type="file"
@@ -642,19 +687,20 @@ function LightEcommerceB(props) {
            </label>
                
 
-                <h1 className={mint?.banner ? `text-[#0A0A0A] lg:text-white capitalize text-2xl text-left title-font font-bold mb-2 mt-4 font-open-sans text-ellipsis  leading-8`
+                <h1 className={mint?.banner ?
+                 `text-[#0A0A0A] lg:text-slate-300 capitalize text-2xl text-left title-font font-bold mb-2 mt-4 font-open-sans text-ellipsis  leading-8`
                 :`text-[#0A0A0A] lg:text-black capitalize text-2xl text-left title-font font-bold mb-2 font-open-sans text-ellipsis  leading-8`}
               >
                   {accountId}
                 </h1>
                 <div className="flex justify-between ">
                   {formik.touched.twitter && formik.errors.twitter ? (
-                    <div className="leading-7 bg-white   text-sm text-red-600 font-open-sans">
+                    <div className="leading-7     text-sm text-red-600 font-open-sans">
                       {formik.errors.twitter}
                     </div>
                   ) : null}
                   {ErrorTwitter && (
-                    <div className="leading-7 bg-white  text-sm text-red-600 font-open-sans">
+                    <div className="leading-7    text-sm text-red-600 font-open-sans">
                       {formik.errors.twitter}
                     </div>
                   )}
@@ -666,8 +712,11 @@ function LightEcommerceB(props) {
                     name="title"
                     placeholder={t("Profile.twitter")}
                     {...formik.getFieldProps("twitter")}
-                    className={  mint?.banner ? `font-open-sans  mx-2 flex flex-col  h-full   bg-transparent  text-black lg:text-white   text-left   justify-center   w-full`: 
-                    `font-open-sans  mx-2 flex flex-col  h-full   bg-transparent text-black lg:text-white   text-left   justify-center   w-full`}
+                    className={  
+                      mint?.banner ? 
+                      `font-open-sans  mx-2 flex flex-col  h-full   bg-transparent  text-black lg:text-slate-300   text-left   justify-center   w-full`
+                      : 
+                     `font-open-sans  mx-2 flex flex-col  h-full   bg-transparent text-[#616161]    text-left   justify-center   w-full`}
                   />
                   <div className="w-[24px] h-[24px]   flex items-center my-2">
                     <svg
@@ -679,7 +728,7 @@ function LightEcommerceB(props) {
                     >
                       <path
                         d="M16.1572 3.53809C16.1682 3.68964 16.1682 3.84119 16.1682 3.99415C16.1682 8.6546 12.4534 14.0295 5.6607 14.0295V14.0267C3.65411 14.0295 1.68921 13.4806 0 12.4455C0.291773 12.4791 0.585009 12.4958 0.878976 12.4965C2.54186 12.4979 4.15722 11.965 5.46545 10.9838C3.88519 10.9551 2.49945 9.97109 2.01536 8.53447C2.56892 8.63644 3.13931 8.61549 3.68263 8.47371C1.95978 8.14127 0.720293 6.69557 0.720293 5.01661C0.720293 5.00125 0.720293 4.98658 0.720293 4.97191C1.23364 5.24499 1.80841 5.39654 2.39634 5.4133C0.773675 4.37757 0.273492 2.31588 1.25338 0.703961C3.12834 2.90743 5.8947 4.24697 8.86435 4.38874C8.56673 3.16374 8.97331 1.88007 9.93272 1.01894C11.4201 -0.316408 13.7594 -0.247965 15.1576 1.17189C15.9846 1.01615 16.7773 0.72631 17.5027 0.315648C17.2271 1.13208 16.6501 1.8256 15.8793 2.26629C16.6113 2.18388 17.3265 1.99671 18 1.71106C17.5042 2.42064 16.8797 3.03873 16.1572 3.53809Z"
-                        fill={ mint?.banner ?  `#ffffff` : `#0A0A0A`}
+                        fill={ mint?.banner ?  `#ffffff` : ` #A4A2A4`}
                       />
                     </svg>
                   </div>
@@ -687,7 +736,7 @@ function LightEcommerceB(props) {
 
                 <div className="flex justify-between ">
                   {formik.touched.bio && formik.errors.bio ? (
-                    <div className="leading-7 bg-white text-sm text-red-600 font-open-sans">
+                    <div className="leading-7   text-sm text-red-600 font-open-sans">
                       {formik.errors.bio}
                     </div>
                   ) : null}
@@ -699,14 +748,17 @@ function LightEcommerceB(props) {
                     name="title"
                     placeholder={t("Profile.addbiography")}
                     {...formik.getFieldProps("bio")}
-                    className={  mint?.banner ?  `font-open-sans mx-2  flex flex-col  h-full  bg-transparent   text-black lg:text-white  text-left  justify-center    w-full`:`font-open-sans mx-2  flex flex-col  h-full  bg-transparent   text-black lg:text-white  text-left  justify-center    w-full`}
+                    className={  mint?.banner ?  
+                      `font-open-sans mx-2  flex flex-col  h-full  bg-transparent   text-black lg:text-slate-300 stroke-black stroke-1 text-left  justify-center    w-full`
+                      :
+                      `font-open-sans mx-2  flex flex-col  h-full  bg-transparent    text-slate-300]  text-left  justify-center    w-full`}
                   />
                 </div>
               </div>
 
               <div name="userInfocard-right" className="lg:w-1/2 lg:mt-auto">
                 <div name="activitySection" className="w-full mt-4 flex gap-4">
-                  <button   disabled="true" className="w-1/2 h-24 rounded-lg shadow-xl flex flex-col items-center justify-center lg:bg-white hover:bg-gray-400">
+                  <button   disabled="true" className="w-1/2 h-24 rounded-lg shadow-xl flex flex-col items-center justify-center lg:bg-gray-200 hover:bg-gray-300">
                     <img
                       alt="activity_img"
                       className="  w-10 h-10  mx-2 "
@@ -714,7 +766,7 @@ function LightEcommerceB(props) {
                     />
                     <a className="font-bold">{t("Profile.activity")}</a>
                   </button>
-                  <button   disabled="true" className="w-1/2 h-24 rounded-lg shadow-xl flex flex-col items-center  justify-center lg:bg-white hover:bg-gray-400"> 
+                  <button   disabled="true" className="w-1/2 h-24 rounded-lg shadow-xl flex flex-col items-center  justify-center lg:bg-gray-200 hover:bg-gray-300"> 
                     <img
                       alt="activity_img"
                       className="  w-10 h-10  mx-2 "
@@ -729,7 +781,7 @@ function LightEcommerceB(props) {
                   <button
                    disabled="true"
                     onClick={handleCreatebutton}
-                    className={`relative w-full  bg-yellow2 rounded-md uppercase font-open-sans text-base px-6 py-2 font-bold   hover:bg-gray-400 hover:text-black dark:text-white`}
+                    className={`relative w-full   rounded-md uppercase font-open-sans text-base px-6 py-2 font-bold  bg-gray-200 hover:bg-gray-300 text-black`}
                     data-bs-toggle="tooltip" data-bs-placement="bottom" title= {t("Profile.createProfile")}
                   >
                     {  t("Profile.createProfile")}
@@ -816,7 +868,7 @@ function LightEcommerceB(props) {
 
   <div className="w-full lg:ml-16 xs:w-[150px] sm:w-[180px] md:w-[160px] lg:w-[232px]  xl:w-[295px] 2xl:w-[284px] h-[279px] lg:h-[500px]      xl:h-[395px] 2xl:h-[485px] ">
          <a
-           href={"/detail/" + 0}
+           onClick={KeepCreatingprofile}
          >
            <div className="flex flex-row justify-center ml-10   bg-white" >
              <div className="h-full rounded-xl shadow-lg  hover:scale-105 ">
@@ -846,7 +898,7 @@ function LightEcommerceB(props) {
           </>
        
       :
-         {/* <MyCreations />  */}
+          <MyCreations />  
         }
        </Tab.Panel>
        <Tab.Panel

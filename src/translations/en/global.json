@@ -494,7 +494,11 @@
         "CancelProfile_title":"Would you want to cancel?",
         "CancelProfile_descrip":"Do not worry,you can continue later",
         "CancelProfile_cancel":"Yes,cancel",
-        "CancelProfile_no":"No"
+        "CancelProfile_no":"No",
+        "KeepcreatinProfile":"Would you want to create a collectible?",
+        "KeepcreatinProfile_descr":"First complete your profile,you can create it later",
+        "KeepcreatinProfile_ok":"Ok,complete the profile",
+        "KeepcreatinProfile_no":"        No"
     },
     "addToken" : {
         "alert1-title" : "Select a collection",
