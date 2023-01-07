@@ -66,7 +66,7 @@ function MyCollections(props) {
     items: [],
     hasMore: true
   });
-  const [hasDataCol, setHasDataCol] = React.useState(false);
+  const [hasDataCol, setHasDataCol] = React.useState(true);
   const [lastName, setLastName] = React.useState('');
 
   const [modalSub, setModalSub] = useState({
@@ -128,9 +128,7 @@ function MyCollections(props) {
     setProfile({ user: user}); 
     
 
-    if (user == accountId) {
-      setMyProfile(true)
-    }
+ 
     console.log("queryonfo",colSort + colSortOrd)
     async function getColData() {
         const queryData = `
@@ -192,6 +190,9 @@ function MyCollections(props) {
                 console.log('Error ferching data: ', err)
                 setHasDataCol(false)
             })
+            if (user == accountId) {
+              setMyProfile(true)
+            }
     }
     getColData()
 }, [triggerCol])
@@ -200,7 +201,7 @@ function MyCollections(props) {
 
   let fetchMoreColData = async () => {
     console.log('carga data colecciones')
-    await delay(.75)
+    await delay(1)
     var sort
     var last
     if (colSortOrd == 'asc') {
@@ -336,15 +337,7 @@ function MyCollections(props) {
     <>
       <ul>
       {hasDataCol ? <>
-        <div className="px-6 w-full pb-6  flex flex-row-reverse">
-          <select name="sort" className="text-base font-open-sans pl-3 py-2.5 border-outlinePressed dark:text-black md:w-[283px]" onChange={handleSortCollections}>
-            <option value="" disabled selected hidden>{t("Explore.sortBy")}</option>
-            <option value="TimeDesc">{t("Explore.sortTimeRec")}</option>
-            <option value="TimeAsc">{t("Explore.sortTimeOld")}</option>
-            <option value="TitleAsc">{t("Explore.sortTitAz")}</option>
-            <option value="TitleDesc">{t("Explore.sortTitZa")}</option>
-          </select>
-        </div>
+
           <li><InfiniteScroll
           dataLength={collections.items.length}
           next={fetchMoreColData}
@@ -364,8 +357,21 @@ function MyCollections(props) {
                 console.log('collecciobots', nft)
                 console.log('Is this y profile?', myProfile);
                 console.log('Is this collections visible?', item.visibility+ item.collectionID);
+                console.log('KEEEY', key);
                 if (myProfile) {
                   return (
+                    <>
+                    { key == 0 ?
+                      <div className=" w-full pb-6  flex flex-row-reverse">
+                        <select name="sort" className="text-base font-open-sans pl-3 py-2.5 border-outlinePressed dark:text-black md:w-[283px]" onChange={handleSortCollections}>
+                          <option value="" disabled selected hidden>{t("Explore.sortBy")}</option>
+                          <option value="TimeDesc">{t("Explore.sortTimeRec")}</option>
+                          <option value="TimeAsc">{t("Explore.sortTimeOld")}</option>
+                          <option value="TitleAsc">{t("Explore.sortTitAz")}</option>
+                          <option value="TitleDesc">{t("Explore.sortTitZa")}</option>
+                        </select>
+                      </div> : ""
+                    }
                     <div className="w-full sm:w-[280px] md:w-[350px] lg:w-[477px] xl:w-[397px] 2xl:w-[482px]" key={key}>
                       <a href={"/viewcollection/" + item.collectionID}
                       >
@@ -392,10 +398,22 @@ function MyCollections(props) {
                         </div>
                       </a>
                     </div>
-                  );
+                    </>);
                 } else {
                   if (item.visibility) {
                     return (
+                      <>
+                      { key == 0 ?
+                        <div className=" w-full pb-6  flex flex-row-reverse">
+                          <select name="sort" className="text-base font-open-sans pl-3 py-2.5 border-outlinePressed dark:text-black md:w-[283px]" onChange={handleSortCollections}>
+                            <option value="" disabled selected hidden>{t("Explore.sortBy")}</option>
+                            <option value="TimeDesc">{t("Explore.sortTimeRec")}</option>
+                            <option value="TimeAsc">{t("Explore.sortTimeOld")}</option>
+                            <option value="TitleAsc">{t("Explore.sortTitAz")}</option>
+                            <option value="TitleDesc">{t("Explore.sortTitZa")}</option>
+                          </select>
+                        </div> : ""
+                      }
                       <div className="w-full sm:w-[280px] md:w-[350px] lg:w-[477px] xl:w-[397px] 2xl:w-[482px]" key={key}>
                         <a href={"/viewcollection/" + item.collectionID}
                         >
@@ -422,17 +440,30 @@ function MyCollections(props) {
                           </div>
                         </a>
                       </div>
-                    );
+                      </>);
+                  } else {
+                    if(collections.items.length > 0){                       
+                      return (<>{ key == 0 ?
+                      <div className=" w-full pb-6  flex flex-row-reverse">
+                        <select name="sort" className="text-base font-open-sans pl-3 py-2.5 border-outlinePressed dark:text-black md:w-[283px]" onChange={handleSortCollections}>
+                          <option value="" disabled selected hidden>{t("Explore.sortBy")}</option>
+                          <option value="TimeDesc">{t("Explore.sortTimeRec")}</option>
+                          <option value="TimeAsc">{t("Explore.sortTimeOld")}</option>
+                          <option value="TitleAsc">{t("Explore.sortTitAz")}</option>
+                          <option value="TitleDesc">{t("Explore.sortTitZa")}</option>
+                        </select>
+                      </div> : ""
+                     }</>)
                   }
                 }
 
-              })}
+              }})}
             </div>
           </InfiniteScroll>
           </li>
           </>
           :
-          <div className="container px-5  flex  justify-left h-96 items-center text-3xl ">
+          <div className="md:container px-5  flex  justify-left h-96 items-center text-3xl ">
             <div className="flex flex-col justify-center w-full">
             {hasDataCol ?
                 <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black">{t("MyNFTs.load-1")}</h1>
@@ -442,12 +473,12 @@ function MyCollections(props) {
                       <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black m-auto">{t("MyNFTs.publicProfileNotCollections")}</h1>
                     </div>
                      :
-                    <div className=" h-[390px] w-[210px]  xl:w-[250px]  mt-5" >
-                      <a
+                    <div className="h-[390px] w-[210px] xl:w-[250px]  mt-5" >
+                     <a
                         href={"/collectionData/create"}
                       >
                         <div className="flex flex-row justify-center " >
-                          <div className="trending-token w-full h-full rounded-xl shadow-lg   hover:scale-105 ">
+                          <div className="trending-token  h-full rounded-xl shadow-lg   hover:scale-105 ">
                             <div className=" bg-white rounded-xl">
                               <div className="pb-3 object-cover object-center rounded-t-xl w-full h-[250px]  bg-[#F79336] flex">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 80 80" fill="none" className="m-auto">
