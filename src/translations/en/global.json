@@ -496,8 +496,8 @@
         "CancelProfile_cancel":"Yes,cancel",
         "CancelProfile_no":"No",
         "KeepcreatinProfile":"Would you want to create a collectible?",
-        "KeepcreatinProfile_descr":"First complete your profile,you can create it later",
-        "KeepcreatinProfile_ok":"Ok,complete the profile",
+        "KeepcreatinProfile_descr":"First complete your profile. you can create it later",
+        "KeepcreatinProfile_ok":"!Ok¡",
         "KeepcreatinProfile_no":"        No"
     },
     "addToken" : {

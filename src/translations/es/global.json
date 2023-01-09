@@ -498,8 +498,8 @@
         "CancelProfile_cancel":"  Si,cancelar",
         "CancelProfile_no":"        No",
         "KeepcreatinProfile":"¿Deseas crear un nuevo colecionable?",
-        "KeepcreatinProfile_descr":"Primero completa tu perfil,después podrás crearlo ",
-        "KeepcreatinProfile_ok":"Ok,completemos el perfil",
+        "KeepcreatinProfile_descr":"Primero completa tu perfil. después podrás crearlo ",
+        "KeepcreatinProfile_ok":"!Ok¡",
         "KeepcreatinProfile_no":"        No"
 
     },
