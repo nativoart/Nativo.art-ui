@@ -622,7 +622,7 @@ function MyCreations(props) {
                       <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black  m-auto">{t("MyNFTs.publicProfileNotNFT")}</h1>
                     </div> 
                     :
-                    <div className=" h-[390px] w-[210px] xl:w-[250px]  mt-5 m-auto md:m-0" >
+                    <div className=" h-[390px] w-[210px] xl:w-[250px]  mt-10 m-auto md:mx-0" >
                       <a
                         href={"/create"}
                       >

@@ -682,7 +682,7 @@ function MyAcquisitions(props) {
                     :
                     <div className="flex flex-col">
                       <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black">{t("MyNFTs.privateProfileNotAquisitions")}</h1>
-                      <button className="flex rounded-xlarge lg:w-[267px] h-[50px] w-[240px]  mt-5 mx-auto" >
+                      <button className="flex rounded-xlarge lg:w-[267px] h-[50px] w-[240px]  mt-5 mx-auto" onClick={() => window.location.href="explore?search=tokens"}>
                         <div className="flex flex-col font-bold h-full text-white  text-center  justify-center shadow-s w-full bg-[#F79336] hover:bg-yellowHover active:bg-yellowPressed rounded-md">
                           <span className="title-font  text-white font-open-sans font-extrabold lg:font-semibold text-base  uppercase leading-6">{t("Landing.gallery")}</span>
                         </div>
