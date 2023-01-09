@@ -473,12 +473,12 @@ function MyCollections(props) {
                       <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black m-auto">{t("MyNFTs.publicProfileNotCollections")}</h1>
                     </div>
                      :
-                    <div className="h-[390px] w-[210px] xl:w-[250px]  mt-5" >
+                    <div className="h-[390px] w-[210px] xl:w-[250px]  mt-5 m-auto md:m-0" >
                      <a
                         href={"/collectionData/create"}
                       >
                         <div className="flex flex-row justify-center " >
-                          <div className="trending-token  h-full rounded-xl shadow-lg   hover:scale-105 ">
+                          <div className="trending-token w-full h-full rounded-xl shadow-lg   hover:scale-105 ">
                             <div className=" bg-white rounded-xl">
                               <div className="pb-3 object-cover object-center rounded-t-xl w-full h-[250px]  bg-[#F79336] flex">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 80 80" fill="none" className="m-auto">
