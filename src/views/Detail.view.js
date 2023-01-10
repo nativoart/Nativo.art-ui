@@ -23,7 +23,6 @@ import Swal from 'sweetalert2'
 import { use } from "i18next";
 import { useWalletSelector } from "../utils/walletSelector";
 import { providers, utils } from "near-api-js";
-import { useHistory } from "react-router-dom";
 
 function TokenDetail(props) {
   //guarda el estado de  toda la vista
