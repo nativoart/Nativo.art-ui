@@ -106,7 +106,7 @@ export default function PriceModal(props) {
             position: window.innerWidth < 1024 ? 'bottom' : 'center'
           }).then((result) => {
             if (result.isConfirmed) {
-              window.location.href = "/detail/"+props.tokenID
+              window.location.href = "/token/"+props.tokenID
             }
           });
         }).catch((err) => {

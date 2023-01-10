@@ -723,7 +723,7 @@ function Explore() {
                                     return (
                                         <div className="w-full xs:w-[158px] h-[279px] sm:w-[180px] md:w-[160px] lg:w-[210px] xl:w-[275px] 2xl:w-[335px] xl:h-[395px] 2xl:h-[485px] " key={key}>
                                             <a
-                                                href={"/detail/" + item.token_id}
+                                                href={"/token/" + item.token_id}
                                             >
                                                 <div className="flex flex-row justify-center " key={key}>
                                                     <div className="trending-token w-full h-full rounded-xl shadow-lg   hover:scale-105 ">

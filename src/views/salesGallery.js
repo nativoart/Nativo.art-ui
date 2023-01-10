@@ -522,7 +522,7 @@ function LightEcommerceA() {
                   return(
                     <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 md:p-4 " key={index}>
                       <a
-                        href={"/detail/" + i.token_id}
+                        href={"/token/" + i.token_id}
                       >
                         <div className="flex flex-row  mb-10 md:mb-0  justify-center " >
                           <div className="trending-token w-64 md:w-80 rounded-20 hover:shadow-yellow1   hover:scale-105 ">

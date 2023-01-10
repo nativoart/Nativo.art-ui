@@ -402,7 +402,7 @@ function Trendings() {
                     return (
                       <>
                         <a
-                          href={"/detail/" + item.token_id}
+                          href={"/token/" + item.token_id}
                         >
                           <div className="flex flex-row  mb-10 md:mb-0  justify-center " key={key}>
                             <div className="trending-token w-64 md:w-[300px] rounded-20 shadow-lg   hover:scale-105 ">

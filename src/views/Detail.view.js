@@ -24,7 +24,7 @@ import { use } from "i18next";
 import { useWalletSelector } from "../utils/walletSelector";
 import { providers, utils } from "near-api-js";
 
-function LightEcommerceB(props) {
+function TokenDetail(props) {
   //guarda el estado de  toda la vista
   const { selector, modal, accounts, accountId } = useWalletSelector();
   const [state, setstate] = useState();
@@ -39,7 +39,7 @@ function LightEcommerceB(props) {
   const [noCollection, setNoCollection] = useState(false)
   const [loadInfo, setLoadInfo] = useState(false)
   //es el parametro de tokenid
-  const { data } = useParams();
+  const { data, id } = useParams();
   //es el historial de busqueda
   //let history = useHistory();
   const APIURL= process.env.REACT_APP_API_TG
@@ -61,7 +61,7 @@ function LightEcommerceB(props) {
         
         let contract = await getNearContract();
         let account = await getNearAccount();
-        let tokenId = data;
+        let tokenId = id;
         let userData
 
         const query = `
@@ -342,7 +342,7 @@ function LightEcommerceB(props) {
         position: window.innerWidth < 1024 ? 'bottom' : 'center'
       }).then((result) => {
         if (result.isConfirmed) {
-          window.location.href = "/detail/"+props.tokens.tokenID
+          window.location.href = "/token/"+props.tokens.tokenID
         }
       });
     }).catch((err) => {
@@ -781,12 +781,5 @@ function LightEcommerceB(props) {
   );
 }
 
-LightEcommerceB.defaultProps = {
-  theme: "yellow",
-};
 
-LightEcommerceB.propTypes = {
-  theme: PropTypes.string.isRequired,
-};
-
-export default LightEcommerceB;
+export default TokenDetail;
