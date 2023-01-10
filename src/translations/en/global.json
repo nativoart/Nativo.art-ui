@@ -230,7 +230,8 @@
         "cancelBid" : "Cancel bid",
         "btnAddNFTCol" : "Add NFT to a collection",
         "msgAddToken" : "Add NFT to a collection",
-        "msgAddToken2" : "Select the collection to which you want to add the NFT"
+        "msgAddToken2" : "Select the collection to which you want to add the NFT",
+        "back": "Back"
     },
     "MyNFTs" : {
         "title" : "My NFTs",

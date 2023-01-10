@@ -235,7 +235,8 @@
         "cancelBid" : "Cancelar oferta",
         "btnAddNFTCol" : "Agregar NFT a una colección",
         "msgAddToken" : "Agregar NFT a una colección",
-        "msgAddToken2" : "Selecciona la colección a la que deseas agregar el NFT"
+        "msgAddToken2" : "Selecciona la colección a la que deseas agregar el NFT",
+        "back": "Atrás"
     },
     "MyNFTs" : {
         "title" : "Mis NFTs",

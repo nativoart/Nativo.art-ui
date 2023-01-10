@@ -23,6 +23,7 @@ import Swal from 'sweetalert2'
 import { use } from "i18next";
 import { useWalletSelector } from "../utils/walletSelector";
 import { providers, utils } from "near-api-js";
+import { useHistory } from "react-router-dom";
 
 function TokenDetail(props) {
   //guarda el estado de  toda la vista
@@ -46,6 +47,7 @@ function TokenDetail(props) {
   const handleSignIn = () =>{
     modal.show();
   }
+  const history = useHistory();
 
   React.useEffect(() => {
     (async () => {
@@ -447,259 +449,54 @@ function TokenDetail(props) {
   });
   return (
     <>
-      <section className="text-white body-font overflow-hidden dark:bg-darkgray font-open-sans">
-        <div className="container px-5 py-8 mx-auto">
+      <section className="text-white body-font overflow-hidden dark:bg-[#FAF9FB] font-open-sans">
+        <div className="md:container m-auto px-5 py-8 mx-auto">
           <div
             className="regresar"
-          >
-            <a href={'/mynfts'} >
-              <img
-                className="hover:cursor-pointer h-[50px] "
-                src={flechaiz}
-                alt='flecha'
-              />
+            onClick={history.goBack} >
+            <a href={'/mynfts'} className="flex w-[100px] items-center pb-6">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 12H5" stroke="#616161" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M12 5L5 12L12 19" stroke="#616161" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <p className="text-[#616161] text-lg">{t('Detail.back')}</p>
             </a>
           </div>
-          <div className="lg:w-4/5 mx-auto flex flex-wrap">
-            <div className="lg:w-1/2 w-full lg:h-auto h-64 flex">
-              <img
+          <div className="mx-auto flex flex-wrap">
+            <div className="w-full md:w-1/2  " >
+
+                <div className="flex flex-row justify-center ">
+                  <div className="trending-token w-full h-full rounded-xl md:shadow-lg ">
+                    <div className="bg-transparent md:bg-white rounded-xl">
+                      <div className="">
+                      <img
                 alt="ecommerce"
-                className=" object-contain md:object-scale-down rounded-xlarge shadow-yellow2 lg:h-auto h-64 w-auto m-auto"
+                className=" object-cover rounded-xl w-full  h-80 sm:h-96 lg:h-[500px] md:-border-4  border-white"
                 src={loadInfo ? `https://nativonft.mypinata.cloud/ipfs/${state?.jdata.image}` : loadingGif}
               />
+                      </div>
+                    <div className="flex flex-row-reverse p-5">
+                      <div className="flex items-center">
+                        <p className="font-open-sans text-[#000] text-sm">999</p>
+                        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M30.8401 14.6101C30.3294 14.0991 29.7229 13.6938 29.0555 13.4172C28.388 13.1406 27.6726 12.9983 26.9501 12.9983C26.2276 12.9983 25.5122 13.1406 24.8448 13.4172C24.1773 13.6938 23.5709 14.0991 23.0601 14.6101L22.0001 15.6701L20.9401 14.6101C19.9084 13.5784 18.5092 12.9988 17.0501 12.9988C15.5911 12.9988 14.1918 13.5784 13.1601 14.6101C12.1284 15.6418 11.5488 17.0411 11.5488 18.5001C11.5488 19.9591 12.1284 21.3584 13.1601 22.3901L14.2201 23.4501L22.0001 31.2301L29.7801 23.4501L30.8401 22.3901C31.3511 21.8794 31.7565 21.2729 32.033 20.6055C32.3096 19.938 32.4519 19.2226 32.4519 18.5001C32.4519 17.7776 32.3096 17.0622 32.033 16.3948C31.7565 15.7273 31.3511 15.1209 30.8401 14.6101V14.6101Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </div>
+                      <div className="flex items-center">
+                        <p className="font-open-sans text-[#000] text-sm">3.2k</p>
+                        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M11 22C11 22 15 14 22 14C29 14 33 22 33 22C33 22 29 30 22 30C15 30 11 22 11 22Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                          <path d="M22 25C23.6569 25 25 23.6569 25 22C25 20.3431 23.6569 19 22 19C20.3431 19 19 20.3431 19 22C19 23.6569 20.3431 25 22 25Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </div>
+
+                    </div>
+                    </div>
+                  </div>
+                </div>
             </div>
             
-            <div className="lg:w-1/2 w-full lg:pl-10 lg:mt-0">
 
-              <h1 className="text-white text-3xl title-font font-bold mb-3 font-raleway">
-                {state?.jdata.title}
-              </h1>
-              <p className="leading-relaxed mt-2 mb-3 font-raleway font-medium ">
-                {state?.jdata.description}
-              </p>
-
-              {creator ? 
-                noCollection ?
-                <div className="relative group rounded-xlarge">
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#f2b159] to-[#ca7e16] rounded-full blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt group-hover:-inset-1"></div>
-                  <button
-                    className={"relative w-full content-center uppercase justify-center text-center font-bold text-white bg-yellow2 py-2 px-6 rounded-xlarge font-raleway"}
-                    onClick={async () => {
-                      makeAddToken()
-                    }}>
-                      {t('Detail.msgAddToken')}
-                    </button>
-                </div>
-                :
-                ""
-              :
-              ""
-              }
-              
-              <div
-                className={`mt-4 flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
-                >
-                <span className="text-black pl-3 font-bold text-sm uppercase font-raleway ">Token Id</span>
-                <span className="ml-auto text-gray-900  text-sm pr-3 font-raleway font-medium">
-                  {state?.tokens.tokenID}
-                </span>
-              </div>
-
-              {state?.tokens.sale?
-                <>
-                  <div
-                    className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
-                  >
-                      <span className="text-black pl-3 font-bold uppercase font-raleway  text-sm">{t("Detail.sale")}</span>
-                      <span className="ml-auto text-gray-900 pr-3">
-                        <span
-                          className={`inline-flex items-center justify-center px-2 py-1  font-raleway font-medium text-xs leading-none ${state?.tokens.sale
-                            ? "text-green-100 bg-green-600"
-                            : "text-red-100 bg-red-600"
-                            } rounded-full`}
-                        >
-                          {state?.tokens.sale ? t("Detail.available-1") : t("Detail.available-2")}
-                        </span>
-                      </span>
-                    </div>
-                </>
-              :
-                ""}
-              {/*<div
-                className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50`}
-              >
-                <span className="text-gray-500">Tags</span>
-                <span className="ml-auto text-gray-900">
-                  {
-                    state?.jdata.tags.length > 0 ?
-                      state?.jdata.tags.map((element) =>
-                        <span
-                          key={element}
-                          className={`inline-flex items-center justify-center px-2 py-1 ml-2 text-xs font-bold leading-none ${state?.jdata.tags
-                            ? "text-green-100 bg-green-500"
-                            : "text-red-100 bg-red-500"
-                            } rounded-full`}
-                        >
-                          {element}
-                        </span>
-                      ) : null
-                  }
-
-                </span>
-              </div>*/}
-
-
-
-              <div
-                className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
-              >
-                <span className="text-black pl-3 font-bold uppercase font-raleway text-sm text-ellipsis overflow-hidden">{t("Detail.owner")}</span>
-                <a className="ml-auto" href={"/profile/"+state?.owner.split('.')[0]}><span className="ml-auto text-gray-900 font-semibold pr-3 font-raleway text-sm">
-                  {state?.owner.split('.')[0].length > 15 ? state?.owner.split('.')[0].substr(0,15)+'.'+state?.owner.split('.')[1] : state?.owner.split('.')[0]+'.'+state?.owner.split('.')[1]}
-                </span></a>
-              </div>
-
-              <div
-                className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
-              >
-                <span className="text-black pl-3 font-bold uppercase font-raleway text-sm text-ellipsis overflow-hidden">{t("Detail.creator")}</span>
-                <a className="ml-auto" href={"/profile/"+state?.jdata.creator.split('.')[0]}><span className="ml-auto text-gray-900 font-semibold pr-3 font-raleway text-sm">
-                  {state?.jdata.creator.split('.')[0].length > 15 ? state?.jdata.creator.split('.')[0].substr(0,15)+'.'+state?.jdata.creator.split('.')[1] : state?.jdata.creator.split('.')[0]+'.'+state?.jdata.creator.split('.')[1]}
-                </span></a>
-              </div>
-
-              {(hasRoyalty ?
-                <div
-                  className={`flex py-2 px-2 my-2 bg-gray-50 rounded-xlarge`}
-                >
-                  <span className="text-black pl-3 font-bold uppercase font-raleway text-sm">{t("Detail.royalty")}</span>
-                  <span className="ml-auto text-gray-900 font-semibold pr-3 text-right font-raleway text-sm">
-                    <ol>
-                      {state?.jdata.royalty.map((data,i) => {
-                        return(
-                          <li key={i}>{data[0]} : {(data[1]/100)}%</li>
-                        )
-                      })}
-                    </ol>
-                  </span>
-                </div>
-                : "")
-              }
-              {(hasBids ?
-                <>
-                <div className="grid grid-rows-2 py-2 px-2 bg-gray-50 rounded-xlarge">
-                  <div className="grid grid-cols-2 mb-2">
-                    <span className="text-black pl-3 font-bold uppercase font-raleway text-sm">{t("Detail.actualBid")} {state?.tokens.bidPrice} NEAR</span>
-                    <span className="ml-auto text-gray-900 font-semibold pr-3 font-raleway text-sm">{state?.tokens.bidder}</span>
-                  </div>
-                  {(state?.tokens.bidder == state?.tokens.account ? 
-                    <div className="w-full relative group rounded-xlarge">
-                      <div className="absolute -inset-0.5 bg-gradient-to-r from-[#f2b159] to-[#ca7e16] rounded-full blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt group-hover:-inset-1"></div>
-                      <button 
-                        className="relative w-full bg-yellow2 rounded-xlarge uppercase content-center justify-center text-center font-bold text-white border-0 py-1 px-6 ml-auto font-raleway text-sm"
-                        onClick={async () => {processCancelOffer(state?.tokens.tokenID)}}>
-                          <span className="font-raleway">{t("Detail.cancelBid")}</span>
-                      </button>
-                    </div>
-                    : state?.tokens.account == state?.owner ?
-                      <>
-                        <div className="w-full relative group rounded-xlarge">
-                          <div className="absolute -inset-0.5 bg-[#5aee8c]  rounded-xlarge blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt group-hover:-inset-1"></div>
-                          <button 
-                            className="relative w-full bg-green-500 rounded-xlarge uppercase content-center justify-center text-center font-bold text-white border-0 py-1 px-6 ml-auto font-raleway text-sm"
-                            onClick={async () => {processAcceptOffer(state?.tokens.sale,state?.tokens.tokenID)}}>
-                            <span className="font-raleway">{t("Detail.accept")}</span>
-                          </button>
-                        </div>
-                      </>
-                    : "")
-                    }
-                </div>
-                </> 
-                : "")
-              }
-              
-
-   
-              {/* <div
-                className={`flex border-l-4 border-${props.theme}-500 py-2 px-2 my-2 bg-gray-50 invisible`}
-              >
-                <span className="text-gray-500">Contrato</span>
-                <span className="ml-auto text-gray-900 text-xs">
-                  {state?.jdata.contract}
-                </span>
-              </div> */}
-
-
-
-
-              
-
-              <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5"></div>
-
-              <div className="flex flex-col">
-                <span className="title-font font-medium text-2xl text-white text-center w-full font-open-sans ">
-                  { 
-                    !state?.tokens.sale ?
-                      ""
-                      :
-                       + state?.tokens.price + " " + currencys[parseInt(localStorage.getItem("blockchain"))]
-                  }
-                </span>
-                <div className="flex flex-row flex-wrap justify-around mt-3 text-center">
-                  {
-                    stateLogin? 
-                    state?.owner != state?.ownerAccount? 
-                      <>
-                      <div className="w-full my-4 lg:w-40 relative group rounded-xlarge">
-                        <div className="absolute -inset-0.5 bg-gradient-to-r from-[#f2b159] to-[#ca7e16] rounded-full blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt group-hover:-inset-1"></div>
-                        <button
-                          className={`content-center justify-center text-center text-white bg-yellow2 border-0 py-2 px-6 rounded-xlarge font-raleway font-bold uppercase relative w-full`}
-                          onClick={async () => {
-                            makeAnOffer();
-                          }}
-                        >
-                          {t("Detail.bid")}
-                        </button>
-                      </div>
-                        
-                        {state?.tokens.sale ? 
-                        <>
-                        <div className="w-full my-4 lg:w-40 relative group rounded-xlarge">
-                          <div className="absolute -inset-0.5 bg-gradient-to-r from-[#f2b159] to-[#ca7e16] rounded-full blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt group-hover:-inset-1"></div>
-                          <button
-                            className={`content-center justify-center text-center text-white bg-yellow2 border-0 py-2 px-6 rounded-xlarge font-raleway font-bold uppercase relative w-full`}
-                            onClick={async () => {
-                              comprar();
-                            }}
-                          >
-                            {t("Detail.buy")}
-                          </button>
-                        </div>
-                        </> : ""}
-                      </>
-                      : "" 
-                      : 
-                      <button
-                        className={`flex ml-auto mt-2 text-white bg-yellow2 border-0 py-2 px-6 focus:outline-none  rounded-xlarge font-raleway font-medium`}
-                        style={
-                          btn
-                            ?
-                            { width: "100%", justifyContent: "center" }
-                            :
-                            {}
-                        }
-                        // disabled={state?.tokens.onSale}
-                        onClick={handleSignIn}
-                      >
-                        {t("Detail.login")}
-                      </button>
-                  }
-
-                
-                </div>
-              </div>
-            </div>
 
             {/*//CURRENT OFFER TO i 
             state  && state.tokens && state.tokens.addressbidder != 'accountbidder' &&  state.tokens.highestbidder != "notienealtos" ?
