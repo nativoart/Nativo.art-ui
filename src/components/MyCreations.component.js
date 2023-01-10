@@ -551,15 +551,8 @@ function MyCreations(props) {
       <ul>
       {loadMsgCreations ?
       <>
-        <div className="px-6 w-full pb-6  flex flex-row-reverse">
-          <select name="sort" className="text-base font-open-sans pl-3 py-2.5 border-outlinePressed dark:text-black md:w-[283px]" onChange={handleSortTokens}>
-            <option value="" disabled selected hidden>{t("Explore.sortBy")}</option>
-            <option value="recentOld">{t("Explore.sortTimeRec")}</option>
-            <option value="oldRecent">{t("Explore.sortTimeOld")}</option>
-          </select>
-        </div>
         
-          <li><InfiniteScroll
+            <li><InfiniteScroll
             dataLength={nfts.nftsCreations.length}
             next={fetchMoreDataCreator}
             hasMore={state.hasMoreCreations}
@@ -573,11 +566,22 @@ function MyCreations(props) {
           >
               {nfts.nftsCreations.map((nft, key) => {
 
+
                 const itemNft = nft;
                 const item = JSON.parse(nft.data);
                 return (
                   <>
-                    <div className="w-full xs:w-[150px] h-[279px] lg:h-[350px] sm:w-[180px] md:w-[160px] lg:w-[232px]  xl:w-[295px] 2xl:w-[284px] xl:h-[395px] 2xl:h-[485px] " key={key}>
+                    {
+                      key == 0 ?
+                        <div className=" w-full pb-6  flex flex-row-reverse">
+                          <select name="sort" className="text-base font-open-sans pl-3 py-2.5 border-outlinePressed dark:text-black md:w-[283px]" onChange={handleSortTokens}>
+                            <option value="" disabled selected hidden>{t("Explore.sortBy")}</option>
+                            <option value="recentOld">{t("Explore.sortTimeRec")}</option>
+                            <option value="oldRecent">{t("Explore.sortTimeOld")}</option>
+                          </select>
+                        </div> : ""
+                    }
+                    <div className="w-full grow md:grow-0 xs:w-[150px] h-[279px] lg:h-[350px] sm:w-[180px] md:w-[160px] lg:w-[232px]  xl:w-[295px] 2xl:w-[284px] xl:h-[395px] 2xl:h-[485px] " key={key}>
                       <a
                         href={"/detail/" + itemNft.tokenID}
                       >
@@ -608,8 +612,8 @@ function MyCreations(props) {
           </li>
           </>
           :
-          <div className="container px-5  flex  justify-left h-96 items-center text-3xl ">
-            <div className="flex flex-col justify-center w-full">
+          <div className="md:container px-5  flex  justify-left h-96 items-center text-3xl ">
+            <div className="flex flex-col justify-center w-full ">
             {loadMsgCreations ?
                 <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black">{t("MyNFTs.load-1")}</h1>
                 : <>
@@ -618,7 +622,7 @@ function MyCreations(props) {
                       <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black  m-auto">{t("MyNFTs.publicProfileNotNFT")}</h1>
                     </div> 
                     :
-                    <div className=" h-[390px] w-[210px] xl:w-[250px]  mt-5" >
+                    <div className=" h-[390px] w-[210px] xl:w-[250px]  mt-10 m-auto md:mx-0" >
                       <a
                         href={"/create"}
                       >

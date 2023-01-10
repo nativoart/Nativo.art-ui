@@ -314,7 +314,7 @@ function LightEcommerceB(props) {
 
         </div>
         
-        <div className="container m-auto py-6 xl:py-8 inherit z-10 relative ">
+        <div className="md:container m-auto py-6 xl:py-8 inherit z-10 relative ">
           
           <div className="xl:w-full  flex flex-wrap xl:h-[339px]">
             {/*Profile Pic*/}
@@ -405,7 +405,7 @@ function LightEcommerceB(props) {
                   </div>
                 </div>
                 <button className="flex rounded-xlarge w-full h-[50px]  mt-0 xl:mx-auto" onClick={() => handleCreatebutton()} >
-                  <div className="flex flex-col font-bold h-full text-white  text-center  justify-center shadow-s w-full bg-yellow4 hover:bg-yellowHover active:bg-yellowPressed rounded-md">
+                  <div className="flex flex-col font-bold h-full text-white  text-center  justify-center shadow-s w-full bg-[#F79336] hover:bg-yellowHover active:bg-yellowPressed rounded-md">
                     <span className="title-font  text-white font-open-sans font-extrabold xl:font-semibold text-base  uppercase leading-6">{t("MyNFTs.userCreate")}</span>
                   </div>
                 </button>
@@ -416,7 +416,7 @@ function LightEcommerceB(props) {
         </div>
       
       </section>
-      <div className="w-full bg-white container mx-auto pb-5">
+      <div className="w-full bg-white md:container mx-auto pb-5">
             <div className="font-open-sans font-bold text-3xl text-black px-5 pb-4 xl:pt-4">
               <p className="">{t("MyNFTs.userNft")}</p>
             </div>

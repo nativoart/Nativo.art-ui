@@ -613,13 +613,7 @@ function MyAcquisitions(props) {
       <ul>
       {loadMsg ?
       <>
-        <div className="px-6 w-full pb-6  flex flex-row-reverse">
-          <select name="sort" className="text-base font-open-sans pl-3 py-2.5 border-outlinePressed dark:text-black md:w-[283px]" onChange={handleSortTokens}>
-            <option value="" disabled selected hidden>{t("Explore.sortBy")}</option>
-            <option value="recentOld">{t("Explore.sortTimeRec")}</option>
-            <option value="oldRecent">{t("Explore.sortTimeOld")}</option>
-          </select>
-        </div>
+
           <li><InfiniteScroll
             dataLength={nfts.nfts.length}
             next={fetchMoreData}
@@ -639,7 +633,15 @@ function MyAcquisitions(props) {
                 const item = JSON.parse(nft.data);
                 return (
                   <>
-                    <div className="w-full xs:w-[150px] h-[279px] lg:h-[350px] sm:w-[180px] md:w-[160px] lg:w-[232px]  xl:w-[295px] 2xl:w-[284px] xl:h-[395px] 2xl:h-[485px] " key={key}>
+                  { key == 0 ?         
+                  <div className=" w-full pb-6  flex flex-row-reverse">
+                  <select name="sort" className="text-base font-open-sans pl-3 py-2.5 border-outlinePressed dark:text-black md:w-[283px]" onChange={handleSortTokens}>
+                    <option value="" disabled selected hidden>{t("Explore.sortBy")}</option>
+                    <option value="recentOld">{t("Explore.sortTimeRec")}</option>
+                    <option value="oldRecent">{t("Explore.sortTimeOld")}</option>
+                  </select>
+                </div> : ""}
+                    <div className="w-full grow md:grow-0 xs:w-[150px] h-[279px] lg:h-[350px] sm:w-[180px] md:w-[160px] lg:w-[232px]  xl:w-[295px] 2xl:w-[284px] xl:h-[395px] 2xl:h-[485px] " key={key}>
                                             <a
                                                 href={"/detail/" + itemNft.tokenID}
                                             >
@@ -670,7 +672,7 @@ function MyAcquisitions(props) {
           </li>
           </>
           :
-          <div className="container mx-auto flex  my- md:flex-row flex-col  justify-center h-96 items-center text-3xl ">
+          <div className="md:container mx-auto flex  my- md:flex-row flex-col  justify-center h-44 items-center text-3xl ">
             <div className="flex flex-col justify-center">
               {loadMsg ?
                 <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black">{t("MyNFTs.load-1")}</h1>
@@ -678,7 +680,14 @@ function MyAcquisitions(props) {
                   {!myProfile ?
                     <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black">{t("MyNFTs.publicProfileNotAquisitions")}</h1>
                     :
-                    <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black">{t("MyNFTs.privateProfileNotAquisitions")}</h1>
+                    <div className="flex flex-col">
+                      <h1 className="text-center font-clash-grotesk font-semibold w-full text-xl text-black">{t("MyNFTs.privateProfileNotAquisitions")}</h1>
+                      <button className="flex rounded-xlarge lg:w-[267px] h-[50px] w-[240px]  mt-5 mx-auto" onClick={() => window.location.href="explore?search=tokens"}>
+                        <div className="flex flex-col font-bold h-full text-white  text-center  justify-center shadow-s w-full bg-[#F79336] hover:bg-yellowHover active:bg-yellowPressed rounded-md">
+                          <span className="title-font  text-white font-open-sans font-extrabold lg:font-semibold text-base  uppercase leading-6">{t("Landing.gallery")}</span>
+                        </div>
+                      </button>
+                    </div>
                   }
                 </>}
             </div>
