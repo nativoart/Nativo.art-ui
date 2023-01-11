@@ -34,6 +34,7 @@ import notFound from "./views/notFound.view";
 import BlockchainProtectedRoute from "./HOCS/BlockchainProtectedRoute.hoc";
 import LandingPOA from "./views/Landing.poa.view";
 import LandingGift from "./views/gift.view";
+import GiftClaim from "./views/giftClaim.view";
 const { create } = require("ipfs-http-client");
 
 //instancia de ipfs
@@ -76,13 +77,14 @@ class App extends Component {
           <Navbar theme={this.state.theme} />
           <Switch id="page-wrap">
             <Route exact path="/" component={Landing} />
-            <Route path="/poa/" component={LandingPOA} />
-            <Route path="/gift/" component={LandingGift} />
+            <Route exact path="/poa" component={LandingPOA} />
+            <Route exact path="/gift" component={LandingGift} />
              
             <Route exact path="/" component={Landing} /> 
           
 
             {/* <BlockchainProtectedRoute path="/create" component={Mint} /> */}
+            <BlockchainProtectedRoute exact path="/gift/claim" component={GiftClaim} />
             <BlockchainProtectedRoute exact path="/create" component={Mint2} />
             <BlockchainProtectedRoute exact path="/congratulation" component={FinishMint} />
             <BlockchainProtectedRoute path="/profileData/:state" component={ProfileData} />

@@ -54,7 +54,13 @@
         "gift" : "Gifts from Nativo.art",
         "giftsub" : "Soon you will get a digital collectible",
         "giftsub2" : "from one of your favorite artist.",
-        "generate" : "Create my own links."
+        "generate" : "Create my own gifts.",
+        "giftclaim" : "¡CONGRATULATIONS! you are able to claim 1 NFT and 0.3 NEAR",
+        "giftOr" : "Or",
+        "giftnewaccount" : "Create a new account to claim",
+        "giftLogIn" : "Log In with my account",
+        "giftown" : "Want to create your own link to give NFTs?",
+        "giftDrops" : "NFT Drop links"
     },
     "Landingpoa": {
         "title" : "Proof of Authenticity,",
