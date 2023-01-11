@@ -448,7 +448,7 @@ function TokenDetail(props) {
   });
   return (
     <>
-      <section className="text-white body-font overflow-hidden dark:bg-[#FAF9FB] font-open-sans">
+       <section className="text-white body-font overflow-hidden dark:bg-[#FAF9FB] font-open-sans">
         <div className="md:container m-auto px-5 py-8 mx-auto">
           <div
             className="regresar"
@@ -462,18 +462,17 @@ function TokenDetail(props) {
             </a>
           </div>
           <div className="mx-auto flex flex-wrap">
-            <div className="w-full md:w-1/2  " >
-
-                <div className="flex flex-row justify-center ">
-                  <div className="trending-token w-full h-full rounded-xl md:shadow-lg ">
-                    <div className="bg-transparent md:bg-white rounded-xl">
-                      <div className="">
+            <div className="w-full md:w-1/2 p-5 " >
+              <div className="flex flex-row justify-center ">
+                <div className="trending-token w-full h-full rounded-xl md:shadow-lg ">
+                  <div className="bg-transparent md:bg-white rounded-xl">
+                    <div className="">
                       <img
-                alt="ecommerce"
-                className=" object-cover rounded-xl w-full  h-80 sm:h-96 lg:h-[500px] md:-border-4  border-white"
-                src={loadInfo ? `https://nativonft.mypinata.cloud/ipfs/${state?.jdata.image}` : loadingGif}
-              />
-                      </div>
+                        alt="ecommerce"
+                        className=" object-cover rounded-xl w-full  h-80 sm:h-96 lg:h-[500px] md:-border-4  border-white"
+                        src={loadInfo ? `https://nativonft.mypinata.cloud/ipfs/${state?.jdata.image}` : loadingGif}
+                      />
+                    </div>
                     <div className="flex flex-row-reverse p-5">
                       <div className="flex items-center">
                         <p className="font-open-sans text-[#000] text-sm">999</p>
@@ -488,11 +487,45 @@ function TokenDetail(props) {
                           <path d="M22 25C23.6569 25 25 23.6569 25 22C25 20.3431 23.6569 19 22 19C20.3431 19 19 20.3431 19 22C19 23.6569 20.3431 25 22 25Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                       </div>
-
-                    </div>
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div className="w-full md:w-1/2 p-5 flex-col ">
+              <div>
+                <p className="font-open-sans text-base font-normal text-[#0A0A0A]">Medusas</p>
+              </div>
+              <div>
+                <p className="font-open-sans text-4xl font-semibold text-[#0A0A0A]">{state?.jdata.title}</p>
+              </div>
+              <div>
+                <p className="font-open-sans text-base font-semibold text-[#0A0A0A]">ID {state?.tokens.tokenID}</p>
+              </div>
+              <div className="w-[120px] rounded-20 bg-[#A4A2A4] flex justify-center items-center p-1 my-6">
+                <div className="w-[16px] h-[16px] mr-1">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_27_2029)">
+                    <path d="M14.6668 7.38667V8C14.666 9.43761 14.2005 10.8364 13.3397 11.9879C12.4789 13.1393 11.269 13.9817 9.8904 14.3893C8.51178 14.7969 7.03834 14.7479 5.68981 14.2497C4.34128 13.7515 3.18993 12.8307 2.40747 11.6247C1.62501 10.4187 1.25336 8.99204 1.34795 7.55754C1.44254 6.12304 1.9983 4.75755 2.93235 3.66471C3.8664 2.57188 5.12869 1.81025 6.53096 1.49343C7.93322 1.17661 9.40034 1.32156 10.7135 1.90667" stroke="#FDFCFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M14.6667 2.66667L8 9.34L6 7.34" stroke="#FDFCFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_27_2029">
+                      <rect width="16" height="16" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+                </div>
+                <p className="font-open-sans text-xs font-semibold text-white uppercase">{t("Detail.available")}</p>
+              </div>
+              <div className="flex">
+                <p className="font-open-sans text-base font-normal text-[#0A0A0A] mr-2">{t("Detail.owner")}:</p> 
+                <p className="font-open-sans text-base font-semibold text-[#0A0A0A]">{" "+state?.owner}</p>
+              </div>
+              <div className="flex">
+                <p className="font-open-sans text-base font-normal text-[#0A0A0A] mr-2">{t("Detail.creator")}:</p>
+                <p className="font-open-sans text-base font-semibold text-[#0A0A0A]" >{" "+state?.jdata.creator}</p>
+              </div>
             </div>
           </div>
 

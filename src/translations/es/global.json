@@ -211,7 +211,7 @@
         "sale" : "En venta",
         "tags" : "Etiquetas",
         "owner" : "Propietario",
-        "creator" : "Creador",
+        "creator" : "Por",
         "contract" : "Contrato",
         "available-1" : "Disponible",
         "available-2" : "No disponible",
@@ -236,7 +236,8 @@
         "btnAddNFTCol" : "Agregar NFT a una colección",
         "msgAddToken" : "Agregar NFT a una colección",
         "msgAddToken2" : "Selecciona la colección a la que deseas agregar el NFT",
-        "back": "Atrás"
+        "back": "Atrás",
+        "available" : "Disponible"
     },
     "MyNFTs" : {
         "title" : "Mis NFTs",
