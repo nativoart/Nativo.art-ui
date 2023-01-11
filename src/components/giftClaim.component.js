@@ -8,7 +8,6 @@ import verifyImage from '../assets/img/Check.png';
 import rocket from '../assets/img/Rocket.png';
 import arrowRight from '../assets/img/landing/firstSection/ARROW.png';
 import plus from '../assets/img/landing/firstSection/plus.png';
-import {createDrop} from 'keypom-js';
 
 
 function LightHeroE(props) {
