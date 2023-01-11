@@ -495,11 +495,11 @@
         "activity":"Actividad",
         "offers":"Ofertas",
         "CancelProfile_title":"¿Deseas cancelar?",
-        "CancelProfile_descrip":"No te preocupes,prodrás continuar después",
-        "CancelProfile_cancel":"  Si,cancelar",
+        "CancelProfile_descrip":"No te preocupes, prodrás continuar después.",
+        "CancelProfile_cancel":"  Si, cancelar.",
         "CancelProfile_no":"        No",
         "KeepcreatinProfile":"¿Deseas crear un nuevo colecionable?",
-        "KeepcreatinProfile_descr":"Primero completa tu perfil. después podrás crearlo ",
+        "KeepcreatinProfile_descr":"Primero completa tu perfil, después podrás crearlo.",
         "KeepcreatinProfile_ok":"!Ok¡",
         "KeepcreatinProfile_no":"        No"
 

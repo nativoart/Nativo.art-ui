@@ -636,14 +636,14 @@ function LightEcommerceB(props) {
                   name="upbanner_sm"
                   className=" mt-4 lg:mt-10 lg:-mb-4 flex  justify-end  w-full tracking-tighter         	 rounded-sm	   "
                 >
-                  <div className="w-[200px] h-10  flex  justify-end ">
-                    <label className="w-[150px] lg:w-[250px] h-10 hover:cursor-pointer bg-white text-[#616161] flex  text-sm md:text-base lg:text-xl justify-center rounded-t-lg ">
-                      <div className="w-10 h-10">
+                  <div className="w-[200px] h-15  flex  justify-end border-black">
+                    <label className="w-[150px] border-1 border-black lg:w-[250px] h-10 hover:cursor-pointer gap-2 bg-white text-[#616161] flex  text-sm md:text-base lg:text-xl justify-center rounded-t-lg ">
+                      <div className="w-auto h-10 mt-1 ">
                         {" "}
                         <svg
-                          width="22"
+                          width="20"
                           height="20"
-                          viewBox="0 0 22 20"
+                          viewBox="0 0 20 20"
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"
                         >
@@ -668,7 +668,7 @@ function LightEcommerceB(props) {
                   </div>
 
                   {formik.touched.banner && formik.errors.banner ? (
-                    <div className=" absolute w-full  mt-4 text-end text-md   text-red-600 font-open-sans">
+                    <div className=" absolute w-full mr-[4rem] mt-6 text-end text-md   text-red-600 font-open-sans">
                       {formik.errors.banner}
                     </div>
                   ) : null}
@@ -734,7 +734,7 @@ function LightEcommerceB(props) {
                          `font-open-sans  mx-2 flex flex-col  h-full   bg-transparent text-[#616161]    text-left   justify-center   w-full`
                     }
                   />
-                  <div className="w-[24px] h-[24px]   flex items-center my-2">
+                  <div className="w-[24px] h-[24px]   flex items-center m-auto mx-2">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="18"
