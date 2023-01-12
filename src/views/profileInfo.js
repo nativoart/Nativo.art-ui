@@ -558,11 +558,11 @@ function LightEcommerceB(props) {
                     />
                     <div
                       name="text img"
-                      className=" w-full flex rounded-lg flex-col   justify-center -mt-6"
+                      className=" w-full flex rounded-lg flex-col   justify-center -mt-8 lg:-mt-10"
                     >
-                      <span className="    w-[130px] bg-white text-black    text-md tracking-tighter	 rounded-sm	   m-auto ">
+                      <span className="  w-[130px]  lg:w-[140px] bg-white text-black  pt-2  text-md tracking-tighter	 rounded-sm	   m-auto rounded-t-lg ">
                         <div className="flex  ">
-                          <div className="w-10 h-5 ">
+                          <div className="w-10 h-5 lg:h-8 ">
                             <svg
                               width="22"
                               height="20"
@@ -634,11 +634,11 @@ function LightEcommerceB(props) {
             </div>
             <div
                   name="upbanner_sm"
-                  className=" mt-4 lg:mt-10 lg:-mb-4 flex  justify-end  w-full tracking-tighter         	 rounded-sm	   "
+                  className=" mt-4 lg:mt-10 lg:-mb-4 flex  justify-end  w-full tracking-tighter          	   "
                 >
-                  <div className="w-[200px] h-15  flex  justify-end border-black">
-                    <label className="w-[150px] border-1 border-black lg:w-[250px] h-10 hover:cursor-pointer gap-2 bg-white text-[#616161] flex  text-sm md:text-base lg:text-xl justify-center rounded-t-lg ">
-                      <div className="w-auto h-10 mt-1 ">
+                  <div className="w-[140px] lg:w-[200px] h-25  flex  justify-end  bg-white rounded-t-lg">
+                    <label className="w-[150px] mt-2  lg:w-[250px] h-10 hover:cursor-pointer gap-2  text-[#616161] flex  text-sm md:text-base lg:text-xl justify-center  ">
+                      <div className="w-[25px] lg:w-[30px] h-10 lg:mt-1 ">
                         {" "}
                         <svg
                           width="20"
