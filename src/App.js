@@ -35,6 +35,7 @@ import BlockchainProtectedRoute from "./HOCS/BlockchainProtectedRoute.hoc";
 import LandingPOA from "./views/Landing.poa.view";
 import LandingGift from "./views/gift.view";
 import GiftClaim from "./views/giftClaim.view";
+import GiftClaimed from "./views/giftClaimed.view";
 const { create } = require("ipfs-http-client");
 
 //instancia de ipfs
@@ -84,7 +85,8 @@ class App extends Component {
           
 
             {/* <BlockchainProtectedRoute path="/create" component={Mint} /> */}
-            <BlockchainProtectedRoute exact path="/gift/claim" component={GiftClaim} />
+            <Route exact path="/gift/claim" component={GiftClaim} />
+            <Route exact path="/gift/claimed" component={GiftClaimed} />
             <BlockchainProtectedRoute exact path="/create" component={Mint2} />
             <BlockchainProtectedRoute exact path="/congratulation" component={FinishMint} />
             <BlockchainProtectedRoute path="/profileData/:state" component={ProfileData} />

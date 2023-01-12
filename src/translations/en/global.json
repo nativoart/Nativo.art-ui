@@ -60,7 +60,8 @@
         "giftnewaccount" : "Create a new account to claim",
         "giftLogIn" : "Log In with my account",
         "giftown" : "Want to create your own link to give NFTs?",
-        "giftDrops" : "NFT Drop links"
+        "giftDrops" : "NFT Drop links",
+        "giftclaimed" : "Sorry, this drop has been claimed"
     },
     "Landingpoa": {
         "title" : "Proof of Authenticity,",
