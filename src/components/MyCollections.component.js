@@ -350,7 +350,7 @@ function MyCollections(props) {
             }
             className={"flex flex-wrap px-6 gap-6 lg:gap-4 lg:justify-start"}
           >
-            <div className="flex flex-wrap  gap-4 lg:gap-[19px] justify-start">
+            <div className="flex flex-wrap  gap-4 lg:gap-[19px] justify-start w-full">
               {collections.items.map((nft, key) => {
                 //obtenemos la data del token nft
                 const item = nft;
