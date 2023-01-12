@@ -502,8 +502,9 @@
         "KeepcreatinProfile_descr":"Primero completa tu perfil, después podrás crearlo.",
         "KeepcreatinProfile_ok":"!Ok¡",
         "KeepcreatinProfile_no":"        No",
-        "editProfileMessage" : "Editar perfil"
-
+        "editProfileMessage" : "Editar perfil",
+        "missingBiography": "Biografía del artista",
+        "missingTwitter": "twitter del artista"
     },
     "addToken" : {
         "alert1-title" : "Selecciona una colección",

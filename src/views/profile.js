@@ -337,7 +337,7 @@ function LightEcommerceB(props) {
               <div className="-ml-0 xl:px-5">
                 {/*User account*/}
                 <h1 className=" text-[#0A0A0A]  text-2xl text-left title-font font-bold  font-open-sans text-ellipsis  leading-8 capitalize">
-                  {state?.data.account}
+                {state?.data.account}
                 </h1>
 
                 {/*Twitter account*/}
@@ -345,12 +345,14 @@ function LightEcommerceB(props) {
                   <div
                     className={`flex py-0  my-0 xl:py-2  xl:my-2  rounded-xlarge content-start items-center`}>
                      <div className="w-[24px] h-[24px] flex items-center">
-                     {state?.data.socialMedia ? <svg xmlns="http://www.w3.org/2000/svg" width="18" height="15" viewBox="0 0 18 15" fill="none">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="15" viewBox="0 0 18 15" fill="none">
                         <path d="M16.1572 3.53809C16.1682 3.68964 16.1682 3.84119 16.1682 3.99415C16.1682 8.6546 12.4534 14.0295 5.6607 14.0295V14.0267C3.65411 14.0295 1.68921 13.4806 0 12.4455C0.291773 12.4791 0.585009 12.4958 0.878976 12.4965C2.54186 12.4979 4.15722 11.965 5.46545 10.9838C3.88519 10.9551 2.49945 9.97109 2.01536 8.53447C2.56892 8.63644 3.13931 8.61549 3.68263 8.47371C1.95978 8.14127 0.720293 6.69557 0.720293 5.01661C0.720293 5.00125 0.720293 4.98658 0.720293 4.97191C1.23364 5.24499 1.80841 5.39654 2.39634 5.4133C0.773675 4.37757 0.273492 2.31588 1.25338 0.703961C3.12834 2.90743 5.8947 4.24697 8.86435 4.38874C8.56673 3.16374 8.97331 1.88007 9.93272 1.01894C11.4201 -0.316408 13.7594 -0.247965 15.1576 1.17189C15.9846 1.01615 16.7773 0.72631 17.5027 0.315648C17.2271 1.13208 16.6501 1.8256 15.8793 2.26629C16.6113 2.18388 17.3265 1.99671 18 1.71106C17.5042 2.42064 16.8797 3.03873 16.1572 3.53809Z" fill="#0A0A0A" />
-                      </svg> : "" }
+                      </svg> 
                     </div>
                     <span className="font-open-sans text-[#0A0A0A]  font-normal pr-3  text-base leading-6  flex items-center">
-                      <a href={`https://twitter.com/${state?.data.socialMedia}`}>{state?.data.socialMedia}</a>
+                      {state?.data.socialMedia ? 
+                      <a href={`https://twitter.com/${state?.data.socialMedia}`}>{state?.data.socialMedia}</a> : 
+                      t("Profile.missingTwitter")}
                     </span> 
                     
                   </div> 
@@ -360,7 +362,7 @@ function LightEcommerceB(props) {
                 <div className={`flex-col py-2  my-2  rounded-xlarge`}>
                   <div>
                     <span className=" text-[#0A0A0A]   text-base pr-3 font-open-sans  font-normal leading-6">
-                      {state?.data.biography}
+                      {state?.data.biography ? state.data.biography :  t("Profile.missingBiography")}
                     </span>
                   </div>
                 </div> 
