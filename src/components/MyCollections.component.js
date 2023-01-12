@@ -475,7 +475,7 @@ function MyCollections(props) {
                      :
                     <div className="h-[390px] w-[210px] xl:w-[250px]  mt-10 m-auto md:mx-0" >
                      <a
-                        href={"/collectionData/create"}
+                        href={"/collection/create"}
                       >
                         <div className="flex flex-row justify-center " >
                           <div className="trending-token w-full h-full rounded-xl shadow-lg   hover:scale-105 ">
