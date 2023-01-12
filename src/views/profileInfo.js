@@ -38,7 +38,7 @@ import MyCollections from "../components/MyCollections.component";
 import { async } from "rxjs";
 import { uploadFileAPI } from "../utils/pinata";
 
-function LightEcommerceB(props) {
+function CreateEditProfile(props) {
   const { selector, modal, accounts, accountId } = useWalletSelector();
   //guarda el estado de  toda la vista
   const [btn, setbtn] = useState(true);
@@ -855,7 +855,7 @@ function LightEcommerceB(props) {
                         />
                       </svg>
                     </div>
-                    <a className="font-bold">{t("Profile.createProfile")}</a>
+                    <a className="font-bold">{ state ==="edit" ? t("Profile.editProfile") :t("Profile.createProfile")}</a>
                   </button>
                 </div>
 
@@ -882,12 +882,12 @@ function LightEcommerceB(props) {
   );
 }
 
-LightEcommerceB.defaultProps = {
+CreateEditProfile.defaultProps = {
   theme: "yellow",
 };
 
-LightEcommerceB.propTypes = {
+CreateEditProfile.propTypes = {
   theme: PropTypes.string.isRequired,
 };
 
-export default LightEcommerceB;
+export default CreateEditProfile;
