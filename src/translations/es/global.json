@@ -500,7 +500,8 @@
         "KeepcreatinProfile":"¿Deseas crear un nuevo colecionable?",
         "KeepcreatinProfile_descr":"Primero completa tu perfil. después podrás crearlo ",
         "KeepcreatinProfile_ok":"!Ok¡",
-        "KeepcreatinProfile_no":"        No"
+        "KeepcreatinProfile_no":"        No",
+        "editProfileMessage" : "Editar perfil"
 
     },
     "addToken" : {

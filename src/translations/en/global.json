@@ -498,7 +498,8 @@
         "KeepcreatinProfile":"Would you want to create a collectible?",
         "KeepcreatinProfile_descr":"First complete your profile. you can create it later",
         "KeepcreatinProfile_ok":"!Ok¡",
-        "KeepcreatinProfile_no":"        No"
+        "KeepcreatinProfile_no":"        No",
+        "editProfileMessage" : "Edit profile"
     },
     "addToken" : {
         "alert1-title" : "Select a collection",
