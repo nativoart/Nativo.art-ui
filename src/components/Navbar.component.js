@@ -385,15 +385,7 @@ function LightHeaderB(props) {
       }
     })
       .then((data) => {
-        if (data.data.profiles.length <= 0) {
-          if (account == ownerAccount) {
-            window.location.href = '/profileData/create'
-          }
-        } else {
-          if (account == ownerAccount) {
-            window.location.href = '/'+owner;
-          }
-        }
+        window.location.href = '/'+owner;
       })
     }
 
