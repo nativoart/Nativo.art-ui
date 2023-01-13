@@ -208,7 +208,13 @@ function CreateEditProfile(props) {
       let account = accountId;
       console.log("🪲 ~ file: profileInfo.js:121 ~ state", state);
 
+      let urlParams = new URLSearchParams(window.location.search);
+      let execTrans = urlParams.has('transactionHashes')
+
+      if (execTrans){
      
+        window.location.href = "/"+accountId.split('.')[0];
+      }
       console.log("Entro a editar");
       let paramsSupply = {
         account_id: account
