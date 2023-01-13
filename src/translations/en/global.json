@@ -478,7 +478,7 @@
         "upImg4" : "Upload banner ",
 
         "createProfile" : "Create ",
-        "editProfile" : "Create",
+        "editProfile" : "Edit",
         "minBio" : "The biography must be longer than 5 characters",
         "minSocial" : "The username must exceed 4 characters",
         "maxSocial" : "User cannot exceed 15 characters",

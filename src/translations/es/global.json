@@ -480,7 +480,7 @@
         "upImg3" : "Subir foto de portada",
 
         "createProfile" : "Crear",
-        "editProfile" : "Crear",
+        "editProfile" : "Editar",
         "minBio" : "La biografía debe tener longitud mayor a 5 caracteres",
         "minSocial" : "El usuario debe de superar 4 caracteres",
         "maxSocial" : "El usuario no puede superar 15 caracteres",
