@@ -478,7 +478,7 @@
         "upImg" : "Subir imagen de perfil",
         "upImg2" : "Subir foto",
         "upImg3" : "Subir foto de portada",
-
+        "upImg4" : "Subir portada",
         "createProfile" : "Crear",
         "editProfile" : "Editar",
         "minBio" : "La biografía debe tener longitud mayor a 5 caracteres",
