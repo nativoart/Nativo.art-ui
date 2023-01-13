@@ -321,21 +321,21 @@ function LightEcommerceB(props) {
                 className={`rounded-xlarge w-[180px]  h-[180px] xl:h-[339px] xl:w-[339px] xl:my-auto  ${state?.data.media != "" ? 'object-cover border-4 border-white ' : "" }`}
                 src={state?.data.media == "" ? nullPicProfile : `https://nativonft.mypinata.cloud/ipfs/${state?.data.media}`}
               />
-              {myProfile ?
-                <div className="flex justify-end xl:hidden absolute top-[20px] right-[20px]">
-                  <button className="w-[24px]" onClick={handleEditProfile}>
-                    <svg width="24" height="24" viewBox="0 0 24 24"  fill="none" stroke="000" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M11 4H4C3.46957 4 2.96086 4.21071 2.58579 4.58579C2.21071 4.96086 2 5.46957 2 6V20C2 20.5304 2.21071 21.0391 2.58579 21.4142C2.96086 21.7893 3.46957 22 4 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V13" stroke="#FDFCFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                      <path d="M18.5 2.49998C18.8978 2.10216 19.4374 1.87866 20 1.87866C20.5626 1.87866 21.1022 2.10216 21.5 2.49998C21.8978 2.89781 22.1213 3.43737 22.1213 3.99998C22.1213 4.56259 21.8978 5.10216 21.5 5.49998L12 15L8 16L9 12L18.5 2.49998Z" stroke="#FDFCFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                  </button>
-                </div>
-                : ""}
             </div>
 
             <div className="xl:w-1/2  w-full  xl:mt-auto xl:flex flex-col px-5 xl:px-0 pt-6 xl:pt-44">
               <div className="-ml-0 xl:px-5">
-                {/*User account*/}
+                {/*Edit burron mobile */}
+                <div className="flex xl:hidden justify-end xl:mt-auto xl:mb-3">
+                  <button className="w-[125px] text-black flex" onClick={handleEditProfile}>
+                    <p className="text-base w-[500px] capitalize">{t("Profile.editProfileMessage")}</p>
+                    <svg width="24" height="24" viewBox="0 0 24 24"  stroke="000" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M11 4H4C3.46957 4 2.96086 4.21071 2.58579 4.58579C2.21071 4.96086 2 5.46957 2 6V20C2 20.5304 2.21071 21.0391 2.58579 21.4142C2.96086 21.7893 3.46957 22 4 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V13" stroke="#FDFCFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M18.5 2.49998C18.8978 2.10216 19.4374 1.87866 20 1.87866C20.5626 1.87866 21.1022 2.10216 21.5 2.49998C21.8978 2.89781 22.1213 3.43737 22.1213 3.99998C22.1213 4.56259 21.8978 5.10216 21.5 5.49998L12 15L8 16L9 12L18.5 2.49998Z" stroke="#FDFCFD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </button>
+                  </div> 
+                  {/*User account*/}
                 <h1 className=" text-[#0A0A0A]  text-2xl text-left title-font font-bold  font-open-sans text-ellipsis  leading-8 capitalize">
                 {state?.data.account}
                 </h1>
