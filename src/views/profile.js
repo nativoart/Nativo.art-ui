@@ -53,9 +53,55 @@ function LightEcommerceB(props) {
     }
   }
 
-  const handleEditProfile = () => {
+  const handleEditProfile = async () => {
     console.log('editProfile')
-    window.location.href = '/profileData/edit'
+    //sino tiene perfil
+   
+
+   
+
+
+
+    const query = `
+          query ($account: String){
+            profiles (where : {id : $account}){
+              id
+              username
+              media
+              mediaBanner
+              biography
+              socialMedia
+              tokCreated
+              tokBought
+              timestamp
+            }
+          }
+        `
+        const client = new ApolloClient({
+          uri: APIURL,
+          cache: new InMemoryCache(),
+        })
+
+        await client.query({
+          query: gql(query),
+          variables: {
+            account: accountId
+          }
+        })
+          .then((data) => {
+            
+            if (data.data.profiles.length <= 0) {
+              window.location.href = '/profileData/create'
+            }
+            else {
+              window.location.href = '/profileData/edit'
+            }
+          })
+          .catch((err) => {
+            console.log('error: ', err)
+          })
+
+    
   }
 
   async function addNTVToken() {
