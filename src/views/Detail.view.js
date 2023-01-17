@@ -17,6 +17,7 @@ import flechaiz from '../assets/landingSlider/img/flechaIz.png'
 import ReactHashtag from "react-hashtag";
 import OfferModal from "../components/offerModal.component";
 import AddTokenModal from "../components/addTokenModal.component";
+import PriceNft from "../components/PriceNft.component";
 import loadingGif from "../assets/img/loadingGif.gif"
 import { useTranslation } from "react-i18next";
 import Swal from 'sweetalert2'
@@ -520,11 +521,17 @@ function TokenDetail(props) {
               </div>
               <div className="flex">
                 <p className="font-open-sans text-base font-normal text-[#0A0A0A] mr-2">{t("Detail.owner")}:</p> 
-                <p className="font-open-sans text-base font-semibold text-[#0A0A0A]">{" "+state?.owner}</p>
+                <p className="font-open-sans text-base font-semibold text-[#0A0A0A] capitalize">{" "+state?.owner}</p>
               </div>
               <div className="flex">
                 <p className="font-open-sans text-base font-normal text-[#0A0A0A] mr-2">{t("Detail.creator")}:</p>
-                <p className="font-open-sans text-base font-semibold text-[#0A0A0A]" >{" "+state?.jdata.creator}</p>
+                <p className="font-open-sans text-base font-semibold text-[#0A0A0A] capitalize" >{" "+state?.jdata.creator}</p>
+              </div>
+              <div className="w-full rounded-xl md:shadow-lg  text-[#0A0A0A] flex p-5 mt-6">
+                <PriceNft {...state?.tokens}>
+
+                </PriceNft>
+
               </div>
             </div>
           </div>
