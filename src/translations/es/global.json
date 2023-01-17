@@ -52,9 +52,17 @@
         "cloudMex" : "CloudMex Analytics",
         "cloudMexSub" : "Empresa Web 3.0 de desarrollo de software. Localizada en Latinoamérica.",
         "gift" : "Regalos de Nativo.art",
-        "giftsub" : "Pronto recibirás un coleccionable digital",
-        "giftsub2" : "de uno de tus artistas favoritos.",
-        "generate" : "Crear mis propios regalos."
+        "giftsub" : "Pronto recibirás un coleccionable digital de",
+        "giftsub2" : "uno de tus artistas favoritos.",
+        "generate" : "Crear mis propios regalos.",
+        "giftclaim" : "¡FELICITACIONES! Ahora puedes reclamar 1 NFT y 0.3 NEAR",
+        "giftOr" : "O",
+        "giftnewaccount" : "Crea una nueva cuenta para reclamar",
+        "giftLogIn" : "Log In con mi cuenta",
+        "giftown" : "Quieres crear tu propio link para regalar NFTs?",
+        "giftDrops" : "NFT Drop links",
+        "giftclaimed" : "Lo siento, este drop ha sido reclamado",
+        "giftnotfound" : "Lo siento, este drop no existe"
     },
     "Landingpoa": {
         "title" : "Prueba de Autenticidad,",
