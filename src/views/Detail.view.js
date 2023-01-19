@@ -157,6 +157,11 @@ function TokenDetail(props) {
             bidPrice: bidPrice,
             account: accountId,
             owner: nft.owner_id,
+            image: nft.metadata.media,
+            title: nft.metadata.title,
+            description: nft.metadata.description,
+            royalty: Object.entries(nft.royalty),
+            creator: nft.creator_id
             //chunk: parseInt(toks.token_id/2400),
           },
           jdata: {
