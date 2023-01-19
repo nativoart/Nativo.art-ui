@@ -180,6 +180,7 @@
     },
     "tokCollection" : {
         "creator" : "Creator",
+        "creatorby" : "Created by ",
         "contract" : "Contract:",
         "noTokens" : "No. Tokens",
         "collectionID" : "Collection ID",

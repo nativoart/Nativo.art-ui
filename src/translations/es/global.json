@@ -185,6 +185,7 @@
     },
     "tokCollection" : {
         "creator" : "Creador",
+        "creatorby" : "Creado por ",
         "contract" : "Contrato:",
         "noTokens" : "No. Tokens",
         "noSale" : "No. de ventas:",

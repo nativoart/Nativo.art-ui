@@ -20,7 +20,7 @@ import MisNfts from "./views/MisTokens.view";
 import creCol from "./views/createColl"
 import Collections from "./views/collectionGallery"
 import Community from "./views/community"
-import TokensCollection from "./views/tokensCollection"
+import TokensCollection from "./views/tokensCollection2"
 import SalesGallery from "./views/salesGallery"
 import ProfileData from "./views/profileData"
 import ProfileInfo from "./views/profileInfo";
