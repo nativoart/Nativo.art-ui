@@ -184,10 +184,11 @@
         "title" : "Colecciones"
     },
     "tokCollection" : {
+        "colID":"ID:",
         "creator" : "Creador",
         "creatorby" : "Creado por ",
         "contract" : "Contrato:",
-        "noTokens" : "No. Tokens",
+        "noTokens" : "Tokens: ",
         "noSale" : "No. de ventas:",
         "collectionID" : "ID Colección",
         "volSale" : "Vol. de venta:",
@@ -205,7 +206,10 @@
         "seeLess" : "Ver menos",
         "search" : "Busca por: Cuenta ó Título..",
         "markTitle" : "Mercado",
-        "markOwn" : "Dueño:"
+        "markOwn" : "Dueño:",
+        "published":"Publicado: ",
+        "of":"de"
+
     },
     "Detail" : {
         "collection" : "Colección",

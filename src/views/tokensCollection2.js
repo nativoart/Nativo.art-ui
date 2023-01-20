@@ -27,7 +27,8 @@ function LightEcommerceA() {
     tokensPerPageNear: 15,
     titleCol: "",
     descriptionCol: "",
-    ownerCol : ""
+    ownerCol : "",
+    timestamp:""
   });
   const [esconder, setesconder] = React.useState(true);
   const [counter, setcounter] = React.useState();
@@ -182,6 +183,19 @@ function LightEcommerceA() {
             console.log('Error ferching data: ', err)
           })
 
+          const monthNames = ["January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"
+        ];
+        const mesNombres = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+        "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diecember"
+      ];
+       const mesid = new Date(colData.timestamp);
+       console.log("🪲 ~ file: tokensCollection2.js:193 ~ colData", colData.timestamp)
+       console.log("🪲 ~ file: tokensCollection2.js:193 ~ mesid", mesid)
+       
+        let mes = monthNames[mesid.getMonth()]
+        console.log("🪲 ~ file: tokensCollection2.js:196 ~ mes", mes)
+        let fecha = mesid.getDay()+" "+t("tokCollection.of") +" "+mes+" "+ mesid.getFullYear()
         //convertir los datos al formato esperado por la vista
         await setLanding({
           ...Landing,
@@ -193,7 +207,8 @@ function LightEcommerceA() {
           tokenCount: colData.tokenCount,
           saleCount: colData.salesCount,
           saleVolume: fromYoctoToNear(colData.saleVolume),
-          colID: colData.collectionID
+          colID: colData.collectionID,
+          created:fecha
         });
       }
 
@@ -263,16 +278,16 @@ function LightEcommerceA() {
   return (
     
     <section className="text-gray-600 body-font  ">
-      <div className={`flex flex-row  mb-10 md:mb-0  justify-center `}>
+      <div className={`flex flex-row  mb-10 md:mb-10   justify-center `}>
         <div className="trending-token w-full   rounded-20  ">
-          <div className=" bg-white rounded-20 ">
+          <div className=" bg-[#F3F0F5] rounded-20 ">
             <div name="bannerSection" className="   pb-3 relative ">
               <img
                 className="object-cover object-center   h-[8rem] md:h-48 lg:h-[370px]  w-full bg-center"
                 src={`https://nativonft.mypinata.cloud/ipfs/${Landing.bannerCol}`}
                 alt='banner'
               />
-              {!isOwner?
+              {isOwner?
               <div className="absolute bottom-0 right-0 m-4">
                 <div className="relative group rounded">
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-[#f2b159] to-[#ca7e16] rounded-full blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt group-hover:-inset-1"></div>
@@ -284,7 +299,7 @@ function LightEcommerceA() {
             </div>
             <div name="InfoSection" className="z-10 -mt-120 w-full text-white font-raleway">
 
-              <div className="bg-white    text-black   rounded-t-2xl bg-opacity-80">
+              <div className="bg-[#F3F0F5]   text-black   rounded-t-2xl bg-opacity-80">
                 <div name="InfoSection_int" className="flex flex-col md:flex-row">
                   <div className="  lg:w-2/12  lg:ml-20  md:h-[200px]  ">
                       <div name="Iconimg" className="w-[120px] md:w-[200px]  h-[120px] md:h-[200px]   bg-center rounded-xl border-2 border-white 
@@ -292,67 +307,112 @@ function LightEcommerceA() {
 
                   </div>
 
-                  <div name="Infotext" className="w-full lg:w-10/12 bg-black flex justify-between gap-2">
-                    <div name="Infotextleft" className="w-full bg-white">
+                  <div name="Infotext" className="w-full mt-10 lg:w-10/12   flex justify-between gap-2">
+                    <div name="Infotextleft" className="w-full bg-[#F3F0F5]">
                    
                         <div name="title" >
                               {Landing.titleCol.length > 130 ?
-                              <h1 className="text-sm md:text-xl font-bold pb-4 opacity-100 text-darkgray break-words break-all">{showMoreTitle ? Landing.titleCol : `${Landing.titleCol.substring(0, 130)}`} <button className="btn font-raleway text-xs font-bold text-blue2" onClick={() => setShowMoreTitle(!showMoreTitle)}>
+                              <h1 className="text-sm md:text-3xl font-bold pb-4 opacity-100 text-darkgray truncate ">{showMoreTitle ? Landing.titleCol : `${Landing.titleCol.substring(0, 130)}`} <button className="btn font-raleway text-xs font-bold text-blue2" onClick={() => setShowMoreTitle(!showMoreTitle)}>
                                 {showMoreTitle ? `${t("tokCollection.seeLess")}` : `${t("tokCollection.seeMore")}`}</button></h1>
                               :
-                              <h1 className="text-sm md:text-xl font-bold pb-4 opacity-100 stext-darkgray break-words break-all">{Landing.titleCol}</h1>
+                              <h1 className="text-sm md:text-3xl font-bold pb-4 opacity-100 stext-darkgray truncate">{Landing.titleCol}</h1>
                             }
                         </div>
-                        <div name="creator" className=" flex flex-row">
+                        <div name="creator" className=" flex flex-row  ">
                             <p className=" text-sm  font-light mr-4 text-black"><b>{t("tokCollection.creatorby")}</b></p>
-                            <a href={`../${Landing.ownerCol.split('.')[0]}`} className=" uppercase text-sm pb-1 font-bold text-black break-words">{Landing.ownerCol}</a>
+                            <a href={`../${Landing.ownerCol.split('.')[0]}`} className=" uppercase text-sm pb-1 font-bold text-black truncate">{Landing.ownerCol}</a>
                         </div>
-                        <div name="description">
+                        <div name="description" className="h-20 bg-[#F3F0F5]  overflow-hidden mb-2">
 
                         {Landing.descriptionCol.length > 150 ?
-                          <p className="text-xs md:text-base  pb-3 text-darkgray break-words">{showMoreDescription ? Landing.descriptionCol : `${Landing.descriptionCol.substring(0, 150)}`} <button className="btn font-raleway text-xs font-bold text-blue2" onClick={() => setShowMoreDescription(!showMoreDescription)}>
-                            {showMoreDescription ? `${t("tokCollection.seeLess")}` : `${t("tokCollection.seeMore")}`}</button></p>
+                          <textarea className="text-xs md:text-base w-full h-full bg-[#F3F0F5] pb-3 text-darkgray break-words ">{showMoreDescription ? Landing.descriptionCol : `${Landing.descriptionCol.substring(0, 150)}`} <button className="btn font-raleway text-xs font-bold text-blue2" onClick={() => setShowMoreDescription(!showMoreDescription)}>
+                            {showMoreDescription ? `${t("tokCollection.seeLess")}` : `${t("tokCollection.seeMore")}`}</button></textarea>
                           :
-                          <p className="text-xs md:text-base  pb-3 text-darkgray break-words">{Landing.descriptionCol == "" ? t("tokCollection.descrip") : Landing.descriptionCol}</p>
+                          <textarea className="text-xs md:text-base w-full h-full bg-[#F3F0F5] pb-3 text-darkgray break-words">{Landing.descriptionCol == "" ? t("tokCollection.descrip") : Landing.descriptionCol}</textarea>
                         }
+                        </div>
+
+                        <div name="counters" className="w-full border-2 border-dashed border-[#A4A2A4] flex flex-row p-4 rounded-lg">
+
+                          <div name="countersleft" className="w-1/2 flex flex-row justify-between">
+                            <div className="flex flex-row justify-center">
+                                  <p className="lg:text-lg font-light     text-darkgray"><b>{t("tokCollection.colID")}</b></p>
+                                  <p className="lg:text-lg font-bold     text-darkgray">{Landing.colID}</p>
+                                </div>
+                                <div className="flex flex-row justify-center">
+                                <p className="lg:text-lg font-light  text-darkgray"><b>{t("tokCollection.noTokens")}</b></p>
+                                <p className="ml-2 lg:text-lg font-bold   text-darkgray pr-[8rem]">{Landing.tokenCount}</p>
+                              </div>
+                          </div>
+                          <div name="countersright" className="w-1/2">
+
+                             <div className="flex flex-row justify-center">
+                                <p className="lg:text-lg font-light  text-darkgray"><b>{t("tokCollection.noTokens")}</b></p>
+                                <p className="ml-2 lg:text-lg font-bold   text-darkgray ">{Landing.created}</p>
+                              </div>
+                          </div>
+                         
+                          
                         </div>
                         
                     </div>
-                    <div name="Infotextright" className="w-full bg-white">
-                    
+                    <div name="Infotextright" className="w-2/4   mx-8">
+
+                        <div name="icons" className="bg-[#F3F0F5] w-full flex flex-row justify-end">
+
+                          <div name="website" className="w-10 h-10">
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 12H22" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 2C14.5013 4.73835 15.9228 8.29203 16 12C15.9228 15.708 14.5013 19.2616 12 22C9.49872 19.2616 8.07725 15.708 8 12C8.07725 8.29203 9.49872 4.73835 12 2V2Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+
+                          </div>
+                          <div name="twitter" className="w-10 h-10">
+                          <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                             
+                              <path d="M21.4799 5.09281C21.4944 5.30281 21.4944 5.51281 21.4944 5.72475C21.4944 12.1825 16.5783 19.6302 7.58895 19.6302V19.6264C4.93346 19.6302 2.33314 18.8696 0.0976562 17.4354C0.483785 17.4818 0.87185 17.5051 1.26088 17.506C3.46153 17.508 5.59927 16.7696 7.33056 15.4099C5.23927 15.3702 3.4054 14.0067 2.76475 12.016C3.49733 12.1573 4.25217 12.1283 4.9712 11.9318C2.6912 11.4712 1.05088 9.46797 1.05088 7.14152C1.05088 7.12023 1.05088 7.09991 1.05088 7.07959C1.73024 7.45797 2.49088 7.66797 3.26895 7.6912C1.12153 6.25604 0.459592 3.39926 1.75637 1.16571C4.23766 4.21894 7.89862 6.07507 11.8286 6.27152C11.4348 4.5741 11.9728 2.79539 13.2425 1.60217C15.2109 -0.248157 18.3067 -0.153318 20.157 1.8141C21.2515 1.59829 22.3006 1.19668 23.2606 0.62765C22.8957 1.75894 22.1322 2.71991 21.1122 3.33055C22.0809 3.21636 23.0273 2.957 23.9186 2.5612C23.2625 3.54442 22.436 4.40088 21.4799 5.09281Z" fill="#032B30"/>
+                               
+                              <defs>
+                              <clipPath id="clip0_269_22219">
+                              <rect width="24" height="19.7419" fill="white" transform="translate(0 0.12915)"/>
+                              </clipPath>
+                              </defs>
+                              </svg>
+
+                          </div>
+                          <div name="pipeline" className="w-10 h-10">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <line x1="12.5" y1="2.18557e-08" x2="12.5" y2="24" stroke="#A4A2A4"/>
+                          </svg>
+
+
+                          </div>
+                          <div name="star" className="w-10 h-10">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+
+                          </div>
+                          <div name="share" className="w-10 h-10">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 8C19.6569 8 21 6.65685 21 5C21 3.34315 19.6569 2 18 2C16.3431 2 15 3.34315 15 5C15 6.65685 16.3431 8 18 8Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6 15C7.65685 15 9 13.6569 9 12C9 10.3431 7.65685 9 6 9C4.34315 9 3 10.3431 3 12C3 13.6569 4.34315 15 6 15Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M18 22C19.6569 22 21 20.6569 21 19C21 17.3431 19.6569 16 18 16C16.3431 16 15 17.3431 15 19C15 20.6569 16.3431 22 18 22Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8.58984 13.51L15.4198 17.49" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M15.4098 6.51001L8.58984 10.49" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+
+                          </div>
+
+                        </div>
                     </div>
                  
 
                   </div>
-                  {/* <div className="px-2 mx-auto w-full md:w-3/4">
-                    {Landing.titleCol.length > 130 ?
-                      <h1 className="text-sm md:text-xl font-bold pb-4 opacity-100 text-darkgray break-words break-all">{showMoreTitle ? Landing.titleCol : `${Landing.titleCol.substring(0, 130)}`} <button className="btn font-raleway text-xs font-bold text-blue2" onClick={() => setShowMoreTitle(!showMoreTitle)}>
-                        {showMoreTitle ? `${t("tokCollection.seeLess")}` : `${t("tokCollection.seeMore")}`}</button></h1>
-                      :
-                      <h1 className="text-sm md:text-xl font-bold pb-4 opacity-100 stext-darkgray break-words break-all">{Landing.titleCol}</h1>
-                    }
-                    {Landing.descriptionCol.length > 150 ?
-                      <p className="text-xs md:text-lg  pb-3 text-darkgray break-words">{showMoreDescription ? Landing.descriptionCol : `${Landing.descriptionCol.substring(0, 150)}`} <button className="btn font-raleway text-xs font-bold text-blue2" onClick={() => setShowMoreDescription(!showMoreDescription)}>
-                        {showMoreDescription ? `${t("tokCollection.seeLess")}` : `${t("tokCollection.seeMore")}`}</button></p>
-                      :
-                      <p className="text-xs md:text-lg  pb-3 text-darkgray break-words">{Landing.descriptionCol == "" ? t("tokCollection.descrip") : Landing.descriptionCol}</p>
-                    }
-                  </div> */}
+                 
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-3 divide-x gap-1 bg-yellow-400 rounded-b-2xl text-darkgray lg:mx-20  mx-auto text-center bg-white bg-opacity-80">
-                  <div className="flex flex-col justify-center">
-                    <p className="lg:text-lg text-sm pb-1 text-darkgray"><b>{t("tokCollection.noTokens")}</b></p>
-                    <p className="lg:text-base text-xs pb-1 text-darkgray">{Landing.tokenCount}</p>
-                  </div>
-                  <div className="flex flex-col justify-center">
-                    <p className="lg:text-lg text-sm pb-1 text-darkgray"><b>{t("tokCollection.collectionID")}</b></p>
-                    <p className="lg:text-base text-xs pb-1 text-darkgray">{Landing.colID}</p>
-                  </div>
-                  <div className="flex flex-col justify-center col-span-2 md:col-span-1">
-                    <p className="lg:text-lg text-sm pb-1 text-darkgray"><b>{t("tokCollection.creator")}</b></p>
-                    <a href={`../${Landing.ownerCol.split('.')[0]}`} className="lg:text-base text-xs pb-1 font-bold text-blue2 break-words">{Landing.ownerCol}</a>
-                  </div>
-                </div>
+                
               </div>
             </div>
           </div>

@@ -179,10 +179,11 @@
         "title" : "Collections"
     },
     "tokCollection" : {
+        "colID":"ID:",
         "creator" : "Creator",
         "creatorby" : "Created by ",
         "contract" : "Contract:",
-        "noTokens" : "No. Tokens",
+        "noTokens" : "Tokens: ",
         "collectionID" : "Collection ID",
         "noSale" : "No. of sales:",
         "volSale" : "Sales volume:",
@@ -200,7 +201,9 @@
         "seeLess" : "See Lees",
         "search" : "Search collections By: Account or Title..",
         "markTitle" : "Market",
-        "markOwn" : "Owner:"
+        "markOwn" : "Owner:",
+        "published":"Published: ",
+        "of":"of"
     },
     "Detail" : {
         "collection" : "Collection",
