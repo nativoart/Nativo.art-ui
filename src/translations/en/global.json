@@ -203,7 +203,8 @@
         "markTitle" : "Market",
         "markOwn" : "Owner:",
         "published":"Published: ",
-        "of":"of"
+        "of":"de",
+        "by":"By: "
     },
     "Detail" : {
         "collection" : "Collection",

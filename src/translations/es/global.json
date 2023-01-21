@@ -208,7 +208,8 @@
         "markTitle" : "Mercado",
         "markOwn" : "Dueño:",
         "published":"Publicado: ",
-        "of":"de"
+        "of":"de",
+        "by":"Por: "
 
     },
     "Detail" : {
