@@ -19,7 +19,6 @@ function PriceNft(props) {
     setPriceModal({
       ...props,
       show: true,
-      title: t("MyNFTs.modalPriTitle"),
       message: t("MyNFTs.modalPriMsg"),
       loading: false,
       disabled: false,
@@ -68,14 +67,14 @@ function PriceNft(props) {
         <div className="w-1/2 flex justify-end ">
           <button className="flex  rounded-xlarge w-1/2 lg:w-[267px] h-[50px]  mt-0 " onClick={()=> {makeChangePrice(props.tokenID)}} >
             <div className="flex flex-col font-bold h-full text-white  text-center  justify-center shadow-s w-full bg-yellow4 hover:bg-yellowHover active:bg-yellowPressed rounded-md">
-              <span className="title-font  text-white font-open-sans font-normal lg:font-semibold text-base p-5 uppercase leading-6">CAMBIAR PRECIO</span>
+              <span className="title-font  text-white font-open-sans font-normal lg:font-semibold text-base p-5 uppercase leading-6">{t("Detail.changePrice")}</span>
             </div>
           </button> 
           </div> : 
           <div className="w-1/2 flex">
             <button className="flex  rounded-xlarge w-1/2  h-[50px] lg:mr-2  mt-0 " onClick={handleSignIn} >
               <div className="flex flex-col font-bold h-full text-white  text-center  justify-center shadow-s w-full bg-yellow4 hover:bg-yellowHover active:bg-yellowPressed rounded-md">
-                <span className="title-font  text-white font-open-sans font-normal lg:font-semibold text-base p-5 uppercase leading-6">COMPRAR</span>
+                <span className="title-font  text-white font-open-sans font-normal lg:font-semibold text-base p-5 uppercase leading-6">{t("Detail.buy")}</span>
               </div>
             </button>
             <button className="flex  rounded-xlarge w-1/2 h-[50px]  mt-0  " onClick={handleSignIn} >
