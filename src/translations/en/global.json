@@ -232,7 +232,11 @@
         "msgAddToken" : "Add NFT to a collection",
         "msgAddToken2" : "Select the collection to which you want to add the NFT",
         "back": "Back",
-        "available" : "Disponible"
+        "available" : "Disponible",
+        "required": "Required",
+        "positive": "Price must be greater than 0.1",
+        "changePrice" : "Change price"
+
     },
     "MyNFTs" : {
         "title" : "My NFTs",
