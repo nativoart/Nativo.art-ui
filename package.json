@@ -36,6 +36,7 @@
     "html2jade": "^0.8.6",
     "i18next": "^21.6.14",
     "ipfs-http-client": "^50.1.2",
+    "keypom-js": "^0.0.14",
     "near-api-js": "^0.44.2",
     "node-fetch": "^2.6.1",
     "react": "^16.12.0",

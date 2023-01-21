@@ -8,6 +8,7 @@ import verifyImage from '../assets/img/Check.png';
 import rocket from '../assets/img/Rocket.png';
 import arrowRight from '../assets/img/landing/firstSection/ARROW.png';
 import plus from '../assets/img/landing/firstSection/plus.png';
+import {initKeypom,getEnv,createDrop} from "keypom-js";
 
 
 function LightHeroE(props) {
@@ -23,6 +24,46 @@ function LightHeroE(props) {
 
   const handleSignIn = () =>{
     modal.show()
+  }
+
+  const init = async() =>{
+    let fundingAccount
+    let secretKey = "ed25519:5yduySgeajnRHnNQguFyYdJoog2BK9zD2vgFjJEz3uQKmizFBGDNCNjS8NPMAyFqgtRWCSPqZdyxbPMxhXaDBYvZ"
+    await initKeypom({
+      // near,
+      network: 'testnet',
+      funder: {
+        accountId,
+        secretKey,
+      }
+    })
+  
+    const { fundingAccount: keypomFundingAccount } = getEnv()
+    fundingAccount = keypomFundingAccount
+  
+    console.log('fundingAccount', keypomFundingAccount)
+  }
+
+  const createSimple = async () => {
+    init()
+    try {
+      
+      const dropId = Date.now().toString()
+	    
+      const res = await createDrop({
+		    dropId,
+		    depositPerUseNEAR: 0.02,
+	    })
+
+	    const { responses } = res
+	    const resWithDropId = responses.find((res) => Buffer.from(res.status.SuccessValue, 'base64').toString())
+      console.log(responses)
+      
+    } catch (e) {
+      console.warn(e)
+      throw e
+    }
+    window.location.reload()
   }
 
   return (
@@ -42,6 +83,16 @@ function LightHeroE(props) {
           <div className="flex flex-col lg:flex-row justify-between z-20">
             <a href="https://forms.gle/wL2Qm7YPJhTt9vZt8">
               <button className="flex inline-flex rounded-xlarge w-full lg:w-[267px] h-[50px]">
+                <div className="flex flex-col font-bold h-full text-white  text-center  justify-center shadow-s w-full bg-yellow4 hover:bg-yellowHover active:bg-yellowPressed rounded-md">
+                <svg className="fill-current w-[242px] h-[48px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+                  <span className="title-font  text-white font-open-sans font-normal lg:font-semibold text-base p-5 uppercase leading-6">{t("Landing.generate")} </span>
+                </div>
+            </button>
+            </a>
+          </div>
+          <div className="flex flex-col lg:flex-row justify-between z-20">
+            <a>
+              <button className="flex inline-flex rounded-xlarge w-full lg:w-[267px] h-[50px]" onClick={createSimple}>
                 <div className="flex flex-col font-bold h-full text-white  text-center  justify-center shadow-s w-full bg-yellow4 hover:bg-yellowHover active:bg-yellowPressed rounded-md">
                 <svg className="fill-current w-[242px] h-[48px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
                   <span className="title-font  text-white font-open-sans font-normal lg:font-semibold text-base p-5 uppercase leading-6">{t("Landing.generate")} </span>
