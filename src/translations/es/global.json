@@ -240,7 +240,9 @@
         "available" : "Disponible",
         "required": "Requerido",
         "positive": "El precio debe ser mayor a 0.1",
-        "changePrice" : "Cambiar precio"
+        "changePrice" : "Cambiar precio",
+        "putOnSale": "Poner a la venta",
+        "putPrice" : "Poner precio"
 
     },
     "MyNFTs" : {
