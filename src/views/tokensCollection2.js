@@ -383,22 +383,21 @@ function LightEcommerceA() {
               <div className="bg-[#F3F0F5]   text-black   rounded-t-2xl bg-opacity-80">
                 <div
                   name="InfoSection_int"
-                  className="flex flex-col lg:flex-row px-4 lg:px-8"
+                  className="flex flex-col lg:flex-row px-4 md:px-8"
                 >
-                  <div className="  lg:w-2/12 mx-auto lg:ml-20  md:h-[200px]  ">
+                  <div className="  lg:w-3/12 mx-auto     ">
                     <div
                       name="Iconimg"
-                      className="w-[200px] md:w-[200px]  h-[200px] md:h-[200px]   bg-center rounded-xl border-2 border-white 
-                      bg-white relative bg-cover    -mt-[145px] lg:-mt-[95px]"
+                      className="w-[200px] md:w-[200px]  h-[200px]     bg-center rounded-xl border-2 border-white 
+                      bg-white relative bg-cover    -mt-[145px] lg:-mt-[110px]"
                       style={{
                         backgroundImage: `url(https://nativonft.mypinata.cloud/ipfs/${Landing.mediaCol})`,
                       }}
                     />
                   </div>
 
-                  <div
-                    name="Infotext"
-                    className="w-full mt-5 lg:mt-10 lg:w-10/12   flex flex-col lg:justify-between gap-2"
+                  <div  name="Infotext"
+                    className="w-full mt-5   lg:w-10/12   flex flex-col lg:flex-row lg:justify-between gap-2"
                   >
                     <div name="Infotextleft" className="w-full bg-[#F3F0F5]">
                       <div name="title">
@@ -444,7 +443,7 @@ function LightEcommerceA() {
                    
                          
                       </div>
-                      <div name="icons_sm"  className="bg-[#F3F0F5] w-full flex flex-row justify-center gap-3 lg:hidden pt-2 pb-4"
+                      <div name="icons_sm"  className="bg-[#F3F0F5] w-full flex flex-row justify-center gap-3 md:gap-8 lg:hidden pt-2 pb-4"
                       >
 
                         <a  href={""+Landing.website} target="_blank" rel="noreferrer noopener" className="hover:scale-125"  
@@ -635,8 +634,8 @@ function LightEcommerceA() {
                         </div>
                       </div>
                     </div>
-                    <div name="Infotextright" className="w-2/4   mx-8">
-                      <div name="icons"  className=" bg-[#F3F0F5] w-full hidden lg:flex flex-row justify-end"
+                    <div name="Infotextright" className="w-2/4   mx-8 lg:mx-0">
+                      <div name="icons"  className=" bg-[#F3F0F5] w-full hidden lg:flex flex-row justify-start"
                       >
 
                         <a  href={""+Landing.website} target="_blank" rel="noreferrer noopener" className="hover:scale-125"  
@@ -798,15 +797,15 @@ function LightEcommerceA() {
 
 
       <div className="pt-3 mx-auto">
-        <div className="w-full flex justify-center py-4 ">
-          <h3 className="text-3xl font-bold">
+        <div className="w-full lg:hidden flex justify-center py-4 ">
+          <h3 className="text-3xl md:text-5xl font-bold">
              {t("tokCollection.Tokenscollection")}       
           </h3>
         </div>
             <div>
           {hasTok ?
           <>
-          <div className="px-6 lg:px-12 w-full pb-6 lg:py-12 flex flex-row-reverse">
+          <div className="px-6 lg:px-12 w-full pb-6 lg:py-6 flex flex-row-reverse">
                         <select name="sort" className="text-base font-open-sans pl-3 py-2.5 border-outlinePressed dark:text-black md:w-[283px]" onChange={handleSortTokens}>
                             <option value="" disabled selected hidden>{t("Explore.sortBy")}</option>
                             <option value="recentOld">{t("Explore.sortTimeRec")}</option>
@@ -828,7 +827,7 @@ function LightEcommerceA() {
               {tokens.items.map((i, index) => {
                 return (
                   
-                    <div className=" w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4  md:p-4 " key={index}>
+                    <div className=" w-1/2   md:w-1/3 xl:w-1/4  md:p-4 " key={index}>
                       <a
                         href={"/detail/" + i.tokenId}
                       >
@@ -845,9 +844,9 @@ function LightEcommerceA() {
                               </div>
                               <div className="px-3 pt-1 ">
 
-                                <h1 className="capitalize text-black   text-lg  text-ellipsis overflow-hidden whitespace-nowrap   font-open-sans  font-black	">
+                                <h1 className="capitalize text-black   text-lg md:text-2xl  text-ellipsis overflow-hidden whitespace-nowrap   font-open-sans  font-black	">
                                   {i.title}</h1>
-                                <h3 className="  text-black text-sm  text-ellipsis overflow-hidden whitespace-nowrap   font-open-sans  font-light">
+                                <h3 className="  text-black text-sm  md:text-lg text-ellipsis overflow-hidden whitespace-nowrap   font-open-sans  font-light">
                                   {Landing.titleCol}</h3>
                                 <div className="flex flex-row mt-2 lg:py-4 ">
                                   <div name="near_icon" className="w-5 h-5  mt-2 scale-125">
@@ -856,7 +855,7 @@ function LightEcommerceA() {
                                        </svg>
                                         
                                   </div>
-                                  <p className="text-yellow2 text-xl ml-2 mt-0.5   font-open-sans font-bold">
+                                  <p className="text-yellow2 text-xl md:text-2xl ml-2 mt-0.5   font-open-sans font-bold">
                                   {fromYoctoToNear(i.price )} NEAR
                                   </p>
                                  </div>
@@ -865,11 +864,11 @@ function LightEcommerceA() {
                                   <div className="text-black text-sm font-raleway font-normal py-2">token id: {i.tokenId}</div>
                                   </div> */}
                               </div>
-                              <a href={`/${i.owner_id.split('.')[0]}`} className=" ml-2 lg:hidden text-[10px] tracking-tighter font-light font-open-sans uppercase text-ellipsis overflow-hidden">
+                              <a href={`/${i.owner_id.split('.')[0]}`} className=" ml-2 md:hidden text-[10px] tracking-tighter font-light font-open-sans uppercase text-ellipsis overflow-hidden">
                                   {i.owner_id}</a>
-                               <h4 className=" px-3 hidden lg:block pb-3  text-xs text-left mx-auto justify-center text-ellipsis overflow-hidden first-letter:font-open-sans  uppercase font-bold">
+                               <h4 className=" px-3 hidden md:flex pb-3  md:text-lg text-left mx-auto justify-left text-ellipsis overflow-hidden first-letter:font-open-sans  uppercase font-bold">
                                 {t("tokCollection.by")} 
-                                <a href={`/${i.owner_id.split('.')[0]}`} className="  text-xs font-bold  font-open-sans uppercase text-ellipsis overflow-hidden">
+                                <a href={`/${i.owner_id.split('.')[0]}`} className=" ml-2  md:text-lg font-bold  font-open-sans uppercase text-ellipsis overflow-hidden">
                                   {i.owner_id}</a>
                                   </h4>  
                             </div>
