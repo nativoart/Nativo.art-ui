@@ -13,6 +13,9 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import verifyImage from '../assets/img/Check.png';
 import { textAlign } from "@mui/system";
 import { FiEdit } from 'react-icons/fi';
+import nearImage from '../assets/img/landing/trendingSection/Vector.png';
+import search from "../assets/img/explore/youtube_searched_for.png"
+import TokensOfCollection from "../components/MyCreations.component";
 
 
 function LightEcommerceA() {
@@ -50,6 +53,10 @@ function LightEcommerceA() {
   const [t, i18n] = useTranslation("global")
   const [hasTok, setHasTok] = React.useState(true)
   const [isOwner, setIsOwner] = React.useState(false)
+  const [tokSort, setTokSort] = React.useState(true)
+  const [tokData, setTokData] = React.useState(true)
+   const [hasData, setHasData] = React.useState(false)
+
   const [filtro, setfiltro] = React.useState({
     culture: "null",
     country: "null",
@@ -315,7 +322,33 @@ function LightEcommerceA() {
         console.log('Error ferching data: ', err)
       })
   };
+  let handleSortTokens = (data) => {
 
+    setTokens({
+      ...tokens,
+      items: tokens.items.reverse()
+  });
+   setTokSort(!tokSort);
+    // if ('oldRecent' == data.target.value) {
+    //     if (!tokSort) {
+    //         return;
+    //     }
+       
+
+       
+    // }
+    // else if ('recentOld') {
+    //     if (tokSort) {
+    //         return;
+    //     }
+       
+    //     setTokens({
+    //         ...tokens,
+    //         items: tokens.items.reverse()
+    //     });
+    //      setTokSort(!tokSort)
+    // }
+}
   return (
     <section className="text-gray-600 body-font  ">
       <div className={`flex flex-row    justify-center `}>
@@ -323,7 +356,7 @@ function LightEcommerceA() {
           <div className=" bg-[#F3F0F5] rounded-20  pb-10 ">
             <div name="bannerSection" className="   pb-3 relative ">
               <img
-                className="object-cover object-center   h-[8rem] md:h-48 lg:h-[370px]  w-full bg-center"
+                className="object-cover object-center     h-[300px] md:h-48 lg:h-[370px]  w-full bg-center"
                 src={`https://nativonft.mypinata.cloud/ipfs/${Landing.bannerCol}`}
                 alt="banner"
               />
@@ -350,13 +383,13 @@ function LightEcommerceA() {
               <div className="bg-[#F3F0F5]   text-black   rounded-t-2xl bg-opacity-80">
                 <div
                   name="InfoSection_int"
-                  className="flex flex-col md:flex-row"
+                  className="flex flex-col lg:flex-row px-4 lg:px-8"
                 >
-                  <div className="  lg:w-2/12  lg:ml-20  md:h-[200px]  ">
+                  <div className="  lg:w-2/12 mx-auto lg:ml-20  md:h-[200px]  ">
                     <div
                       name="Iconimg"
-                      className="w-[120px] md:w-[200px]  h-[120px] md:h-[200px]   bg-center rounded-xl border-2 border-white 
-                      bg-white relative bg-cover    -mt-[95px]"
+                      className="w-[200px] md:w-[200px]  h-[200px] md:h-[200px]   bg-center rounded-xl border-2 border-white 
+                      bg-white relative bg-cover    -mt-[145px] lg:-mt-[95px]"
                       style={{
                         backgroundImage: `url(https://nativonft.mypinata.cloud/ipfs/${Landing.mediaCol})`,
                       }}
@@ -365,12 +398,12 @@ function LightEcommerceA() {
 
                   <div
                     name="Infotext"
-                    className="w-full mt-10 lg:w-10/12   flex justify-between gap-2"
+                    className="w-full mt-5 lg:mt-10 lg:w-10/12   flex flex-col lg:justify-between gap-2"
                   >
                     <div name="Infotextleft" className="w-full bg-[#F3F0F5]">
                       <div name="title">
                         {Landing.titleCol.length > 130 ? (
-                          <h1  className="text-sm md:text-3xl font-open-sans font-bold pb-4 opacity-100 text-darkgray normal-case truncate ">
+                          <h1  className=" text-3xl font-open-sans font-bold pb-4 opacity-100 text-darkgray normal-case truncate ">
                             {showMoreTitle
                               ?   Landing.titleCol.charAt(0).toUpperCase()+Landing.titleCol.substring(1, Landing.titleCol.length)
                               : `${Landing.titleCol.substring(0, 130)}`}{" "}
@@ -384,64 +417,215 @@ function LightEcommerceA() {
                             </button>
                           </h1>
                         ) : (
-                          <h1 className="text-sm md:text-3xl font-bold pb-4 opacity-100 text-darkgray  font-open-sans  truncate ">
+                          <h1 className=" text-3xl font-bold pb-2 lg:pb-4 opacity-100 text-darkgray  font-open-sans  truncate ">
                             {Landing.titleCol.charAt(0).toUpperCase()+Landing.titleCol.substring(1, Landing.titleCol.length)}
                           </h1>
                         )}
                       </div>
                       <div name="creator" className=" flex flex-row  ">
-                        <p className=" text-sm  font-open-sans  font-light mr-4 text-black">
-                           {t("tokCollection.creatorby")}
+                        <p className=" text-md  font-open-sans  font-light mr-2 lg:mr-4 text-black">
+                           {t("tokCollection.by")}
                         </p>
                         <a
                           href={`../${Landing.ownerCol.split(".")[0]}`}
-                          className=" uppercase text-sm pb-1 font-bold  font-open-sans  text-black truncate"
+                          className=" uppercase text-md pb-1 font-bold  font-open-sans  text-black truncate"
                         >
                           {Landing.ownerCol}
                         </a>
                       </div>
-                      <div
-                        name="description"
-                        className="h-20 bg-[#F3F0F5]  overflow-hidden mb-2"
+                      <div    name="description"
+                         className="h-20 bg-[#F3F0F5]  overflow-hidden mb-2"
                       >
                         
                           
                           <textarea disabled="true" defaultValue= {Landing.descriptionCol   }
-                               className="text-xs md:text-base w-full h-full bg-[#F3F0F5]  font-open-sans pb-3 text-darkgray break-words"/>
+                               className="text-base w-full h-full bg-[#F3F0F5]  font-open-sans pb-3 text-darkgray break-words"/>
                              
                    
                          
                       </div>
+                      <div name="icons_sm"  className="bg-[#F3F0F5] w-full flex flex-row justify-center gap-3 lg:hidden pt-2 pb-4"
+                      >
 
-                      <div
-                        name="counters"
-                        className="w-full border-2 border-dashed border-[#A4A2A4] flex flex-row p-4 rounded-lg"
+                        <a  href={""+Landing.website} target="_blank" rel="noreferrer noopener" className="hover:scale-125"  
+                        >
+                          <div name="website" className="w-10 h-10" href="/">
+                          <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                              stroke="black"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M2 12H22"
+                              stroke="black"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M12 2C14.5013 4.73835 15.9228 8.29203 16 12C15.9228 15.708 14.5013 19.2616 12 22C9.49872 19.2616 8.07725 15.708 8 12C8.07725 8.29203 9.49872 4.73835 12 2V2Z"
+                              stroke="black"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </div>
+                        </a>                       
+                        <a href={"https://twitter.com/"+Landing.twitter} target="_blank" rel="noreferrer noopener" className="hover:scale-125"  
+                        >
+                          <div name="twitter"  className="w-10 h-10">
+                            <svg
+                              width="24"
+                              height="20"
+                              viewBox="0 0 24 20"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M21.4799 5.09281C21.4944 5.30281 21.4944 5.51281 21.4944 5.72475C21.4944 12.1825 16.5783 19.6302 7.58895 19.6302V19.6264C4.93346 19.6302 2.33314 18.8696 0.0976562 17.4354C0.483785 17.4818 0.87185 17.5051 1.26088 17.506C3.46153 17.508 5.59927 16.7696 7.33056 15.4099C5.23927 15.3702 3.4054 14.0067 2.76475 12.016C3.49733 12.1573 4.25217 12.1283 4.9712 11.9318C2.6912 11.4712 1.05088 9.46797 1.05088 7.14152C1.05088 7.12023 1.05088 7.09991 1.05088 7.07959C1.73024 7.45797 2.49088 7.66797 3.26895 7.6912C1.12153 6.25604 0.459592 3.39926 1.75637 1.16571C4.23766 4.21894 7.89862 6.07507 11.8286 6.27152C11.4348 4.5741 11.9728 2.79539 13.2425 1.60217C15.2109 -0.248157 18.3067 -0.153318 20.157 1.8141C21.2515 1.59829 22.3006 1.19668 23.2606 0.62765C22.8957 1.75894 22.1322 2.71991 21.1122 3.33055C22.0809 3.21636 23.0273 2.957 23.9186 2.5612C23.2625 3.54442 22.436 4.40088 21.4799 5.09281Z"
+                                fill="#032B30"
+                              />
+
+                              <defs>
+                                <clipPath id="clip0_269_22219">
+                                  <rect
+                                    width="24"
+                                    height="19.7419"
+                                    fill="white"
+                                    transform="translate(0 0.12915)"
+                                  />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </div>
+                        </a>
+
+                        <div name="pipeline" className="w-10 h-10">
+                          <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <line
+                              x1="12.5"
+                              y1="2.18557e-08"
+                              x2="12.5"
+                              y2="24"
+                              stroke="#A4A2A4"
+                            />
+                          </svg>
+                        </div>
+                        <div name="star" className="w-10 h-10 hover:scale-125">
+                          <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+                              stroke="black"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </div>
+
+                        <button onClick={copyToClipboard} className="  hover:scale-125 "
+                        >
+                         <div name="share" className="w-10 h-10">
+                          <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M18 8C19.6569 8 21 6.65685 21 5C21 3.34315 19.6569 2 18 2C16.3431 2 15 3.34315 15 5C15 6.65685 16.3431 8 18 8Z"
+                              stroke="black"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M6 15C7.65685 15 9 13.6569 9 12C9 10.3431 7.65685 9 6 9C4.34315 9 3 10.3431 3 12C3 13.6569 4.34315 15 6 15Z"
+                              stroke="black"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M18 22C19.6569 22 21 20.6569 21 19C21 17.3431 19.6569 16 18 16C16.3431 16 15 17.3431 15 19C15 20.6569 16.3431 22 18 22Z"
+                              stroke="black"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M8.58984 13.51L15.4198 17.49"
+                              stroke="black"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M15.4098 6.51001L8.58984 10.49"
+                              stroke="black"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </div>
+                        </button>  
+                       
+                      </div>
+                      <div   name="counters"
+                        className="w-full border-2 border-dashed border-[#A4A2A4] flex flex-col lg:flex-row p-4 rounded-lg"
                       >
                         <div
                           name="countersleft"
-                          className="w-1/2 flex flex-row justify-between"
+                          className="w-full lg:w-1/2 flex flex-row justify-start"
                         >
-                          <div className="flex flex-row justify-center">
-                            <p className="lg:text-lg font-light   font-open-sans    text-darkgray">
-                               {t("tokCollection.colID")} 
-                            </p>
-                            <p className="lg:text-lg font-bold   font-open-sans    text-darkgray">
-                              {Landing.colID}
-                            </p>
-                          </div>
-                          <div className="flex flex-row justify-center">
-                            <p className="lg:text-lg font-light font-open-sans   text-darkgray">
-                            {t("tokCollection.noTokens")} 
-                            </p>
-                            <p className="ml-2 lg:text-lg font-bold   font-open-sans  text-darkgray pr-[8rem]">
-                              {Landing.tokenCount}
-                            </p>
-                          </div>
+                           
+                             <div className="w-1/2 lg:w-full flex flex-row justify-start lg:justify-center">
+                                <p className="lg:text-lg font-light   font-open-sans    text-darkgray">
+                                  {t("tokCollection.colID")} 
+                                </p>
+                                <p className="lg:text-lg font-bold   font-open-sans    text-darkgray">
+                                  {Landing.colID}
+                                </p>
+                              </div>
+                              <div className="ml-4  w-1/2 lg:w-full flex flex-row  ">
+                                <p className="lg:text-lg font-light font-open-sans   text-darkgray">
+                                {t("tokCollection.noTokens")} 
+                                </p>
+                                <p className="ml-2 lg:text-lg font-bold   font-open-sans  text-darkgray pr-[8rem]">
+                                  {Landing.tokenCount}
+                                </p>
+                              </div>
+                          
+                         
                         </div>
-                        <div name="countersright" className="w-1/2">
-                          <div className="flex flex-row justify-center">
+                        <div name="countersright" className="w-full lg:w-1/2">
+                          <div className="flex flex-row justify-start lg:justify-center">
                             <p className="lg:text-lg font-light  font-open-sans  text-darkgray">
-                              {t("tokCollection.noTokens")} 
+                              {t("tokCollection.published")} 
                             </p>
                             <p className="ml-2 lg:text-lg font-bold   font-open-sans  text-darkgray ">
                               {   window.localStorage.getItem("LanguageState")==="en" ?  
@@ -452,9 +636,7 @@ function LightEcommerceA() {
                       </div>
                     </div>
                     <div name="Infotextright" className="w-2/4   mx-8">
-                      <div
-                        name="icons"
-                        className="bg-[#F3F0F5] w-full flex flex-row justify-end"
+                      <div name="icons"  className=" bg-[#F3F0F5] w-full hidden lg:flex flex-row justify-end"
                       >
 
                         <a  href={""+Landing.website} target="_blank" rel="noreferrer noopener" className="hover:scale-125"  
@@ -616,9 +798,22 @@ function LightEcommerceA() {
 
 
       <div className="pt-3 mx-auto">
+        <div className="w-full flex justify-center py-4 ">
+          <h3 className="text-3xl font-bold">
+             {t("tokCollection.Tokenscollection")}       
+          </h3>
+        </div>
             <div>
           {hasTok ?
-            <InfiniteScroll
+          <>
+          <div className="px-6 lg:px-12 w-full pb-6 lg:py-12 flex flex-row-reverse">
+                        <select name="sort" className="text-base font-open-sans pl-3 py-2.5 border-outlinePressed dark:text-black md:w-[283px]" onChange={handleSortTokens}>
+                            <option value="" disabled selected hidden>{t("Explore.sortBy")}</option>
+                            <option value="recentOld">{t("Explore.sortTimeRec")}</option>
+                            <option value="oldRecent">{t("Explore.sortTimeOld")}</option>
+                        </select>
+                    </div>
+           <InfiniteScroll
               dataLength={tokens.items.length}
               next={fetchMoreData}
               hasMore={tokens.hasMore}
@@ -628,33 +823,33 @@ function LightEcommerceA() {
                    {t("tokCollection.end")} 
                 </p>
               }
-              className={"flex flex-wrap px-[40px]"}
+              className={"flex flex-wrap px-[20px] lg:px-[40px]"}
             >
               {tokens.items.map((i, index) => {
                 return (
                   
-                    <div className="w-full md:w-1/2 lg:w-1/4 xl:w-1/4  md:p-4 " key={index}>
+                    <div className=" w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4  md:p-4 " key={index}>
                       <a
                         href={"/detail/" + i.tokenId}
                       >
                         <div className="flex flex-row  mb-10 md:mb-0   rounded-xl justify-center " >
-                          <div className="trending-token w-64 md:w-80 rounded-xl  border shadow-xl hover:scale-105 ">
+                          <div className="trending-token w-40 md:w-80 rounded-xl  border shadow-xl hover:scale-105 ">
                             <div className=" bg-white rounded-xl">
                               <div className=" border rounded-t-xl ">
                                   <img
-                                    className="object-cover object-center rounded-t-xl h-48 md:h-72 w-full "
+                                    className="object-cover object-center rounded-t-xl h-40 md:h-72 w-full "
                                     src={`https://nativonft.mypinata.cloud/ipfs/${i.media}`}
 
                                     alt={i.description}
                                   />
                               </div>
-                              <div className="px-3 py-1">
+                              <div className="px-3 pt-1 ">
 
-                                <h1 className="capitalize text-black   text-xl  text-ellipsis overflow-hidden whitespace-nowrap   font-open-sans  font-bold">
+                                <h1 className="capitalize text-black   text-lg  text-ellipsis overflow-hidden whitespace-nowrap   font-open-sans  font-black	">
                                   {i.title}</h1>
                                 <h3 className="  text-black text-sm  text-ellipsis overflow-hidden whitespace-nowrap   font-open-sans  font-light">
                                   {Landing.titleCol}</h3>
-                                <div className="flex flex-row py-4 ">
+                                <div className="flex flex-row mt-2 lg:py-4 ">
                                   <div name="near_icon" className="w-5 h-5  mt-2 scale-125">
                                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                            <path d="M13.9031 1.72228L10.5169 6.7499C10.4687 6.82231 10.4483 6.90973 10.4595 6.996C10.4708 7.08226 10.5129 7.16154 10.578 7.21917C10.6432 7.2768 10.7271 7.30887 10.814 7.30947C10.901 7.31006 10.9853 7.27913 11.0513 7.2224L14.3846 4.33115C14.4042 4.31368 14.4284 4.30226 14.4543 4.29831C14.4802 4.29436 14.5067 4.29803 14.5306 4.30889C14.5544 4.31974 14.5746 4.33731 14.5886 4.35944C14.6027 4.38158 14.61 4.40732 14.6096 4.43353V13.4853C14.6096 13.513 14.6011 13.54 14.5852 13.5627C14.5693 13.5854 14.5468 13.6027 14.5207 13.6121C14.4947 13.6216 14.4664 13.6228 14.4396 13.6156C14.4128 13.6084 14.3889 13.5931 14.3711 13.5719L4.29564 1.51078C4.13358 1.31941 3.93178 1.16563 3.70428 1.06014C3.47678 0.954646 3.22904 0.899967 2.97827 0.899902H2.62614C2.16844 0.899902 1.72949 1.08172 1.40585 1.40536C1.08221 1.729 0.900391 2.16795 0.900391 2.62565V15.3742C0.900391 15.8319 1.08221 16.2708 1.40585 16.5944C1.72949 16.9181 2.16844 17.0999 2.62614 17.0999V17.0999C2.92125 17.1 3.21145 17.0244 3.46905 16.8805C3.72666 16.7365 3.94307 16.5289 4.09764 16.2775L7.48389 11.2499C7.53212 11.1775 7.5525 11.0901 7.54126 11.0038C7.53001 10.9175 7.48791 10.8383 7.42274 10.7806C7.35757 10.723 7.27373 10.6909 7.18673 10.6903C7.09974 10.6897 7.01547 10.7207 6.94952 10.7774L3.61614 13.6687C3.59661 13.6861 3.5724 13.6975 3.54649 13.7015C3.52058 13.7054 3.49408 13.7018 3.47022 13.6909C3.44636 13.6801 3.42618 13.6625 3.41214 13.6404C3.39809 13.6182 3.3908 13.5925 3.39114 13.5663V4.51228C3.39115 4.48457 3.39969 4.45753 3.4156 4.43484C3.4315 4.41215 3.45401 4.3949 3.48005 4.38544C3.5061 4.37598 3.53443 4.37476 3.56119 4.38196C3.58795 4.38915 3.61185 4.40441 3.62964 4.42565L13.704 16.489C13.8661 16.6804 14.0679 16.8342 14.2954 16.9397C14.5229 17.0452 14.7706 17.0998 15.0214 17.0999H15.3735C15.6002 17.1001 15.8248 17.0555 16.0343 16.9689C16.2438 16.8822 16.4342 16.7551 16.5945 16.5948C16.7549 16.4346 16.8821 16.2443 16.9689 16.0348C17.0557 15.8254 17.1004 15.6009 17.1004 15.3742V2.62565C17.1004 2.16795 16.9186 1.729 16.5949 1.40536C16.2713 1.08172 15.8323 0.899902 15.3746 0.899902C15.0795 0.899825 14.7893 0.975375 14.5317 1.11934C14.2741 1.26331 14.0577 1.47089 13.9031 1.72228V1.72228Z" fill="#EB8A06"/>
@@ -662,7 +857,7 @@ function LightEcommerceA() {
                                         
                                   </div>
                                   <p className="text-yellow2 text-xl ml-2 mt-0.5   font-open-sans font-bold">
-                                  {i.price} NEAR
+                                  {fromYoctoToNear(i.price )} NEAR
                                   </p>
                                  </div>
 
@@ -670,9 +865,11 @@ function LightEcommerceA() {
                                   <div className="text-black text-sm font-raleway font-normal py-2">token id: {i.tokenId}</div>
                                   </div> */}
                               </div>
-                               <h4 className=" px-3  pb-3 font-raleway text-xs text-left mx-auto justify-center text-ellipsis overflow-hiddenfont-open-sans  font-bold">
-                                {t("tokCollection.markOwn")} 
-                                <a href={`profile/${i.owner_id.split('.')[0]}`} className="  text-xs font-bold text-blue2 font-open-sans  text-ellipsis overflow-hidden">
+                              <a href={`/${i.owner_id.split('.')[0]}`} className=" ml-2 lg:hidden text-[10px] tracking-tighter font-light font-open-sans uppercase text-ellipsis overflow-hidden">
+                                  {i.owner_id}</a>
+                               <h4 className=" px-3 hidden lg:block pb-3  text-xs text-left mx-auto justify-center text-ellipsis overflow-hidden first-letter:font-open-sans  uppercase font-bold">
+                                {t("tokCollection.by")} 
+                                <a href={`/${i.owner_id.split('.')[0]}`} className="  text-xs font-bold  font-open-sans uppercase text-ellipsis overflow-hidden">
                                   {i.owner_id}</a>
                                   </h4>  
                             </div>
@@ -686,13 +883,16 @@ function LightEcommerceA() {
                 )
               })}
             </InfiniteScroll>
+          </>
+           
             :
             <div className="text-yellow2 text-2xl w-full text-center mt-6 font-bold">
               <p>{t("tokCollection.hasTok")}</p>
             </div>
           }
 
-        </div>   
+            </div> 
+         
       </div>
     </section>
   );

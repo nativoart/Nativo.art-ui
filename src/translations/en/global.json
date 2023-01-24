@@ -183,7 +183,8 @@
         "creator" : "Creator",
         "creatorby" : "Created by ",
         "contract" : "Contract:",
-        "noTokens" : "Tokens: ",
+        "noTokens" : "Tokens: ",  
+        "Tokenscollection":"Collection's Tokens",
         "collectionID" : "Collection ID",
         "noSale" : "No. of sales:",
         "volSale" : "Sales volume:",
@@ -202,9 +203,9 @@
         "search" : "Search collections By: Account or Title..",
         "markTitle" : "Market",
         "markOwn" : "Owner:",
-        "published":"Published: ",
+        "published":"Published ",
         "of":"de",
-        "by":"By: "
+        "by":"By"
     },
     "Detail" : {
         "collection" : "Collection",

@@ -189,6 +189,7 @@
         "creatorby" : "Creado por ",
         "contract" : "Contrato:",
         "noTokens" : "Tokens: ",
+        "Tokenscollection":"Tokens de la colección",
         "noSale" : "No. de ventas:",
         "collectionID" : "ID Colección",
         "volSale" : "Vol. de venta:",
@@ -207,9 +208,9 @@
         "search" : "Busca por: Cuenta ó Título..",
         "markTitle" : "Mercado",
         "markOwn" : "Dueño:",
-        "published":"Publicado: ",
+        "published":"Publicado ",
         "of":"de",
-        "by":"Por: "
+        "by":"Por"
 
     },
     "Detail" : {
