@@ -532,7 +532,7 @@ function TokenDetail(props) {
                 <p className="font-open-sans text-base font-normal text-[#0A0A0A] mr-2">{t("Detail.creator")}:</p>
                 <p className="font-open-sans text-base font-semibold text-[#0A0A0A] capitalize" >{" "+state?.jdata.creator}</p>
               </div>
-              <div className="w-full rounded-xl md:shadow-lg  text-[#0A0A0A] flex p-5 mt-6">
+              <div className="w-full rounded-xl md:shadow-lg  text-[#0A0A0A] flex lg:p-5 mt-6">
                 <PriceNft {...state?.tokens}>
 
                 </PriceNft>
