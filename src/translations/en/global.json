@@ -566,7 +566,9 @@
         "congratsMsgV1" : "Your NFT has been successfully put up for sale",
         "congratsMsgV2" : "Your NFT has been successfully listed and added to a collection",
         "removeSaleTit" : "You have removed your NFT from sale",
-        "removeSaleMsg" : "Your NFT has been successfully removed from sale"
+        "removeSaleMsg" : "Your NFT has been successfully removed from sale",
+        "willRemoveSaleTit" : "Want to remove your NFT from sale?",
+        "willRemoveSaleMsg" : "You can put on sale later"
     },
     "Explore" : {
         "titleTok" : "Explore all Tokens",

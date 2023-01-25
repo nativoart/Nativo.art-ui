@@ -65,8 +65,8 @@ function PriceNft(props) {
       width: '800',
       html:
         '<div class="">' +
-        '<div class="font-open-sans  text-base font-extrabold text-white mb-4 text-left uppercase">' +  t("Alerts.removeSaleTit") + '</div>' +
-        '<div class="font-open-sans  text-sm text-white text-left">' + t("Alerts.removeSaleMsg") + '</div>' +
+        '<div class="font-open-sans  text-base font-extrabold text-white mb-4 text-left uppercase">' +  t("Alerts.willRemoveSaleTit") + '</div>' +
+        '<div class="font-open-sans  text-sm text-white text-left">' + t("Alerts.willRemoveSaleMsg") + '</div>' +
         '</div>',
       confirmButtonText: t("Alerts.continue"),
       buttonsStyling: false,
@@ -76,28 +76,26 @@ function PriceNft(props) {
       confirmButtonColor: '#f79336',
       position: window.innerWidth < 1024 ? 'bottom' : 'center'
     }).then(async (result) => {
-      if (result.isConfirmed) {}
-      wallet.signAndSendTransaction({
-        signerId: accountId,
-        receiverId: process.env.REACT_APP_CONTRACT,
-        actions: [
-          {
-            type: "FunctionCall",
-            params: {
-              methodName: "nft_revoke",
-              args: payload,
-              gas: 300000000000000,
-              deposit: 1,
+      if (result.isConfirmed) {
+        wallet.signAndSendTransaction({
+          signerId: accountId,
+          receiverId: process.env.REACT_APP_CONTRACT,
+          actions: [
+            {
+              type: "FunctionCall",
+              params: {
+                methodName: "nft_revoke",
+                args: payload,
+                gas: 300000000000000,
+                deposit: 1,
+              }
             }
-          }
-        ]
-      }).then(() => {
-        
-      })
-      .catch((err) => {
-        console.log("error: ", err);
-      });
-
+          ]
+        })
+        .catch((err) => {
+          console.log("error: ", err);
+        });
+      }
     })
     
   }

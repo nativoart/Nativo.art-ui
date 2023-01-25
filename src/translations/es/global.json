@@ -568,7 +568,9 @@
         "congratsMsgV1" : "Tu NFT se ha puesto a la venta de manera exitosa",
         "congratsMsgV2" : "Tu NFT se ha puesto a la venta y agregado a una colección de manera exitosa",
         "removeSaleTit" : "Has quitado de la venta tu NFT",
-        "removeSaleMsg" : "Se ha quitado de la venta tu NFT de manera exitosa"
+        "removeSaleMsg" : "Se ha quitado de la venta tu NFT de manera exitosa",
+        "willRemoveSaleTit" : "¿Quieres quitar tu NFT de la venta?",
+        "willRemoveSaleMsg" : "si lo deseas podrás ponerlo a la venta después"
     },
     "Explore" : {
         "titleTok" : "Explora todos los Tokens",
