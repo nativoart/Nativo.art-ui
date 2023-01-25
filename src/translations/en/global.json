@@ -205,7 +205,13 @@
         "markOwn" : "Owner:",
         "published":"Published ",
         "of":"de",
-        "by":"By"
+        "by":"By",
+        "NoWebsite":"No website available!",
+        "Website":"!Visit website!",
+        "NoTwitter":"No witter available!",
+        "Twitter":"!Visit twitter!",
+        "ShareCol":"!Share this collection!"
+
     },
     "Detail" : {
         "collection" : "Collection",

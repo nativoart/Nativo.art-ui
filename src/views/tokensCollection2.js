@@ -16,6 +16,8 @@ import { FiEdit } from 'react-icons/fi';
 import nearImage from '../assets/img/landing/trendingSection/Vector.png';
 import search from "../assets/img/explore/youtube_searched_for.png"
 import TokensOfCollection from "../components/MyCreations.component";
+import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+import { styled } from '@mui/material/styles';
 
 
 function LightEcommerceA() {
@@ -103,11 +105,7 @@ function LightEcommerceA() {
 
   const { data } = useParams();
 
-  const Goto=(ref) => {
-    console.log("🪲 ~ file: tokensCollection2.js:94 ~ Goto ~ ref", ref)
-    
-    
-  }
+
   const copyToClipboard=()=> {
  
      // Copy the text inside the text field
@@ -411,8 +409,10 @@ await client
   })
 
 }
-  console.log("🪲 ~ file: tokensCollection2.js:408 ~ handleSortTokens ~ orderDirection", orderDirection)
-  return (
+
+ 
+
+   return (
     <section className="text-gray-600 body-font  ">
       <div className={`flex flex-row    justify-center `}>
         <div className="trending-token w-full   rounded-20  ">
@@ -508,7 +508,40 @@ await client
                       </div>
                       <div name="icons_sm"  className="bg-[#F3F0F5] w-full flex flex-row justify-center gap-3 md:gap-8 lg:hidden pt-2 pb-4"
                       >
-                        {Landing.website==="" ? null:
+                        {Landing.website==="" ? <a    className="hover:scale-125"  
+                        >
+                          <div name="website" className="w-10 h-10" href="/">
+                          <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                              stroke="black"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M2 12H22"
+                              stroke="black"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M12 2C14.5013 4.73835 15.9228 8.29203 16 12C15.9228 15.708 14.5013 19.2616 12 22C9.49872 19.2616 8.07725 15.708 8 12C8.07725 8.29203 9.49872 4.73835 12 2V2Z"
+                              stroke="black"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </div>
+                        </a>:
                         <a  href={""+Landing.website} target="_blank" rel="noreferrer noopener" className="hover:scale-125"  
                         >
                           <div name="website" className="w-10 h-10" href="/">
@@ -544,7 +577,34 @@ await client
                         </div>
                         </a>
                         }    
-                        {Landing.twitter===""? null:                   
+                        {Landing.twitter===""? <a  className="hover:scale-125"  
+                        >
+                          <div name="twitter"  className="w-10 h-10">
+                            <svg
+                              width="24"
+                              height="20"
+                              viewBox="0 0 24 20"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M21.4799 5.09281C21.4944 5.30281 21.4944 5.51281 21.4944 5.72475C21.4944 12.1825 16.5783 19.6302 7.58895 19.6302V19.6264C4.93346 19.6302 2.33314 18.8696 0.0976562 17.4354C0.483785 17.4818 0.87185 17.5051 1.26088 17.506C3.46153 17.508 5.59927 16.7696 7.33056 15.4099C5.23927 15.3702 3.4054 14.0067 2.76475 12.016C3.49733 12.1573 4.25217 12.1283 4.9712 11.9318C2.6912 11.4712 1.05088 9.46797 1.05088 7.14152C1.05088 7.12023 1.05088 7.09991 1.05088 7.07959C1.73024 7.45797 2.49088 7.66797 3.26895 7.6912C1.12153 6.25604 0.459592 3.39926 1.75637 1.16571C4.23766 4.21894 7.89862 6.07507 11.8286 6.27152C11.4348 4.5741 11.9728 2.79539 13.2425 1.60217C15.2109 -0.248157 18.3067 -0.153318 20.157 1.8141C21.2515 1.59829 22.3006 1.19668 23.2606 0.62765C22.8957 1.75894 22.1322 2.71991 21.1122 3.33055C22.0809 3.21636 23.0273 2.957 23.9186 2.5612C23.2625 3.54442 22.436 4.40088 21.4799 5.09281Z"
+                                fill="#032B30"
+                              />
+
+                              <defs>
+                                <clipPath id="clip0_269_22219">
+                                  <rect
+                                    width="24"
+                                    height="19.7419"
+                                    fill="white"
+                                    transform="translate(0 0.12915)"
+                                  />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </div>
+                        </a>:                   
                         <a href={"https://twitter.com/"+Landing.twitter} target="_blank" rel="noreferrer noopener" className="hover:scale-125"  
                         >
                           <div name="twitter"  className="w-10 h-10">
@@ -667,7 +727,7 @@ await client
                           className="w-full lg:w-1/2 flex flex-row justify-start"
                         >
                            
-                             <div className="w-1/2 lg:w-full flex flex-row justify-start lg:justify-center">
+                             <div className="w-1/2 lg:w-full flex flex-row justify-start lg:justify-center xl:justify-start">
                                 <p className="lg:text-lg font-light   font-open-sans    text-darkgray">
                                   {t("tokCollection.colID")} 
                                 </p>
@@ -703,8 +763,8 @@ await client
                       <div name="icons"  className=" bg-[#F3F0F5] w-full hidden lg:flex flex-row justify-start xl:justify-center"
                       >
 
-{Landing.website==="" ? null:
-                        <a  href={""+Landing.website} target="_blank" rel="noreferrer noopener" className="hover:scale-125"  
+{Landing.website==="" ?  <Tooltip placement="bottom" arrow title={t("tokCollection.NoWebsite")}>
+<a    className="hover:scale-125"  
                         >
                           <div name="website" className="w-10 h-10" href="/">
                           <svg
@@ -738,9 +798,45 @@ await client
                           </svg>
                         </div>
                         </a>
+    </Tooltip>
+: <Tooltip placement="bottom" arrow title={t("tokCollection.Website")}> 
+                        <a  href={""+Landing.website} target="_blank" rel="noreferrer noopener" className="hover:scale-125"  
+                        >
+                          <div name="website" className="w-10 h-10" href="/">
+                          <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                              stroke="black"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M2 12H22"
+                              stroke="black"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M12 2C14.5013 4.73835 15.9228 8.29203 16 12C15.9228 15.708 14.5013 19.2616 12 22C9.49872 19.2616 8.07725 15.708 8 12C8.07725 8.29203 9.49872 4.73835 12 2V2Z"
+                              stroke="black"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </div>
+                        </a></Tooltip>
                         }                       
-                        {Landing.twitter===""? null:                   
-                        <a href={"https://twitter.com/"+Landing.twitter} target="_blank" rel="noreferrer noopener" className="hover:scale-125"  
+                        {Landing.twitter===""?   <Tooltip placement="bottom" arrow title={t("tokCollection.NoTwitter")}>
+                          <a   className="hover:scale-125"  
                         >
                           <div name="twitter"  className="w-10 h-10">
                             <svg
@@ -768,6 +864,40 @@ await client
                             </svg>
                           </div>
                         </a>
+                        </Tooltip>
+                        :  
+                        <Tooltip placement="bottom" arrow title={t("tokCollection.Twitter")}>
+
+                          <a href={"https://twitter.com/"+Landing.twitter} target="_blank" rel="noreferrer noopener" className="hover:scale-125"  
+                        >
+                          <div name="twitter"  className="w-10 h-10">
+                            <svg
+                              width="24"
+                              height="20"
+                              viewBox="0 0 24 20"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M21.4799 5.09281C21.4944 5.30281 21.4944 5.51281 21.4944 5.72475C21.4944 12.1825 16.5783 19.6302 7.58895 19.6302V19.6264C4.93346 19.6302 2.33314 18.8696 0.0976562 17.4354C0.483785 17.4818 0.87185 17.5051 1.26088 17.506C3.46153 17.508 5.59927 16.7696 7.33056 15.4099C5.23927 15.3702 3.4054 14.0067 2.76475 12.016C3.49733 12.1573 4.25217 12.1283 4.9712 11.9318C2.6912 11.4712 1.05088 9.46797 1.05088 7.14152C1.05088 7.12023 1.05088 7.09991 1.05088 7.07959C1.73024 7.45797 2.49088 7.66797 3.26895 7.6912C1.12153 6.25604 0.459592 3.39926 1.75637 1.16571C4.23766 4.21894 7.89862 6.07507 11.8286 6.27152C11.4348 4.5741 11.9728 2.79539 13.2425 1.60217C15.2109 -0.248157 18.3067 -0.153318 20.157 1.8141C21.2515 1.59829 22.3006 1.19668 23.2606 0.62765C22.8957 1.75894 22.1322 2.71991 21.1122 3.33055C22.0809 3.21636 23.0273 2.957 23.9186 2.5612C23.2625 3.54442 22.436 4.40088 21.4799 5.09281Z"
+                                fill="#032B30"
+                              />
+
+                              <defs>
+                                <clipPath id="clip0_269_22219">
+                                  <rect
+                                    width="24"
+                                    height="19.7419"
+                                    fill="white"
+                                    transform="translate(0 0.12915)"
+                                  />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </div>
+                        </a>
+                        </Tooltip>                 
+                        
                       }
 
                         <div name="pipeline" className="w-10 h-10">
@@ -804,7 +934,7 @@ await client
                             />
                           </svg>
                         </div>
-
+                        <Tooltip placement="bottom" arrow title={t("tokCollection.ShareCol")}>  
                         <button onClick={copyToClipboard} className="  hover:scale-125 "
                         >
                          <div name="share" className="w-10 h-10">
@@ -852,7 +982,9 @@ await client
                             />
                           </svg>
                         </div>
-                        </button>  
+                        </button>
+                        </Tooltip>
+                         
                        
                       </div>
                     </div>
@@ -901,11 +1033,11 @@ await client
                         href={"/detail/" + i.tokenId}
                       > 
                         <div className="flex flex-row  mb-10 md:mb-0   rounded-xl justify-center " >
-                          <div className="trending-token w-40 md:w-80 rounded-xl  border shadow-xl hover:scale-105 ">
+                          <div className="trending-token w-40 md:w-[14rem] lg:w-80 rounded-xl  border shadow-xl hover:scale-105 ">
                             <div className=" bg-white rounded-xl">
                               <div className=" border rounded-t-xl ">
                                   <img
-                                    className="object-cover object-center rounded-t-xl h-40 md:h-72 w-full "
+                                    className="object-cover object-center rounded-t-xl h-40 md:h-[14.5rem] lg:h-72 w-full "
                                     src={`https://nativonft.mypinata.cloud/ipfs/${i.media}`}
 
                                     alt={i.description}

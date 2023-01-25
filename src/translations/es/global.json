@@ -210,7 +210,14 @@
         "markOwn" : "Dueño:",
         "published":"Publicado ",
         "of":"de",
-        "by":"Por"
+        "by":"Por",
+        "NoWebsite":"!Website no disponible!",
+        "Website":"!Visitar Website!",
+        "NoTwitter":"!Twitter no disponible!",
+        "Twitter":"!Visitar twitter!",
+        "ShareCol":"!Compartir esta colleción!"
+
+
 
     },
     "Detail" : {
