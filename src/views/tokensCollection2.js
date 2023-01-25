@@ -56,7 +56,10 @@ function LightEcommerceA() {
   const [tokSort, setTokSort] = React.useState(true)
   const [tokData, setTokData] = React.useState(true)
    const [hasData, setHasData] = React.useState(false)
+   const [orderDirection, setOrderDirection] = React.useState("asc")
+   const [tokenSort, setTokenSort] = React.useState('collectionID');
 
+   
   const [filtro, setfiltro] = React.useState({
     culture: "null",
     country: "null",
@@ -133,7 +136,7 @@ function LightEcommerceA() {
         let contract = await getNearContract();
         let account = await getNearAccount();
         const queryData = `
-          query($collectionID: String, $first: Int, $tokenID: Int){
+          query($collectionID: String, $first: Int, $tokenID: Int, $_orderDirection:String){
             collections(where: {collectionID: $collectionID}) {
               id
               owner_id
@@ -149,7 +152,7 @@ function LightEcommerceA() {
               twitter
               website
             }
-            tokens(first: $first, orderBy: tokenId, orderDirection: desc, where: {collectionID: $collectionID}) {
+            tokens(first: $first, orderBy: tokenId, orderDirection: $_orderDirection, where: {collectionID: $collectionID}) {
               id
               collectionID
               contract
@@ -182,23 +185,27 @@ function LightEcommerceA() {
             variables: {
               collectionID: data,
               first: Landing.tokensPerPageNear,
+              _orderDirection:orderDirection,
             },
           })
           .then((data) => {
-            console.log("collections data: ", data.data.collections)
+           
+            console.log("🪲 ~ file: tokensCollection2.js:189 ~ .then ~ data.data.collections", data.data.collections);
+            console.log("🪲 ~ file: tokensCollection2.js:190 ~ .then ~ data.data.tokens", data.data.tokens);
+            if (data.data.tokens.length <= 0) {
             if(data.data.collections[0].owner_id == userAcc){
               setIsOwner(true)
             }
-            console.log("tokens data: ", data.data.tokens)
-            if (data.data.tokens.length <= 0) {
+            
+          
               setHasTok(false)
             }
             else {
               setTokens({
                 ...tokens,
-                items: tokens.items.concat(data.data.tokens)
+                items: tokens.items.concat(data.data.tokens).reverse()
               });
-              console.log("🪲 ~ file: tokensCollection2.js:191 ~ .then ~ tokens", tokens)
+              
 
               setLastID(parseInt(data.data.tokens[data.data.tokens.length - 1].tokenId))
             }
@@ -311,44 +318,100 @@ function LightEcommerceA() {
         },
       })
       .then((data) => {
-        console.log("tokens data: ", data.data.tokens)
+        console.log("tokens data: ", data)
         setTokens({
           ...tokens,
           items: tokens.items.concat(data.data.tokens)
         });
+        console.log("🪲 ~ file: tokensCollection2.js:321 ~ .then ~ items", data.data.tokens)
+
         setLastID(parseInt(data.data.tokens[data.data.tokens.length - 1].tokenId))
       })
       .catch((err) => {
         console.log('Error ferching data: ', err)
       })
   };
-  let handleSortTokens = (data) => {
+  let handleSortTokens =async (data) => {
 
-    setTokens({
-      ...tokens,
-      items: tokens.items.reverse()
-  });
-   setTokSort(!tokSort);
-    // if ('oldRecent' == data.target.value) {
-    //     if (!tokSort) {
-    //         return;
-    //     }
-       
+  //   setTokens({
+  //     ...tokens,
+  //     items: tokens.items.reverse()
+  //   });
+  //  setTokSort(!tokSort);
+    let currentdir="";
 
-       
-    // }
-    // else if ('recentOld') {
-    //     if (tokSort) {
-    //         return;
-    //     }
-       
-    //     setTokens({
-    //         ...tokens,
-    //         items: tokens.items.reverse()
-    //     });
-    //      setTokSort(!tokSort)
-    // }
+    if ('oldRecent' == data.target.value) {
+        if (!tokSort) {
+            return;
+        }
+        setOrderDirection("asc");
+        currentdir="asc";
+
+        setTokSort(!tokSort);
+    }
+    else if ('recentOld') {
+        if (tokSort) {
+            return;
+        }
+        currentdir="desc";
+
+        setOrderDirection("desc");
+        setTokSort(!tokSort);
+    }
+        console.log("🪲 ~ file: tokensCollection2.js:356 ~ handleSortTokens ~ orderDirection", orderDirection)
+
+    const queryData = `
+    query($collectionID: String, $first: Int, $_orderDirection:String){
+      tokens(first: $first, orderBy: tokenId, orderDirection: $_orderDirection, where: {collectionID: $collectionID , }) {
+        id
+        collectionID
+        contract
+        tokenId
+        owner_id
+        title
+        description
+        media
+        creator
+        price
+        onSale
+        approvalID
+        extra
+        timestamp
+      }
+    }
+  `
+ //Declaramos el cliente
+ const client = new ApolloClient({
+  uri: APIURL,
+  cache: new InMemoryCache(),
+})
+
+await client
+  .query({
+    query: gql(queryData),
+    variables: {
+      collectionID: data,
+      first: Landing.tokensPerPageNear,
+      _orderDirection:currentdir
+    },
+  })
+  .then((data) => {
+    console.log("🪲 ~ file: tokensCollection2.js:393 ~ .then ~ data", data);
+    
+    // setTokens({
+    //   ...tokens,
+    //   items: tokens.items.concat(data.data.tokens)
+    // });
+    // console.log("🪲 ~ file: tokensCollection2.js:321 ~ .then ~ items", data.data.tokens)
+
+    // setLastID(parseInt(data.data.tokens[data.data.tokens.length - 1].tokenId))
+  })
+  .catch((err) => {
+    console.log('Error ferching data: ', err)
+  })
+
 }
+  console.log("🪲 ~ file: tokensCollection2.js:408 ~ handleSortTokens ~ orderDirection", orderDirection)
   return (
     <section className="text-gray-600 body-font  ">
       <div className={`flex flex-row    justify-center `}>
@@ -383,9 +446,9 @@ function LightEcommerceA() {
               <div className="bg-[#F3F0F5]   text-black   rounded-t-2xl bg-opacity-80">
                 <div
                   name="InfoSection_int"
-                  className="flex flex-col lg:flex-row px-4 md:px-8"
+                  className="flex flex-col lg:flex-row px-4 md:px-8 xl:px-[40px]"
                 >
-                  <div className="  lg:w-3/12 mx-auto     ">
+                  <div className="  lg:w-3/12 xl:w-2/12 mx-auto     ">
                     <div
                       name="Iconimg"
                       className="w-[200px] md:w-[200px]  h-[200px]     bg-center rounded-xl border-2 border-white 
@@ -416,18 +479,18 @@ function LightEcommerceA() {
                             </button>
                           </h1>
                         ) : (
-                          <h1 className=" text-3xl font-bold pb-2 lg:pb-4 opacity-100 text-darkgray  font-open-sans  truncate ">
+                          <h1 className=" text-3xl font-extrabold pb-2 lg:pb-4 opacity-100 text-darkgray  font-open-sans  truncate ">
                             {Landing.titleCol.charAt(0).toUpperCase()+Landing.titleCol.substring(1, Landing.titleCol.length)}
                           </h1>
                         )}
                       </div>
                       <div name="creator" className=" flex flex-row  ">
-                        <p className=" text-md  font-open-sans  font-light mr-2 lg:mr-4 text-black">
-                           {t("tokCollection.by")}
+                        <p className=" text-md  font-open-sans  font-light mr-2  text-black">
+                           {t("tokCollection.creatorby")}
                         </p>
                         <a
                           href={`../${Landing.ownerCol.split(".")[0]}`}
-                          className=" uppercase text-md pb-1 font-bold  font-open-sans  text-black truncate"
+                          className=" capitalize text-md pb-1 font-bold  font-open-sans  text-black truncate"
                         >
                           {Landing.ownerCol}
                         </a>
@@ -445,7 +508,7 @@ function LightEcommerceA() {
                       </div>
                       <div name="icons_sm"  className="bg-[#F3F0F5] w-full flex flex-row justify-center gap-3 md:gap-8 lg:hidden pt-2 pb-4"
                       >
-
+                        {Landing.website==="" ? null:
                         <a  href={""+Landing.website} target="_blank" rel="noreferrer noopener" className="hover:scale-125"  
                         >
                           <div name="website" className="w-10 h-10" href="/">
@@ -479,7 +542,9 @@ function LightEcommerceA() {
                             />
                           </svg>
                         </div>
-                        </a>                       
+                        </a>
+                        }    
+                        {Landing.twitter===""? null:                   
                         <a href={"https://twitter.com/"+Landing.twitter} target="_blank" rel="noreferrer noopener" className="hover:scale-125"  
                         >
                           <div name="twitter"  className="w-10 h-10">
@@ -508,7 +573,7 @@ function LightEcommerceA() {
                             </svg>
                           </div>
                         </a>
-
+                      }
                         <div name="pipeline" className="w-10 h-10">
                           <svg
                             width="24"
@@ -635,9 +700,10 @@ function LightEcommerceA() {
                       </div>
                     </div>
                     <div name="Infotextright" className="w-2/4   mx-8 lg:mx-0">
-                      <div name="icons"  className=" bg-[#F3F0F5] w-full hidden lg:flex flex-row justify-start"
+                      <div name="icons"  className=" bg-[#F3F0F5] w-full hidden lg:flex flex-row justify-start xl:justify-center"
                       >
 
+{Landing.website==="" ? null:
                         <a  href={""+Landing.website} target="_blank" rel="noreferrer noopener" className="hover:scale-125"  
                         >
                           <div name="website" className="w-10 h-10" href="/">
@@ -671,7 +737,9 @@ function LightEcommerceA() {
                             />
                           </svg>
                         </div>
-                        </a>                       
+                        </a>
+                        }                       
+                        {Landing.twitter===""? null:                   
                         <a href={"https://twitter.com/"+Landing.twitter} target="_blank" rel="noreferrer noopener" className="hover:scale-125"  
                         >
                           <div name="twitter"  className="w-10 h-10">
@@ -700,6 +768,7 @@ function LightEcommerceA() {
                             </svg>
                           </div>
                         </a>
+                      }
 
                         <div name="pipeline" className="w-10 h-10">
                           <svg
@@ -826,11 +895,11 @@ function LightEcommerceA() {
             >
               {tokens.items.map((i, index) => {
                 return (
-                  
+                 
                     <div className=" w-1/2   md:w-1/3 xl:w-1/4  md:p-4 " key={index}>
                       <a
                         href={"/detail/" + i.tokenId}
-                      >
+                      > 
                         <div className="flex flex-row  mb-10 md:mb-0   rounded-xl justify-center " >
                           <div className="trending-token w-40 md:w-80 rounded-xl  border shadow-xl hover:scale-105 ">
                             <div className=" bg-white rounded-xl">
@@ -866,9 +935,9 @@ function LightEcommerceA() {
                               </div>
                               <a href={`/${i.owner_id.split('.')[0]}`} className=" ml-2 md:hidden text-[10px] tracking-tighter font-light font-open-sans uppercase text-ellipsis overflow-hidden">
                                   {i.owner_id}</a>
-                               <h4 className=" px-3 hidden md:flex pb-3  md:text-lg text-left mx-auto justify-left text-ellipsis overflow-hidden first-letter:font-open-sans  uppercase font-bold">
+                               <h4 className=" px-3 hidden md:flex pb-6  md:text-sm text-left mx-auto justify-left text-ellipsis overflow-hidden first-letter:font-open-sans  uppercase font-bold">
                                 {t("tokCollection.by")} 
-                                <a href={`/${i.owner_id.split('.')[0]}`} className=" ml-2  md:text-lg font-bold  font-open-sans uppercase text-ellipsis overflow-hidden">
+                                <a href={`/${i.owner_id.split('.')[0]}`} className=" ml-1  md:text-md font-bold  font-open-sans uppercase text-ellipsis overflow-hidden">
                                   {i.owner_id}</a>
                                   </h4>  
                             </div>
