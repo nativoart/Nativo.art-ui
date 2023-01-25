@@ -36,44 +36,32 @@ export default function PutOnSaleModal(props) {
         .required(t("Detail.required"))
         .positive(t("Detail.positive"))
         .moreThan(0.09999999999999, t("Detail.positive"))
-        .min(0.1, "El precio no debe de ser menor 0.1"),
+        .min(0.1, t("Detail.positive")),
       terms: Yup.bool()
         .required(t("Detail.required"))
     }),
     //Metodo para el boton ofertar del formulario
     onSubmit: async (values) => {
+      console.log('NYA', values);
       let ofertar;
         let contract = await getNearContract();
-        let amount = fromNearToYocto(process.env.REACT_APP_FEE_CREATE_NFT);
-        let priceChange = fromNearToYocto(values.price)
+        let amount = fromNearToYocto(process.env.REACT_APP_FEE_PUT_ON_SALE_NFT);
+        let priceChange = fromNearToYocto(values.price);
+        let msgData = JSON.stringify({market_type:"on_sale", price: priceChange, title: props.title, media: props.media, creator_id: props.creator, description: props.description})
+        console.log('msgData',msgData)
         let payload = {
-          nft_contract_id: process.env.REACT_APP_CONTRACT,
+          account_id: process.env.REACT_APP_CONTRACT_MARKET,
           token_id: props.tokenID,
-          price: priceChange
+          msg: msgData 
         }
-        //console.log(payload)
-        let data = await getSaleData(props.tokenID)
-        let price = fromYoctoToNear(data.price)
-        if(price == values.price){
-          Swal.fire({
-            background: '#0a0a0a',
-            html:
-            '<div class="">' +
-            '<div class="font-open-sans  text-base font-extrabold text-white mb-4 text-left uppercase">' +  t("Modal.priceAlert") + '</div>' +
-            '<div class="font-open-sans  text-sm text-white text-left">' + t("Modal.priceAlertTxt") + '</div>' +
-            '</div>',
-            confirmButtonColor: '#F79336',
-            position: window.innerWidth < 1024 ? 'bottom' : 'center'
-          })
-          return
-        }
+        console.log(payload)
         if(!values.terms){
           Swal.fire({
             background: '#0a0a0a',
             html:
             '<div class="">' +
             '<div class="font-open-sans  text-base font-extrabold text-white mb-4 text-left uppercase">' +  t("Modal.transAlert2") + '</div>' +
-            '<div class="font-open-sans  text-sm text-white text-left">' + t("Modal.transAlert2Txt") + '</div>' +
+            '<div class="font-open-sans  text-sm text-white text-left">' + t("Modal.putOnSaleAlert2Txt") + '</div>' +
             '</div>',
             confirmButtonColor: '#F79336',
             position: window.innerWidth < 1024 ? 'bottom' : 'center'
@@ -84,15 +72,15 @@ export default function PutOnSaleModal(props) {
         const wallet = await selector.wallet();
         wallet.signAndSendTransaction({
           signerId: accountId,
-          receiverId: process.env.REACT_APP_CONTRACT_MARKET,
+          receiverId: process.env.REACT_APP_CONTRACT,
           actions: [
             {
               type: "FunctionCall",
               params: {
-                methodName: "update_price",
+                methodName: "nft_approve",
                 args: payload,
                 gas: 300000000000000,
-                deposit: 1,
+                deposit: amount,
               }
             }
           ]
@@ -163,7 +151,7 @@ export default function PutOnSaleModal(props) {
   return (
     props.show && (
       <>
-      {console.log('PRICE dentro de price', props)}
+      {console.log('PutONSALE de price', props)}
         <div className="  justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none rounded-xlarge">
           <div className="w-9/12 md:w-6/12 my-6  rounded-xlarge">
             {/*content*/}

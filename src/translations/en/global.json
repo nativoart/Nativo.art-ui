@@ -248,7 +248,7 @@
         "available-2" : "Not available",
         "creator" : "Creator:",
         "detail" : "See detail of the NFT",
-        "remove" : "Remove for sale",
+        "remove" : "Remove sale",
         "titleModal" : "Resell NFT",
         "txtModal" : "Enter the cost at which you want to list this NFT for sale.",
         "btnCancel" : "Cancel",
@@ -470,7 +470,8 @@
         "skip_description": "Don´t worry,you'll be able to add to collection or set it a price at the your NFT's details",
         "skip_collection_description": "Don´t worry,you'll be able to create nft later",
         
-        "skip_accept": "Sure!"
+        "skip_accept": "Sure!",
+        "putOnSaleAlert2Txt" : "In order to put on sale an NFT you need to accept the terms and conditions"
 
     },
     "Profile" : {

@@ -253,7 +253,7 @@
         "available-2" : "No disponible",
         "creator" : "Creador:",
         "detail" : "Ver detalle del NFT",
-        "remove" : "Quitar a la venta",
+        "remove" : "Quitar de la venta",
         "titleModal" : "Revender NFT",
         "txtModal" : "Ingresa el costo al cual quieres poner a la venta este NFT.",
         "btnCancel" : "Cancelar",
@@ -471,7 +471,8 @@
         "skip_description": "No te preocupues,podrás agregarlo a una colleción o asignarle un precio en los detalles de tus NFT's",
         "skip_collection_description": "No te preocupues,podrás crear un NFT después",
 
-        "skip_accept": "Seguro!"
+        "skip_accept": "Seguro!",
+        "putOnSaleAlert2Txt" : "Para poder poner en venta un NFT es necesario que aceptes los terminos y condiciones"
 
 
     },
