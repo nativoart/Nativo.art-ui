@@ -48,6 +48,60 @@ function PriceNft(props) {
     })
   }
 
+  /**
+   * Función que cambia a "no disponible" un token nft que esta a la venta siempre que se sea el owner
+   * @param tokenId representa el token id del nft a quitar del marketplace
+   * @return void
+   */
+
+  async function removeSale(tokenID) {
+    let payload = {
+      token_id: tokenID,
+      account_id: process.env.REACT_APP_CONTRACT_MARKET
+    }
+    const wallet = await selector.wallet();
+    Swal.fire({
+      background: '#0a0a0a',
+      width: '800',
+      html:
+        '<div class="">' +
+        '<div class="font-open-sans  text-base font-extrabold text-white mb-4 text-left uppercase">' +  t("Alerts.removeSaleTit") + '</div>' +
+        '<div class="font-open-sans  text-sm text-white text-left">' + t("Alerts.removeSaleMsg") + '</div>' +
+        '</div>',
+      confirmButtonText: t("Alerts.continue"),
+      buttonsStyling: false,
+      customClass: {
+        confirmButton: 'font-open-sans uppercase text-base  font-extrabold  text-white  text-center bg-yellow2 rounded-md bg-yellow2 px-3 py-[10px] mx-2',
+      },
+      confirmButtonColor: '#f79336',
+      position: window.innerWidth < 1024 ? 'bottom' : 'center'
+    }).then(async (result) => {
+      if (result.isConfirmed) {}
+      wallet.signAndSendTransaction({
+        signerId: accountId,
+        receiverId: process.env.REACT_APP_CONTRACT,
+        actions: [
+          {
+            type: "FunctionCall",
+            params: {
+              methodName: "nft_revoke",
+              args: payload,
+              gas: 300000000000000,
+              deposit: 1,
+            }
+          }
+        ]
+      }).then(() => {
+        
+      })
+      .catch((err) => {
+        console.log("error: ", err);
+      });
+
+    })
+    
+  }
+
   async function buyToken() {
     //evitar doble compra
     setEnabled(false)
@@ -132,7 +186,7 @@ function PriceNft(props) {
                   <span className="title-font  text-white font-open-sans font-normal lg:font-semibold text-base p-5 uppercase leading-6">{t("Detail.changePrice")}</span>
                 </div>
               </button>
-              <button className="flex  rounded-xlarge w-1/2 h-[50px]  mt-0 mx-2" onClick={handleSignIn} >
+              <button className="flex  rounded-xlarge w-1/2 h-[50px]  mt-0 mx-2" onClick={()=> {removeSale(props.tokenID)}} >
                   <div className="flex flex-col font-bold h-full text-[#0a0a0a]  text-center  justify-center shadow-s w-full border-solid border-2 rounded-md border-[#0a0a0a] hover:bg-[#0a0a0a] active:bg-outlinePressed ">
                     <span className="title-font  text-[#0a0a0a] font-open-sans font-normal lg:font-semibold text-base p-5 uppercase leading-6 flex justify-center hover:text-white active:text-textOutlinePressed  "> {t("MyNFTs.remove")}</span>
                   </div>
