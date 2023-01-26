@@ -23,7 +23,7 @@ import TokensOfCollection from "../components/MyCreations.component";
 import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 import { styled } from "@mui/material/styles";
 
-function LightEcommerceA() {
+function TokensCollection() {
   const [Landing, setLanding] = React.useState({
     theme: "yellow",
     currency: currencys[parseInt(localStorage.getItem("blockchain"))],
@@ -61,7 +61,7 @@ function LightEcommerceA() {
   const [tokSort, setTokSort] = React.useState(true);
   const [tokData, setTokData] = React.useState(true);
   const [hasData, setHasData] = React.useState(false);
-  const [orderDirection, setOrderDirection] = React.useState("asc");
+  const [orderDirection, setOrderDirection] = React.useState("desc");
   const [tokenSort, setTokenSort] = React.useState("collectionID");
 
   const [filtro, setfiltro] = React.useState({
@@ -318,7 +318,7 @@ function LightEcommerceA() {
     }
     const queryData = `
       query($collectionID: String, $first: Int, $tokenID: Int){
-        tokens(first: $first, orderBy: tokenId, orderDirection: desc, where: {collectionID: $collectionID, tokenId_lt:$tokenID}) {
+        tokens(first: $first, orderBy: tokenId, orderDirection: ${orderDirection}, where: {collectionID: $collectionID, tokenId_lt:$tokenID}) {
           id
           collectionID
           contract
@@ -370,7 +370,7 @@ function LightEcommerceA() {
         console.log("Error ferching data: ", err);
       });
   };
-  let handleSortTokens = async (data) => {
+  let handleSortTokens = async (e) => {
     //   setTokens({
     //     ...tokens,
     //     items: tokens.items.reverse()
@@ -378,7 +378,7 @@ function LightEcommerceA() {
     //  setTokSort(!tokSort);
     let currentdir = "";
 
-    if ("oldRecent" == data.target.value) {
+    if ("oldRecent" == e.target.value) {
       if (!tokSort) {
         return;
       }
@@ -397,12 +397,12 @@ function LightEcommerceA() {
     }
     console.log(
       "🪲 ~ file: tokensCollection2.js:356 ~ handleSortTokens ~ orderDirection",
-      orderDirection
+      currentdir
     );
 
     const queryData = `
-    query($collectionID: String, $first: Int, $_orderDirection:String){
-      tokens(first: $first, orderBy: tokenId, orderDirection: $_orderDirection, where: {collectionID: $collectionID , }) {
+    query($collectionID: String, $first: Int){
+      tokens(first: ${Landing.tokensPerPageNear}, orderBy: tokenId, orderDirection: ${currentdir}, where: {collectionID: ${data}  }) {
         id
         collectionID
         contract
@@ -430,21 +430,23 @@ function LightEcommerceA() {
       .query({
         query: gql(queryData),
         variables: {
-          collectionID: data,
-          first: Landing.tokensPerPageNear,
-          _orderDirection: currentdir,
+          // collectionID: data,
+          // first: Landing.tokensPerPageNear,
+          
         },
       })
       .then((data) => {
         console.log("🪲 ~ file: tokensCollection2.js:393 ~ .then ~ data", data);
 
-        // setTokens({
-        //   ...tokens,
-        //   items: tokens.items.concat(data.data.tokens)
-        // });
-        // console.log("🪲 ~ file: tokensCollection2.js:321 ~ .then ~ items", data.data.tokens)
+        setTokens({
+          ...tokens,
+          items: data.data.tokens
+        });
+        console.log("🪲 ~ file: tokensCollection2.js:321 ~ .then ~ items", data.data.tokens);
 
-        // setLastID(parseInt(data.data.tokens[data.data.tokens.length - 1].tokenId))
+        setLastID(parseInt(data.data.tokens[data.data.tokens.length - 1].tokenId));
+        setFirstLoad(!firstLoad);
+        return;
       })
       .catch((err) => {
         console.log("Error ferching data: ", err);
@@ -1218,4 +1220,4 @@ function LightEcommerceA() {
   );
 }
 
-export default LightEcommerceA;
+export default TokensCollection;
