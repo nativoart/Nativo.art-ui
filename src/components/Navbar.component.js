@@ -5,7 +5,7 @@ import { ChevronDownIcon } from "@heroicons/react/solid";
 import { config, signOut, getNearAccount } from "../utils/near_interaction";
 import * as nearAPI from "near-api-js";
 import { blockchains } from "../utils/constraint";
-import nativoLogoWhite from '../assets/img/LogoBlanco.png'
+import nativoLogoWhite from '../assets/img/NATIVO_ART.png'
 import lupa from '../assets/landingSlider/img/lupa1.png'
 import menu from '../assets/landingSlider/img/menu.png'
 import { useTranslation } from "react-i18next";
