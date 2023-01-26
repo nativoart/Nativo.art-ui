@@ -504,7 +504,8 @@
         "KeepcreatinProfile_no":"        No",
         "editProfileMessage" : "Editar perfil",
         "missingBiography": "Biografía del artista",
-        "missingTwitter": "twitter del artista"
+        "missingTwitter": "twitter del artista",
+        "seeMore" : "...Ver más"
     },
     "addToken" : {
         "alert1-title" : "Selecciona una colección",
