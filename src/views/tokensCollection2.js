@@ -551,7 +551,7 @@ function TokensCollection() {
                       >
                         <textarea
                           disabled="true"
-                          defaultValue={Landing.descriptionCol}
+                          defaultValue={Landing.descriptionCol +"Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas Letraset, las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum."}
                           className="text-base w-full h-full bg-[#F3F0F5]  font-open-sans pb-3 text-darkgray break-words"
                         />
                       </div>
@@ -695,6 +695,7 @@ function TokensCollection() {
                             </div>
                           </a>
                         )}
+                        {/* 
                         <div name="pipeline" className="w-10 h-10">
                           <svg
                             width="24"
@@ -729,7 +730,7 @@ function TokensCollection() {
                             />
                           </svg>
                         </div>
-
+                        */}
                         <button
                           onClick={copyToClipboard}
                           className="  hover:scale-125 "
@@ -995,7 +996,7 @@ function TokensCollection() {
                             </a>
                           </Tooltip>
                         )}
-
+                      {/* 
                         <div name="pipeline" className="w-10 h-10">
                           <svg
                             width="24"
@@ -1030,6 +1031,7 @@ function TokensCollection() {
                             />
                           </svg>
                         </div>
+                         */}
                         <Tooltip
                           placement="bottom"
                           arrow
@@ -1098,7 +1100,7 @@ function TokensCollection() {
 
       <div className="pt-3 mx-auto">
         <div className="w-full lg:hidden flex justify-center py-4 ">
-          <h3 className="text-3xl md:text-5xl font-bold">
+          <h3 className="text-3xl md:text-5xl  text-black font-bold">
             {t("tokCollection.Tokenscollection")}
           </h3>
         </div>
