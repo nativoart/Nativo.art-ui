@@ -1219,7 +1219,7 @@ function TokensCollection() {
               </InfiniteScroll>
             </>
           ) : (
-            <div className="text-yellow2 text-2xl w-full text-center mt-6 font-bold">
+            <div className="text-black text-2xl w-full text-center my-6 font-bold">
               <p>{t("tokCollection.hasTok")}</p>
             </div>
           )}
