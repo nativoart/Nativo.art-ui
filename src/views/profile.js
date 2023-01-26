@@ -320,7 +320,7 @@ function LightEcommerceB(props) {
             window.location.href = "/create"
         } 
         if(result.dismiss == 'cancel') {
-            window.location.href = "/collection/create" 
+            window.location.href = "/collection/state/create" 
         }
       });
 

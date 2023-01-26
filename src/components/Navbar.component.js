@@ -269,7 +269,7 @@ function LightHeaderB(props) {
               window.location.href = "/create"
           } 
           if(result.dismiss == 'cancel') {
-              window.location.href = "/collection/create" 
+              window.location.href = "/collection/state/create" 
           }
         });
       
@@ -737,7 +737,7 @@ function LightHeaderB(props) {
                                   <MenuB.Item
                                   >
                                     {({ active }) => (
-                                      <a href="/collection/create" className={classNames(active ? "dark:text-white font-extrabold  bg-[#2A747E]" : "dark:text-white ml-2 font-bold", "px-2 block text-base text-center font-open-sans uppercase")}>
+                                      <a href="/collection/state/create" className={classNames(active ? "dark:text-white font-extrabold  bg-[#2A747E]" : "dark:text-white ml-2 font-bold", "px-2 block text-base text-center font-open-sans uppercase")}>
                                         <div className="flex justify-start">
                                           <span className=" m-2">
                                             <img
@@ -1033,7 +1033,7 @@ function LightHeaderB(props) {
                               <img className="manImg  mt-2 mr-2 w-5 h-5 " src={createNft}></img>
                             </div>
                           </button>
-                          <button className="     w-full h-[50px]   mt-3" onClick={() => { window.location = "/collection/create" }}>
+                          <button className="     w-full h-[50px]   mt-3" onClick={() => { window.location = "/collection/state/create" }}>
                             <div className=" flex font-extrabold h-full text-white  text-center  justify-between shadow-s  border-solid border-2 rounded-md
                        border-white2 hover:bg-outlineHover active:bg-outlinePressed ">
                               <span className="title-font  text-white font-open-sans text-[15px] tracking-tighter lg:font-bold  px-5 pt-2 uppercase  flex   hover:text-textOutlineHover active:text-textOutlinePressed">

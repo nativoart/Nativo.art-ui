@@ -676,7 +676,7 @@ function LightHeroE(props) {
               position: window.innerWidth < 1024 ? 'bottom' : 'center'
               
             }).then(()=>{
-              window.location.href="/collection/create"
+              window.location.href="/collection/state/create"
             })
           } else {
             userData = data.data.collections;

@@ -471,7 +471,7 @@ function LightHeroE(props) {
         })
         if (execTrans){
           
-            window.location.href = "/viewcollection/"+idprams
+            window.location.href = "/collection/"+idprams
            
         }
         let id = await getNearAccount()
@@ -542,7 +542,7 @@ function LightHeroE(props) {
           
           Swal.close()
         }else{
-          window.location.href="/viewcollection/"+data.data.collections[0]?.collectionID
+          window.location.href="/collection/"+data.data.collections[0]?.collectionID
         }
         })
         .catch((err) =>{

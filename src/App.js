@@ -90,14 +90,14 @@ class App extends Component {
             <BlockchainProtectedRoute path="/profileData/:state" component={ProfileInfo} />
                 
             {/* <BlockchainProtectedRoute path="/collection/:state" component={creCol} /> */}
-            <BlockchainProtectedRoute path="/collection/:state" component={Collection2} />
+            <BlockchainProtectedRoute path="/collection/state/:state" component={Collection2} />
             <BlockchainProtectedRoute path="/collection_congrats" component={Collectioncongrats} />
             <Route path="/gallery" component={Gallery} />
             <Route path="/market" component={SalesGallery} />
             <Route path="/explore" component={Explore} />
             <Route path="/collections" component={Collections} />
             <Route path="/community" component={Community} />
-            <Route path="/viewcollection/:data" component={TokensCollection} />
+            <Route path="/collection/:data" component={TokensCollection} />
             <Route path="/detail/:data" component={Detail}/>
             <BlockchainProtectedRoute path="/mynfts" component={MisNfts} />
             <Route path="/:user" component={Profile} />

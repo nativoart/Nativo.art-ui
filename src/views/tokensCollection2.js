@@ -5,25 +5,19 @@ import {
   fromYoctoToNear,
   getNearAccount,
 } from "../utils/near_interaction";
-import { useParams, useHistory } from "react-router-dom";
-
-import filtroimg from "../assets/landingSlider/img/filtro.png";
-import loading from "../assets/landingSlider/img/loader.gif";
-import Pagination from "@mui/material/Pagination";
-import { Account } from "near-api-js";
+import { useParams } from "react-router-dom";
+ 
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import { useTranslation } from "react-i18next";
 import InfiniteScroll from "react-infinite-scroll-component";
-import verifyImage from "../assets/img/Check.png";
-import { textAlign } from "@mui/system";
-import { FiEdit } from "react-icons/fi";
-import nearImage from "../assets/img/landing/trendingSection/Vector.png";
-import search from "../assets/img/explore/youtube_searched_for.png";
-import TokensOfCollection from "../components/MyCreations.component";
+ 
 import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 import { styled } from "@mui/material/styles";
+import { useWalletSelector } from "../utils/walletSelector";
 
 function TokensCollection() {
+  const {  accountId } = useWalletSelector();
+
   const [Landing, setLanding] = React.useState({
     theme: "yellow",
     currency: currencys[parseInt(localStorage.getItem("blockchain"))],
@@ -113,7 +107,7 @@ function TokensCollection() {
   };
   const { tokenid: owner } = useParams();
   React.useEffect(() => {
-    // console.log("esto ---> ",owner);
+     
     let tokData;
     let colData;
     setload((c) => true);
@@ -183,14 +177,7 @@ function TokensCollection() {
             },
           })
           .then((data) => {
-            console.log(
-              "🪲 ~ file: tokensCollection2.js:189 ~ .then ~ data.data.collections",
-              data.data.collections
-            );
-            console.log(
-              "🪲 ~ file: tokensCollection2.js:190 ~ .then ~ data.data.tokens",
-              data.data.tokens
-            );
+          
             if (data.data.tokens.length <= 0) {
               if (data.data.collections[0].owner_id == userAcc) {
                 setIsOwner(true);
@@ -283,7 +270,7 @@ function TokensCollection() {
           colData.description.length > 0
             ? colData.description
             : t("tokCollection.descrip");
-        console.log("🪲 ~ file: tokensCollection2.js:243 ~ des", des);
+       
         //convertir los datos al formato esperado por la vista
         await setLanding({
           ...Landing,
@@ -300,6 +287,8 @@ function TokensCollection() {
           twitter: colData.twitter,
           website: colData.website,
         });
+
+        console.log("esto ---> ",colData.owner_id  ," - ",accountId );
       }
     })();
   }, []);
@@ -352,30 +341,19 @@ function TokensCollection() {
         },
       })
       .then((data) => {
-        console.log("tokens data: ", data);
+       
         setTokens({
           ...tokens,
           items: tokens.items.concat(data.data.tokens),
         });
-        console.log(
-          "🪲 ~ file: tokensCollection2.js:321 ~ .then ~ items",
-          data.data.tokens
-        );
-
-        setLastID(
-          parseInt(data.data.tokens[data.data.tokens.length - 1].tokenId)
-        );
+        setLastID( parseInt(data.data.tokens[data.data.tokens.length - 1].tokenId) );
       })
       .catch((err) => {
         console.log("Error ferching data: ", err);
       });
   };
   let handleSortTokens = async (e) => {
-    //   setTokens({
-    //     ...tokens,
-    //     items: tokens.items.reverse()
-    //   });
-    //  setTokSort(!tokSort);
+    
     let currentdir = "";
 
     if ("oldRecent" == e.target.value) {
@@ -395,10 +373,7 @@ function TokensCollection() {
       setOrderDirection("desc");
       setTokSort(!tokSort);
     }
-    console.log(
-      "🪲 ~ file: tokensCollection2.js:356 ~ handleSortTokens ~ orderDirection",
-      currentdir
-    );
+    
 
     const queryData = `
     query($collectionID: String, $first: Int){
@@ -436,13 +411,13 @@ function TokensCollection() {
         },
       })
       .then((data) => {
-        console.log("🪲 ~ file: tokensCollection2.js:393 ~ .then ~ data", data);
+        
 
         setTokens({
           ...tokens,
           items: data.data.tokens
         });
-        console.log("🪲 ~ file: tokensCollection2.js:321 ~ .then ~ items", data.data.tokens);
+         
 
         setLastID(parseInt(data.data.tokens[data.data.tokens.length - 1].tokenId));
         setFirstLoad(!firstLoad);
@@ -469,7 +444,7 @@ function TokensCollection() {
                   <div className="relative group rounded">
                     <div className="absolute -inset-0.5 bg-gradient-to-r from-[#f2b159] to-[#ca7e16] rounded-full blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt group-hover:-inset-1"></div>
                     <a
-                      href={"/collection/edit?id=," + Landing.colID}
+                      href={"/collection/state/edit?id=," + Landing.colID}
                       className="relative text-sm bg-yellow2 text-white font-bold uppercase px-2 py-1 rounded-full shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150"
                     >
                       {t("CreateCol.editBtn")}
@@ -781,6 +756,23 @@ function TokensCollection() {
                             </svg>
                           </div>
                         </button>
+                        
+{  Landing.ownerCol === accountId ?  
+         <a
+         href={"/collection/state/edit?id=" + Landing.colID}
+         className="relative    "
+       >
+         <div   className="w-10 h-10">
+         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+             <path d="M11 4H4C3.46957 4 2.96086 4.21071 2.58579 4.58579C2.21071 4.96086 2 5.46957 2 6V20C2 20.5304 2.21071 21.0391 2.58579 21.4142C2.96086 21.7893 3.46957 22 4 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V13" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+             <path d="M18.5 2.49998C18.8978 2.10216 19.4374 1.87866 20 1.87866C20.5626 1.87866 21.1022 2.10216 21.5 2.49998C21.8978 2.89781 22.1213 3.43737 22.1213 3.99998C22.1213 4.56259 21.8978 5.10216 21.5 5.49998L12 15L8 16L9 12L18.5 2.49998Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+             </svg>
+         </div>
+       </a>
+         
+       
+: null}
+                       
                       </div>
                       <div
                         name="counters"
@@ -1088,6 +1080,21 @@ function TokensCollection() {
                             </div>
                           </button>
                         </Tooltip>
+                        {  Landing.ownerCol === accountId ?  
+         <a
+         href={"/collection/state/edit?id=" + Landing.colID}
+         className="relative    "
+       >
+         <div   className="w-10 h-10">
+         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+             <path d="M11 4H4C3.46957 4 2.96086 4.21071 2.58579 4.58579C2.21071 4.96086 2 5.46957 2 6V20C2 20.5304 2.21071 21.0391 2.58579 21.4142C2.96086 21.7893 3.46957 22 4 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V13" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+             <path d="M18.5 2.49998C18.8978 2.10216 19.4374 1.87866 20 1.87866C20.5626 1.87866 21.1022 2.10216 21.5 2.49998C21.8978 2.89781 22.1213 3.43737 22.1213 3.99998C22.1213 4.56259 21.8978 5.10216 21.5 5.49998L12 15L8 16L9 12L18.5 2.49998Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+             </svg>
+         </div>
+       </a>
+         
+       
+: null}
                       </div>
                     </div>
                   </div>
