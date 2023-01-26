@@ -561,7 +561,7 @@ function TokensCollection() {
                       >
                         {Landing.website === "" ? (
                           <a className="hover:scale-125">
-                            <div name="website" className="w-10 h-10" href="/">
+                            <div name="website" className="w-10 h-10">
                               <svg
                                 width="24"
                                 height="24"
@@ -595,7 +595,7 @@ function TokensCollection() {
                           </a>
                         ) : (
                           <a
-                          href={"https://" + Landing.website}
+                          href={Landing.website}
                             target="_blank"
                             rel="noreferrer noopener"
                             className="hover:scale-125"
@@ -877,7 +877,7 @@ function TokensCollection() {
                             title={t("tokCollection.Website")}
                           >
                             <a   
-                              href={"https://" + Landing.website}
+                              href={ Landing.website}
                               target="_blank"
                               rel="noreferrer noopener"
                               className="hover:scale-125"
@@ -1176,7 +1176,7 @@ function TokensCollection() {
                                       />
                                     </svg>
                                   </div>
-                                  <p className="text-yellow2 text-xl md:text-2xl ml-2 mt-0.5   font-open-sans font-bold">
+                                  <p className="text-yellow2 text-xl md:text-2xl ml-2 mt-0.5 truncate  font-open-sans font-bold">
                                     {fromYoctoToNear(i.price)} NEAR
                                   </p>
                                 </div>
