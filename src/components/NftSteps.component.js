@@ -58,7 +58,7 @@ function NftSteps(props) {
   ];
 
   function createCollectionRoute() {
-    window.location.href = '/collection/create';
+    window.location.href = '/collection/state/create';
   }
 
   function createNFTRoute() {

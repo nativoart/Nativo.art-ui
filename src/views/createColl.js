@@ -126,7 +126,7 @@ function LightHeroE(props) {
           setTxtBttnBanner(t("CreateCol.btnImg-3"))
         }
         else{
-          window.location.href('/collection/create')
+          window.location.href('/collection/state/create')
         }
       }
       else{
@@ -256,7 +256,7 @@ function LightHeroE(props) {
         position: window.innerWidth < 1024 ? 'bottom' : 'center'
       }).then((result) => {
         if (result.isConfirmed) {
-          (type ? window.location.href = "/collection/"+colId : window.location.href = "/mynfts")
+          (type ? window.location.href = "/collection/state/"+colId : window.location.href = "/mynfts")
         }
       });
     }).catch((err) => {
