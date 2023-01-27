@@ -1132,7 +1132,7 @@ function TokensCollection() {
                 next={fetchMoreData}
                 hasMore={tokens.hasMore}
                 loader={
-                  <h1 className="text-center w-full py-10 text-xl font-bold text-yellow2">
+                  <h1 className="text-center w-full py-10 text-xl font-bold text-black">
                     {t("tokCollection.loading")}
                   </h1>
                 }
