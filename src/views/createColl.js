@@ -128,7 +128,7 @@ function LightHeroE(props) {
             icon: 'success',
             confirmButtonColor: '#E79211'
           }).then(function () {
-            window.location.href = "/"+accountId
+            window.location.href = "/"+accountId.split('.')[0];
           })
         }
       }
@@ -247,7 +247,7 @@ function LightHeroE(props) {
         position: window.innerWidth < 1024 ? 'bottom' : 'center'
       }).then((result) => {
         if (result.isConfirmed) {
-          (type ? window.location.href = "/collection/state/"+colId : window.location.href = "/"+accountId)
+          (type ? window.location.href = "/collection/state/"+colId : window.location.href = "/"+accountId.split('.')[0])
         }
       });
     }).catch((err) => {
