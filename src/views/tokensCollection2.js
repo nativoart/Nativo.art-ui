@@ -1185,9 +1185,9 @@ function TokensCollection() {
                                       />
                                     </svg>
                                   </div>
-                                  <p className="text-yellow2 text-xl md:text-2xl ml-2 mt-0.5 truncate  font-open-sans font-bold">
+                                  {/* <p className="text-yellow2 text-xl md:text-2xl ml-2 mt-0.5 truncate  font-open-sans font-bold">
                                     {fromYoctoToNear(i.price)} NEAR
-                                  </p>
+                                  </p> */}
                                 </div>
 
                                 {/* <div className="flex justify-end">
