@@ -1168,7 +1168,7 @@ function TokensCollection() {
                                   {Landing.titleCol}
                                 </h3>
                                 <div className="flex flex-row mt-2 lg:py-4 ">
-                                  <div
+                                 {/* <div
                                     name="near_icon"
                                     className="w-5 h-5  mt-2 scale-125"
                                   >
@@ -1185,7 +1185,7 @@ function TokensCollection() {
                                       />
                                     </svg>
                                   </div>
-                                  {/* <p className="text-yellow2 text-xl md:text-2xl ml-2 mt-0.5 truncate  font-open-sans font-bold">
+                                   <p className="text-yellow2 text-xl md:text-2xl ml-2 mt-0.5 truncate  font-open-sans font-bold">
                                     {fromYoctoToNear(i.price)} NEAR
                                   </p> */}
                                 </div>
