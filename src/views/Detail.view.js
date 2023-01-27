@@ -2,8 +2,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useParams, useHistory } from "react-router-dom";
-import { isNearReady } from "../utils/near_interaction";
-import { nearSignIn, ext_view, ext_call } from "../utils/near_interaction";
+
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 
 import { currencys } from "../utils/constraint";
@@ -14,7 +13,7 @@ import {
   getNearContract,
 } from "../utils/near_interaction";
 import flechaiz from '../assets/landingSlider/img/flechaIz.png'
-import ReactHashtag from "react-hashtag";
+
 import OfferModal from "../components/offerModal.component";
 import AddTokenModal from "../components/addTokenModal.component";
 import loadingGif from "../assets/img/loadingGif.gif"
@@ -22,7 +21,7 @@ import { useTranslation } from "react-i18next";
 import Swal from 'sweetalert2'
 import { use } from "i18next";
 import { useWalletSelector } from "../utils/walletSelector";
-import { providers, utils } from "near-api-js";
+import { providers } from "near-api-js";
 
 function LightEcommerceB(props) {
   //guarda el estado de  toda la vista
@@ -294,7 +293,7 @@ function LightEcommerceB(props) {
           position: window.innerWidth < 1024 ? 'bottom' : 'center'
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.href = "/mynfts"
+            window.location.href = "/" +accountId
           }
         });
       }).catch((err) => {
@@ -452,7 +451,7 @@ function LightEcommerceB(props) {
           <div
             className="regresar"
           >
-            <a href={'/mynfts'} >
+            <a href={'/'+accountId} >
               <img
                 className="hover:cursor-pointer h-[50px] "
                 src={flechaiz}

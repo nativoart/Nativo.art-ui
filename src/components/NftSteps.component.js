@@ -57,18 +57,7 @@ function NftSteps(props) {
     }
   ];
 
-  function createCollectionRoute() {
-    window.location.href = '/collection/state/create';
-  }
-
-  function createNFTRoute() {
-    window.location.href = '/create';
-  }
-
-  function sellNFTRoute() {
-    window.location.href = '/mynfts';
-  }
-
+  
   
   return (
     <section className="text-gray-600 body-font bg-gray-100 dark:bg-darkgray h-[758px] lg:h-[433px] bg-steps-background lg:bg-Crea_y_vende_tus_NFTs_2 bg-no-repeat bg-cover bg-center">
