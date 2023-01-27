@@ -1137,7 +1137,7 @@ function TokensCollection() {
                   </h1>
                 }
                 endMessage={
-                  <p className="text-center w-full py-10 text-xl text-yellow2  font-open-sans ">
+                  <p className="text-center w-full py-10 text-xl text-black   font-open-sans ">
                     {t("tokCollection.end")}
                   </p>
                 }
