@@ -99,7 +99,7 @@ class App extends Component {
             <Route path="/community" component={Community} />
             <Route path="/collection/:data" component={TokensCollection} />
             <Route path="/detail/:data" component={Detail}/>
-            <BlockchainProtectedRoute path="/mynfts" component={MisNfts} />
+            {/* <BlockchainProtectedRoute path="/mynfts" component={MisNfts} /> */}
             <Route path="/:user" component={Profile} />
             <Route component={notFound} />
           </Switch>

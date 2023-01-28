@@ -787,7 +787,7 @@ function MisTokens(props) {
         icon: 'success',
         confirmButtonColor: '#E79211'
       }).then(function () {
-        window.location.href = "/mynfts"
+        window.location.href = "/"+accountId.split('.')[0];
       })
     }
 

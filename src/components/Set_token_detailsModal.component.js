@@ -185,7 +185,7 @@ export default function Set_token_detailModal(props) {
         position: window.innerWidth < 1024 ? 'bottom' : 'center'
       }).then((result) => {
         if (result.isConfirmed) {
-          window.location.href = "/mynfts"
+          window.location.href = "/"+accountId.split('.')[0];
         }
       });
     })
@@ -209,7 +209,7 @@ export default function Set_token_detailModal(props) {
       confirmButtonText: t("Modal.skip_accept"),
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location.href = "/mynfts";
+        window.location.href = "/"+accountId.split('.')[0];;
       }
     });
   };
