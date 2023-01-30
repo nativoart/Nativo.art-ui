@@ -18,6 +18,7 @@ import ReactHashtag from "react-hashtag";
 import OfferModal from "../components/offerModal.component";
 import AddTokenModal from "../components/addTokenModal.component";
 import PriceNft from "../components/PriceNft.component";
+import InformationToken from "../components/InformationToken.component";
 import loadingGif from "../assets/img/loadingGif.gif"
 import { useTranslation } from "react-i18next";
 import Swal from 'sweetalert2'
@@ -536,6 +537,12 @@ function TokenDetail(props) {
 
                 </PriceNft>
 
+              </div>
+
+              <div className="w-full mt-6 overflow-hidden rounded-xl md:shadow-lg">
+                <InformationToken {...state?.tokens}>
+
+                </InformationToken>
               </div>
             </div>
           </div>
