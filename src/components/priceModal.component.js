@@ -36,7 +36,7 @@ export default function PriceModal(props) {
         .required(t("Detail.required"))
         .positive(t("Detail.positive"))
         .moreThan(0.09999999999999, t("Detail.positive"))
-        .min(0.1, "El precio no debe de ser menor 0.1"),
+        .min(0.1, t("Detail.positive")),
       terms: Yup.bool()
         .required(t("Detail.required"))
     }),

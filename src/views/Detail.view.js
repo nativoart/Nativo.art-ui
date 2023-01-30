@@ -30,7 +30,8 @@ function TokenDetail(props) {
   const { selector, modal, accounts, accountId } = useWalletSelector();
   const [state, setstate] = useState();
   const [btn, setbtn] = useState(true);
-  const [t, i18n] = useTranslation("global")
+  const [t, i18n] = useTranslation("global");
+  const [loaded, setLoaded] = useState(false);
   
   //Esta logeado
   const [stateLogin, setStateLogin] = useState(false);
@@ -177,6 +178,7 @@ function TokenDetail(props) {
 
 
       }
+      setLoaded(true);
     })();
   }, []);
 
@@ -454,19 +456,9 @@ function TokenDetail(props) {
   });
   return (
     <>
+    {loaded ? 
        <section className="text-white body-font overflow-hidden dark:bg-[#FAF9FB] font-open-sans">
         <div className="md:container m-auto px-5 py-8 mx-auto">
-          <div
-            className="regresar"
-            onClick={history.goBack} >
-            <a href={'/mynfts'} className="flex w-[100px] items-center pb-6">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19 12H5" stroke="#616161" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M12 5L5 12L12 19" stroke="#616161" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-              <p className="text-[#616161] text-lg">{t('Detail.back')}</p>
-            </a>
-          </div>
           <div className="mx-auto flex flex-wrap">
             <div className="w-full md:w-1/2 p-5 " >
               <div className="flex flex-row justify-center ">
@@ -508,7 +500,9 @@ function TokenDetail(props) {
               <div>
                 <p className="font-open-sans text-base font-semibold text-[#0A0A0A]">ID {state?.tokens.tokenID}</p>
               </div>
-              <div className="w-[120px] rounded-20 bg-[#A4A2A4] flex justify-center items-center p-1 my-6">
+             
+              {state?.tokens.sale ? 
+               <div className="w-[120px] rounded-20 bg-[#A4A2A4] flex justify-center items-center p-1 my-6">
                 <div className="w-[16px] h-[16px] mr-1">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clip-path="url(#clip0_27_2029)">
@@ -524,6 +518,11 @@ function TokenDetail(props) {
                 </div>
                 <p className="font-open-sans text-xs font-semibold text-white uppercase">{t("Detail.available")}</p>
               </div>
+              :
+              <div className="w-[120px] rounded-20 bg-[#A4A2A4] flex justify-center items-center p-1 my-6">
+              <p className="font-open-sans text-xs font-semibold text-white uppercase">{t("Detail.notAvailable")}</p>
+            </div>
+            }
               <div className="flex">
                 <p className="font-open-sans text-base font-normal text-[#0A0A0A] mr-2">{t("Detail.owner")}:</p> 
                 <p className="font-open-sans text-base font-semibold text-[#0A0A0A] capitalize">{" "+state?.owner}</p>
@@ -532,7 +531,7 @@ function TokenDetail(props) {
                 <p className="font-open-sans text-base font-normal text-[#0A0A0A] mr-2">{t("Detail.creator")}:</p>
                 <p className="font-open-sans text-base font-semibold text-[#0A0A0A] capitalize" >{" "+state?.jdata.creator}</p>
               </div>
-              <div className="w-full rounded-xl md:shadow-lg  text-[#0A0A0A] flex lg:p-5 mt-6 overflow-hidden">
+              <div className="w-full rounded-xl md:shadow-lg  text-[#0A0A0A] flex lg:p-5 mt-6 overflow-x-hidden">
                 <PriceNft {...state?.tokens}>
 
                 </PriceNft>
@@ -546,6 +545,11 @@ function TokenDetail(props) {
         <OfferModal {...offerModal}  />
         <AddTokenModal {...addTokenModal} />
       </section>
+      :                     
+        <section className="text-white body-font overflow-hidden dark:bg-[#FAF9FB] font-open-sans h-screen">
+          <div className="md:container m-auto px-5 py-8 mx-auto">
+          </div>
+        </section>}
     </>
   );
 }
