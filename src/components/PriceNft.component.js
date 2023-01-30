@@ -241,8 +241,8 @@ function PriceNft(props) {
                 deposit: 1,
               }
             }
-          ]//,
-          //callbackUrl: "https://juanperez.com"
+          ],
+          callbackUrl: window.location+'?action=removesale'
         })
         .catch((err) => {
           console.log("error: ", err);
@@ -319,7 +319,7 @@ function PriceNft(props) {
   
 
   return ( 
-    <section className="w-full relative flex flex-wrap overflow-y-hidden h-[76px]">
+    <section className="w-full relative flex flex-wrap overflow-y-hidden h-[200px] md:h-[76px]">
       {console.log('props',props)}
       {console.log('this token is on sale?',props.sale)}
       {props.sale ? <>{myNFT ?
