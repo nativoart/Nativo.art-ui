@@ -66,7 +66,7 @@ function LightHeroE(props) {
             icon: 'success',
             confirmButtonColor: '#E79211'
           }).then(function () {
-            window.location.href = "viewcollection/"+type[1]
+            window.location.href = "collection/"+type[1]
           })
         }
         let id = await getNearAccount()
