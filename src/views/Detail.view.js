@@ -82,6 +82,7 @@ function TokenDetail(props) {
         let tokenId = id;
         let userData;
         let colTitle = ""
+        let colID = ""
 
         const query = `
           query($tokenID: String){
@@ -109,42 +110,45 @@ function TokenDetail(props) {
               setNoCollection(true);
             } else {
               userData = data.data.tokens;
+              colID = userData[0].collectionID
             }
           })
           .catch((err) => {
             console.log("error: ", err);
           });
-          const query2 = `
-          query($colID: String){
-            collections (where : {id : $colID}){
-              id
-              title
+          if (colID != ""){
+            const query2 = `
+            query($colID: String){
+              collections (where : {id : $colID}){
+                id
+                title
+              }
             }
-          }
-        `;
-        const client2 = new ApolloClient({
-          uri: APIURL,
-          cache: new InMemoryCache(),
-        });
+          `;
+          const client2 = new ApolloClient({
+            uri: APIURL,
+            cache: new InMemoryCache(),
+          });
 
-        await client2
-          .query({
-            query: gql(query2),
-            variables: {
-              colID: userData[0].collectionID,
-            },
-          })
-          .then((data) => {
-            console.log("collection Data: ", data.data.collections);
-            if (data.data.collections.length <= 0) {
-              setNoCollection(true);
-            } else {
-              colTitle = data.data.collections[0].title
-            }
-          })
-          .catch((err) => {
-            console.log("error: ", err);
-          });
+          await client2
+            .query({
+              query: gql(query2),
+              variables: {
+                colID: colID,
+              },
+            })
+            .then((data) => {
+              console.log("collection Data: ", data.data.collections);
+              if (data.data.collections.length <= 0) {
+                setNoCollection(true);
+              } else {
+                colTitle = data.data.collections[0].title
+              }
+            })
+            .catch((err) => {
+              console.log("error: ", err);
+            });
+        }
 
         let payload = {
           account_id: account,
