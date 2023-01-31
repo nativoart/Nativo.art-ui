@@ -118,7 +118,7 @@ function InformationToken(props) {
                     fill="#1C1B1F"
                   />
                 </svg>
-                <p className="pl-3.5">Información</p>
+                <p className="pl-3.5">{t("Detail.c-Information")}</p>
               </div>
               <div className="flex h-[24px] w-[24px] rotate-180">
                 <svg
@@ -141,33 +141,33 @@ function InformationToken(props) {
           </summary>
           <div class="bg-white flex flex-col md:flex-row p-6 border-t-2">
             <div className="w-full md:w-1/2">
-                <p className="font-bold">Descripción</p>
+                <p className="font-bold">{t("Detail.c-description")}</p>
                 <p className="mt-3 text-grey3 mb-3 md:mb-0">{props.description}</p>
             </div>
             <div className="w-full md:w-1/2">
-                <p className="font-bold">Detalles</p>
+                <p className="font-bold">{t("Detail.c-detail")}</p>
                 <div className="mt-3 flex flex-row">
-                    <p className="w-1/2 font-bold text-[13px]">Direccion del contrato</p>
+                    <p className="w-1/2 font-bold text-[13px]">{t("Detail.c-contract")}</p>
                     <p className="w-1/2 text-[13px] truncate text-right">{process.env.REACT_APP_CONTRACT}</p>
                 </div>
                 <div className="mt-1 flex flex-row">
-                    <p className="w-1/2 font-bold text-[13px]">Token ID</p>
+                    <p className="w-1/2 font-bold text-[13px]">{t("Detail.c-tokenId")}</p>
                     <p className="w-1/2 text-[13px] truncate text-right">{props.tokenID}</p>
                 </div>
                 <div className="mt-1 flex flex-row">
-                    <p className="w-1/2 font-bold text-[13px]">Estandar del Token</p>
+                    <p className="w-1/2 font-bold text-[13px]">{t("Detail.c-estandar")}</p>
                     <p className="w-1/2 text-[13px] truncate text-right">NEP-171</p>
                 </div>
                 <div className="mt-1 flex flex-row">
-                    <p className="w-1/2 font-bold text-[13px]">Blockchain</p>
+                    <p className="w-1/2 font-bold text-[13px]">{t("Detail.c-blockchain")}</p>
                     <p className="w-1/2 text-[13px] truncate text-right">NEAR</p>
                 </div>
                 <div className="mt-1 flex flex-row">
-                    <p className="w-1/2 font-bold text-[13px]">Agregado en</p>
+                    <p className="w-1/2 font-bold text-[13px]">{t("Detail.c-added")}</p>
                     <p className="w-1/2 text-[13px] truncate text-right">{fecha}</p>
                 </div>
                 <div className="mt-1 flex flex-row">
-                    <p className="w-1/2 font-bold text-[13px]">Regalias</p>
+                    <p className="w-1/2 font-bold text-[13px]">{t("Detail.c-royalties")}</p>
                     <div className="w-1/2 text-[13px] text-right">
                         {props.royalty.map((item,key) => {
                             return(
