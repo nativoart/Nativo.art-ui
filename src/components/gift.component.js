@@ -8,17 +8,48 @@ import verifyImage from '../assets/img/Check.png';
 import rocket from '../assets/img/Rocket.png';
 import arrowRight from '../assets/img/landing/firstSection/ARROW.png';
 import plus from '../assets/img/landing/firstSection/plus.png';
-import {initKeypom,getEnv,createDrop} from "keypom-js";
+import {initKeypom,getEnv,createDrop,getDrops} from "keypom-js";
+import Swal from 'sweetalert2'
 
 
 function LightHeroE(props) {
   const { selector, modal, accounts, accountId } = useWalletSelector();
+
   const [t, i18n] = useTranslation("global");
   const [stateLogin, setStateLogin] = useState(false);
+  const [WalledinfLogged, setWalledinfLogged] = useState(null);
 
+  /**
+   * *Array to store the wallet names and it props
+   * @param name:wallet name
+   * @param active: if the wallet is active to create a drop
+   * @param secretKeyVar: the access name to the localstorage variable that store the secret key
+ 
+   */
+  const wallets=[
+    {name:"near-wallet",active:true,secretKeyVar:`near-api-js:keystore:${accountId}:${process.env.REACT_APP_NEAR_ENV}`},
+    {name:"my-near-wallet",active:true,secretKeyVar:`near-api-js:keystore:${accountId}:${process.env.REACT_APP_NEAR_ENV}`},
+    {name:"meteor-wallet",active:false,secretKeyVar:`_meteor_wallet${accountId}:${process.env.REACT_APP_NEAR_ENV}`},
+    {name:"here-wallet",active:true,secretKeyVar:"hola4"},
+    {name:"math-wallet",active:false,secretKeyVar:"undefined"},
+    {name:"nightly",active:false,secretKeyVar:"undefined"}];
   useEffect(() => {
     (async () => {
-      setStateLogin(accountId !=null ? true : false);
+      // *get the wallet name
+      let walletselected = window.localStorage.getItem("near-wallet-selector:selectedWalletId");
+      //* is logged?
+      if(walletselected!== null) {
+        //* find the wallet cennected info
+        let walletRecovered =wallets.find(wallet => `"${wallet.name}"`=== walletselected);
+        console.log("🪲 ~ file: gift.component.js:24 ~ walletselected",  walletRecovered);
+        //* save the wallet info 
+        setWalledinfLogged(walletRecovered);
+        setStateLogin(accountId !=null ? true : false);
+      }
+     
+      let drops = await getDrops({accountId: accountId});
+      console.log("🪲 ~ file: gift.component.js:51 ~ drops", drops)
+      
     })();
   }, []);
 
@@ -28,34 +59,83 @@ function LightHeroE(props) {
 
   const init = async() =>{
     let fundingAccount
-    let secretKey = "ed25519:5yduySgeajnRHnNQguFyYdJoog2BK9zD2vgFjJEz3uQKmizFBGDNCNjS8NPMAyFqgtRWCSPqZdyxbPMxhXaDBYvZ"
-    await initKeypom({
-      // near,
-      network: 'testnet',
-      funder: {
-        accountId,
-        secretKey,
-      }
-    })
-  
-    const { fundingAccount: keypomFundingAccount } = getEnv()
-    fundingAccount = keypomFundingAccount
-  
-    console.log('fundingAccount', keypomFundingAccount)
+    //* Validate if the wallet works with keypom
+    if(!WalledinfLogged?.active){
+
+      Swal.fire({
+        background: '#0a0a0a',
+        width: '800',
+        html:
+          '<div class="">' +
+          '<div class="font-open-sans  text-base font-extrabold text-white mb-4 text-left uppercase">' +  t("Keypom-create.WalletError") + '</div>' +
+          '<div class="font-open-sans  text-sm text-white text-left">' + t("Keypom-create.WalletError-des") + '</div>' +
+          '</div>',
+        confirmButtonText: t("Alerts.continue"),
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: 'font-open-sans uppercase text-base  font-extrabold  text-white  text-center bg-yellow2 rounded-md bg-yellow2 px-3 py-[10px] mx-2',
+        },
+        confirmButtonColor: '#f79336',
+        position: window.innerWidth < 1024 ? 'bottom' : 'center'
+      }).then((result) => {
+        if (result.isConfirmed) {
+         return;
+        }
+      });      
+    }else{
+
+    //* recover the secrect key at the localstorage
+       let secretKey = "ed25519:4nr8zMibRvgKS8E1BgXdZNspmrf8REU3ShkUAwbMois48Tywriytrus3JhoJG8sySRX9hr4LHJW49Dr9ML3VqBHQ";
+      //let secretKey = window.localStorage.getItem(WalledinfLogged.secretKeyVar).toString();
+    
+      console.log("same: ",window.localStorage.getItem(WalledinfLogged.secretKeyVar).toString())
+        await initKeypom({
+          // near,
+          network:process.env.REACT_APP_NEAR_ENV,
+          funder: {
+            accountId,
+            secretKey,
+          }
+        })
+      
+        const { fundingAccount: keypomFundingAccount } = getEnv()
+        fundingAccount = keypomFundingAccount
+      
+        console.log('fundingAccount', keypomFundingAccount)
+
+    }
+   
   }
 
   const createSimple = async () => {
-    init()
+   await init()
+   console.log("entreo despues del return")
+   if( WalledinfLogged!==null) {
     try {
       
-      const dropId = Date.now().toString()
-	    
+      const dropId =Date.now().toString()
+	    let NFTData ={
+        //* * The account ID that the NFT contract is deployed to. This contract is where all the NFTs for the specific drop must come from. */
+        contractId: process.env.REACT_APP_CONTRACT,
+        //* * By default, anyone can fund your drop with NFTs. This field allows you to set a specific account ID that will be locked into sending the NFTs. */
+        senderId: accountId,
+        /* * 
+         * If there are any token IDs that you wish to be automatically sent to the Keypom contract in order to register keys as part of `createDrop`, specify them here.
+         * A maximum of 2 token IDs can be sent as part of the transaction. If you wish to register more keys by sending more NFTs, you must do this in a separate call by invoking
+         * the `nftTransferCall` method separately.
+         */
+        tokenIds: ["148","149"],
+      }
       const res = await createDrop({
 		    dropId,
+        numKeys: 4,
 		    depositPerUseNEAR: 0.02,
+        NFTData,
 	    })
 
+      
 	    const { responses } = res
+	    console.log("🪲 ~ file: gift.component.js:121 ~ createSimple ~ res", res)
 	    const resWithDropId = responses.find((res) => Buffer.from(res.status.SuccessValue, 'base64').toString())
       console.log(responses)
       
@@ -63,7 +143,8 @@ function LightHeroE(props) {
       console.warn(e)
       throw e
     }
-    window.location.reload()
+    //window.location.reload()
+  }
   }
 
   return (

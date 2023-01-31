@@ -3,25 +3,7 @@ import PropTypes from "prop-types";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
-import { acceptedFormats, currencys } from "../utils/constraint";
-// import load from "../assets/landingSlider/img/loader.gif";
-// import uploadImg from "../assets/img/UPLOAD.png";
-import back_arrow from "../assets/img/Back_arrow.png";
-import upfile from "../assets/img/upfile.png";
-import nearicon from "../assets/img/Vectornear.png";
-import loading from "../assets/img/loading.gif";
-
 import { useParams, useHistory } from "react-router-dom";
-
-import {
-  estimateGas,
-  fromNearToEth,
-  fromNearToYocto,
-  fromYoctoToNear,
-  getNearAccount,
-  getNearContract,
-  storage_byte_cost,
-} from "../utils/near_interaction";
 
 import { uploadFileAPI } from "../utils/pinata";
 import Swal from "sweetalert2";
@@ -31,7 +13,7 @@ import { useWalletSelector } from "../utils/walletSelector";
 import { Button } from "@mui/material";
 import { asyncAct } from "@testing-library/react/dist/act-compat";
 function LightHeroE(props) {
-  const { selector, modal, accounts, accountId } = useWalletSelector();
+  const {   accountId } = useWalletSelector();
   //este estado contiene toda la info de el componente
   const [mint, setmint] = React.useState({
     avatar: undefined,
@@ -222,7 +204,7 @@ return
       position: window.innerWidth < 1024 ? 'bottom' : 'center'
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location.href = "/mynfts";
+        window.location.href = "/"+ accountId;
       }
     });
   };

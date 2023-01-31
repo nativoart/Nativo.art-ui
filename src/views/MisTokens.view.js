@@ -787,7 +787,7 @@ function MisTokens(props) {
         icon: 'success',
         confirmButtonColor: '#E79211'
       }).then(function () {
-        window.location.href = "/mynfts"
+        window.location.href = "/"+accountId.split('.')[0];
       })
     }
 
@@ -1257,7 +1257,7 @@ function MisTokens(props) {
                                             {i.visibility ? t("MyNFTs.vis") : t("MyNFTs.noVis")}
                                           </span>
                                           <a 
-                                            href={"/collection/edit?id="+i.collectionID} 
+                                            href={"/collection/state/edit?id="+i.collectionID} 
                                             className="hover:shadow-yellow1 hover:scale-105 bg-yellow2 border-0 text-xs ml-2 dark:text-white font-bold py-1 px-2 rounded-full inline-flex items-center"
                                           >
                                             {t("CreateCol.editBtn")}

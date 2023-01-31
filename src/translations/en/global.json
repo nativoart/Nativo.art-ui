@@ -191,9 +191,12 @@
         "title" : "Collections"
     },
     "tokCollection" : {
+        "colID":"ID:",
         "creator" : "Creator",
+        "creatorby" : "Created by ",
         "contract" : "Contract:",
-        "noTokens" : "No. Tokens",
+        "noTokens" : "Tokens: ",  
+        "Tokenscollection":"Collection's Tokens",
         "collectionID" : "Collection ID",
         "noSale" : "No. of sales:",
         "volSale" : "Sales volume:",
@@ -211,7 +214,16 @@
         "seeLess" : "See Lees",
         "search" : "Search collections By: Account or Title..",
         "markTitle" : "Market",
-        "markOwn" : "Owner:"
+        "markOwn" : "Owner:",
+        "published":"Published ",
+        "of":"de",
+        "by":"By",
+        "NoWebsite":"No website available!",
+        "Website":"!Visit website!",
+        "NoTwitter":"No witter available!",
+        "Twitter":"!Visit twitter!",
+        "ShareCol":"!Share this collection!"
+
     },
     "Detail" : {
         "collection" : "Collection",
@@ -280,7 +292,22 @@
         "notNfts": "You don't have NFT's ",
         "searchNftById": "Search NFT by ID",
         "vis" : "Visible",
-        "noVis": "Not visible"
+        "noVis": "Not visible",
+        "publicProfileNotNFT" : "This profile doesn't have digital collectibles created yet",
+        "publicProfileNotAquisitions" : "This profile doesn't have digital collectibles adquired yet",
+        "publicProfileNotCollections" : "This profile doesn't have collections created yet",
+        "addNewToken" : "Add new token",
+        "privateProfileNotAquisitions" : "Go to acquire your first digital collectible!",
+        "addNewCol" : "Add new collection",
+        "adquisitions" : "Adquisitions",
+        "creations" : "Creations",
+        "collections" : "Collections",
+        "userNft" : "User's NFT's",
+        "userActivity" : "Activity",
+        "userBids" : "Bids",
+        "userCreate" : "Create",
+        "seeMore" : "...Ver más"
+
 
     },
     "CreateCol" : {
@@ -467,10 +494,16 @@
         "title" : "Create profile",
         "title2" : "Edit profile",
         "biography" : "Biography",
+        "addbiography" : "Add Bio",
+        "cancel" : "Cancel",
         "twitter" : "Twitter user",
         "upImg" : "Upload profile image",
-        "createProfile" : "Create profile",
-        "editProfile" : "Edit profile",
+        "upImg2" : "Upload photo",
+        "upImg3" : "Upload banner's photo",
+        "upImg4" : "Upload banner ",
+
+        "createProfile" : "Create ",
+        "editProfile" : "Edit",
         "minBio" : "The biography must be longer than 5 characters",
         "minSocial" : "The username must exceed 4 characters",
         "maxSocial" : "User cannot exceed 15 characters",
@@ -479,7 +512,21 @@
         "since" : "Profile created in:",
         "prefUsr" : "User preferences",
         "language" : "Language",
-        "addNTV" : "Add my NTVs to my wallet"
+        "add-new":"Añadir nuevo token",
+        "addNTV" : "Add my NTVs to my wallet",
+        "activity":"Activity",
+        "offers":"Offers",
+        "CancelProfile_title":"Would you want to cancel?",
+        "CancelProfile_descrip":"Do not worry, you can continue later.",
+        "CancelProfile_cancel":"Yes, cancel.",
+        "CancelProfile_no":"No",
+        "KeepcreatinProfile":"Would you want to create a collectible?",
+        "KeepcreatinProfile_descr":"First complete your profile, you can create it later.",
+        "KeepcreatinProfile_ok":"!Ok¡",
+        "KeepcreatinProfile_no":"        No",
+        "editProfileMessage" : "Edit profile",
+        "missingBiography": "Artist biography",
+        "missingTwitter": "Artist twitter"
     },
     "addToken" : {
         "alert1-title" : "Select a collection",
@@ -561,5 +608,9 @@
         "endCol" : "There are no more collections",
         "endArt" : "There are no more artists",
         "searchTit" : "Search results"
+    },
+    "Keypom-create":{
+        "WalletError":"Wallet not supported",
+        "WalletError-des":"Sorry, this wallet is not supported yet!"
     }
 }

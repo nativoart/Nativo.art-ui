@@ -276,7 +276,7 @@ function LightEcommerceA() {
               <div className="absolute bottom-0 right-0 m-4">
                 <div className="relative group rounded">
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-[#f2b159] to-[#ca7e16] rounded-full blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt group-hover:-inset-1"></div>
-                  <a href={"/collection/edit?id=,"+Landing.colID} className="relative text-sm bg-yellow2 text-white font-bold uppercase px-2 py-1 rounded-full shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150">{t("CreateCol.editBtn")}</a>
+                  <a href={"/collection/state/edit?id=,"+Landing.colID} className="relative text-sm bg-yellow2 text-white font-bold uppercase px-2 py-1 rounded-full shadow hover:shadow-lg outline-none focus:outline-none  ease-linear transition-all duration-150">{t("CreateCol.editBtn")}</a>
                 </div>
               </div>
 
@@ -314,7 +314,7 @@ function LightEcommerceA() {
                   </div>
                   <div className="flex flex-col justify-center col-span-2 md:col-span-1">
                     <p className="lg:text-lg text-sm pb-1 text-darkgray"><b>{t("tokCollection.creator")}</b></p>
-                    <a href={`../profile/${Landing.ownerCol.split('.')[0]}`} className="lg:text-base text-xs pb-1 font-bold text-blue2 break-words">{Landing.ownerCol}</a>
+                    <a href={`../${Landing.ownerCol.split('.')[0]}`} className="lg:text-base text-xs pb-1 font-bold text-blue2 break-words">{Landing.ownerCol}</a>
                   </div>
                 </div>
               </div>
