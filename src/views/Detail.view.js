@@ -473,19 +473,20 @@ function TokenDetail(props) {
                       />
                     </div>
                     <div className="flex flex-row-reverse p-5">
-                      <div className="flex items-center">
-                       {/* <p className="font-open-sans text-[#000] text-sm">999</p>*/}
+                     {/* <div className="flex items-center">
+                        <p className="font-open-sans text-[#000] text-sm">999</p>
                         <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M30.8401 14.6101C30.3294 14.0991 29.7229 13.6938 29.0555 13.4172C28.388 13.1406 27.6726 12.9983 26.9501 12.9983C26.2276 12.9983 25.5122 13.1406 24.8448 13.4172C24.1773 13.6938 23.5709 14.0991 23.0601 14.6101L22.0001 15.6701L20.9401 14.6101C19.9084 13.5784 18.5092 12.9988 17.0501 12.9988C15.5911 12.9988 14.1918 13.5784 13.1601 14.6101C12.1284 15.6418 11.5488 17.0411 11.5488 18.5001C11.5488 19.9591 12.1284 21.3584 13.1601 22.3901L14.2201 23.4501L22.0001 31.2301L29.7801 23.4501L30.8401 22.3901C31.3511 21.8794 31.7565 21.2729 32.033 20.6055C32.3096 19.938 32.4519 19.2226 32.4519 18.5001C32.4519 17.7776 32.3096 17.0622 32.033 16.3948C31.7565 15.7273 31.3511 15.1209 30.8401 14.6101V14.6101Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                       </div>
                       <div className="flex items-center">
-                        {/*<p className="font-open-sans text-[#000] text-sm">3.2k</p>*/}
+                        <p className="font-open-sans text-[#000] text-sm">3.2k</p>
                         <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M11 22C11 22 15 14 22 14C29 14 33 22 33 22C33 22 29 30 22 30C15 30 11 22 11 22Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                           <path d="M22 25C23.6569 25 25 23.6569 25 22C25 20.3431 23.6569 19 22 19C20.3431 19 19 20.3431 19 22C19 23.6569 20.3431 25 22 25Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                       </div>
+                      */}
                     </div>
                   </div>
                 </div>
