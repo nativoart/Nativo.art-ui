@@ -247,7 +247,9 @@
         "c-estandar" : "Token Standard",
         "c-blockchain" : "Blockchain",
         "c-added" : "Added in",
-        "c-royalties" :"Royalties"
+        "c-royalties" :"Royalties",
+        "c-historial" : "Price history",
+        "c-actividad" : "Activity"
     },
     "MyNFTs" : {
         "title" : "My NFTs",

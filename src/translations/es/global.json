@@ -247,12 +247,14 @@
         "c-Information" : "Información",
         "c-description" : "Descripción",
         "c-detail" : "Detalles",
-        "c-contract" : "Direccion del contrato",
+        "c-contract" : "Dirección del contrato",
         "c-tokenId" : "Token ID",
-        "c-estandar" : "Estandar del Token",
+        "c-estandar" : "Estándar del Token",
         "c-blockchain" : "Blockchain",
         "c-added" : "Agregado en",
-        "c-royalties" :"Regalias"
+        "c-royalties" :"Regalías",
+        "c-historial" : "Historial de precio",
+        "c-actividad" : "Actividad"
     },
     "MyNFTs" : {
         "title" : "Mis NFTs",
