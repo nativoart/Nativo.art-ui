@@ -319,7 +319,7 @@ function PriceNft(props) {
   
 
   return ( 
-    <section className="w-full relative flex flex-wrap overflow-y-hidden h-[200px] md:h-[76px]">
+    <section className="w-full relative flex flex-wrap overflow-y-hidden h-auto md:h-[76px]">
       {console.log('props',props)}
       {console.log('this token is on sale?',props.sale)}
       {props.sale ? <>{myNFT ?
@@ -341,7 +341,7 @@ function PriceNft(props) {
                   <span className="title-font  text-white font-open-sans font-normal lg:font-semibold text-base p-5 uppercase leading-6">{t("Detail.changePrice")}</span>
                 </div>
               </button>
-              <button className="flex  rounded-xlarge w-full md:w-1/2 h-[50px]  mt-0 mx-2" onClick={()=> {removeSale(props.tokenID)}} >
+              <button className="flex  rounded-xlarge w-full md:w-1/2 h-[50px]  mt-3 md:mt-0  mx-2" onClick={()=> {removeSale(props.tokenID)}} >
                   <div className="flex flex-col font-bold h-full text-[#0a0a0a]  text-center  justify-center shadow-s w-full border-solid border-2 rounded-md border-[#0a0a0a] hover:bg-[#0a0a0a] active:bg-outlinePressed ">
                     <span className="title-font  text-[#0a0a0a] font-open-sans font-normal lg:font-semibold text-base p-5 uppercase leading-6 flex justify-center hover:text-white active:text-textOutlinePressed  "> {t("MyNFTs.remove")}</span>
                   </div>
@@ -366,7 +366,7 @@ function PriceNft(props) {
                 <span className="title-font  text-white font-open-sans font-normal lg:font-semibold text-base p-5 uppercase leading-6">{t("Detail.buy")}</span>
               </div>
             </button>
-            <button className="flex  rounded-xlarge w-full md:w-1/2  h-[50px]  mt-0 mx-2 " onClick={async () => { futureFeatureMsg(); }}  >
+            <button className="flex  rounded-xlarge w-full md:w-1/2  h-[50px]  mt-3 md:mt-0   mx-2 " onClick={async () => { futureFeatureMsg(); }}  >
               <div className="flex flex-col font-bold h-full text-[#0a0a0a]  text-center  justify-center shadow-s w-full border-solid border-2 rounded-md border-[#0a0a0a] hover:bg-[#0a0a0a] active:bg-outlinePressed ">
                 <span className="title-font  text-[#0a0a0a] font-open-sans font-normal lg:font-semibold text-base p-5 uppercase leading-6 flex justify-center hover:text-white active:text-textOutlinePressed  "> {t("Detail.modalMakeBid")}</span>
               </div>
