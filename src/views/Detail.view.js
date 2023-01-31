@@ -114,7 +114,6 @@ function TokenDetail(props) {
           .catch((err) => {
             console.log("error: ", err);
           });
-          console.log(userData[0].collectionID)
           const query2 = `
           query($colID: String){
             collections (where : {id : $colID}){
