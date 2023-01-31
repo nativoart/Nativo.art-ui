@@ -123,8 +123,8 @@ function MyCollections(props) {
 
   React.useEffect(() => {
     const query = new URLSearchParams(location);
-    console.log('QUERY', query.get('pathname').split('/')[1] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'));//.pathname.split('/')[0]);
-    let user = query.get('pathname').split('/')[1] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet');
+    console.log('QUERY', query.get('pathname').split('/')[1].toLowerCase() + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'));//.pathname.split('/')[0]);
+    let user = query.get('pathname').split('/')[1].toLowerCase() + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet');
     setProfile({ user: user}); 
     
 
