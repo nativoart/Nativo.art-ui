@@ -254,7 +254,12 @@
         "c-added" : "Agregado en",
         "c-royalties" :"Regalías",
         "c-historial" : "Historial de precio",
-        "c-actividad" : "Actividad"
+        "c-actividad" : "Actividad",
+        "removeConfTitle" : "¡Coleccionable digital removido de la venta!",
+        "removeConfSubtitle" : "Se ha removido tu coleccionable digital de la venta con exito",
+        "removeConfButton" : "Regresar a mi coleccionable digital",
+        "updateConfTitle" : "¡Has actualizado el precio de tu coleccionable digital!",
+        "updateConfSubtitle" : "Se ha realizado la actualizacion de precio de tu coleccionable digital de manera exitosa"
     },
     "MyNFTs" : {
         "title" : "Mis NFTs",
