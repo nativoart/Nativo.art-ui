@@ -96,7 +96,7 @@ export default function PriceModal(props) {
               }
             }
           ],
-          callbackUrl:  window.location.protocol + "//" + window.location.host+'/token/191?action=updateprice'
+          callbackUrl:  window.location.protocol + "//" + window.location.host+'/token/'+props.tokenID+'?action=updateprice'
 
         }).then(() => {
           Swal.fire({

@@ -84,7 +84,7 @@ export default function PutOnSaleModal(props) {
               }
             }
           ],
-          callbackUrl:  window.location.protocol + "//" + window.location.host+'/token/191?action=buytoken'
+          callbackUrl:  window.location.protocol + "//" + window.location.host+'/token/'+props.tokenID+'?action=buytoken'
 
         }).then(() => {
           Swal.fire({
