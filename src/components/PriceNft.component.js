@@ -139,7 +139,8 @@ function PriceNft(props) {
       tokenID: tokenID,
       change: setPriceModal,
       buttonName: 'X',
-      tokenId: 'hardcoded'
+      tokenId: 'hardcoded',
+      confirmUpdate: props.confirmUpdate
     })
   }
 
@@ -194,7 +195,8 @@ function PriceNft(props) {
       tokenID: tokenID,
       change: setPutOnSaleModal,
       buttonName: 'X',
-      tokenId: 'hardcoded'
+      tokenId: 'hardcoded',
+      confirmPutOnSale: props.confirmPutOnSale
     })
   }
 
@@ -243,6 +245,8 @@ function PriceNft(props) {
             }
           ],
           callbackUrl:  window.location.protocol + "//" + window.location.host+'/token/'+tokenID+'?action=removesale'
+        }).then(() => {
+          props.confirmRemove()
         })
         .catch((err) => {
           console.log("error: ", err);
@@ -293,6 +297,7 @@ function PriceNft(props) {
         ,
       }).then(() => {
         setEnabled(true)
+        props.confirmBuy()
       }).catch((err) => {
         console.log("error: ", err);
       });
