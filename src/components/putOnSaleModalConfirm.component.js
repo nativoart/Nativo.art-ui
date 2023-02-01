@@ -41,21 +41,6 @@ export default function PutOnSaleModalConfirm(props) {
             <div className=" rounded-xlarge shadow-lg  flex flex-col  bg-white outline-none focus:outline-none">
               {/*header*/}
 
-              <div
-                className={`flex flex-row   items-start justify-between font-bold uppercase p-5  rounded-t-xlarge text-white`}>
-                <div className="font-raleway">{props.tokens.title} </div>
-                <div><button
-                  className={`  text-[#0a0a0a]  font-bold uppercase px-[20px]  `}
-                  type="button"
-                  disabled={props.disabled}
-                  onClick={() => {
-                    props.change({ show: false });
-                  }}
-                >
-                  {props.buttonName}
-                </button>
-                </div>
-              </div>
 
               <div className="relative p-6 flex flex-col md:flex-row  ">
                 <div className="w-full md:w-1/2 flex justify-center">
@@ -81,7 +66,7 @@ export default function PutOnSaleModalConfirm(props) {
                                 height={15}
                               /> {props.tokens.price} NEAR</div>
                             </div>
-                            <a href=""><p className="text-black py-3 font-open-sans text-[10px] xl:pb-[23px] font-semibold leading-4 text-ellipsis overflow-hidden whitespace-nowrap uppercase">{t("tokCollection.createdBy") + ":"} {props.token.creator}</p></a>
+                            <a href=""><p className="text-black py-3 font-open-sans text-[10px] xl:pb-[23px] font-semibold leading-4 text-ellipsis overflow-hidden whitespace-nowrap uppercase">{t("tokCollection.createdBy") + ":"} {props.tokens.creator}</p></a>
                           </div>
                         </div>
                       </div>
@@ -91,17 +76,25 @@ export default function PutOnSaleModalConfirm(props) {
                 </div>
                 <div className="w-full md:w-1/2 flex flex-col justify-center mt-3 md:mt-0">
 
-                  <div className="flex justify-center w-full items-center">
-                    <p className=" text-2xl leading-relaxed text-[#0a0a0a] font-open-sans font-bold w-full">
-                    YA ESTA A LA VENTA
+                  <div className="flex justify-center w-full items-center py-2">
+                    <p className=" text-4xl md:text-3xl lg:text-5xl leading-relaxed text-[#0a0a0a] font-clash-grotesk font-semibold w-full text-center">
+                    {t('Detail.finalizeBuy')}
                     </p>
                   </div>
-
+                  <div className="flex justify-center w-full items-center py-2">
+                    <p className=" text-base leading-relaxed text-[#0a0a0a] font-open-sans font-normal w-full text-center">
+                    {props.tokens.title} {t('Detail.finalizeBuySubtitle')}
+                    </p>
+                  </div>
                   {/* Formulario para ofertar */}
 
                   {/* Boton de cancelar en la ventana modal */}
-                  <div className="flex justify-end">
-
+                  <div className="flex justify-end py-2">
+                    <button className="flex  rounded-xlarge w-full  h-[50px]  mt-0 mx-2" onClick={() => { window.location.href = "/token/"+props.tokens.tokenID }} >
+                      <div className="flex flex-col font-bold h-full text-white  text-center  justify-center shadow-s w-full bg-yellow4 hover:bg-yellowHover active:bg-yellowPressed rounded-md">
+                        <span className="title-font  text-white font-open-sans font-normal lg:font-semibold text-base p-5 uppercase leading-6">{t("Detail.backToMyNFT")}</span>
+                      </div>
+                    </button>
                   </div>
                 </div>
               </div>

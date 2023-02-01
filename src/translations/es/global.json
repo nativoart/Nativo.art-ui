@@ -254,7 +254,10 @@
         "c-added" : "Agregado en",
         "c-royalties" :"Regalías",
         "c-historial" : "Historial de precio",
-        "c-actividad" : "Actividad"
+        "c-actividad" : "Actividad",
+        "finalizeBuy": "¡Compra finalizada!",
+        "finalizeBuySubtitle": "Ha sido añadido a tus coleccionables digitales",
+        "backToMyNFT": "Regresar a mi NFT"
     },
     "MyNFTs" : {
         "title" : "Mis NFTs",

@@ -249,7 +249,10 @@
         "c-added" : "Added in",
         "c-royalties" :"Royalties",
         "c-historial" : "Price history",
-        "c-actividad" : "Activity"
+        "c-actividad" : "Activity",
+        "finalizeBuy": "¡Completed purchased!",
+        "finalizeBuySubtitle" : "has been added to your digital collectibles",
+        "backToMyNFT": "Go Back to my NFT"
     },
     "MyNFTs" : {
         "title" : "My NFTs",
