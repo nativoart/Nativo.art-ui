@@ -210,7 +210,7 @@ function LightHeroE(props) {
         execTrans
       );
       if (execTrans) {
-        window.location.href = "/mynfts";
+        window.location.href = "/"+accountId.split('.')[0];;
       }
 
       let userData;
@@ -349,7 +349,7 @@ function LightHeroE(props) {
             },
           },
         ],
-        // walletCallbackUrl: "/mynfts".toString(),
+        // walletCallbackUrl: "/"+accountId.split('.')[0];.toString(),
       });
     } 
     if ( colID>= 0) {
@@ -415,7 +415,7 @@ function LightHeroE(props) {
         position: window.innerWidth < 1024 ? 'bottom' : 'center'
       }).then((result) => {
         if (result.isConfirmed) {
-          window.location.href = "/mynfts"
+          window.location.href = "/"+accountId.split('.')[0];
         }
       });
     }).catch((err) => {
@@ -486,7 +486,7 @@ function LightHeroE(props) {
       confirmButtonText: t("Modal.skip_accept"),
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location.href = "/mynfts";
+        window.location.href = "/"+accountId.split('.')[0];;
       }
     });
   };
@@ -725,7 +725,7 @@ function LightHeroE(props) {
                                   </p>
                                   <a
                                     className="relative bg-lime-600 text-white text-center font-bold  text-sm px-6 py-3 rounded-md   ease-linear transition-all duration-150  hover:scale-105"
-                                    href="/collection/create"
+                                    href="/collection/state/create"
                                   >
                                     {t("addToken.btnCol")}
                                   </a>

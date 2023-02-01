@@ -27,6 +27,7 @@ import MyCreations from "../components/MyCreations.component";
 import MyCollections from "../components/MyCollections.component";
 import nullPicProfile from "../assets/img/profile/nullprofilepic.png";
 import nullBanner from "../assets/img/profile/nullBanner.png";
+
 function LightEcommerceB(props) {
   const { selector, modal, accounts, accountId } = useWalletSelector();
   //guarda el estado de  toda la vista
@@ -41,6 +42,7 @@ function LightEcommerceB(props) {
   const { user } = useParams();
   const [totalAdquisitons, setTotalAdquisitons] = React.useState(0);
   const [totalCreations, setTotalCreations] = React.useState(0);
+  const [showMoreBio,setShowMoreBio] = React.useState(false);
 
   const handleLanguage = () => {
     if (window.localStorage.getItem("LanguageState") == "en") {
@@ -188,6 +190,8 @@ function LightEcommerceB(props) {
           account = user + '.testnet'
         }
 
+        account = account.toLowerCase()
+
         let paramsSupply = {
           account_id: account
         };
@@ -320,7 +324,7 @@ function LightEcommerceB(props) {
             window.location.href = "/create"
         } 
         if(result.dismiss == 'cancel') {
-            window.location.href = "/collection/create" 
+            window.location.href = "/collection/state/create" 
         }
       });
 
@@ -407,12 +411,27 @@ function LightEcommerceB(props) {
                 {/*User description*/}
                 <div className={`flex-col py-2  my-2  rounded-xlarge`}>
                   <div>
-                    <span className=" text-[#0A0A0A]   text-base pr-3 font-open-sans  font-normal leading-6">
-                      {state?.data.biography ? state.data.biography :  t("Profile.missingBiography")}
-                    </span>
+                    <p className=" text-[#0A0A0A] max-h-[100px] md:max-h-[75px] overflow-y-auto  text-base pr-3 font-open-sans  font-normal leading-6">
+                      {state?.data.biography ?
+                        <div>
+                          {state?.data.biography.length > 150 ?
+                              <> 
+                              <span className="">{showMoreBio ? state?.data.biography : state?.data.biography.substring(0, 150)}</span>
+                              <button className="btn font-open-sans text-base font-bold text-[#a4a2a4]" onClick={() => setShowMoreBio(!showMoreBio)}>
+                                {showMoreBio ? `${t("tokCollection.seeLess")}` : `${t("tokCollection.seeMore")}`}</button>
+                              </> :
+                              <>
+                              <div> <span>{state?.data.biography}</span></div>
+                              </>
+                             }
+                        </div>
+                       : 
+                      <>
+                      {t("Profile.missingBiography")}
+                      </>}
+                    </p>
                   </div>
                 </div> 
-                
               </div>
             </div>
             {myProfile ? 

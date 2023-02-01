@@ -469,7 +469,7 @@ function CreateEditProfile(props) {
       setErrorTwitter(true);
       return;
     }
-    if (values.twitter === "") {
+    if (values.bio === "") {
       setErrorBio(true);
       return;
     }
@@ -723,11 +723,6 @@ function CreateEditProfile(props) {
                       {formik.errors.twitter}
                     </div>
                   ) : null}
-                  {ErrorTwitter && (
-                    <div className="leading-7    text-sm text-red-600 font-open-sans">
-                      {formik.errors.twitter}
-                    </div>
-                  )}
                 </div>
                 <div className="flex justify-between    border-dotted border-2 border-slate-300 rounded-md w-full  h-[50px]  mb-4   ">
                   <input
@@ -773,7 +768,7 @@ function CreateEditProfile(props) {
                     {...formik.getFieldProps("bio")}
                     className={ // mint?.banner   ? `font-open-sans mx-2  flex flex-col  h-full  bg-transparent   text-black lg:text-slate-300 stroke-black stroke-1 text-left  justify-center    w-full`  :
                          `font-open-sans mx-2  flex flex-col  h-full  bg-transparent    text-slate-300]  text-left  justify-center    w-full`
-                    }
+                    } 
                   />
                 </div>
               </div>

@@ -184,9 +184,12 @@
         "title" : "Colecciones"
     },
     "tokCollection" : {
+        "colID":"ID:",
         "creator" : "Creador",
+        "creatorby" : "Creado por ",
         "contract" : "Contrato:",
-        "noTokens" : "No. Tokens",
+        "noTokens" : "Tokens: ",
+        "Tokenscollection":"Tokens de la colección",
         "noSale" : "No. de ventas:",
         "collectionID" : "ID Colección",
         "volSale" : "Vol. de venta:",
@@ -204,7 +207,18 @@
         "seeLess" : "Ver menos",
         "search" : "Busca por: Cuenta ó Título..",
         "markTitle" : "Mercado",
-        "markOwn" : "Dueño:"
+        "markOwn" : "Dueño:",
+        "published":"Publicado ",
+        "of":"de",
+        "by":"Por",
+        "NoWebsite":"!Website no disponible!",
+        "Website":"!Visitar Website!",
+        "NoTwitter":"!Twitter no disponible!",
+        "Twitter":"!Visitar twitter!",
+        "ShareCol":"!Compartir esta colleción!"
+
+
+
     },
     "Detail" : {
         "collection" : "Colección",
@@ -534,7 +548,8 @@
         "KeepcreatinProfile_no":"        No",
         "editProfileMessage" : "Editar perfil",
         "missingBiography": "Biografía del artista",
-        "missingTwitter": "twitter del artista"
+        "missingTwitter": "twitter del artista",
+        "seeMore" : "...Ver más"
     },
     "addToken" : {
         "alert1-title" : "Selecciona una colección",

@@ -13,8 +13,8 @@ import {
   getNearAccount,
   getNearContract,
 } from "../utils/near_interaction";
-import flechaiz from "../assets/landingSlider/img/flechaIz.png";
-import ReactHashtag from "react-hashtag";
+import flechaiz from '../assets/landingSlider/img/flechaIz.png'
+
 import OfferModal from "../components/offerModal.component";
 import AddTokenModal from "../components/addTokenModal.component";
 import PriceNft from "../components/PriceNft.component";

@@ -3,20 +3,15 @@ import PropTypes from "prop-types";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
-import { useParams, useHistory } from "react-router-dom";
-import { acceptedFormats, currencys } from "../utils/constraint";
+import { useParams } from "react-router-dom";
 import icon from "../assets/img/iconoColeccion.png"
 import banner from "../assets/img/portadaColeccion.jpg"
 import ImageUploader from 'react-images-upload';
 import {
-  estimateGas,
-  fromNearToEth,
-  fromNearToYocto,
-  fromYoctoToNear,
+ 
   getNearAccount,
   getNearContract,
-  storage_byte_cost,
-  ext_call
+  
 } from "../utils/near_interaction";
 import { uploadFileAPI } from '../utils/pinata'
 import Swal from 'sweetalert2'
@@ -25,7 +20,7 @@ import { useWalletSelector } from "../utils/walletSelector";
 
 function LightHeroE(props) {
   //este estado contiene toda la info de el componente
-  const { selector, modal, accounts, accountId } = useWalletSelector();
+  const { selector,  accountId } = useWalletSelector();
   const [mint, setmint] = React.useState({
     fileIcon: undefined,
     fileBanner: undefined,
@@ -43,10 +38,6 @@ function LightHeroE(props) {
   const [colId, setColId] = useState()
   const [visibility, setVisibility] = useState(false)
   const [type, setType] = useState(false)
-  
-  
-  
-
   const [actualDate, setactualDate] = useState("");
   let collectionData
   const APIURL = process.env.REACT_APP_API_TG
@@ -75,7 +66,7 @@ function LightHeroE(props) {
             icon: 'success',
             confirmButtonColor: '#E79211'
           }).then(function () {
-            window.location.href = "viewcollection/"+type[1]
+            window.location.href = "collection/"+type[1]
           })
         }
         let id = await getNearAccount()
@@ -126,7 +117,7 @@ function LightHeroE(props) {
           setTxtBttnBanner(t("CreateCol.btnImg-3"))
         }
         else{
-          window.location.href('/collection/create')
+          window.location.href('/collection/state/create')
         }
       }
       else{
@@ -137,7 +128,7 @@ function LightHeroE(props) {
             icon: 'success',
             confirmButtonColor: '#E79211'
           }).then(function () {
-            window.location.href = "/mynfts"
+            window.location.href = "/"+accountId.split('.')[0];
           })
         }
       }
@@ -256,7 +247,7 @@ function LightHeroE(props) {
         position: window.innerWidth < 1024 ? 'bottom' : 'center'
       }).then((result) => {
         if (result.isConfirmed) {
-          (type ? window.location.href = "/collection/"+colId : window.location.href = "/mynfts")
+          (type ? window.location.href = "/collection/state/"+colId : window.location.href = "/"+accountId.split('.')[0])
         }
       });
     }).catch((err) => {

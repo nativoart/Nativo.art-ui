@@ -349,8 +349,8 @@ function MyAcquisitions(props) {
         let contract = await getNearContract();
         let account = await getNearAccount();      
         const query = new URLSearchParams(location);
-        console.log('QUERY', query.get('pathname').split('/')[1] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'));//.pathname.split('/')[0]);
-        let user = query.get('pathname').split('/')[1] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet');
+        console.log('QUERY', query.get('pathname').split('/')[1].toLowerCase() + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'));//.pathname.split('/')[0]);
+        let user = query.get('pathname').split('/')[1].toLowerCase() + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet');
         setProfile({ user: user}); 
         
         if (user == accountId) {
@@ -358,7 +358,7 @@ function MyAcquisitions(props) {
         }
         // let numNFT = await contract.nft_supply_for_owner({ account_id: accountId })
         // let numNFTCreations = await contract.nft_supply_for_creator({ account_id: accountId })
-        const supply_payload = btoa(JSON.stringify({ account_id: query.get('pathname').split('/')[1] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet') }))
+        const supply_payload = btoa(JSON.stringify({ account_id: query.get('pathname').split('/')[1].toLowerCase() + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet') }))
         const { network } = selector.options;
         const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
         const res_numNFT = await provider.query({
@@ -381,7 +381,7 @@ function MyAcquisitions(props) {
         if(tokSort){
           
           let payload = {
-            account_id: query.get('pathname').split('/')[1] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'),
+            account_id: query.get('pathname').split('/')[1].toLowerCase() + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'),
             from_index: (numNFT < nfts.tokensPerPage ? "0" : (numNFT - nfts.tokensPerPage).toString()),
             limit: nfts.tokensPerPage,
           };
@@ -450,7 +450,7 @@ function MyAcquisitions(props) {
           console.log('USEEFFECT primero nfts.tokensPerPage',nfts.tokensPerPage);
           console.log('USEEFFECT primero  numNFT - nfts.tokensPerPage',numNFT - nfts.tokensPerPage);
           let payload = {
-            account_id: query.get('pathname').split('/')[1] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'),
+            account_id: query.get('pathname').split('/')[1].toLowerCase() + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'),
             from_index: "0",
             limit: nfts.tokensPerPage,
           };

@@ -123,8 +123,8 @@ function MyCollections(props) {
 
   React.useEffect(() => {
     const query = new URLSearchParams(location);
-    console.log('QUERY', query.get('pathname').split('/')[1] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'));//.pathname.split('/')[0]);
-    let user = query.get('pathname').split('/')[1] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet');
+    console.log('QUERY', query.get('pathname').split('/')[1].toLowerCase() + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'));//.pathname.split('/')[0]);
+    let user = query.get('pathname').split('/')[1].toLowerCase() + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet');
     setProfile({ user: user}); 
     
 
@@ -373,7 +373,7 @@ function MyCollections(props) {
                       </div> : ""
                     }
                     <div className="w-full sm:w-[280px] md:w-[350px] lg:w-[477px] xl:w-[397px] 2xl:w-[482px]" key={key}>
-                      <a href={"/viewcollection/" + item.collectionID}
+                      <a href={"/collection/" + item.collectionID}
                       >
                         <div className="flex flex-row justify-items-center w-full" key={key}>
 
@@ -415,7 +415,7 @@ function MyCollections(props) {
                         </div> : ""
                       }
                       <div className="w-full sm:w-[280px] md:w-[350px] lg:w-[477px] xl:w-[397px] 2xl:w-[482px]" key={key}>
-                        <a href={"/viewcollection/" + item.collectionID}
+                        <a href={"/collection/" + item.collectionID}
                         >
                           <div className="flex flex-row justify-items-center w-full" key={key}>
 
@@ -475,7 +475,7 @@ function MyCollections(props) {
                      :
                     <div className="h-[390px] w-[210px] xl:w-[250px]  mt-10 m-auto md:mx-0" >
                      <a
-                        href={"/collection/create"}
+                        href={"/collection/state/create"}
                       >
                         <div className="flex flex-row justify-center " >
                           <div className="trending-token w-full h-full rounded-xl shadow-lg   hover:scale-105 ">
