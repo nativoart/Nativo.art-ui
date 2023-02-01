@@ -13,7 +13,7 @@ import nearImage from '../assets/img/landing/trendingSection/Vector.png';
 
 //import { useHistory } from "react-router";
 
-export default function PriceModal(props) {
+export default function PutOnSaleModal(props) {
   //const history = useHistory();
   const { selector, modal, accounts, accountId } = useWalletSelector();
   const [t, i18n] = useTranslation("global")
@@ -29,7 +29,7 @@ export default function PriceModal(props) {
     enableReinitialize: true,
     initialValues: {
       terms: false,
-      price: props.price
+      price: 0
     },
     validationSchema: Yup.object({
       price: Yup.number()
@@ -42,38 +42,26 @@ export default function PriceModal(props) {
     }),
     //Metodo para el boton ofertar del formulario
     onSubmit: async (values) => {
+      console.log('NYA', values);
       let ofertar;
         let contract = await getNearContract();
-        let amount = fromNearToYocto(process.env.REACT_APP_FEE_CREATE_NFT);
-        let priceChange = fromNearToYocto(values.price)
+        let amount = fromNearToYocto(process.env.REACT_APP_FEE_PUT_ON_SALE_NFT);
+        let priceChange = fromNearToYocto(values.price);
+        let msgData = JSON.stringify({market_type:"on_sale", price: priceChange, title: props.title, media: props.media, creator_id: props.creator, description: props.description})
+        console.log('msgData',msgData)
         let payload = {
-          nft_contract_id: process.env.REACT_APP_CONTRACT,
+          account_id: process.env.REACT_APP_CONTRACT_MARKET,
           token_id: props.tokenID,
-          price: priceChange
+          msg: msgData 
         }
-        //console.log(payload)
-        let data = await getSaleData(props.tokenID)
-        let price = fromYoctoToNear(data.price)
-        if(price == values.price){
-          Swal.fire({
-            background: '#0a0a0a',
-            html:
-            '<div class="">' +
-            '<div class="font-open-sans  text-base font-extrabold text-white mb-4 text-left uppercase">' +  t("Modal.priceAlert") + '</div>' +
-            '<div class="font-open-sans  text-sm text-white text-left">' + t("Modal.priceAlertTxt") + '</div>' +
-            '</div>',
-            confirmButtonColor: '#F79336',
-            position: window.innerWidth < 1024 ? 'bottom' : 'center'
-          })
-          return
-        }
+        console.log(payload)
         if(!values.terms){
           Swal.fire({
             background: '#0a0a0a',
             html:
             '<div class="">' +
             '<div class="font-open-sans  text-base font-extrabold text-white mb-4 text-left uppercase">' +  t("Modal.transAlert2") + '</div>' +
-            '<div class="font-open-sans  text-sm text-white text-left">' + t("Modal.transAlert2Txt") + '</div>' +
+            '<div class="font-open-sans  text-sm text-white text-left">' + t("Modal.putOnSaleAlert2Txt") + '</div>' +
             '</div>',
             confirmButtonColor: '#F79336',
             position: window.innerWidth < 1024 ? 'bottom' : 'center'
@@ -84,19 +72,19 @@ export default function PriceModal(props) {
         const wallet = await selector.wallet();
         wallet.signAndSendTransaction({
           signerId: accountId,
-          receiverId: process.env.REACT_APP_CONTRACT_MARKET,
+          receiverId: process.env.REACT_APP_CONTRACT,
           actions: [
             {
               type: "FunctionCall",
               params: {
-                methodName: "update_price",
+                methodName: "nft_approve",
                 args: payload,
                 gas: 300000000000000,
-                deposit: 1,
+                deposit: amount,
               }
             }
           ],
-          callbackUrl:  window.location.protocol + "//" + window.location.host+'/token/'+props.tokenID+'?action=updateprice'
+          callbackUrl:  window.location.protocol + "//" + window.location.host+'/token/'+props.tokenID+'?action=putonsale'
 
         }).then(() => {
           // Swal.fire({
@@ -119,7 +107,7 @@ export default function PriceModal(props) {
           //     window.location.href = "/token/"+props.tokenID
           //   }
           // });
-          props.confirmUpdate()
+          props.confirmPutOnSale()
           props.change({ show: false });
         }).catch((err) => {
           console.log("error: ", err);
@@ -167,7 +155,6 @@ export default function PriceModal(props) {
   return (
     props.show && (
       <>
-      {console.log('PRICE dentro de price', props)}
         <div className="  justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none rounded-xlarge">
           <div className="w-9/12 md:w-6/12 my-6  rounded-xlarge">
             {/*content*/}
@@ -212,7 +199,7 @@ export default function PriceModal(props) {
                                 alt={props.description}
                                 width={15}
                                 height={15}
-                              /> {props.price} NEAR</div>
+                              /> {formik.values.price} NEAR</div>
                             </div>
                             <a href=""><p className="text-black py-3 font-open-sans text-[10px] xl:pb-[23px] font-semibold leading-4 text-ellipsis overflow-hidden whitespace-nowrap uppercase">{t("tokCollection.createdBy") + ":"} {props.creator}</p></a>
                           </div>
@@ -226,7 +213,7 @@ export default function PriceModal(props) {
 
                   <div className="flex justify-center w-full items-center">
                     <p className=" text-2xl leading-relaxed text-[#0a0a0a] font-open-sans font-bold w-full">
-                    {t("MyNFTs.btnPrice")}
+                    {t("Detail.putPrice")}
                     </p>
                   </div>
 
@@ -277,7 +264,7 @@ export default function PriceModal(props) {
                               className={`relative bg-[#F79336] text-white font-extrabold uppercase text-sm px-6 py-3 rounded-md  outline-none focus:outline-none  ease-linear transition-all duration-150 w-full`}
                               type="submit"
                             >
-                              <span className="font-open-sans">{t("Modal.changePrice")}</span>
+                              <span className="font-open-sans">{t("Detail.putOnSale")}</span>
                             </button>
                           </div>
                         </div>

@@ -236,13 +236,42 @@
         "accept" : "Accept",
         "decline" : "Decline",
         "bidsMade" : "Bids Made",
-        "modalMakeBid" : "Make a bid",
+        "modalMakeBid" : "Bid",
         "modalMsg" : "Make an attractive bid to get this token",
         "actualBid" : "Current bid:",
         "cancelBid" : "Cancel bid",
         "btnAddNFTCol" : "Add NFT to a collection",
         "msgAddToken" : "Add NFT to a collection",
-        "msgAddToken2" : "Select the collection to which you want to add the NFT"
+        "msgAddToken2" : "Select the collection to which you want to add the NFT",
+        "back": "Back",
+        "available" : "Available",
+        "notAvailable" : "Not Available",
+        "required": "Required",
+        "positive": "Price must be greater than 0.1",
+        "changePrice" : "Change price",
+        "putOnSale": "Put on sale",
+        "putPrice" : "Put price",
+        "c-Information" : "Information",
+        "c-description" : "Description",
+        "c-detail" : "Details",
+        "c-contract" : "Contract direction",
+        "c-tokenId" : "Token ID",
+        "c-estandar" : "Token Standard",
+        "c-blockchain" : "Blockchain",
+        "c-added" : "Added in",
+        "c-royalties" :"Royalties",
+        "c-historial" : "Price history",
+        "c-actividad" : "Activity",
+        "removeConfTitle" : "Digital Collectible Removed from Sale!",
+        "removeConfSubtitle" : "Your digital collectible has been successfully removed from sale",
+        "removeConfButton" : "Ok",
+        "updateConfTitle" : "You've updated the price of your digital collectible!",
+        "updateConfSubtitle" : "The price update of your digital collectible has been carried out successfully",
+        "finalizeBuy": "Purchased completed!",
+        "finalizeBuySubtitle" : "has been added to your digital collectibles",
+        "backToMyNFT": "Go Back to my NFT",
+        "putOnSaleConfirm": "Digital collectible added for sale!",
+        "putOnSaleConfirmSubtitle": "has been added for sale on marketplace"
     },
     "MyNFTs" : {
         "title" : "My NFTs",
@@ -252,7 +281,7 @@
         "available-2" : "Not available",
         "creator" : "Creator:",
         "detail" : "See detail of the NFT",
-        "remove" : "Remove for sale",
+        "remove" : "Remove sale",
         "titleModal" : "Resell NFT",
         "txtModal" : "Enter the cost at which you want to list this NFT for sale.",
         "btnCancel" : "Cancel",
@@ -475,7 +504,8 @@
         "skip_description": "Don´t worry,you'll be able to add to collection or set it a price at the your NFT's details",
         "skip_collection_description": "Don´t worry,you'll be able to create nft later",
         
-        "skip_accept": "Sure!"
+        "skip_accept": "Sure!",
+        "putOnSaleAlert2Txt" : "In order to put on sale an NFT you need to accept the terms and conditions"
 
     },
     "Profile" : {
@@ -570,7 +600,9 @@
         "congratsMsgV1" : "Your NFT has been successfully put up for sale",
         "congratsMsgV2" : "Your NFT has been successfully listed and added to a collection",
         "removeSaleTit" : "You have removed your NFT from sale",
-        "removeSaleMsg" : "Your NFT has been successfully removed from sale"
+        "removeSaleMsg" : "Your NFT has been successfully removed from sale",
+        "willRemoveSaleTit" : "Want to remove your NFT from sale?",
+        "willRemoveSaleMsg" : "You can put on sale later"
     },
     "Explore" : {
         "titleTok" : "Explore all Tokens",

@@ -643,7 +643,7 @@ function MyAcquisitions(props) {
                 </div> : ""}
                     <div className="w-full grow md:grow-0 xs:w-[150px] h-[279px] lg:h-[350px] sm:w-[180px] md:w-[160px] lg:w-[232px]  xl:w-[295px] 2xl:w-[284px] xl:h-[395px] 2xl:h-[485px] " key={key}>
                                             <a
-                                                href={"/detail/" + itemNft.tokenID}
+                                                href={"/token/" + itemNft.tokenID}
                                             >
                                                 <div className="flex flex-row justify-center " >
                                                     <div className="trending-token w-full h-full rounded-xl shadow-lg   hover:scale-105 ">

@@ -997,7 +997,7 @@ function MisTokens(props) {
                                       >{`${t("MyNFTs.cost")}+${':'}`}<span className="font-bold">{`${nft.price} ${nfts.currency}`}</span></h2>
                                       <div className="text-center">
                                         <a
-                                          href={"/detail/" + nft.tokenID}
+                                          href={"/token/" + nft.tokenID}
                                           className={`inline-block w-full text-md text-brown bg-white border-0 py-2 px-4 focus:outline-none hover:bg-yellow2 2 hover:text-white rounded-xlarge font-raleway font-medium `}
                                         >{t("MyNFTs.detail")}</a>
                                         <button
@@ -1168,7 +1168,7 @@ function MisTokens(props) {
                                     >{`${t("MyNFTs.cost")}+${':'}`}<span className="font-bold">{`${nft.price} ${nfts.currency}`}</span></h2>
                                     <div className="text-center">
                                       <a
-                                        href={"/detail/" + nft.tokenID}
+                                        href={"/token/" + nft.tokenID}
                                         className={`inline-block w-full text-md text-brown bg-white border-0 py-2 px-4 focus:outline-none hover:bg-yellow2 2 hover:text-white rounded-xlarge font-raleway font-medium `}
                                       >{t("MyNFTs.detail")}</a>
                                       
