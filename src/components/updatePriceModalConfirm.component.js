@@ -43,22 +43,6 @@ export default function UpdatePriceModalConfirm(props) {
             <div className=" rounded-xlarge shadow-lg  flex flex-col  bg-white outline-none focus:outline-none">
               {/*header*/}
 
-              <div
-                className={`flex flex-row   items-start justify-between font-bold uppercase p-5  rounded-t-xlarge text-white`}>
-                <div className="font-raleway">{props.tokens.title} </div>
-                <div><button
-                  className={`  text-[#0a0a0a]  font-bold uppercase px-[20px]  `}
-                  type="button"
-                  disabled={props.disabled}
-                  onClick={() => {
-                    props.change({ show: false });
-                  }}
-                >
-                  {props.buttonName}
-                </button>
-                </div>
-              </div>
-
               <div className="relative p-6 flex flex-col md:flex-row  ">
                 <div className="w-full md:w-1/2 flex justify-center">
                   <div className="w-full xs:w-[158px] h-[279px] sm:w-[180px] md:w-[160px] lg:w-[210px] xl:w-[275px] 2xl:w-[335px] xl:h-[395px] 2xl:h-[485px] " >
@@ -74,15 +58,6 @@ export default function UpdatePriceModalConfirm(props) {
                           </div>
                           <div className="px-3 py-1">
                             <p className=" text-black text-base leading-6 text-ellipsis overflow-hidden whitespace-nowrap font-open-sans font-extrabold uppercase">{props.tokens.title}</p>
-                            <div className="flex justify-start">
-                              <div className=" text-base font-open-sans font-semibold py-2 text-yellow4 flex">  <img
-                                className="w-[16px] h-[16px] my-auto mr-2"
-                                src={nearImage}
-                                alt={props.tokens.description}
-                                width={15}
-                                height={15}
-                              /> {props.tokens.price} NEAR</div>
-                            </div>
                             <a href=""><p className="text-black py-3 font-open-sans text-[10px] xl:pb-[23px] font-semibold leading-4 text-ellipsis overflow-hidden whitespace-nowrap uppercase">{t("tokCollection.createdBy") + ":"} {props.tokens.creator}</p></a>
                           </div>
                         </div>
@@ -92,14 +67,29 @@ export default function UpdatePriceModalConfirm(props) {
 
                 </div>
                 <div className="w-full md:w-1/2 flex flex-col justify-center mt-3 md:mt-0">
-
-                  <div className="flex justify-center w-full items-center">
-                    <p className=" text-2xl leading-relaxed text-[#0a0a0a] font-open-sans font-bold w-full">
-                   PRECIO ACTUALIZADO
+                <div className="flex flex-col w-full">
+                    <p className="text-3xl md:text-4xl lg:text-5xl mt-1  md:mt-0 text-[#0a0a0a] font-clash-grotesk font-bold w-full">
+                      {t("Detail.updateConfTitle")}
+                    </p>
+                    <p className="font-open-sans text-base font-normal text-[#0a0a0a]">
+                      {t("Detail.updateConfSubtitle")}
                     </p>
                   </div>
 
                   {/* Formulario para ofertar */}
+
+                  <div className="w-full flex justify-end ">
+                    <div className="relative group mt-3 rounded-full w-full">
+                      <button
+                        className={`relative bg-[#F79336] text-white font-extrabold uppercase text-sm px-6 py-3 rounded-md  outline-none focus:outline-none  ease-linear transition-all duration-150 w-full`}
+                        onClick={() => {window.location.href="/token/"+props.tokens.tokenID}}
+                      >
+                        <span className="font-open-sans">
+                          {t("Detail.removeConfButton")}
+                        </span>
+                      </button>
+                    </div>
+                  </div>
 
                   {/* Boton de cancelar en la ventana modal */}
                   <div className="flex justify-end">

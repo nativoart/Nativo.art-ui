@@ -120,6 +120,7 @@ export default function PriceModal(props) {
           //   }
           // });
           props.confirmUpdate()
+          props.change({ show: false });
         }).catch((err) => {
           console.log("error: ", err);
         });

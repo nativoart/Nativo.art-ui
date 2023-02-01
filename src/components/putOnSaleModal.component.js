@@ -108,6 +108,7 @@ export default function PutOnSaleModal(props) {
           //   }
           // });
           props.confirmPutOnSale()
+          props.change({ show: false });
         }).catch((err) => {
           console.log("error: ", err);
         });
