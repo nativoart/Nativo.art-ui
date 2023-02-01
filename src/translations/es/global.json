@@ -243,8 +243,18 @@
         "positive": "El precio debe ser mayor a 0.1",
         "changePrice" : "Cambiar precio",
         "putOnSale": "Poner a la venta",
-        "putPrice" : "Poner precio"
-
+        "putPrice" : "Poner precio",
+        "c-Information" : "Información",
+        "c-description" : "Descripción",
+        "c-detail" : "Detalles",
+        "c-contract" : "Dirección del contrato",
+        "c-tokenId" : "Token ID",
+        "c-estandar" : "Estándar del Token",
+        "c-blockchain" : "Blockchain",
+        "c-added" : "Agregado en",
+        "c-royalties" :"Regalías",
+        "c-historial" : "Historial de precio",
+        "c-actividad" : "Actividad"
     },
     "MyNFTs" : {
         "title" : "Mis NFTs",
