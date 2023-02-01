@@ -353,14 +353,14 @@ function MyCreations(props) {
         let contract = await getNearContract();
         let account = await getNearAccount();
         const query = new URLSearchParams(location);
-        let user = query.get('pathname').split('/')[1] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet');
+        let user = query.get('pathname').split('/')[1].toLowerCase() + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet');
         setProfile({ user: user});      
         
         if (user == accountId) {
           setMyProfile(true)
         }
       
-        const supply_payload = btoa(JSON.stringify({ account_id: query.get('pathname').split('/')[1]+ (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet') }))
+        const supply_payload = btoa(JSON.stringify({ account_id: query.get('pathname').split('/')[1].toLowerCase()+ (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet') }))
         const { network } = selector.options;
         const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
 
@@ -383,7 +383,7 @@ function MyCreations(props) {
         if(tokSort){
         
         let payloadCreations = {
-          account_id: query.get('pathname').split('/')[1] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'),
+          account_id: query.get('pathname').split('/')[1].toLowerCase() + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'),
           from_index: (numNFTCreations < nfts.tokensPerPage ? "0" : (numNFTCreations - nfts.tokensPerPage).toString()),
           limit: nfts.tokensPerPage,
         };
@@ -442,7 +442,7 @@ function MyCreations(props) {
           //ARR for Creators 
         
         let payloadCreations = {
-          account_id: query.get('pathname').split('/')[1] + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'),
+          account_id: query.get('pathname').split('/')[1].toLowerCase() + (process.env.REACT_APP_NEAR_ENV == 'mainnet' ? '.near' : '.testnet'),
           from_index: "0",
           limit: nfts.tokensPerPage,
         };

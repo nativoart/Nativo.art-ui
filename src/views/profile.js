@@ -190,6 +190,8 @@ function LightEcommerceB(props) {
           account = user + '.testnet'
         }
 
+        account = account.toLowerCase()
+
         let paramsSupply = {
           account_id: account
         };
