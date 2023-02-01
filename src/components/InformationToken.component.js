@@ -8,7 +8,7 @@ import { date } from "yup";
 function InformationToken(props) {
   const [t, i18n] = useTranslation("global");
   const { selector, modal, accounts, accountId } = useWalletSelector();
-  const [fecha, setFecha] = useState()
+  const [fecha, setFecha] = useState("")
 
   /**
    * Función que cambia a "no disponible" un token nft que esta a la venta siempre que se sea el owner
@@ -117,23 +117,31 @@ function InformationToken(props) {
                     <p className="w-1/2 font-bold text-[13px]">{t("Detail.c-blockchain")}</p>
                     <p className="w-1/2 text-[13px] truncate text-right">NEAR</p>
                 </div>
-                <div className="mt-1 flex flex-row">
-                    <p className="w-1/2 font-bold text-[13px]">{t("Detail.c-added")}</p>
-                    <p className="w-1/2 text-[13px] truncate text-right">{fecha}</p>
-                </div>
-                <div className="mt-1 flex flex-row">
-                    <p className="w-1/2 font-bold text-[13px]">{t("Detail.c-royalties")}</p>
-                    <div className="w-1/2 text-[13px] text-right">
-                        {props.royalty.map((item,key) => {
-                            return(
-                                <div className="flex flex-row">
-                                    <p className="truncate w-3/5">{item[0]}</p>
-                                    <p className="w-2/5">{item[1]/100}%</p>
-                                </div>
-                            )
-                        })}
-                    </div>
-                </div>
+                {fecha != "" ?
+                  <div className="mt-1 flex flex-row">
+                      <p className="w-1/2 font-bold text-[13px]">{t("Detail.c-added")}</p>
+                      <p className="w-1/2 text-[13px] truncate text-right">{fecha}</p>
+                  </div>
+                  :
+                  ""
+                }
+                {props.royalty.length > 0 ?
+                  <div className="mt-1 flex flex-row">
+                      <p className="w-1/2 font-bold text-[13px]">{t("Detail.c-royalties")}</p>
+                      <div className="w-1/2 text-[13px] text-right">
+                          {props.royalty.map((item,key) => {
+                              return(
+                                  <div className="flex flex-row">
+                                      <p className="truncate w-3/5">{item[0]}</p>
+                                      <p className="w-2/5">{item[1]/100}%</p>
+                                  </div>
+                              )
+                          })}
+                      </div>
+                  </div>
+                  :
+                  ""
+                }
             </div>
           </div>
         </details>
