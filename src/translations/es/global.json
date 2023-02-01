@@ -259,7 +259,12 @@
         "removeConfSubtitle" : "Se ha removido tu coleccionable digital de la venta con exito",
         "removeConfButton" : "Regresar a mi coleccionable digital",
         "updateConfTitle" : "¡Has actualizado el precio de tu coleccionable digital!",
-        "updateConfSubtitle" : "Se ha realizado la actualizacion de precio de tu coleccionable digital de manera exitosa"
+        "updateConfSubtitle" : "Se ha realizado la actualizacion de precio de tu coleccionable digital de manera exitosa",
+        "finalizeBuy": "¡Compra finalizada!",
+        "finalizeBuySubtitle": "Ha sido añadido a tus coleccionables digitales",
+        "backToMyNFT": "Regresar a mi NFT",
+        "putOnSaleConfirm": "¡Coleccionable digital puesto a al venta!",
+        "putOnSaleConfirmSubtitle": "ha sido añadido al marketplace "
     },
     "MyNFTs" : {
         "title" : "Mis NFTs",
