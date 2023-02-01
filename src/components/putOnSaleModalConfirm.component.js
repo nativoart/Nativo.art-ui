@@ -89,12 +89,17 @@ export default function PutOnSaleModalConfirm(props) {
                   {/* Formulario para ofertar */}
 
                   {/* Boton de cancelar en la ventana modal */}
-                  <div className="flex justify-end py-2">
-                    <button className="flex  rounded-xlarge w-full  h-[50px]  mt-0 mx-2" onClick={() => { window.location.href = "/token/"+props.tokens.tokenID }} >
-                      <div className="flex flex-col font-bold h-full text-white  text-center  justify-center shadow-s w-full bg-yellow4 hover:bg-yellowHover active:bg-yellowPressed rounded-md">
-                        <span className="title-font  text-white font-open-sans font-normal lg:font-semibold text-base p-5 uppercase leading-6">{t("Detail.backToMyNFT")}</span>
-                      </div>
-                    </button>
+                  <div className="w-full flex justify-end ">
+                    <div className="relative group mt-3 rounded-full w-full">
+                      <button
+                        className={`relative bg-[#F79336] text-white font-extrabold uppercase text-sm px-6 py-3 rounded-md  outline-none focus:outline-none  ease-linear transition-all duration-150 w-full`}
+                        onClick={() => {window.location.href="/token/"+props.tokens.tokenID}}
+                      >
+                        <span className="font-open-sans">
+                          {t("Detail.removeConfButton")}
+                        </span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
