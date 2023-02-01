@@ -252,7 +252,7 @@
         "c-actividad" : "Activity",
         "removeConfTitle" : "Digital Collectible Removed from Sale!",
         "removeConfSubtitle" : "Your digital collectible has been successfully removed from sale",
-        "removeConfButton" : "Return to my digital collectible",
+        "removeConfButton" : "Ok",
         "updateConfTitle" : "You've updated the price of your digital collectible!",
         "updateConfSubtitle" : "The price update of your digital collectible has been carried out successfully",
         "finalizeBuy": "Completed purchased!",
