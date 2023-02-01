@@ -1,16 +1,26 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, {   useEffect, useState } from "react";
+ 
 import PropTypes from "prop-types";
-import ImageSlider from "./imageSlider.component";
+ 
 import { useWalletSelector } from "../utils/walletSelector";
 import { useTranslation } from "react-i18next";
-import verifyImage from '../assets/img/Check.png';
-import rocket from '../assets/img/Rocket.png';
-import arrowRight from '../assets/img/landing/firstSection/ARROW.png';
-import plus from '../assets/img/landing/firstSection/plus.png';
-import {initKeypom,getEnv,createDrop,getDrops} from "keypom-js";
+ 
+import {initKeypom,getEnv,createDrop,getDrops,getDropSupply,execute,generateKeys} from "keypom-js";
 import Swal from 'sweetalert2'
-
+const {
+	Near,
+	KeyPair,
+	utils: { format: {
+		parseNearAmount
+	} },
+	keyStores: { InMemoryKeyStore },
+} = require("near-api-js");
+const keyPairs = {
+	simple: [],
+	ft: [],
+	nft: [],
+	fc: [],
+}
 
 function LightHeroE(props) {
   const { selector, modal, accounts, accountId } = useWalletSelector();
@@ -18,6 +28,7 @@ function LightHeroE(props) {
   const [t, i18n] = useTranslation("global");
   const [stateLogin, setStateLogin] = useState(false);
   const [WalledinfLogged, setWalledinfLogged] = useState(null);
+  let drops, fundingAccount;
 
   /**
    * *Array to store the wallet names and it props
@@ -47,9 +58,9 @@ function LightHeroE(props) {
         setStateLogin(accountId !=null ? true : false);
       }
      
-      let drops = await getDrops({accountId: accountId});
-      console.log("🪲 ~ file: gift.component.js:51 ~ drops", drops)
-      
+     
+      console.log("🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲");
+
     })();
   }, []);
 
@@ -58,9 +69,9 @@ function LightHeroE(props) {
   }
 
   const init = async() =>{
-    let fundingAccount
+    
     //* Validate if the wallet works with keypom
-    if(!WalledinfLogged?.active){
+    if(false /*!WalledinfLogged?.active*/){
 
       Swal.fire({
         background: '#0a0a0a',
@@ -102,7 +113,7 @@ function LightHeroE(props) {
         fundingAccount = keypomFundingAccount
       
         console.log('fundingAccount', keypomFundingAccount)
-
+        return fundingAccount;
     }
    
   }
@@ -147,6 +158,88 @@ function LightHeroE(props) {
   }
   }
 
+
+  let nftTokenIds = []
+  const NFT_CONTRACT_ID = "nft.examples.testnet";
+  const NFT_METADATA = {
+    title: "Keypom FTW!",
+    description: "Keypom is lit fam!",
+    media: "https://bafkreidsht2pxoytl3d4zdnpsjmxedtk7dhuef2vmr3muz7si3vlthbcr4.ipfs.nftstorage.link",
+}
+  // *'create nft drop and add 1 key'
+const CreateNFTDrop = async (t) => {
+  let fundingAccount =await init();
+  console.log("🪲 ~ file: gift.component.js:172 ~ CreateNFTDrop ~ fundingAccount", fundingAccount)
+ 
+	/// Auto minting 2 NFTs for testing
+
+	let tokenId1 = `Keypom1-${Date.now()}`;
+	let tokenId2 = `Keypom2-${Date.now()}`;
+	const action1 = {
+		type: 'FunctionCall',
+		params: {
+			methodName: 'nft_mint',
+			args: {
+				receiver_id: accountId,
+				metadata: NFT_METADATA,
+				token_id: tokenId1,
+			},
+			gas: '100000000000000',
+			deposit: parseNearAmount('0.1')
+		}
+	}
+	const action2 = JSON.parse(JSON.stringify(action1))
+	action2.params.args.token_id = tokenId2
+	nftTokenIds.push(tokenId1, tokenId2)
+
+	const nftRes = await execute({
+		fundingAccount,
+		transactions: [{
+			receiverId: NFT_CONTRACT_ID,
+			actions: [action1, action2]
+		}]
+	})
+	console.log("🪲 ~ file: gift.component.js:206 ~ CreateNFTDrop ~ nftRes", nftRes)
+ 
+  const dropId = Date.now().toString()
+
+	const publicKeys = []
+	for (var i = 0; i < 1; i++) {
+		const keys = await generateKeys({
+			numKeys: 1,
+			rootEntropy: 'some secret entropy' + Date.now(),
+			metaEntropy: `${dropId}_${i}`
+		})
+		console.log("🪲 ~ file: gift.component.js:217 ~ CreateNFTDrop ~ keys", keys);
+		
+		keyPairs.nft.push(keys.keyPairs[0])
+		publicKeys.push(keys.publicKeys[0]);
+	}
+  
+ 
+	const res = await createDrop({
+    dropId,
+		depositPerUseNEAR: 0.02,
+		publicKeys,
+		nftData: {
+			contractId: NFT_CONTRACT_ID,
+			senderId: accountId,
+			/// if you're passing keys, what NFT tokens to auto send to Keypom so keys can claim them?
+			tokenIds: nftTokenIds.slice(0, 1),
+		}
+	})
+
+	const { responses } = res;
+	console.log("🪲 ~ file: gift.component.js:217 ~ CreateNFTDrop ~ responses", responses);
+	// console.log(responses)
+	const resWithDropId = responses.find((res) => Buffer.from(res.status.SuccessValue, 'base64').toString());
+	console.log("🪲 ~ file: gift.component.js:220 ~ CreateNFTDrop ~ resWithDropId", resWithDropId);
+
+	// t.is(Buffer.from(resWithDropId.status.SuccessValue, 'base64').toString().replaceAll('"', ''), dropId);
+	// console.log("🪲 ~ file: gift.component.js:221 ~ CreateNFTDrop ~ t", t);
+
+
+}
   return (
     <section className="text-gray-600 body-font bg-White_gift lg:bg-White_gift h-[823px] lg:h-[594px] bg-no-repeat bg-cover bg-top ">
       <div className="container mx-auto pt-4 flex px-5 lg:px-0 pb-10 flex-col items-center  lg:items-center  justify-center ">
@@ -173,7 +266,7 @@ function LightHeroE(props) {
           </div>
           <div className="flex flex-col lg:flex-row justify-between z-20">
             <a>
-              <button className="flex inline-flex rounded-xlarge w-full lg:w-[267px] h-[50px]" onClick={createSimple}>
+              <button className="inline-flex   rounded-xlarge w-full lg:w-[267px] h-[50px]" onClick={CreateNFTDrop}>
                 <div className="flex flex-col font-bold h-full text-white  text-center  justify-center shadow-s w-full bg-yellow4 hover:bg-yellowHover active:bg-yellowPressed rounded-md">
                 <svg className="fill-current w-[242px] h-[48px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
                   <span className="title-font  text-white font-open-sans font-normal lg:font-semibold text-base p-5 uppercase leading-6">{t("Landing.generate")} </span>
