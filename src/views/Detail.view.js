@@ -574,6 +574,7 @@ function TokenDetail(props) {
 
   async function putOnSaleConfirm() {
     setPutOnSaleModalConfirm({
+      ...props,
       ...state,
       show: true,
       loading: false,
@@ -587,6 +588,7 @@ function TokenDetail(props) {
 
   async function updatePriceConfirm() {
     setUpdatePriceModalConfirm({
+      ...props,
       ...state,
       show: true,
       loading: false,
@@ -600,6 +602,7 @@ function TokenDetail(props) {
 
   async function buyTokenConfirm() {
     setBuyTokenModalConfirm({
+      ...props,
       ...state,
       show: true,
       loading: false,
@@ -613,6 +616,7 @@ function TokenDetail(props) {
 
   async function removeFromSaleConfirm() {
     setRemoveFromSaleModalConfirm({
+      ...props,
       ...state,
       show: true,
       loading: false,
@@ -849,12 +853,12 @@ function TokenDetail(props) {
 
 
        
-        <OfferModal {...offerModal}  />
-        <AddTokenModal {...addTokenModal} />
-        <PutOnSaleModalConfirm {...putOnSaleModalConfirm} />
-        <UpdatePriceModalConfirm {...updatePriceModalConfirm} />
-        <BuyTokenModalConfirm {...buyTokenModalConfirm} />
-        <RemoveFromSaleModalConfirm {...removeFromSaleModalConfirm} />
+        <OfferModal {...offerModal} {...state} />
+        <AddTokenModal {...addTokenModal} {...state} />
+        <PutOnSaleModalConfirm {...putOnSaleModalConfirm} {...state} />
+        <UpdatePriceModalConfirm {...updatePriceModalConfirm} {...state}  />
+        <BuyTokenModalConfirm {...buyTokenModalConfirm} {...state} />
+        <RemoveFromSaleModalConfirm {...removeFromSaleModalConfirm} {...state}  />
       </section>
      ) : (                   
         <section className="text-white body-font overflow-hidden dark:bg-[#FAF9FB] font-open-sans h-screen">

@@ -19,9 +19,7 @@ export default function PutOnSaleModalConfirm(props) {
   const [t, i18n] = useTranslation("global")
   const [highestbidder, setHighestbidder] = useState(0);
   useEffect(() => {
-    if (props.tokens) {
-      setHighestbidder(props.tokens.highestbidder);
-    }
+   console.log('PROPS OF PUT ON SALE',props);
   });
   
   //Configuramos el formulario para ofertar por un token
@@ -37,7 +35,6 @@ export default function PutOnSaleModalConfirm(props) {
   return (
     props.show && (
       <>
-      {console.log('PutONSALE de price', props)}
         <div className="  justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none rounded-xlarge">
           <div className="w-9/12 md:w-6/12 my-6  rounded-xlarge">
             {/*content*/}
@@ -46,7 +43,7 @@ export default function PutOnSaleModalConfirm(props) {
 
               <div
                 className={`flex flex-row   items-start justify-between font-bold uppercase p-5  rounded-t-xlarge text-white`}>
-                <div className="font-raleway">{props.title} </div>
+                <div className="font-raleway">{props.tokens.title} </div>
                 <div><button
                   className={`  text-[#0a0a0a]  font-bold uppercase px-[20px]  `}
                   type="button"
@@ -69,22 +66,22 @@ export default function PutOnSaleModalConfirm(props) {
                           <div className="pb-3">
                             <img
                               className="object-cover object-center rounded-t-xl w-full h-[163px] lg:w-[340px] xl:h-[250px] 2xl:h-[340px]"
-                              src={`https://nativonft.mypinata.cloud/ipfs/${props.image}`}
-                              alt={props.description}
+                              src={`https://nativonft.mypinata.cloud/ipfs/${props.tokens.image}`}
+                              alt={props.tokens.description}
                             />
                           </div>
                           <div className="px-3 py-1">
-                            <p className=" text-black text-base leading-6 text-ellipsis overflow-hidden whitespace-nowrap font-open-sans font-extrabold uppercase">{props.title}</p>
+                            <p className=" text-black text-base leading-6 text-ellipsis overflow-hidden whitespace-nowrap font-open-sans font-extrabold uppercase">{props.tokens.title}</p>
                             <div className="flex justify-start">
                               <div className=" text-base font-open-sans font-semibold py-2 text-yellow4 flex">  <img
                                 className="w-[16px] h-[16px] my-auto mr-2"
                                 src={nearImage}
-                                alt={props.description}
+                                alt={props.tokens.description}
                                 width={15}
                                 height={15}
-                              />  NEAR</div>
+                              /> {props.tokens.price} NEAR</div>
                             </div>
-                            <a href=""><p className="text-black py-3 font-open-sans text-[10px] xl:pb-[23px] font-semibold leading-4 text-ellipsis overflow-hidden whitespace-nowrap uppercase">{t("tokCollection.createdBy") + ":"} {props.creator}</p></a>
+                            <a href=""><p className="text-black py-3 font-open-sans text-[10px] xl:pb-[23px] font-semibold leading-4 text-ellipsis overflow-hidden whitespace-nowrap uppercase">{t("tokCollection.createdBy") + ":"} {props.token.creator}</p></a>
                           </div>
                         </div>
                       </div>

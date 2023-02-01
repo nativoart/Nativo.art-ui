@@ -84,7 +84,7 @@ export default function PutOnSaleModal(props) {
               }
             }
           ],
-          callbackUrl:  window.location.protocol + "//" + window.location.host+'/token/'+props.tokenID+'?action=buytoken'
+          callbackUrl:  window.location.protocol + "//" + window.location.host+'/token/'+props.tokenID+'?action=putonsale'
 
         }).then(() => {
           Swal.fire({
@@ -153,7 +153,6 @@ export default function PutOnSaleModal(props) {
   return (
     props.show && (
       <>
-      {console.log('PutONSALE de price', props)}
         <div className="  justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none rounded-xlarge">
           <div className="w-9/12 md:w-6/12 my-6  rounded-xlarge">
             {/*content*/}
