@@ -261,7 +261,11 @@ function TokenDetail(props) {
             royalty: Object.entries(nft.royalty),
             creator: nft.creator_id,
             colTitle: colTitle,
-            colID: colID
+            colID: colID,
+            confirmRemove: removeFromSaleConfirm,
+            confirmPutOnSale: putOnSaleConfirm,
+            confirmUpdate: updatePriceConfirm,
+            confirmBuy: buyTokenConfirm
             //chunk: parseInt(toks.token_id/2400),
           },
           jdata: {
@@ -511,31 +515,32 @@ function TokenDetail(props) {
         ],
       })
       .then(() => {
-        Swal.fire({
-          background: "#0a0a0a",
-          width: "800",
-          html:
-            '<div class="">' +
-            '<div class="font-open-sans  text-base font-extrabold text-white mb-4 text-left uppercase">' +
-            t("Alerts.acceptOffTit") +
-            "</div>" +
-            '<div class="font-open-sans  text-sm text-white text-left">' +
-            t("Alerts.acceptOffMsg") +
-            "</div>" +
-            "</div>",
-          confirmButtonText: t("Alerts.continue"),
-          buttonsStyling: false,
-          customClass: {
-            confirmButton:
-              "font-open-sans uppercase text-base  font-extrabold  text-white  text-center bg-yellow2 rounded-md bg-yellow2 px-3 py-[10px] mx-2",
-          },
-          confirmButtonColor: "#f79336",
-          position: window.innerWidth < 1024 ? "bottom" : "center",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.reload();
-          }
-        });
+        // Swal.fire({
+        //   background: "#0a0a0a",
+        //   width: "800",
+        //   html:
+        //     '<div class="">' +
+        //     '<div class="font-open-sans  text-base font-extrabold text-white mb-4 text-left uppercase">' +
+        //     t("Alerts.acceptOffTit") +
+        //     "</div>" +
+        //     '<div class="font-open-sans  text-sm text-white text-left">' +
+        //     t("Alerts.acceptOffMsg") +
+        //     "</div>" +
+        //     "</div>",
+        //   confirmButtonText: t("Alerts.continue"),
+        //   buttonsStyling: false,
+        //   customClass: {
+        //     confirmButton:
+        //       "font-open-sans uppercase text-base  font-extrabold  text-white  text-center bg-yellow2 rounded-md bg-yellow2 px-3 py-[10px] mx-2",
+        //   },
+        //   confirmButtonColor: "#f79336",
+        //   position: window.innerWidth < 1024 ? "bottom" : "center",
+        // }).then((result) => {
+        //   if (result.isConfirmed) {
+        //     window.location.reload();
+        //   }
+        // });
+        buyTokenConfirm()
       })
       .catch((err) => {
         console.log("error: ", err);
@@ -581,7 +586,8 @@ function TokenDetail(props) {
       tokenID: "1",
       change: setPutOnSaleModalConfirm,
       buttonName: 'X',
-      tokenId: 'hardcoded'
+      tokenId: 'hardcoded',
+      tokenData: await state
     })
   }
 
