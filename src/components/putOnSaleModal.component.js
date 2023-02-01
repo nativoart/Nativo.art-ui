@@ -83,7 +83,9 @@ export default function PutOnSaleModal(props) {
                 deposit: amount,
               }
             }
-          ]
+          ],
+          callbackUrl:  window.location.protocol + "//" + window.location.host+'/token/191?action=buytoken'
+
         }).then(() => {
           Swal.fire({
             background: '#0a0a0a',

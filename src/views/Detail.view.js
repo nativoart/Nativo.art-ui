@@ -25,6 +25,10 @@ import Swal from 'sweetalert2'
 import { use } from "i18next";
 import { useWalletSelector } from "../utils/walletSelector";
 import { providers, utils } from "near-api-js";
+import PutOnSaleModalConfirm from "../components/putOnSaleModalConfirm.component";
+import RemoveFromSaleModalConfirm from "../components/removeFromSaleModalConfirm.component";
+import UpdatePriceModalConfirm from "../components/updatePriceModalConfirm.component";
+import BuyTokenModalConfirm from "../components/buyTokenModalConfirm.component";
 
 function TokenDetail(props) {
   //guarda el estado de  toda la vista
@@ -50,9 +54,49 @@ function TokenDetail(props) {
     modal.show();
   }
   const history = useHistory();
+  const query = new URLSearchParams(window.location.search);
+  const action = query.get('action');
+  const errorCode = query.get('errorCode');
+  const errorMessage = query.get('errorMessage');
+  const [putOnSaleModalConfirm, setPutOnSaleModalConfirm] = useState({
+    show: false
+  });
+  const [updatePriceModalConfirm, setUpdatePriceModalConfirm] = useState({
+    show: false
+  });
+  const [removeFromSaleModalConfirm, setRemoveFromSaleModalConfirm] = useState({
+    show: false
+  });
+  const [buyTokenModalConfirm, setBuyTokenModalConfirm] = useState({
+    show: false
+  });
+        
 
   React.useEffect(() => {
     (async () => {
+      if(errorCode!=undefined ){
+        setPutOnSaleModalConfirm({
+          show: false
+        });
+        setUpdatePriceModalConfirm({
+          show: false
+        });
+        setRemoveFromSaleModalConfirm({
+          show: false
+        });
+        setBuyTokenModalConfirm({
+          show: false
+        });
+      } else if(errorCode==undefined && action=='removesale'){
+        removeFromSaleConfirm();
+      } else if(errorCode==undefined && action=='updateprice'){
+        updatePriceConfirm();
+      } else if(errorCode==undefined && action=='buytoken'){
+        buyTokenConfirm();
+      } else if(errorCode==undefined && action=='putonsale'){
+        putOnSaleConfirm();
+      }
+      
       setStateLogin(accountId !=null ? true : false);
       let ownerAccount = accountId;
  
@@ -447,6 +491,60 @@ function TokenDetail(props) {
       tokenId: 'hardcoded'
     })
   }
+
+  async function putOnSaleConfirm() {
+    setPutOnSaleModalConfirm({
+      ...state,
+      show: true,
+      loading: false,
+      disabled: false,
+      tokenID: "1",
+      change: setPutOnSaleModalConfirm,
+      buttonName: 'X',
+      tokenId: 'hardcoded'
+    })
+  }
+
+  async function updatePriceConfirm() {
+    setUpdatePriceModalConfirm({
+      ...state,
+      show: true,
+      loading: false,
+      disabled: false,
+      tokenID: "1",
+      change: setUpdatePriceModalConfirm,
+      buttonName: 'X',
+      tokenId: 'hardcoded'
+    })
+  }
+
+  async function buyTokenConfirm() {
+    setBuyTokenModalConfirm({
+      ...state,
+      show: true,
+      loading: false,
+      disabled: false,
+      tokenID: "1",
+      change: setBuyTokenModalConfirm,
+      buttonName: 'X',
+      tokenId: 'hardcoded'
+    })
+  }
+
+  async function removeFromSaleConfirm() {
+    setRemoveFromSaleModalConfirm({
+      ...state,
+      show: true,
+      loading: false,
+      disabled: false,
+      tokenID: "1",
+      change: setRemoveFromSaleModalConfirm,
+      buttonName: 'X',
+      tokenId: 'hardcoded'
+    })
+  }
+
+
   //setting state for the offer modal
   const [offerModal, setOfferModal] = useState({
     show: false,
@@ -552,6 +650,10 @@ function TokenDetail(props) {
         </div>
         <OfferModal {...offerModal}  />
         <AddTokenModal {...addTokenModal} />
+        <PutOnSaleModalConfirm {...putOnSaleModalConfirm} />
+        <UpdatePriceModalConfirm {...updatePriceModalConfirm} />
+        <BuyTokenModalConfirm {...buyTokenModalConfirm} />
+        <RemoveFromSaleModalConfirm {...removeFromSaleModalConfirm} />
       </section>
       :                     
         <section className="text-white body-font overflow-hidden dark:bg-[#FAF9FB] font-open-sans h-screen">

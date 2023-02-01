@@ -242,7 +242,7 @@ function PriceNft(props) {
               }
             }
           ],
-          callbackUrl: window.location+'?action=removesale'
+          callbackUrl:  window.location.protocol + "//" + window.location.host+'/token/191?action=removesale'
         })
         .catch((err) => {
           console.log("error: ", err);
@@ -289,6 +289,8 @@ function PriceNft(props) {
             }
           }
         ],
+        callbackUrl:  window.location.protocol + "//" + window.location.host+'/token/191?action=buytoken'
+        ,
       }).then(() => {
         setEnabled(true)
       }).catch((err) => {

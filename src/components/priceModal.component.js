@@ -95,7 +95,9 @@ export default function PriceModal(props) {
                 deposit: 1,
               }
             }
-          ]
+          ],
+          callbackUrl:  window.location.protocol + "//" + window.location.host+'/token/191?action=updateprice'
+
         }).then(() => {
           Swal.fire({
             background: '#0a0a0a',
