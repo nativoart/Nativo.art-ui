@@ -13,7 +13,7 @@ import OfferModal from "../components/offerModal.component";
 
 function PriceNft(props) {
   const [t, i18n] = useTranslation("global");
-  const { selector, modal, accounts, accountId } = useWalletSelector();
+  const { selector, modal, accounts, accountId, logged } = useWalletSelector();
   const [myNFT, setMyNFT] = useState();
   const [priceModal, setPriceModal] = useState({
     show: false
@@ -267,6 +267,7 @@ function PriceNft(props) {
     if (localStorage.getItem("blockchain") == "0") {
       return
     } else {
+      if(logged){
       console.log("props.price", props.price)
       let amount = parseFloat(props.price.replace(',', ''));
       console.log("amount", amount)
@@ -301,8 +302,21 @@ function PriceNft(props) {
       }).catch((err) => {
         console.log("error: ", err);
       });
+    } else {
+      Swal.fire({
+        background: '#0a0a0a',
+        html:
+        '<div class="">' +
+        '<div class="font-open-sans  text-base font-extrabold text-white mb-4 text-left uppercase">' + t("Landing.useNear") + '</div>' +
+        '<div class="font-open-sans  text-sm text-white text-left">' + t("Landing.useNear-sub") + '</div>' +
+        '</div>',
+        confirmButtonColor: '#F79336',
+        position: window.innerWidth < 1024 ? 'bottom' : 'center'
+      })
+      setEnabled(true)
     }
   }
+}
 
   React.useEffect(() => {
       console.log('accountId',accountId)
