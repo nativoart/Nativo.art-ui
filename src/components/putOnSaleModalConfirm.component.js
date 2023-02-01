@@ -78,12 +78,12 @@ export default function PutOnSaleModalConfirm(props) {
 
                   <div className="flex justify-center w-full items-center py-2">
                     <p className=" text-4xl md:text-3xl lg:text-5xl leading-relaxed text-[#0a0a0a] font-clash-grotesk font-semibold w-full text-center">
-                    {t('Detail.finalizeBuy')}
+                    {t('Detail.putOnSaleConfirm')}
                     </p>
                   </div>
                   <div className="flex justify-center w-full items-center py-2">
                     <p className=" text-base leading-relaxed text-[#0a0a0a] font-open-sans font-normal w-full text-center">
-                    {props.tokens.title} {t('Detail.finalizeBuySubtitle')}
+                    {props.tokens.title} {t('Detail.putOnSaleConfirmSubstitle')}
                     </p>
                   </div>
                   {/* Formulario para ofertar */}

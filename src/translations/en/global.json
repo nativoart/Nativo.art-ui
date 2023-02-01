@@ -250,9 +250,11 @@
         "c-royalties" :"Royalties",
         "c-historial" : "Price history",
         "c-actividad" : "Activity",
-        "finalizeBuy": "¡Completed purchased!",
+        "finalizeBuy": "Completed purchased!",
         "finalizeBuySubtitle" : "has been added to your digital collectibles",
-        "backToMyNFT": "Go Back to my NFT"
+        "backToMyNFT": "Go Back to my NFT",
+        "putOnSaleConfirm": "Digital collectible added for sale!",
+        "putOnSaleConfirmSubtitle": "has been added for sale on marketplace"
     },
     "MyNFTs" : {
         "title" : "My NFTs",
