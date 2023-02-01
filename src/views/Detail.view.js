@@ -217,7 +217,7 @@ function TokenDetail(props) {
             royalty: Object.entries(nft.royalty),
             creator: nft.creator_id,
             colTitle: colTitle,
-            colID: userData[0].collectionID
+            colID: colID
             //chunk: parseInt(toks.token_id/2400),
           },
           jdata: {
