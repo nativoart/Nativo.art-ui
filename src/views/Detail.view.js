@@ -656,7 +656,7 @@ function TokenDetail(props) {
                       <div className="">
                         <img
                           alt="ecommerce"
-                          className=" object-cover rounded-xl w-full  h-80 sm:h-96 lg:h-[500px] md:-border-4  border-white"
+                          className=" object-contain rounded-xl w-full  h-80 sm:h-96 lg:h-[500px] md:-border-4  border-white"
                           src={
                             loadInfo
                               ? `https://nativonft.mypinata.cloud/ipfs/${state?.jdata.image}`
