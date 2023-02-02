@@ -96,7 +96,7 @@ export default function PriceModal(props) {
               }
             }
           ],
-          callbackUrl:  window.location.protocol + "//" + window.location.host+'/token/'+props.tokenID+'?action=updateprice'
+          callbackUrl:  window.location.protocol + "//" + window.location.host+'/detail/'+props.tokenID+'?action=updateprice'
 
         }).then(() => {
           // Swal.fire({
@@ -116,7 +116,7 @@ export default function PriceModal(props) {
           //   position: window.innerWidth < 1024 ? 'bottom' : 'center'
           // }).then((result) => {
           //   if (result.isConfirmed) {
-          //     window.location.href = "/token/"+props.tokenID
+          //     window.location.href = "/detail/"+props.tokenID
           //   }
           // });
           props.confirmUpdate()

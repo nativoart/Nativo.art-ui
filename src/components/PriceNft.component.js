@@ -115,7 +115,7 @@ function PriceNft(props) {
             position: window.innerWidth < 1024 ? 'bottom' : 'center'
           }).then((result) => {
             if (result.isConfirmed) {
-              window.location.href = "/token/"+props.tokens.tokenID
+              window.location.href = "/detail/"+props.tokens.tokenID
             }
           });
         })
@@ -229,7 +229,7 @@ function PriceNft(props) {
       position: window.innerWidth < 1024 ? 'bottom' : 'center'
     }).then(async (result) => {
       if (result.isConfirmed) {
-        let URL = "/token/"+tokenID+'?removeSale=ok'.toString();
+        let URL = "/detail/"+tokenID+'?removeSale=ok'.toString();
         wallet.signAndSendTransaction({
           signerId: accountId,
           receiverId: process.env.REACT_APP_CONTRACT,
@@ -244,7 +244,7 @@ function PriceNft(props) {
               }
             }
           ],
-          callbackUrl:  window.location.protocol + "//" + window.location.host+'/token/'+tokenID+'?action=removesale'
+          callbackUrl:  window.location.protocol + "//" + window.location.host+'/detail/'+tokenID+'?action=removesale'
         }).then(() => {
           props.confirmRemove()
         })
@@ -294,7 +294,7 @@ function PriceNft(props) {
             }
           }
         ],
-        callbackUrl:  window.location.protocol + "//" + window.location.host+'/token/'+props.tokenID+'?action=buytoken'
+        callbackUrl:  window.location.protocol + "//" + window.location.host+'/detail/'+props.tokenID+'?action=buytoken'
         ,
       }).then(() => {
         setEnabled(true)

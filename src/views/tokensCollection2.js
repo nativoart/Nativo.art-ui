@@ -1149,7 +1149,7 @@ function TokensCollection() {
                       className=" w-1/2   md:w-1/3 xl:w-1/4  md:p-4 "
                       key={index}
                     >
-                      <a href={"/token/" + i.tokenId}>
+                      <a href={"/detail/" + i.tokenId}>
                         <div className="flex flex-row  mb-10 md:mb-0   rounded-xl justify-center ">
                           <div className="trending-token w-40 md:w-[14rem] lg:w-80 rounded-xl  border shadow-xl hover:scale-105 ">
                             <div className=" bg-white rounded-xl">

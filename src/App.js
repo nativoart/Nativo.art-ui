@@ -97,7 +97,7 @@ class App extends Component {
             <Route path="/explore" component={Explore} />
             <Route path="/collections" component={Collections} />
             <Route path="/community" component={Community} />
-            <Route path="/token/:id" component={Detail}/>
+            <Route path="/detail/:id" component={Detail}/>
             <BlockchainProtectedRoute path="/mynfts" component={MisNfts} />
             <Route path="/collection/:data" component={TokensCollection} />
             {/* <BlockchainProtectedRoute path="/mynfts" component={MisNfts} /> */}

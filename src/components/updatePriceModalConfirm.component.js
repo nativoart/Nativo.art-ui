@@ -82,7 +82,7 @@ export default function UpdatePriceModalConfirm(props) {
                     <div className="relative group mt-3 rounded-full w-full">
                       <button
                         className={`relative bg-[#F79336] text-white font-extrabold uppercase text-sm px-6 py-3 rounded-md  outline-none focus:outline-none  ease-linear transition-all duration-150 w-full`}
-                        onClick={() => {window.location.href="/token/"+props.tokens.tokenID}}
+                        onClick={() => {window.location.href="/detail/"+props.tokens.tokenID}}
                       >
                         <span className="font-open-sans">
                           {t("Detail.removeConfButton")}

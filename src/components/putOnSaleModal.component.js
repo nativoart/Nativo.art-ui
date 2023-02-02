@@ -84,7 +84,7 @@ export default function PutOnSaleModal(props) {
               }
             }
           ],
-          callbackUrl:  window.location.protocol + "//" + window.location.host+'/token/'+props.tokenID+'?action=putonsale'
+          callbackUrl:  window.location.protocol + "//" + window.location.host+'/detail/'+props.tokenID+'?action=putonsale'
 
         }).then(() => {
           // Swal.fire({
@@ -104,7 +104,7 @@ export default function PutOnSaleModal(props) {
           //   position: window.innerWidth < 1024 ? 'bottom' : 'center'
           // }).then((result) => {
           //   if (result.isConfirmed) {
-          //     window.location.href = "/token/"+props.tokenID
+          //     window.location.href = "/detail/"+props.tokenID
           //   }
           // });
           props.confirmPutOnSale()
