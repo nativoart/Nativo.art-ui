@@ -99,7 +99,7 @@ export default function ApprovalModal(props) {
             position: window.innerWidth < 1024 ? 'bottom' : 'center'
           }).then((result) => {
             if (result.isConfirmed) {
-              window.location.href = "/token/"+props.tokenID
+              window.location.href = "/detail/"+props.tokenID
             }
           });
         })

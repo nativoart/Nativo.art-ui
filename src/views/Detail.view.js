@@ -464,7 +464,7 @@ function TokenDetail(props) {
           position: window.innerWidth < 1024 ? "bottom" : "center",
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.href = "/token/" + props.tokens.tokenID;
+            window.location.href = "/detail/" + props.tokens.tokenID;
           }
         });
       })
