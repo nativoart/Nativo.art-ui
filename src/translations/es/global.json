@@ -615,6 +615,7 @@
     },
     "Keypom-create":{
         "WalletError":"Cartera no soportada",
-        "WalletError-des":"Lo sentimos, Esta cartera aun no es soportada"
+        "WalletError-des":"Lo sentimos, Esta cartera aun no es soportada",
+        "ClaimByID":"Reclamar drop"
     }
 }

@@ -3,7 +3,8 @@ import {
   connect,
   WalletConnection,
   Contract,
-  utils,
+  utils,Account,
+  Near,
 } from "near-api-js";
 import axios from "axios";
 
@@ -105,7 +106,19 @@ export async function nearSignIn(URL) {
     URL // FRACASO
   );
 }
+let networkConfig= process.env.REACT_APP_NEAR_ENV === "mainnet" ? config.mainnet :config.testnet;
+let networkId=networkConfig.networkId;
+let nodeUrl=networkConfig.nodeUrl;
+let walletUrl=networkConfig.walletUrl;
+let keyStore=networkConfig.keyStore;
 
+const near = new Near({
+	networkId,
+	nodeUrl,
+	walletUrl,
+	deps: { keyStore },
+});
+const { connection } = near;
 export async function isNearReady() {
   // conectarse a near
   const near = (process.env.REACT_APP_NEAR_ENV == "mainnet" ? await connect(config.mainnet) : await connect(config.testnet))
@@ -247,4 +260,20 @@ export async function getNFTById(nft_contract_id, nft_id,owner_account_id) {
     console.log("err on getting ID on this contract", nft_contract_id);
     return [];
   }
+}
+
+export const view = (methodName, args) => {
+	const account = new Account(connection, process.env.REACT_APP_NEAR_ENV == "mainnet" ? '.near' : '.testnet');
+	return account.viewFunction( process.env.REACT_APP_KEYPOM,
+     methodName, args)
+}
+
+export const call = (account, methodName, args, _gas) => {
+ let contractId= process.env.REACT_APP_CONTRACT
+	return account.functionCall({
+		contractId,
+		methodName,
+		args,
+		gas: _gas,
+	})
 }

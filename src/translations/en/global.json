@@ -611,6 +611,7 @@
     },
     "Keypom-create":{
         "WalletError":"Wallet not supported",
-        "WalletError-des":"Sorry, this wallet is not supported yet!"
+        "WalletError-des":"Sorry, this wallet is not supported yet!",
+        "ClaimByID":"Claim drop"
     }
 }

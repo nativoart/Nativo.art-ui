@@ -6,7 +6,7 @@ import { useWalletSelector } from "../utils/walletSelector";
 import { useTranslation } from "react-i18next";
  
 import {initKeypom,getEnv,createDrop,getDrops,getDropSupply,execute,generateKeys} from "keypom-js";
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 const {
 	Near,
 	KeyPair,
@@ -28,6 +28,10 @@ function LightHeroE(props) {
   const [t, i18n] = useTranslation("global");
   const [stateLogin, setStateLogin] = useState(false);
   const [WalledinfLogged, setWalledinfLogged] = useState(null);
+  const [dropId, setDropId] = useState(0);
+  const [createDropInfo, setCreateDropInfo] = useState("");
+
+  
   let drops, fundingAccount;
 
   /**
@@ -99,7 +103,7 @@ function LightHeroE(props) {
        let secretKey = "ed25519:4nr8zMibRvgKS8E1BgXdZNspmrf8REU3ShkUAwbMois48Tywriytrus3JhoJG8sySRX9hr4LHJW49Dr9ML3VqBHQ";
       //let secretKey = window.localStorage.getItem(WalledinfLogged.secretKeyVar).toString();
     
-      console.log("same: ",window.localStorage.getItem(WalledinfLogged.secretKeyVar).toString())
+     // console.log("same: ",window.localStorage.getItem(WalledinfLogged.secretKeyVar).toString())
         await initKeypom({
           // near,
           network:process.env.REACT_APP_NEAR_ENV,
@@ -229,11 +233,14 @@ const CreateNFTDrop = async (t) => {
 		}
 	})
 
+
 	const { responses } = res;
 	console.log("🪲 ~ file: gift.component.js:217 ~ CreateNFTDrop ~ responses", responses);
+
+  setCreateDropInfo(res);
 	// console.log(responses)
-	const resWithDropId = responses.find((res) => Buffer.from(res.status.SuccessValue, 'base64').toString());
-	console.log("🪲 ~ file: gift.component.js:220 ~ CreateNFTDrop ~ resWithDropId", resWithDropId);
+	// const resWithDropId = responses.find((res) => Buffer.from(res.status.SuccessValue, 'base64').toString());
+	// console.log("🪲 ~ file: gift.component.js:220 ~ CreateNFTDrop ~ resWithDropId", resWithDropId);
 
 	// t.is(Buffer.from(resWithDropId.status.SuccessValue, 'base64').toString().replaceAll('"', ''), dropId);
 	// console.log("🪲 ~ file: gift.component.js:221 ~ CreateNFTDrop ~ t", t);
@@ -241,10 +248,10 @@ const CreateNFTDrop = async (t) => {
 
 }
   return (
-    <section className="text-gray-600 body-font bg-White_gift lg:bg-White_gift h-[823px] lg:h-[594px] bg-no-repeat bg-cover bg-top ">
+    <section className="text-gray-600 body-font bg-White_gift lg:bg-White_gift h-[823px] lg:h-full bg-no-repeat bg-cover bg-top ">
       <div className="container mx-auto pt-4 flex px-5 lg:px-0 pb-10 flex-col items-center  lg:items-center  justify-center ">
-        <div className=" h-[763px] bg-white rounded-lg lg:h-[564px] g:w-[700px] lg:flex-grow flex flex-col md:text-center items-center lg:items-center" >
-          <img class="h-[150px] mt-16 lg:h-[150px] bg-center w-[150px] lg:w-[150px] " src="/static/media/ntvToken.340716be.png" alt="/static/media/ntvToken.340716be.png"></img>
+        <div className=" h-[763px] gap-2 bg-white rounded-lg lg:h-full g:w-[700px] lg:flex-grow flex flex-col md:text-center items-center lg:items-center" >
+          <img class="h-[150px] my-16 lg:h-[150px] bg-center w-[150px] lg:w-[150px] " src="/static/media/ntvToken.340716be.png" alt="/static/media/ntvToken.340716be.png"></img>
           <div className="w-full z-20 mt-6 lg:mt-[16px] ">
             <h6 className="dark:text-black text-[42px]  lg:text-5xl md:text-2xl font-clash-grotesk font-semibold leading-9 tracking-wider text-center w-[323px] lg:w-[700px]">{t("Landing.gift")}</h6>
           </div>
@@ -264,12 +271,25 @@ const CreateNFTDrop = async (t) => {
             </button>
             </a>
           </div>
-          <div className="flex flex-col lg:flex-row justify-between z-20">
+          <div className="flex flex-row justify-between z-20">
             <a>
               <button className="inline-flex   rounded-xlarge w-full lg:w-[267px] h-[50px]" onClick={CreateNFTDrop}>
                 <div className="flex flex-col font-bold h-full text-white  text-center  justify-center shadow-s w-full bg-yellow4 hover:bg-yellowHover active:bg-yellowPressed rounded-md">
                 <svg className="fill-current w-[242px] h-[48px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
                   <span className="title-font  text-white font-open-sans font-normal lg:font-semibold text-base p-5 uppercase leading-6">{t("Landing.generate")} </span>
+                </div>
+            </button>
+            </a>
+            <textarea className="w-full rounded h-16 border border-black" value={createDropInfo ? createDropInfo?.toString() : ""} ></textarea>
+            <label>{createDropInfo?.keyPairs?.toString()}</label>
+          </div>
+          <div className="flex flex-col lg:flex-row justify-between z-20 gap-4">
+            <input onChange={(e)=>{setDropId(e.target.value)}} className="w-1/2 border border-black  rounded-lg"/>
+            <a  className="w-1/2" target="_blank" rel="noopener noreferrer" href= {`/gift/claim/${dropId}`} >
+              <button className="inline-flex   rounded-xlarge w-full lg:  h-[50px]" >
+                <div className="flex flex-col font-bold h-full text-white  text-center  justify-center shadow-s w-full bg-yellow4 hover:bg-yellowHover active:bg-yellowPressed rounded-md">
+                 
+                  <span className="title-font  text-white font-open-sans font-normal lg:font-semibold text-base p-5 uppercase leading-6">{t("Keypom-create.ClaimByID")} </span>
                 </div>
             </button>
             </a>

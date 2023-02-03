@@ -37,7 +37,7 @@
     "i18next": "^21.6.14",
     "ipfs-http-client": "^50.1.2",
     "keypom-js": "^1.2.0-rc.1",
-    "near-api-js": "^0.44.2",
+    "near-api-js": "^1.1.0",
     "node-fetch": "^2.6.1",
     "react": "^16.12.0",
     "react-bootstrap-accordion": "^1.0.0",
