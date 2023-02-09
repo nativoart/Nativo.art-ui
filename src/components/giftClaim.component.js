@@ -17,9 +17,17 @@ function LightHeroE(props) {
   const [stateLogin, setStateLogin] = useState(false);
   const [drops, setdrops] = useState("");
   const [secret, setSecret] = useState();
-	const [keyPair, setKeyPair] = useState({})
-	const [drop, setDrop] = useState({})
-	const [keyInfo, setKeyInfo] = useState({})
+	const [keyPair, setKeyPair] = useState({});
+	const [drop, setDrop] = useState({});
+	const [keyInfo, setKeyInfo] = useState({});
+  const [DropInfo,setDropInfo] =useState({
+    allowance:0,
+    drop_id:"",
+    key_id:0,
+    last_used:0,
+    pk:"",
+    remaining_uses:0
+  });
 
   const [WalledinfLogged, setWalledinfLogged] = useState(null);
 	const  secretKey  = useParams()
@@ -35,7 +43,7 @@ function LightHeroE(props) {
   useEffect(() => {
     (async () => {
       setStateLogin(accountId !=null ? true : false);
-      console.log("🪲 ~ file: giftClaim.component.js:32 ~ accountId", secretKey)
+      console.log("🪲 ~ file: giftClaim.component.js:32 ~ secretKey", secretKey)
       setSecret(secretKey);
       const _keyPair = KeyPair.fromString(secretKey.secretKey);
       setKeyPair(_keyPair);
@@ -45,11 +53,14 @@ function LightHeroE(props) {
 
       try {
         _drop = await view('get_drop_information', { key: _keyPair.publicKey.toString() })
+        console.log("🪲 ~ file: giftClaim.component.js:48 ~ _drop", _drop)
         setDrop(_drop)
-        console.log(_drop)
+        
         _keyInfo = await view('get_key_information', { key: _keyPair.publicKey.toString() })
+        console.log("🪲 ~ file: giftClaim.component.js:52 ~ _keyInfo", _keyInfo)
         setKeyInfo(_keyInfo)
-        console.log(_keyInfo)
+        
+       
       } catch(e) {
         console.warn(e)
         setDrop(null)
@@ -104,14 +115,18 @@ function LightHeroE(props) {
       //let secretKey = window.localStorage.getItem(WalledinfLogged.secretKeyVar).toString();
     
      // console.log("same: ",window.localStorage.getItem(WalledinfLogged.secretKeyVar).toString())
-        await initKeypom({
-          // near,
-          network:process.env.REACT_APP_NEAR_ENV,
-          funder: {
-            accountId,
-          //  secretKey,
-          }
-        })
+     let secretKey = "ed25519:4nr8zMibRvgKS8E1BgXdZNspmrf8REU3ShkUAwbMois48Tywriytrus3JhoJG8sySRX9hr4LHJW49Dr9ML3VqBHQ";
+     //let secretKey = window.localStorage.getItem(WalledinfLogged.secretKeyVar).toString();
+   
+    // console.log("same: ",window.localStorage.getItem(WalledinfLogged.secretKeyVar).toString())
+       await initKeypom({
+         // near,
+         network:process.env.REACT_APP_NEAR_ENV,
+         funder: {
+           accountId,
+           secretKey,
+         }
+       })
       
         const { fundingAccount: keypomFundingAccount } = getEnv()
         fundingAccount = keypomFundingAccount
@@ -122,25 +137,62 @@ function LightHeroE(props) {
    
   }
 
-  const claimDrop = async (_accountId) => {
-   let secretKey="5GneH3AWE5ufcDfjpzSFyhP7399YBSc2A2V4efSpj3HDek3TbnTPHswBShRe7anGoxsJko2P3NAy5NDFskxcxRXm"
-   return await claim({
-       	secretKey: secretKey,
-       	accountId: _accountId,
+  const claimDrop = async () => {
+  
+    // try {
+   await init();
+ 
+       const account = await getClaimAccount(keyPair.secretKey)
+       console.log("🪲 ~ file: giftClaim.component.js:139 accountclaimer", account)
 
-       });
-    
+
+    let res=  await claim({
+        secretKey: keyInfo.pk,
+        accountId: accountId,
+    })
+    console.log("🪲 ~ file: giftClaim.component.js:148 ~ claimDrop ~ res", res)
+
+        // const res = await call(process.env.REACT_APP_KEYPOM, 'claim', { account_id: accountId } , '300000000000000')
+        // console.log("🪲 ~ file: giftClaim.component.js:156 ~ claimDrop ~ res", res)
+      // if (res?.status?.SuccessValue !== '') {
+      //   console.log("🪲 ~ file: giftClaim.component.js:142 ~ claimDrop ~ res", res)
+        
+      //   // window.location.reload()
+      //   // window.location.href = window.location.href
+      //   return
+      // }
+      //poms()
+      // set(CLAIMED, true)
+      // setClaimed(true)
+    // } catch (e) {
+    //   window.location.reload()
+    //   window.location.href = window.location.href
+    //   return
+    // } finally {
+    //   // update('app.loading', false)
+    // }
   }
   return (
     <section className="text-gray-600 body-font bg-White_gift lg:bg-White_gift h-[823px] lg:h-[594px] bg-no-repeat bg-cover bg-top ">
       <div className="container mx-auto pt-4 flex px-5 lg:px-0 pb-10 flex-col items-center  lg:items-center  justify-center ">
         <div className=" h-[763px] bg-white rounded-lg lg:h-[564px] lg:w-[700px] lg:flex-grow flex flex-col md:text-center items-center lg:items-center" >
           <img class="h-[150px] mt-6 lg:h-[150px] bg-center w-[150px] lg:w-[150px] " src="/static/media/ntvToken.340716be.png" alt="/static/media/ntvToken.340716be.png"></img>
-        <div className="z-20 mt-6 lg:mt-[16px] ">
-          <h1>Drop</h1>
-          
-            {/* <p className="dark:text-black text-[16px] lg:text-2xl md:text-2xl font-clash-grotesk font-semibold leading-9 tracking-wider text-center w-[323px] lg:w-[590px]">{t("Landing.giftclaim")}</p> */}
+{keyInfo?.drop_id ?
+          <div className="z-20 mt-6 lg:mt-[16px] gap-4 ">
+          <h1 className="font-bold text-lg text-white bg-slate-300 rounded-lg">Drop: <a className={`font-light text-lg ${keyInfo?.remaining_uses > keyInfo?.last_used ? "text-green-700":"text-red-400"}`}>{keyInfo?.drop_id}</a></h1>
+            
+         <div className="flex flex-row my-4">
+           <h2 className="font-extrabold text-lg">Status:</h2>
+              <div> {keyInfo?.remaining_uses > keyInfo?.last_used ? 
+                <p className="w-40 rounded-lg bg-green-700  text-white text-lg font-bold">{"Available"}</p>
+              :<p className="w-40 rounded-lg bg-red-700  text-white text-lg font-bold">{"Not Available"}</p>}</div>
+         </div>
+          <div className="w-full my-6 ">
+                <button className={` w-full rounded-lg font-extrabold text-xl text-white hover:scale-110  ${keyInfo?.remaining_uses > keyInfo?.last_used ? "bg-green-700" : "bg-slate-600"}`}
+                onClick={claimDrop}> Claim</button>
           </div>
+            {/* <p className="dark:text-black text-[16px] lg:text-2xl md:text-2xl font-clash-grotesk font-semibold leading-9 tracking-wider text-center w-[323px] lg:w-[590px]">{t("Landing.giftclaim")}</p> */}
+          </div>:   <div >LOADING DROP...</div>}
           </div>
       </div>
     </section>

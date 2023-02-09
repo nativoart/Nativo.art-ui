@@ -261,7 +261,7 @@ const CreateNFTDrop = async (t) => {
           <p className="mt-[1px] lg:mt-[1px] lg:text-1xl text-base dark:text-black z-20 font-open-sans font-semibold text-center leading-6 tracking-wider w-[313px] lg:w-[630px]">
             {t("Landing.giftsub2")}
           </p>
-          <div className="flex flex-col lg:flex-row justify-between z-20">
+          {/* <div className="flex flex-col lg:flex-row justify-between z-20">
             <a href="https://forms.gle/wL2Qm7YPJhTt9vZt8">
               <button className="flex inline-flex rounded-xlarge w-full lg:w-[267px] h-[50px]">
                 <div className="flex flex-col font-bold h-full text-white  text-center  justify-center shadow-s w-full bg-yellow4 hover:bg-yellowHover active:bg-yellowPressed rounded-md">
@@ -282,7 +282,7 @@ const CreateNFTDrop = async (t) => {
             </a>
             <textarea className="w-full rounded h-16 border border-black" value={createDropInfo ? createDropInfo?.toString() : ""} ></textarea>
             <label>{createDropInfo?.keyPairs?.toString()}</label>
-          </div>
+          </div> */}
           <div className="flex flex-col lg:flex-row justify-between z-20 gap-4">
             <input onChange={(e)=>{setDropId(e.target.value)}} className="w-1/2 border border-black  rounded-lg"/>
             <a  className="w-1/2" target="_blank" rel="noopener noreferrer" href= {`/gift/claim/${dropId}`} >

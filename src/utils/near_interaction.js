@@ -5,8 +5,20 @@ import {
   Contract,
   utils,Account,
   Near,
+  KeyPair,
 } from "near-api-js";
+
 import axios from "axios";
+const nearAPI = require("near-api-js");
+
+const {
+	keyStores: { InMemoryKeyStore, BrowserLocalStorageKeyStore },
+ 	utils: {
+		format: { parseNearAmount },
+	},
+} = nearAPI;
+const fs = require("fs");
+let keystorew;
 
 export const storage_byte_cost = 10000000000000000000;
 //export const contract_name = "nativo.near";
@@ -20,6 +32,7 @@ export const config = {
     walletUrl: "https://wallet.testnet.near.org",
     helperUrl: "https://helper.testnet.near.org",
     explorerUrl: "https://explorer.testnet.near.org",
+    isBrowser: new Function("try {return this===window;}catch(e){ return false;}")(),
   },
 
   mainnet: {
@@ -29,8 +42,47 @@ export const config = {
     walletUrl: "https://wallet.near.org",
     helperUrl: "https://helper.mainnet.near.org",
     explorerUrl: "https://explorer.near.org",
+    isBrowser: new Function("try {return this===window;}catch(e){ return false;}")(),
   },
 };
+let networkConfig= process.env.REACT_APP_NEAR_ENV === "mainnet" ? config.mainnet :config.testnet;
+let networkId=networkConfig.networkId;
+let nodeUrl=networkConfig.nodeUrl;
+let walletUrl=networkConfig.walletUrl;
+let contractId  = process.env.REACT_APP_KEYPOM;
+let credentials;
+
+  
+  if (networkConfig.isBrowser) {
+    keystorew = new BrowserLocalStorageKeyStore();
+} else {
+	/// nodejs (for tests)
+	try {
+		//console.log(`Loading Credentials: ${process.env.HOME}/.near-credentials/${networkId}/${contractId}.json`);
+		credentials = JSON.parse(
+			fs.readFileSync(
+				`${process.env.HOME}/.near-credentials/${networkId}/${contractId}.json`
+			)
+		);
+	} catch(e) {
+		console.warn(`Loading Credentials: ./neardev/${networkId}/${contractId}.json`);
+		credentials = JSON.parse(
+			fs.readFileSync(
+				`./neardev/${networkId}/${contractId}.json`
+			)
+		);
+	}
+	keystorew = new InMemoryKeyStore();
+	keystorew.setKey(
+		networkId,
+		contractId,
+		KeyPair.fromString(credentials.private_key)
+	);
+}
+ 
+
+
+
 //son los metodos que tenemos en el smart contract
 export const methodOptions = {
   viewMethods: [
@@ -106,17 +158,13 @@ export async function nearSignIn(URL) {
     URL // FRACASO
   );
 }
-let networkConfig= process.env.REACT_APP_NEAR_ENV === "mainnet" ? config.mainnet :config.testnet;
-let networkId=networkConfig.networkId;
-let nodeUrl=networkConfig.nodeUrl;
-let walletUrl=networkConfig.walletUrl;
-let keyStore=networkConfig.keyStore;
+
 
 const near = new Near({
 	networkId,
 	nodeUrl,
 	walletUrl,
-	deps: { keyStore },
+	deps: { keystorew },
 });
 const { connection } = near;
 export async function isNearReady() {
@@ -276,4 +324,14 @@ export const call = (account, methodName, args, _gas) => {
 		args,
 		gas: _gas,
 	})
+}
+
+export const getClaimAccount = (secretKey) => {
+	console.log("🪲 ~ file: near.js:143 ~ getClaimAccount ~ secretKey", secretKey)
+	const account = new Account(connection, process.env.REACT_APP_KEYPOM);
+	console.log("🪲 ~ file: near.js:145 ~ getClaimAccount ~ connection", connection)
+	console.log("🪲 ~ file: near.js:145 ~ getClaimAccount ~ account", account)
+	keystorew.setKey(networkId,  process.env.REACT_APP_KEYPOM, KeyPair.fromString(secretKey))
+	console.log("🪲 ~ file: near.js:147 ~ getClaimAccount ~ keyStore", keystorew)
+	return account
 }
