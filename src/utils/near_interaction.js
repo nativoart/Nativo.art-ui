@@ -9,7 +9,7 @@ import {
 } from "near-api-js";
 
 import axios from "axios";
-const nearAPI = require("near-api-js");
+import * as nearAPI from "near-api-js";
 
 const {
 	keyStores: { InMemoryKeyStore, BrowserLocalStorageKeyStore },
@@ -50,13 +50,16 @@ let networkId=networkConfig.networkId;
 let nodeUrl=networkConfig.nodeUrl;
 let walletUrl=networkConfig.walletUrl;
 let contractId  = process.env.REACT_APP_KEYPOM;
-let credentials;
+
+let credentials, keyStore;
 
   
   if (networkConfig.isBrowser) {
-    keystorew = new BrowserLocalStorageKeyStore();
+    keyStore = new BrowserLocalStorageKeyStore();
+    console.log("🪲 ~ file: near_interaction.js:59 ~ keyStore isBrowser", keyStore)
 } else {
 	/// nodejs (for tests)
+  console.log("🪲 ~ file: near_interaction.js:62 ~ keyStore  noisBrowser", keyStore)
 	try {
 		//console.log(`Loading Credentials: ${process.env.HOME}/.near-credentials/${networkId}/${contractId}.json`);
 		credentials = JSON.parse(
@@ -72,12 +75,13 @@ let credentials;
 			)
 		);
 	}
-	keystorew = new InMemoryKeyStore();
-	keystorew.setKey(
+	keyStore = new InMemoryKeyStore();
+	keyStore.setKey(
 		networkId,
 		contractId,
 		KeyPair.fromString(credentials.private_key)
 	);
+	console.log("🪲 ~ file: near_interaction.js:84 ~ keyStore", keyStore)
 }
  
 
@@ -164,7 +168,7 @@ const near = new Near({
 	networkId,
 	nodeUrl,
 	walletUrl,
-	deps: { keystorew },
+	deps: { keyStore },
 });
 const { connection } = near;
 export async function isNearReady() {
@@ -327,11 +331,14 @@ export const call = (account, methodName, args, _gas) => {
 }
 
 export const getClaimAccount = (secretKey) => {
-	console.log("🪲 ~ file: near.js:143 ~ getClaimAccount ~ secretKey", secretKey)
-	const account = new Account(connection, process.env.REACT_APP_KEYPOM);
-	console.log("🪲 ~ file: near.js:145 ~ getClaimAccount ~ connection", connection)
-	console.log("🪲 ~ file: near.js:145 ~ getClaimAccount ~ account", account)
-	keystorew.setKey(networkId,  process.env.REACT_APP_KEYPOM, KeyPair.fromString(secretKey))
-	console.log("🪲 ~ file: near.js:147 ~ getClaimAccount ~ keyStore", keystorew)
+	 
+  const account = new nearAPI.Account(connection,  process.env.REACT_APP_KEYPOM);
+
+	//const account = new Account(connection, process.env.REACT_APP_KEYPOM);
+	 console.log("🪲 ~ file: near_interaction.js:333 ~ getClaimAccount ~ account", account)
+	 
+   keyStore.setKey(networkId,  process.env.REACT_APP_KEYPOM, KeyPair.fromString(secretKey))
+   console.log("🪲 ~ file: near_interaction.js:336 ~ getClaimAccount ~ keyStore", keyStore)
+	 
 	return account
 }

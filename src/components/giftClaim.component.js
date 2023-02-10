@@ -140,17 +140,18 @@ function LightHeroE(props) {
   const claimDrop = async () => {
   
     // try {
-   await init();
  
-       const account = await getClaimAccount(keyPair.secretKey)
-       console.log("🪲 ~ file: giftClaim.component.js:139 accountclaimer", account)
+ 
+       
+        console.log("🪲 ~ file: giftClaim.component.js:146 ~ claimDrop ~ keyPair", keyPair)
+        const account = await getClaimAccount(keyPair.secretKey)
 
 
-    let res=  await claim({
-        secretKey: keyInfo.pk,
-        accountId: accountId,
-    })
-    console.log("🪲 ~ file: giftClaim.component.js:148 ~ claimDrop ~ res", res)
+    // let res=  await claim({
+    //     secretKey: keyInfo.pk,
+    //     accountId: accountId,
+    // })
+    // console.log("🪲 ~ file: giftClaim.component.js:148 ~ claimDrop ~ res", res)
 
         // const res = await call(process.env.REACT_APP_KEYPOM, 'claim', { account_id: accountId } , '300000000000000')
         // console.log("🪲 ~ file: giftClaim.component.js:156 ~ claimDrop ~ res", res)
