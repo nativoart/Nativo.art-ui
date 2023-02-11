@@ -19,6 +19,7 @@ import OfferModal from "../components/offerModal.component";
 import AddTokenModal from "../components/addTokenModal.component";
 import PriceNft from "../components/PriceNft.component";
 import InformationToken from "../components/InformationToken.component";
+import TokenPriceHistory from "../components/TokenPriceHistory.component";
 import loadingGif from "../assets/img/loadingGif.gif";
 import { useTranslation } from "react-i18next";
 import Swal from "sweetalert2";
@@ -29,6 +30,9 @@ import PutOnSaleModalConfirm from "../components/putOnSaleModalConfirm.component
 import RemoveFromSaleModalConfirm from "../components/removeFromSaleModalConfirm.component";
 import UpdatePriceModalConfirm from "../components/updatePriceModalConfirm.component";
 import BuyTokenModalConfirm from "../components/buyTokenModalConfirm.component";
+
+
+
 
 function TokenDetail(props) {
   //guarda el estado de  toda la vista
@@ -767,6 +771,10 @@ function TokenDetail(props) {
 
                 <div className="w-full mt-6 overflow-hidden rounded-xl md:shadow-lg">
                   <InformationToken {...state?.tokens}></InformationToken>
+                </div>
+
+                <div className="w-full mt-6 overflow-hidden rounded-xl md:shadow-lg">
+                  <TokenPriceHistory {...state?.tokens}></TokenPriceHistory>
                 </div>
                 {/* Boton historial de precio */}
                 <div className="w-full mt-6 overflow-hidden rounded-xl text-[#0A0A0A] md:shadow-lg bg-white">
