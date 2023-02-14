@@ -271,7 +271,14 @@
         "finalizeBuySubtitle" : "has been added to your digital collectibles",
         "backToMyNFT": "Go Back to my NFT",
         "putOnSaleConfirm": "Digital collectible added for sale!",
-        "putOnSaleConfirmSubtitle": "has been added for sale on marketplace"
+        "putOnSaleConfirmSubtitle": "has been added for sale on marketplace",
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday",
+        "sunday": "Sunday"
     },
     "MyNFTs" : {
         "title" : "My NFTs",

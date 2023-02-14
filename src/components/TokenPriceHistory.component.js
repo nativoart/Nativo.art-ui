@@ -15,6 +15,10 @@ import {
   Legend,
 } from 'chart.js'
 import { Chart, Line } from 'react-chartjs-2';
+import {
+  fromNearToYocto,
+  fromYoctoToNear
+} from "../utils/near_interaction";
 
 ChartJS.register(
   CategoryScale,
@@ -33,7 +37,9 @@ function TokenPriceHistory(props) {
   const [fecha, setFecha] = useState("");
   const [historyByWeek, setHistoryByWeek] = useState({});
   const [dataChart, setdataChart] = useState({});
-
+  const [thereisHistoryPriceByweek,setThereisHistoryPriceByweek] = useState(false);
+  const [trigger, setTrigger] = React.useState(true);
+  
   /**
    * Función que cambia a "no disponible" un token nft que esta a la venta siempre que se sea el owner
    * @param tokenId representa el token id del nft a quitar del marketplace
@@ -42,7 +48,6 @@ function TokenPriceHistory(props) {
 
   const APIURL= process.env.REACT_APP_API_TG
 
-  const labels = ['Monday', 'Tuesday', 'Wednesday', 'Thurday', 'Friday', 'Saturday', 'Monday'];
   const options = {
     responsive: true,
     plugins: {
@@ -60,10 +65,9 @@ function TokenPriceHistory(props) {
   };
 
   const data = {
-  labels,
   datasets: [
     {
-      data: ['100','102','103','104','105'],
+      data: historyByWeek,
       borderColor: '#F79336',
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
     }
@@ -79,6 +83,36 @@ function TokenPriceHistory(props) {
   function getMonth(timestamp) {
   console.log('getMonth', timestamp.getMonth());
  return timestamp.getMonth();
+}
+
+function getDayOfTheWeek(number){
+  if(number == 1){
+    return t('Detail.monday');
+  }
+
+  if(number == 2){
+    return t('Detail.tuesday');
+  }
+
+  if(number == 3){
+    return t('Detail.wednesday');
+  }
+
+  if(number == 4){
+    return t('Detail.thursday');
+  }
+
+  if(number == 5){
+    return t('Detail.friday');
+  }
+
+  if(number == 6){
+    return t('Detail.saturday');
+  }
+
+  if(number == 7){
+    return t('Detail.sunday');
+  }
 }
 
   React.useEffect(() => {
@@ -104,6 +138,7 @@ function TokenPriceHistory(props) {
         let days = 20;
         console.log('todayTimeStamp',new Date().getTime()+"000000");
         console.log('weekTimeStamp',(new Date().getTime() - ((days * 24 * 60 * 60 * 1000)))+"000000")
+        console.log('props',props);
 
         await client.query({
           query: gql(query),
@@ -119,8 +154,8 @@ function TokenPriceHistory(props) {
             setFecha(dateFormat.getDate()+'/'+(dateFormat.getMonth()+1)+'/'+dateFormat.getFullYear())
             let ArrhistoryByWeek = [];
             let historyByWeek = data.data.tokens[0].priceHistory.map( function(e) { 
-              ArrhistoryByWeek.push({ 'price': e.price, 'type': e.type, 'fullTimestamp': new Date(parseInt(e.timestamp.substring(0,13))), 'Daytimestamp': getDay(new Date(parseInt(e.timestamp.substring(0,13)))), 'MonthTimestamp': getMonth(new Date(parseInt(e.timestamp.substring(0,13))))})
-              return { 'price': e.price, 'type': e.type, 'fullTimestamp': new Date(parseInt(e.timestamp.substring(0,13))), 'Daytimestamp': getDay(new Date(parseInt(e.timestamp.substring(0,13)))), 'MonthTimestamp': getMonth(new Date(parseInt(e.timestamp.substring(0,13))))}
+              ArrhistoryByWeek.push({ 'price': fromYoctoToNear(e.price), 'type': e.type, 'fullTimestamp': new Date(parseInt(e.timestamp.substring(0,13))), 'Daytimestamp': getDay(new Date(parseInt(e.timestamp.substring(0,13)))), 'MonthTimestamp': getMonth(new Date(parseInt(e.timestamp.substring(0,13))))})
+              return { 'price': fromYoctoToNear(e.price), 'type': e.type, 'fullTimestamp': new Date(parseInt(e.timestamp.substring(0,13))), 'Daytimestamp': getDay(new Date(parseInt(e.timestamp.substring(0,13)))), 'MonthTimestamp': getMonth(new Date(parseInt(e.timestamp.substring(0,13))))}
             })
 
             let historyGrouped  = ArrhistoryByWeek.reduce((x, y) => {
@@ -134,30 +169,36 @@ function TokenPriceHistory(props) {
           }, {});
 
             console.log('historyGrouped',historyGrouped);
+            if(historyGrouped.length > 0){
+              setThereisHistoryPriceByweek(true);
+            }
             let lastPricebyDay = {}
 
             for (var i = 1; i <= 7; i++) {
               
-              
+              console.log('historyGrouped', i);
               if (historyGrouped[i] != undefined) {
-                historyGrouped[i].map((rank, i, arr) => {
-                  if (arr.length - 1 === i) {
-                    lastPricebyDay[i].push(rank.price)// = {...lastPricebyDay, rank.price }// last one
-                  } else {
-                    lastPricebyDay[i].push(undefined) // not last one
-                  }
-              });
+              let subArr = historyGrouped[i];
+              console.log('historyGrouped[i] != undefined', subArr[subArr.length-1]);
+              lastPricebyDay[getDayOfTheWeek(i)] = subArr[subArr.length-1].price;
+             
+            } else {
+              lastPricebyDay[getDayOfTheWeek(i)] = lastPricebyDay[getDayOfTheWeek(i-1)]
             }
+
           }
           console.log(lastPricebyDay);
 
             console.log('lastPricebyDay',lastPricebyDay);
-            setHistoryByWeek(historyByWeek);
+            setHistoryByWeek(lastPricebyDay);
+            console.log('HistoryByWeek',historyByWeek.length);
 
           })
           .catch((err) => {
             console.log('error: ', err)
           })
+
+          setTrigger(!trigger)
 
     })();
   }, []);
@@ -208,7 +249,9 @@ function TokenPriceHistory(props) {
             </div>
           </summary>
           <div class="bg-white flex flex-col md:flex-row p-6 border-t-2">
-            <Line data={data} options={options}/>
+
+              <Line data={data} options={options}/>
+
           </div>
         </details>
       </div>
