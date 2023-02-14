@@ -97,7 +97,7 @@ function ClaimDrop(props) {
     <section className="text-gray-600 body-font bg-White_gift lg:bg-White_gift h-[823px] lg:h-full bg-no-repeat bg-cover bg-top ">
       <div className="container mx-auto pt-4 flex px-5 lg:px-0 pb-10 flex-col items-center  lg:items-center  justify-center ">
       {loading ?   
-       <div className=" h-[763px]  gap-2 bg-white shadown-lg rounded-lg border lg:h-full md:w-[500px] lg:w-[700px] md:flex-grow flex flex-col  items-center lg:items-center" >
+       <div className=" h-[763px]  gap-2 bg-white drop-shadow-2xl rounded-lg border lg:h-full md:w-[500px] lg:w-[700px] md:flex-grow flex flex-col  items-center lg:items-center" >
           <img class="h-[150px] my-16 lg:h-[150px] bg-center w-[150px] lg:w-[150px] " src="/static/media/ntvToken.340716be.png" alt="/static/media/ntvToken.340716be.png"></img>
           <div className="w-full z-20 mt-6 lg:mt-[16px] ">
             <h6 className="dark:text-black text-lg  mx-auto lg:text-5xl md:text-2xl font-clash-grotesk font-semibold leading-9 tracking-wider text-center w-[323px] lg:w-[700px]">{t("Landing.giftclaim")}</h6>
