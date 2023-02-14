@@ -10,6 +10,7 @@ import {
 
 import axios from "axios";
 import * as nearAPI from "near-api-js";
+import { async } from "rxjs";
 
 const {
 	keyStores: { InMemoryKeyStore, BrowserLocalStorageKeyStore },
@@ -170,7 +171,7 @@ const near = new Near({
 	walletUrl,
 	deps: { keyStore },
 });
-const { connection } = near;
+export const { connection } = near;
 export async function isNearReady() {
   // conectarse a near
   const near = (process.env.REACT_APP_NEAR_ENV == "mainnet" ? await connect(config.mainnet) : await connect(config.testnet))
@@ -330,9 +331,20 @@ export const call = (account, methodName, args, _gas) => {
 	})
 }
 
-export const getClaimAccount = (secretKey) => {
+export const getClaimAccount = async (secretKey) => {
 	 
-  const account = new nearAPI.Account(connection,  process.env.REACT_APP_KEYPOM);
+  const account = await connection.account(process.env.REACT_APP_KEYPOM);
+  console.log("🪲 ~ file: near_interaction.js:337 ~ getClaimAccount ~ account", account)
+
+  return;
+// await account.addKey(
+//   “8hSHprDq2StXwMtNd43wDTXQYsjXcD4MJTXQYsjXcc”, // public key for new account
+//   “example-account.testnet”, // contract this key is allowed to call (optional)
+//   “example_method”, // methods this key is allowed to call (optional)
+//   “2500000000000” // allowance key can use to call methods (optional)
+// );
+
+ // const account = new nearAPI.Account(connection,  process.env.REACT_APP_KEYPOM);
 
 	//const account = new Account(connection, process.env.REACT_APP_KEYPOM);
 	 console.log("🪲 ~ file: near_interaction.js:333 ~ getClaimAccount ~ account", account)

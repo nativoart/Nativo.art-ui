@@ -10,7 +10,7 @@ import arrowRight from '../assets/img/landing/firstSection/ARROW.png';
 import plus from '../assets/img/landing/firstSection/plus.png';
 
 
-function LightHeroE(props) {
+function ClaimDrop(props) {
   const { selector, modal, accounts, accountId } = useWalletSelector();
   const [t, i18n] = useTranslation("global");
   const [stateLogin, setStateLogin] = useState(false);
@@ -52,12 +52,12 @@ function LightHeroE(props) {
   );
 }
 
-LightHeroE.defaultProps = {
+ClaimDrop.defaultProps = {
   theme: "indigo",
 };
 
-LightHeroE.propTypes = {
+ClaimDrop.propTypes = {
   theme: PropTypes.string.isRequired,
 };
 
-export default LightHeroE;
+export default ClaimDrop;

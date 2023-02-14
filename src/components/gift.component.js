@@ -1,30 +1,21 @@
 import React, {   useEffect, useState } from "react";
- 
 import PropTypes from "prop-types";
- 
 import { useWalletSelector } from "../utils/walletSelector";
 import { useTranslation } from "react-i18next";
- 
-import {initKeypom,getEnv,createDrop,getDrops,getDropSupply,execute,generateKeys} from "keypom-js";
+import {initKeypom,createDrop,getEnv,getDrops,getDropSupply,execute,generateKeys} from "keypom-js";
+import { view, call, getClaimAccount , connection } from '../utils/near_interaction'
+
 import Swal from 'sweetalert2';
-const {
-	Near,
-	KeyPair,
-	utils: { format: {
-		parseNearAmount
-	} },
-	keyStores: { InMemoryKeyStore },
-} = require("near-api-js");
+const { KeyPair, keyStores, connect } = require("near-api-js");
+const { parseNearAmount, formatNearAmount } = require("near-api-js/lib/utils/format");
 const keyPairs = {
 	simple: [],
 	ft: [],
 	nft: [],
 	fc: [],
 }
-
-function LightHeroE(props) {
+function CreateDrops(props) {
   const { selector, modal, accounts, accountId } = useWalletSelector();
-
   const [t, i18n] = useTranslation("global");
   const [stateLogin, setStateLogin] = useState(false);
   const [WalledinfLogged, setWalledinfLogged] = useState(null);
@@ -63,7 +54,10 @@ function LightHeroE(props) {
       }
      
      
-      console.log("🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲");
+      console.log("🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲🪲",connection);
+
+      await  simpleDropNear();
+
 
     })();
   }, []);
@@ -104,15 +98,18 @@ function LightHeroE(props) {
       //let secretKey = window.localStorage.getItem(WalledinfLogged.secretKeyVar).toString();
     
      // console.log("same: ",window.localStorage.getItem(WalledinfLogged.secretKeyVar).toString())
-        await initKeypom({
-          // near,
+        let inted =await initKeypom({
+          connection,
           network:process.env.REACT_APP_NEAR_ENV,
           funder: {
             accountId,
             secretKey,
-          }
+          },
+          keypomContractId:process.env.REACT_APP_KEYPOM
         })
+        console.log("🪲 ~ file: gift.component.js:110 ~ init ~ inted", inted)
       
+
         const { fundingAccount: keypomFundingAccount } = getEnv()
         fundingAccount = keypomFundingAccount
       
@@ -122,45 +119,63 @@ function LightHeroE(props) {
    
   }
 
-  const createSimple = async () => {
-   await init()
-   console.log("entreo despues del return")
-   if( WalledinfLogged!==null) {
+  const simpleDropNear=async ()=>{
+    // Initiate connection to the NEAR blockchain.
+    const network = "testnet"
+ 
+    
+    let keyStore =" new keyStores.UnencryptedFileSystemKeyStore(credentialsPath)";
+  
+    let nearConfig = {
+        networkId: network,
+        keyStore: keyStore,
+        nodeUrl: `https://rpc.${network}.near.org`,
+        walletUrl: `https://wallet.${network}.near.org`,
+        helperUrl: `https://helper.${network}.near.org`,
+        explorerUrl: `https://explorer.${network}.near.org`,
+    };
+  
+    // let near = await connect(nearConfig);
+    // const fundingAccount = await near.account('keypom-docs-demo.testnet');
+  
+    // Keep track of an array of the key pairs we create and the public keys we pass into the contract
+    let keyPairs = [];
+    let pubKeys = [];
+    // Generate keypairs and store them into the arrays defined above
+    let keyPair = await KeyPair.fromRandom('ed25519:B2sDsMn5RMP6N75PDb3GT3nho8E8Qd6y8EqYJhk9Wd1M');
+    keyPairs.push(keyPair);   
+    pubKeys.push(keyPair.publicKey.toString());   
+  
+    // Create drop with pub keys, deposit_per_use
+    // Note that the user is responsible for error checking when using NEAR-API-JS
+    // The SDK automatically does error checking; ensuring valid configurations, enough attached deposit, drop existence etc.
     try {
-      
-      const dropId =Date.now().toString()
-	    let NFTData ={
-        //* * The account ID that the NFT contract is deployed to. This contract is where all the NFTs for the specific drop must come from. */
-        contractId: process.env.REACT_APP_CONTRACT,
-        //* * By default, anyone can fund your drop with NFTs. This field allows you to set a specific account ID that will be locked into sending the NFTs. */
-        senderId: accountId,
-        /* * 
-         * If there are any token IDs that you wish to be automatically sent to the Keypom contract in order to register keys as part of `createDrop`, specify them here.
-         * A maximum of 2 token IDs can be sent as part of the transaction. If you wish to register more keys by sending more NFTs, you must do this in a separate call by invoking
-         * the `nftTransferCall` method separately.
-         */
-        tokenIds: ["148","149"],
-      }
-      const res = await createDrop({
-		    dropId,
-        numKeys: 4,
-		    depositPerUseNEAR: 0.02,
-        NFTData,
-	    })
-
-      
-	    const { responses } = res
-	    console.log("🪲 ~ file: gift.component.js:121 ~ createSimple ~ res", res)
-	    const resWithDropId = responses.find((res) => Buffer.from(res.status.SuccessValue, 'base64').toString())
-      console.log(responses)
-      
-    } catch (e) {
-      console.warn(e)
-      throw e
+      await fundingAccount.functionCall(
+        'v1-3.keypom.testnet', 
+        'create_drop', 
+        {
+          public_keys: pubKeys,
+          deposit_per_use: parseNearAmount('1'),
+        }, 
+        "300000000000000",
+        // Generous attached deposit of 1.5 $NEAR
+        parseNearAmount("1.5")
+      );
+    } catch(e) {
+      console.log('error creating drop: ', e);
     }
-    //window.location.reload()
+    var dropInfo = {};
+    const KEYPOM_CONTRACT = "v1-3.keypom.testnet"
+        // Creating list of pk's and linkdrops; copied from orignal simple-create.js
+        for(var i = 0; i < keyPairs.length; i++) {
+        let linkdropUrl = `https://wallet.testnet.near.org/linkdrop/${KEYPOM_CONTRACT}/${keyPair.secretKey[i]}`;
+        dropInfo[pubKeys[i]] = linkdropUrl;
+    }
+    // Write file of all pk's and their respective linkdrops
+    console.log('Public Keys and Linkdrops: ', dropInfo)
+    console.log(`Keypom Contract Explorer Link: explorer.${network}.near.org/accounts/${KEYPOM_CONTRACT}.com`)
   }
-  }
+  
 
 
   let nftTokenIds = []
@@ -300,12 +315,12 @@ const CreateNFTDrop = async (t) => {
   );
 }
 
-LightHeroE.defaultProps = {
+CreateDrops.defaultProps = {
   theme: "indigo",
 };
 
-LightHeroE.propTypes = {
+CreateDrops.propTypes = {
   theme: PropTypes.string.isRequired,
 };
 
-export default LightHeroE;
+export default CreateDrops;

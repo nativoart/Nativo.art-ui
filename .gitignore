@@ -5,3 +5,4 @@ build
 package-lock.json
 src/tailwind.output.css
 run_ui.txt
+myscripts.md
