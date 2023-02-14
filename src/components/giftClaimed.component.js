@@ -26,16 +26,20 @@ function ClaimDrop(props) {
   }
 
   return (
-    <section className="text-gray-600 body-font bg-White_gift lg:bg-White_gift h-[823px] lg:h-[594px] bg-no-repeat bg-cover bg-top ">
+    <>
+    
+
+    <section className="text-gray-600 body-font bg-White_gift lg:bg-White_gift h-[823px] lg:h-full bg-no-repeat bg-cover bg-top ">
       <div className="container mx-auto pt-4 flex px-5 lg:px-0 pb-10 flex-col items-center  lg:items-center  justify-center ">
-      <div className=" h-[763px] bg-white rounded-lg lg:h-[564px] lg:w-[700px] lg:flex-grow flex flex-col md:text-center items-center lg:items-center" >
-          <img class="h-[150px] mt-16 lg:h-[150px] bg-center w-[150px] lg:w-[150px] " src="/static/media/ntvToken.340716be.png" alt="/static/media/ntvToken.340716be.png"></img>
-        <div className="z-20 mt-6 lg:mt-[16px] ">
-            <p className="dark:text-black text-[20px] lg:text-3xl md:text-3xl font-clash-grotesk font-semibold leading-9 tracking-wider text-center w-[353px] lg:w-[590px]">{t("Landing.giftclaimed")}</p>
+        <div className=" h-[763px] shadown-lg gap-2 bg-white shadown-lg rounded-lg border lg:h-full md:w-[500px] lg:w-[700px] md:flex-grow flex flex-col md:text-center items-center lg:items-center" >
+          <img class="h-[150px] my-16 lg:h-[150px] bg-center w-[150px] lg:w-[150px] " src="/static/media/ntvToken.340716be.png" alt="/static/media/ntvToken.340716be.png"></img>
+          <div className="w-full z-20 mt-6 lg:mt-[16px] ">
+            <h6 className="dark:text-black text-lg mx-auto  lg:text-5xl md:text-2xl font-clash-grotesk font-semibold leading-9 tracking-wider text-center w-[323px] lg:w-[700px]">{t("Landing.giftclaimed")}</h6>
           </div>
-          <p className="mt-8 lg:mt-[33px] lg:text-1xl text-base dark:text-black z-20 font-clash-grotesk font-semibold text-center leading-6 tracking-wider w-[262px] lg:w-[630px]">
+          <p className="mt-6 lg:mt-[23px] lg:text-1xl text-base dark:text-black z-20 font-open-sans font-semibold text-center leading-6 tracking-wider w-[253px] lg:w-[630px]">
             {t("Landing.giftown")}
           </p>
+           
           <div className="flex flex-col lg:flex-row justify-between z-20">
             <a href="https://forms.gle/wL2Qm7YPJhTt9vZt8">
               <button className="flex inline-flex rounded-xlarge lg:w-[267px] h-[50px]">
@@ -46,9 +50,15 @@ function ClaimDrop(props) {
             </button>
             </a>
           </div>
+          
+          
         </div>
       </div>
     </section>
+
+  
+    </>
+    
   );
 }
 

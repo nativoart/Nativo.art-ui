@@ -75,92 +75,69 @@ function ClaimDrop(props) {
         console.log("🪲 ~ file: giftClaim.component.js:69 ~ e", e);
         console.warn(e);
         setDrop(null);
+        window.location.href="/gift/claimed"
         return
       }
-
-
-
-
-      // init();
-      // let claim= await claimDrop(accountId);
-      // console.log("🪲 ~ file: giftClaim.component.js:30 ~ claim", claim);
-      // let resdrops = await getDrops({
-      //   accountId
-      // });
-
-      // setdrops(resdrops);
-      // console.log("🪲 ~ file: giftClaim.component.js:37 ~ resdrops", resdrops)
-
-
     })();
   }, []);
 
   
  
+   const reloadview =()=>{
+    setTimeout((e)=>{ window.location.href="/gift"}, 10000);
+   }
 
-  const claimDrop = async () => {
-  
-     
-        console.log("🪲 ~ file: giftClaim.component.js:158 ~ claimDrop ~ secret", secret)
-
-   //window.location.href="https://testnet.mynearwallet.com/linkdrop/v1.keypom.testnet/"+secret.secretKey;
-   window.location.assign("https://testnet.mynearwallet.com/linkdrop/v1.keypom.testnet/"+secret.secretKey)
-       
-  }
+ 
   return (
-    <section className="text-gray-600 body-font bg-White_gift lg:bg-White_gift h-[823px] lg:h-[594px] bg-no-repeat bg-cover bg-top ">
-      <div className="container mx-auto pt-4 flex px-5 lg:px-0 pb-10 flex-col items-center  lg:items-center  justify-center ">
-        {loading ?   
-        <div className=" h-[763px] bg-white rounded-lg lg:h-[564px] lg:w-[700px] lg:flex-grow flex flex-col md:text-center items-center lg:items-center" >
-          <img class="h-[150px] mt-6 lg:h-[150px] bg-center w-[150px] lg:w-[150px] " src="/static/media/ntvToken.340716be.png" alt="/static/media/ntvToken.340716be.png"></img>
 
-{validdrop ?
-          <div className="z-20 mt-6 lg:mt-[16px] gap-4 ">
-          <h1 className="font-bold text-lg text-white bg-slate-300 rounded-lg">Drop: <a className={`font-light text-lg ${keyInfo?.key_info.remaining_uses >=1 ? "text-green-700":"text-red-400"}`}>{keyInfo?.drop_id}</a></h1>
- 
-         <div className="flex flex-row my-4">
-           <h2 className="font-extrabold text-lg">Status:</h2>
-              <div> {keyInfo?.key_info.remaining_uses >=1 ? 
-                <p className="w-40 rounded-lg bg-green-700  text-white text-lg font-bold">{"Available"}</p>
-              :<p className="w-40 rounded-lg bg-red-700  text-white text-lg font-bold">{"Not Available"}</p>}</div>
-         </div>
-          <div className="w-full my-6 ">
-                
-                <a href={"https://testnet.mynearwallet.com/linkdrop/v1.keypom.testnet/"+secret.secretKey} target="_blank" rel="noreferrer noopener"
-                 >
-                <button className={` w-full rounded-lg font-extrabold text-xl text-white hover:scale-110  ${keyInfo?.key_info.remaining_uses >= 1 ? "bg-green-700" : "bg-slate-600"}`} > Claim</button>
-                   </a>
+
+    <>
+    
+
+    <section className="text-gray-600 body-font bg-White_gift lg:bg-White_gift h-[823px] lg:h-full bg-no-repeat bg-cover bg-top ">
+      <div className="container mx-auto pt-4 flex px-5 lg:px-0 pb-10 flex-col items-center  lg:items-center  justify-center ">
+      {loading ?   
+       <div className=" h-[763px]  gap-2 bg-white shadown-lg rounded-lg border lg:h-full md:w-[500px] lg:w-[700px] md:flex-grow flex flex-col  items-center lg:items-center" >
+          <img class="h-[150px] my-16 lg:h-[150px] bg-center w-[150px] lg:w-[150px] " src="/static/media/ntvToken.340716be.png" alt="/static/media/ntvToken.340716be.png"></img>
+          <div className="w-full z-20 mt-6 lg:mt-[16px] ">
+            <h6 className="dark:text-black text-lg  mx-auto lg:text-5xl md:text-2xl font-clash-grotesk font-semibold leading-9 tracking-wider text-center w-[323px] lg:w-[700px]">{t("Landing.giftclaim")}</h6>
           </div>
-            {/* <p className="dark:text-black text-[16px] lg:text-2xl md:text-2xl font-clash-grotesk font-semibold leading-9 tracking-wider text-center w-[323px] lg:w-[590px]">{t("Landing.giftclaim")}</p> */}
-          </div>:   
-           <div className="z-20 mt-6 lg:mt-[16px] gap-4 ">
-          <h1 className="font-bold text-lg text-white bg-slate-300 rounded-lg">Drop: <a className={`font-light text-lg text-red-400`}>Linkdrop Invalid</a></h1>
+          <p className="mt-6 lg:mt-[23px] lg:text-1xl text-base dark:text-black z-20 font-open-sans font-semibold text-center leading-6 tracking-wider w-[253px] lg:w-[630px]">
+          Drop: <a className={`font-light text-lg ${keyInfo?.key_info.remaining_uses >=1 ? "text-green-700":"text-red-400"}`}>{keyInfo?.drop_id}</a>
+          </p>
  
-         <div className="flex flex-row my-4">
-           <h2 className="font-extrabold text-lg">Status:</h2>
-              <div>  
-                
-              <p className="w-40 rounded-lg bg-red-700  text-white text-lg font-bold">{"Not Available"}</p></div>
-         </div>
-        
-         <div className="flex flex-row my-4 rounded-lg mx-2">
-           <h2 className="font-extrabold text-xl  bg-red-700  text-white ">This drop is invalid or has been claimed:</h2>
-             
-         </div>
-            {/* <p className="dark:text-black text-[16px] lg:text-2xl md:text-2xl font-clash-grotesk font-semibold leading-9 tracking-wider text-center w-[323px] lg:w-[590px]">{t("Landing.giftclaim")}</p> */}
-          </div>}
+          <div className="flex flex-col lg:flex-row justify-between z-20">
+            <a href={"https://testnet.mynearwallet.com/linkdrop/v1.keypom.testnet/"+secret.secretKey} target="_blank" rel="noreferrer noopener">
+              <button  onClick={reloadview} className="inline-flex rounded-xlarge animate-pulse lg:w-[267px] h-[50px]">
+                <div className="flex flex-col font-bold h-full text-white  text-center  justify-center shadow-s w-full bg-yellow4 hover:scale-110 hover:bg-yellowHover active:bg-yellowPressed rounded-md">
+                <svg className="fill-current w-[262px] h-[48px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+                  <span className="title-font  text-white font-open-sans font-normal lg:font-semibold text-base p-5 uppercase leading-6">{t("Landing.claim")} </span>
+                </div>
+            </button>
+            </a>
+          </div>
           
-          </div>:
-         <div class="flex justify-center items-center">
-         <div class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status">
-         <svg class="animate-spin h-5 w-5 mr-3 bg-blue " viewBox="0 0 24 24">
-       </svg>
-         </div>
-         
-         <span class="visually-hidden ">loading ...</span>
-       </div>}
+          
+        </div>:
+        
+        <div className="flex justify-center items-center mt-80 ">
+        <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status">
+        <svg className="animate-spin h-3 w-3 rounded-full  bg-yellow4 " viewBox="0 0 24 24">
+      </svg>
+      <svg className="animate-spin h-4 w-4 rounded-full  bg-black " viewBox="0 0 24 24">
+      </svg>
+      <svg className="animate-spin h-2 w-2 rounded-full  bg-yellow4 " viewBox="0 0 24 24">
+      </svg>
+        </div>
+        
+        <span className="visually-hidden ml-5 font-extrabold text-lg uppercase ">{t("tokCollection.loading")}</span>
+      </div>}
       </div>
     </section>
+
+   
+    </>
+    
   );
 }
 

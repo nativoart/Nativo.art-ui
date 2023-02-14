@@ -61,8 +61,10 @@
         "giftLogIn" : "Log In with my account",
         "giftown" : "Want to create your own link to give NFTs?",
         "giftDrops" : "NFT Drop links",
+        "gift_available_to_claim":"Congratulations,You can claim this drop.",
         "giftclaimed" : "Sorry, this drop has been claimed",
-        "giftnotfound" : "Sorry, this drop does not exist"
+        "giftnotfound" : "Sorry, this drop does not exist",
+        "claim":"Claim"
     },
     "Landingpoa": {
         "title" : "Proof of Authenticity,",
