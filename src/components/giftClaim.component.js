@@ -71,7 +71,7 @@ function ClaimDrop(props) {
       
        
       } catch(e) {
-        setLoading(false);
+        setLoading(true);
         console.log("🪲 ~ file: giftClaim.component.js:69 ~ e", e);
         console.warn(e);
         setDrop(null);
@@ -153,8 +153,11 @@ function ClaimDrop(props) {
           </div>:
          <div class="flex justify-center items-center">
          <div class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status">
-           <span class="visually-hidden">Loading...</span>
+         <svg class="animate-spin h-5 w-5 mr-3 bg-blue " viewBox="0 0 24 24">
+       </svg>
          </div>
+         
+         <span class="visually-hidden ">loading ...</span>
        </div>}
       </div>
     </section>
