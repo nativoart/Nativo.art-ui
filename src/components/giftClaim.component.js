@@ -106,7 +106,7 @@ function ClaimDrop(props) {
           Drop: <a className={`font-light text-lg ${keyInfo?.key_info.remaining_uses >=1 ? "text-green-700":"text-red-400"}`}>{keyInfo?.drop_id}</a>
           </p>
  
-          <div className="flex flex-col lg:flex-row justify-between z-20">
+          <div className="flex flex-col lg:pb-16 lg:flex-row justify-between z-20">
             <a href={"https://testnet.mynearwallet.com/linkdrop/v1.keypom.testnet/"+secret.secretKey} target="_blank" rel="noreferrer noopener">
               <button  onClick={reloadview} className="inline-flex rounded-xlarge animate-pulse lg:w-[267px] h-[50px]">
                 <div className="flex flex-col font-bold h-full text-white  text-center  justify-center shadow-s w-full bg-yellow4 hover:scale-110 hover:bg-yellowHover active:bg-yellowPressed rounded-md">
