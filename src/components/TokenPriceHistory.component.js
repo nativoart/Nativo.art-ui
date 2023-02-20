@@ -114,6 +114,17 @@ function getDayOfTheWeek(number){
     return t('Detail.sunday');
   }
 }
+function padTo2Digits(num) {
+  return num.toString().padStart(2, '0');
+}
+
+function formatDate(date) {
+  return [
+    date.getFullYear(),
+    padTo2Digits(date.getMonth() + 1),
+    padTo2Digits(date.getDate()),
+  ].join('-');
+}
 
   React.useEffect(() => {
     (async () => {
@@ -123,7 +134,7 @@ function getDayOfTheWeek(number){
               id
               collectionID
               timestamp
-              priceHistory(orderBy: timestamp, orderDirection: asc, where: { timestamp_gte: $weekTimeStamp, timestamp_lte: $todayTimeStamp}){
+              priceHistory(orderBy: timestamp, orderDirection: desc, where: { timestamp_gte: $weekTimeStamp, timestamp_lte: $todayTimeStamp}){
                 price
                 type
                 timestamp
@@ -150,12 +161,21 @@ function getDayOfTheWeek(number){
         })
           .then((data) => {
             console.log('token Data: ', data.data.tokens)
+            let todaysDate = formatDate(new Date());
+            
             let dateFormat = new Date(parseInt(data.data.tokens[0].timestamp.substring(0,13)))
             setFecha(dateFormat.getDate()+'/'+(dateFormat.getMonth()+1)+'/'+dateFormat.getFullYear())
             let ArrhistoryByWeek = [];
-            let historyByWeek = data.data.tokens[0].priceHistory.map( function(e) { 
-              ArrhistoryByWeek.push({ 'price': fromYoctoToNear(e.price), 'type': e.type, 'fullTimestamp': new Date(parseInt(e.timestamp.substring(0,13))), 'Daytimestamp': getDay(new Date(parseInt(e.timestamp.substring(0,13)))), 'MonthTimestamp': getMonth(new Date(parseInt(e.timestamp.substring(0,13))))})
-              return { 'price': fromYoctoToNear(e.price), 'type': e.type, 'fullTimestamp': new Date(parseInt(e.timestamp.substring(0,13))), 'Daytimestamp': getDay(new Date(parseInt(e.timestamp.substring(0,13)))), 'MonthTimestamp': getMonth(new Date(parseInt(e.timestamp.substring(0,13))))}
+            let historyByWeek = data.data.tokens[0].priceHistory.map(function (e) {
+              const currentDate = new Date();
+              const todaysTimestamp = parseInt(currentDate.getTime());
+              console.log('todaysTimestamp', parseInt(todaysTimestamp - (7 * 24 * 60 * 60 * 1000)));
+              console.log('e.timestamp', parseInt(e.timestamp.substring(0, 13)));
+              console.log('e.timestamp >= (todaysTimestamp - (7 * 24 * 60 * 60 * 1000))',parseInt(e.timestamp.substring(0, 13)) >= parseInt((todaysTimestamp - (7 * 24 * 60 * 60 * 1000))))
+              if (parseInt(e.timestamp.substring(0, 13)) >= parseInt((todaysTimestamp - (7 * 24 * 60 * 60 * 1000)))) {
+                ArrhistoryByWeek.push({ 'price': fromYoctoToNear(e.price), 'type': e.type, 'timestamp': e.timestamp, 'fullTimestamp': new Date(parseInt(e.timestamp.substring(0, 13))), 'formatedDate': formatDate(new Date(parseInt(e.timestamp.substring(0, 13)))), 'Daytimestamp': getDay(new Date(parseInt(e.timestamp.substring(0, 13)))), 'MonthTimestamp': getMonth(new Date(parseInt(e.timestamp.substring(0, 13)))) })
+                return { 'price': fromYoctoToNear(e.price), 'type': e.type, 'timestamp': e.timestamp, 'fullTimestamp': new Date(parseInt(e.timestamp.substring(0, 13))), 'formatedDate': formatDate(new Date(parseInt(e.timestamp.substring(0, 13)))), 'Daytimestamp': getDay(new Date(parseInt(e.timestamp.substring(0, 13)))), 'MonthTimestamp': getMonth(new Date(parseInt(e.timestamp.substring(0, 13)))) }
+              }
             })
 
             let historyGrouped  = ArrhistoryByWeek.reduce((x, y) => {
@@ -174,21 +194,34 @@ function getDayOfTheWeek(number){
             }
             let lastPricebyDay = {}
 
-            for (var i = 1; i <= 7; i++) {
-              
-              console.log('historyGrouped', i);
-              if (historyGrouped[i] != undefined) {
-              let subArr = historyGrouped[i];
-              console.log('historyGrouped[i] != undefined', subArr[subArr.length-1]);
-              lastPricebyDay[getDayOfTheWeek(i)] = subArr[subArr.length-1].price;
-             
+
+            console.log(lastPricebyDay);
+
+            
+
+            if(Object.keys(historyGrouped).length == 0) {
+              for (var j = 1; j <= 7; j++) {
+                console.log('historyGrouped.length < 0 ', j);
+                console.log('lastPricebyDay[getDayOfTheWeek(j)]', lastPricebyDay[getDayOfTheWeek(j)]);
+                console.log('lastPricebyDay[getDayOfTheWeek(j)] = props.price', lastPricebyDay[getDayOfTheWeek(j)] = parseFloat(props.price.replace(',', '')));
+                lastPricebyDay[getDayOfTheWeek(j)] = parseFloat(props.price.replace(',', ''));
+              }
             } else {
-              lastPricebyDay[getDayOfTheWeek(i)] = lastPricebyDay[getDayOfTheWeek(i-1)]
+              for (var i = 1; i <= 7; i++) {
+               
+                let subArr = historyGrouped[i];
+                
+                if (historyGrouped[i] !=  undefined) {
+                  console.log('historyGrouped else for', historyGrouped);
+                  console.log('historyGrouped else', historyGrouped[i]);
+                  console.log('historyGrouped[i] != undefined', subArr[subArr.length - 1]);
+                  console.log('subArr[subArr.length - 1]', subArr);
+                  lastPricebyDay[getDayOfTheWeek(subArr[subArr.length - 1].Daytimestamp)]= subArr[subArr.length - 1].price;
+                }
+              }
             }
 
-          }
-          console.log(lastPricebyDay);
-
+            console.log('Todays Date', todaysDate);
             console.log('lastPricebyDay',lastPricebyDay);
             setHistoryByWeek(lastPricebyDay);
             console.log('HistoryByWeek',historyByWeek.length);
@@ -198,7 +231,6 @@ function getDayOfTheWeek(number){
             console.log('error: ', err)
           })
 
-          setTrigger(!trigger)
 
     })();
   }, []);
