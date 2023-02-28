@@ -4,17 +4,20 @@
 
 Nativo NFT is a marketplace builded over NEAR Protocol. It is building the next generation of NFT-DeFi mechanism for NFT ecosystem.
 
-## Nativo NFT UI features
+## Nativo.art UI features
 1. View of collections [x]
-2. View of NFT Market [x]
+2. View explorer section  [x]
 3. View profile [x]
-4. View my NFTs [x]
-5. View my creations [x]
-6. View my auctiones []
-7. View notification []
-8. View wallet sellector []
-9. View loans []
-10. View NFT Staking []
+4. View my Digital Collectibles [x]
+5. View my auctions []
+6. View notification []
+7. View wallet sellector [X]
+8. View loans []
+9. View staking []
+10. Create and claim drop links [] 
+11. View Artists section [X]
+12. Integration of NTV token inside Nativo.art []
+13. Review another options to integate a new Indexer []
 
 ## Pending tasks
 -Review and integrate keypom to claim link drops created outside Nativo.art. Branch: Gift
