@@ -16,6 +16,9 @@ Nativo NFT is a marketplace builded over NEAR Protocol. It is building the next 
 9. View loans []
 10. View NFT Staking []
 
+## Pending tasks
+-Review and integrate keypom to claim link drops created outside Nativo.art. Branch: Gift
+
 
 ## 💻 Tecnologias usadas
 
