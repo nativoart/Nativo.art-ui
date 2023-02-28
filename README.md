@@ -21,8 +21,9 @@ Nativo.art is a marketplace builded over NEAR Protocol. It is building the next 
 14. View token Detail []
 
 ## Pending tasks
--Review and integrate keypom to claim link drops created outside Nativo.art. Branch: Gift
--Integrate components of token price history and token activity on token detail view
+1.Review and integrate keypom to claim link drops created outside Nativo.art. Branch: Gift
+2.Integrate components of token price history, token activity, and more components on token detail view
+
 
 
 ## 💻 Tecnologias usadas
