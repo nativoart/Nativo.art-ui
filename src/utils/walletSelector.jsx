@@ -29,8 +29,11 @@ export const WalletSelectorContextProvider = ({ children }) => {
                 setupNightly(),
             ],
         });
+        console.log("🪲 ~ file: walletSelector.jsx:32 ~ init ~ _selector", _selector)
         const _modal = setupModal(_selector, { contractId: process.env.REACT_APP_CONTRACT });
+        console.log("🪲 ~ file: walletSelector.jsx:34 ~ init ~ _modal", _modal)
         const state = _selector.store.getState();
+        console.log("🪲 ~ file: walletSelector.jsx:36 ~ init ~ state", state)
         setAccounts(state.accounts);
         window.selector = _selector;
         window.modal = _modal;
@@ -53,6 +56,7 @@ export const WalletSelectorContextProvider = ({ children }) => {
             console.log("Accounts Update", nextAccounts);
             setAccounts(nextAccounts);
         });
+        console.log("🪲 ~ file: walletSelector.jsx:59 ~ useEffect ~ subscription", subscription)
         return () => subscription.unsubscribe();
     }, [selector]);
     if (!selector || !modal) {

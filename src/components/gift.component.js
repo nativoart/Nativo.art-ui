@@ -3,9 +3,15 @@ import PropTypes from "prop-types";
 import { useWalletSelector } from "../utils/walletSelector";
 import { useTranslation } from "react-i18next";
 import {initKeypom,createDrop,getEnv,getDrops,getDropSupply,execute,generateKeys} from "keypom-js";
-import { view, call, getClaimAccount , connection } from '../utils/near_interaction'
+import { view, call, getClaimAccount,ext_call ,fromNearToYocto, connection,_near } from '../utils/near_interaction'
+import { estimateRequiredDeposit, ATTACHED_GAS_FROM_WALLET } from '../utils/keypom-utils'
 
 import Swal from 'sweetalert2';
+import { nftDrop, NFT_CONTRACT_ID, NFT_METADATA } from '../utils/nft';
+import { generateSeedPhrase } from 'near-seed-phrase';
+
+import { set, file ,get } from '../utils/store';
+
 const { KeyPair, keyStores, connect } = require("near-api-js");
 const { parseNearAmount, formatNearAmount } = require("near-api-js/lib/utils/format");
 const keyPairs = {
@@ -14,6 +20,7 @@ const keyPairs = {
 	nft: [],
 	fc: [],
 }
+export const ROOT_KEY = '__ROOT_KEY'
 function CreateDrops(props) {
   const { selector, modal, accounts, accountId } = useWalletSelector();
   const [t, i18n] = useTranslation("global");
@@ -21,8 +28,22 @@ function CreateDrops(props) {
   const [WalledinfLogged, setWalledinfLogged] = useState(null);
   const [dropId, setDropId] = useState(0);
   const [createDropInfo, setCreateDropInfo] = useState("");
+  const [updatephrase, setUpdatephrase] = useState();
+  const [NFT_Form, setNFT_Form] = useState({
+    NFT_CONTRACT_ID:"nft.examples.testnet",
+    tokenId:"Keypom1-1675451681359",
+    DEPOSIT_PER_USE:"200000000000000000000000",
 
-  
+  });
+
+  const contractId =process.env.REACT_APP_KEYPOM; 
+  const hashBuf = (str) => crypto.subtle.digest('SHA-256', new TextEncoder().encode(str))
+
+  const genKey = async (rootKey, meta, nonce) => {
+    const hash = await hashBuf(`${rootKey}_${meta}_${nonce}`)
+    const { secretKey } = generateSeedPhrase(hash)
+    return KeyPair.fromString(secretKey)
+  }
   let drops, fundingAccount;
 
   /**
@@ -121,65 +142,131 @@ function CreateDrops(props) {
 
   const simpleDropNear=async ()=>{
     // Initiate connection to the NEAR blockchain.
-    const network = "testnet"
- 
+    const dropId = Date.now().toString()
+    const publicKeys = []
+    const amount = fromNearToYocto("0.4");
+    const gas=300000000000000;
+    const methodName="create_drop";
+    const tokenId="Keypom2-1675451681359"
+    const contract =process.env.REACT_APP_KEYPOM;
+		const keys = await generateKeys({
+			numKeys: 1,
+			rootEntropy: 'some secret entropy' + Date.now(),
+			metaEntropy: `${dropId}_0`
+		});
+
     
-    let keyStore =" new keyStores.UnencryptedFileSystemKeyStore(credentialsPath)";
-  
-    let nearConfig = {
-        networkId: network,
-        keyStore: keyStore,
-        nodeUrl: `https://rpc.${network}.near.org`,
-        walletUrl: `https://wallet.${network}.near.org`,
-        helperUrl: `https://helper.${network}.near.org`,
-        explorerUrl: `https://explorer.${network}.near.org`,
+    const payload={
+      "public_keys": [keys.publicKeys[0]],
+      "deposit_per_use": "300000000000000000000000",
+      "config": {
+        "uses_per_key": 1,
+        "delete_on_empty": true,
+        "auto_withdraw": true,
+        "start_timestamp": null,
+        "throttle_timestamp": null,
+        "on_claim_refund_deposit": null,
+        "claim_permission": null,
+        "drop_root": null
+      },
+      "metadata":  dropId.toString(),
+      "nft_data": {
+        "contract_id": "nft.examples.testnet",
+        "sender_id": accountId,
+      }
     };
+		console.log("🪲 ~ file: gift.component.js:132 ~ simpleDropNear ~ keys", keys)
+		
+	 
+		// keyPairs.nft.push(keys.keyPairs[0])
+		// publicKeys.push(keys.publicKeys[0]);
+   
+  //  let  create_drop = await ext_call(contract,methodName, payload, gas, amount);
+  //   console.log("🪲 ~ file: gift.component.js:160 ~ simpleDropNear ~ create_drop", create_drop)
+
+   
+  const nextDropId = await view("get_next_drop_id" );
+  console.log("🪲 ~ file: gift.component.js:166 ~ simpleDropNear ~ nextDropId", nextDropId)
+
   
-    // let near = await connect(nearConfig);
-    // const fundingAccount = await near.account('keypom-docs-demo.testnet');
-  
-    // Keep track of an array of the key pairs we create and the public keys we pass into the contract
-    let keyPairs = [];
-    let pubKeys = [];
-    // Generate keypairs and store them into the arrays defined above
-    let keyPair = await KeyPair.fromRandom('ed25519:B2sDsMn5RMP6N75PDb3GT3nho8E8Qd6y8EqYJhk9Wd1M');
-    keyPairs.push(keyPair);   
-    pubKeys.push(keyPair.publicKey.toString());   
-  
-    // Create drop with pub keys, deposit_per_use
-    // Note that the user is responsible for error checking when using NEAR-API-JS
-    // The SDK automatically does error checking; ensuring valid configurations, enough attached deposit, drop existence etc.
-    try {
-      await fundingAccount.functionCall(
-        'v1-3.keypom.testnet', 
-        'create_drop', 
-        {
-          public_keys: pubKeys,
-          deposit_per_use: parseNearAmount('1'),
-        }, 
-        "300000000000000",
-        // Generous attached deposit of 1.5 $NEAR
-        parseNearAmount("1.5")
-      );
-    } catch(e) {
-      console.log('error creating drop: ', e);
+  let requiredDeposit =  parseNearAmount("1.0405");
+  console.log("El dani estuvo aqui")
+  const wallet = await selector.wallet();
+  const res = await wallet.signAndSendTransactions({
+    transactions: [{
+      receiverId: contract,
+      actions: [{
+        type: 'FunctionCall',
+        params: {
+          methodName: methodName,
+          args: {
+            public_keys: [keys.publicKeys[0]],
+            deposit_per_use: fromNearToYocto("1"),
+            config: {
+              "uses_per_key": 1,
+              "delete_on_empty": true,
+              "auto_withdraw": true,
+              "start_timestamp": null,
+              "throttle_timestamp": null,
+              "on_claim_refund_deposit": null,
+              "claim_permission": null,
+              "drop_root": null
+            },
+            metadata: JSON.stringify(dropId),
+            nft_data:  {
+              "contract_id": "nft.examples.testnet",
+              "sender_id": accountId,
+            },
+          },
+          gas: '250000000000000',
+          deposit: requiredDeposit,
+        }
+      }]
+    }, 
+    {
+      receiverId: NFT_CONTRACT_ID,
+      actions: [{
+        type: 'FunctionCall',
+        params: {
+          methodName: 'nft_transfer_call',
+          args: {
+            receiver_id: contract,
+            token_id: tokenId,
+            msg: nextDropId.toString(),
+          },
+          gas: '50000000000000',
+          deposit: '1',
+        }
+      }]
     }
-    var dropInfo = {};
-    const KEYPOM_CONTRACT = "v1-3.keypom.testnet"
-        // Creating list of pk's and linkdrops; copied from orignal simple-create.js
-        for(var i = 0; i < keyPairs.length; i++) {
-        let linkdropUrl = `https://wallet.testnet.near.org/linkdrop/${KEYPOM_CONTRACT}/${keyPair.secretKey[i]}`;
-        dropInfo[pubKeys[i]] = linkdropUrl;
-    }
-    // Write file of all pk's and their respective linkdrops
-    console.log('Public Keys and Linkdrops: ', dropInfo)
-    console.log(`Keypom Contract Explorer Link: explorer.${network}.near.org/accounts/${KEYPOM_CONTRACT}.com`)
+  ]
+  })
+
+  //   const wallet = await selector.wallet();
+  //  let result = await wallet.signAndSendTransaction({
+  //         signerId: accountId,
+  //         receiverId: contract,
+  //         actions: [
+  //           {
+  //             type: "FunctionCall",
+  //             params: {
+  //               methodName:methodName,
+  //               args: payload,
+  //               gas: 300000000000000,
+  //               deposit:amount,
+  //             }
+  //           }
+  //         ],
+  //        // callbackUrl:  window.location.protocol + "//" + window.location.host+'/detail/'+props.tokenID+'?action=updateprice'
+
+  //       })
+  //  console.log("🪲 ~ file: gift.component.js:184 ~ simpleDropNear ~ result", result)
   }
   
 
 
   let nftTokenIds = []
-  const NFT_CONTRACT_ID = "nft.examples.testnet";
+ 
   const NFT_METADATA = {
     title: "Keypom FTW!",
     description: "Keypom is lit fam!",
@@ -262,6 +349,90 @@ const CreateNFTDrop = async (t) => {
 
 
 }
+
+
+
+const createNFTDrop = async (values) => {
+  const wallet = await selector.wallet();
+  const NUM_KEYS = parseInt("1".toString())
+  const DROP_METADATA = Date.now().toString() // unique identifier for keys
+
+  const {
+    DROP_CONFIG,
+    STORAGE_REQUIRED,
+    NFT_DATA,
+  } = nftDrop;
+  console.log("🪲 ~ file: gift.component.js:365 ~ createNFTDrop ~ nftDrop", nftDrop)
+
+  NFT_DATA.sender_id = accountId
+  console.log("🪲 ~ file: gift.component.js:367 ~ createNFTDrop ~ NFT_DATA", NFT_DATA)
+
+  return;
+  //!this was hardcoded probably may cause a fail //parseNearAmount("1.0405");
+   let requiredDeposit = await estimateRequiredDeposit({
+    _near,
+    depositPerUse: NFT_Form.DEPOSIT_PER_USE,
+    numKeys: NUM_KEYS,
+    usesPerKey: DROP_CONFIG.uses_per_key,
+    attachedGas: ATTACHED_GAS_FROM_WALLET,
+    storage: STORAGE_REQUIRED,
+  })
+    console.log("🪲 ~ file: gift.component.js:380 ~ createNFTDrop ~ near", _near)
+  //console.log("🪲 ~ file: gift.component.js:372 ~ createNFTDrop ~ requiredDeposit", requiredDeposit)
+
+
+  // console.log(formatNearAmount(requiredDeposit))
+
+  let keyPairs = [], pubKeys = [];
+  for (var i = 0; i < NUM_KEYS; i++) {
+    const keyPair = await genKey(get(ROOT_KEY), DROP_METADATA, i)
+    keyPairs.push(keyPair)
+    pubKeys.push(keyPair.publicKey.toString());
+  }
+
+  /// redirect with mynearwallet
+  const nextDropId = await view("get_next_drop_id" );
+
+  // return console.log(nextDropId, tokenId)
+
+  return;
+  const res = wallet.signAndSendTransactions({
+    transactions: [{
+      receiverId: 'v1.keypom.testnet',
+      actions: [{
+        type: 'FunctionCall',
+        params: {
+          methodName: 'create_drop',
+          args: {
+            public_keys: pubKeys,
+            deposit_per_use: NFT_Form.DEPOSIT_PER_USE,
+            config: DROP_CONFIG,
+            metadata: JSON.stringify(DROP_METADATA),
+            nft_data: NFT_DATA,
+          },
+          gas: '250000000000000',
+          deposit: requiredDeposit,
+        }
+      }]
+    }, {
+      receiverId: NFT_CONTRACT_ID,
+      actions: [{
+        type: 'FunctionCall',
+        params: {
+          methodName: 'nft_transfer_call',
+          args: {
+            receiver_id: contractId,
+            token_id: NFT_Form.tokenId,
+            msg: nextDropId.toString(),
+          },
+          gas: '50000000000000',
+          deposit: '1',
+        }
+      }]
+    }]
+  })
+}
+
   return (
     <section className="text-gray-600 body-font bg-White_gift lg:bg-White_gift h-[823px] lg:h-full bg-no-repeat bg-cover bg-top ">
       <div className="container mx-auto pt-4 flex px-5 lg:px-0 pb-10 flex-col items-center  lg:items-center  justify-center ">
@@ -285,6 +456,8 @@ const CreateNFTDrop = async (t) => {
                 </div>
             </button>
             </a>
+
+            <button onClick={createNFTDrop}>click me plase</button>
           </div>
           
           

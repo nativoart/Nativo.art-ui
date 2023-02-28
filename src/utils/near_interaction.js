@@ -46,6 +46,9 @@ export const config = {
     isBrowser: new Function("try {return this===window;}catch(e){ return false;}")(),
   },
 };
+export const _near =  connect(config[process.env.REACT_APP_NEAR_ENV]);
+
+ 
 let networkConfig= process.env.REACT_APP_NEAR_ENV === "mainnet" ? config.mainnet :config.testnet;
 let networkId=networkConfig.networkId;
 let nodeUrl=networkConfig.nodeUrl;
@@ -165,13 +168,16 @@ export async function nearSignIn(URL) {
 }
 
 
-const near = new Near({
+export const near = new Near({
 	networkId,
 	nodeUrl,
 	walletUrl,
 	deps: { keyStore },
 });
+ 
 export const { connection } = near;
+ 
+
 export async function isNearReady() {
   // conectarse a near
   const near = (process.env.REACT_APP_NEAR_ENV == "mainnet" ? await connect(config.mainnet) : await connect(config.testnet))
@@ -321,7 +327,9 @@ export const view = (methodName, args) => {
      methodName, args)
 }
 
-export const call = (account, methodName, args, _gas) => {
+export const call = (methodName, args ) => {
+  const _gas =300_000_000;
+  const account = new Account(connection, process.env.REACT_APP_NEAR_ENV == "mainnet" ? '.near' : '.testnet');
  let contractId= process.env.REACT_APP_CONTRACT
 	return account.functionCall({
 		contractId,
