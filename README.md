@@ -18,9 +18,11 @@ Nativo.art is a marketplace builded over NEAR Protocol. It is building the next 
 11. View Artists section [X]
 12. Integration of NTV token inside Nativo.art []
 13. Review another options to integate a new Indexer []
+14. View token Detail []
 
 ## Pending tasks
 -Review and integrate keypom to claim link drops created outside Nativo.art. Branch: Gift
+-Integrate components of token price history and token activity on token detail view
 
 
 ## 💻 Tecnologias usadas
