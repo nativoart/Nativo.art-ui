@@ -44,3 +44,19 @@ Para correr este proyecto de forma local se necesitan los siguientes requerimien
  
 [Node.js]: https://nodejs.org/en/download/package-manager/
 [nvm]: https://github.com/nvm-sh/nvm
+
+
+## Instrucciones para poder crear un drop
+- Para poder crear un drop dentro de keypom en necesario ir al archivo hero.component.js
+
+- En la linea de codigo #27 podras encontrar la funcion simpleDropNear, esta funcion es para poder crear un drop de NEAR.
+
+- Debes de cambiar la cuenta y las llaves por las de la wallet que va a ejecutar las transacciones para poder crear un drop.
+
+- Asegurate de ejecutar el proyecto con las variables de entorno de mainnet si no la ejecucion de las transacciones fallara
+
+- Para poder crear un drop encontraras el boton en el landing
+
+- deberas revisar los logs dentro de la consola del navegador para ver los enlaces de los drops generados
+
+- NOTA: Por cada drop generado recarga la pagina para asegurarse que las transacciones se ejecuten generando link individuales
